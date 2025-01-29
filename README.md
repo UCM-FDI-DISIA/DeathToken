@@ -3,6 +3,7 @@
 ### Nombre del grupo: 
 #### undefined
 ### Participantes:
+
 Iván Palomino Rodríguez
 
 Jule Page Galocha
@@ -19,3 +20,21 @@ Sergio Naranjo Barroso
 
 Daniel Ramos Sanchez-Manjavacas
 
+### INDICE:
+<details>
+<summary> Descripción del juego </summary>
+
+## Descripción del juego
+</details>
+
+<details>
+<summary> Jugabilidad </summary>
+
+## Jugabilidad
+</details>
+
+<details>
+<summary> Diseño del juego </summary>
+
+## Diseño del juego
+</details>
