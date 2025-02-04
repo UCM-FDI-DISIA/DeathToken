@@ -129,7 +129,9 @@ Se reparten, una a una, cuatro cartas, dos para el jugador y dos para el banquer
  
 Las figuras, J, Q y K más los dieces, valen cero, los ases valen 1, las restantes cartas conservan su valor. En el bacará no es posible superar el nueve porque solo se contabiliza la última cifra. Ejemplo: El jugador recibe un 4 y un 8. El total es 12, como únicamente se toma la última cifra, la mano vale 2. Ninguna mano tendrá más de 3 cartas.
 
-Si el valor de las dos cartas iniciales, ya sean del jugador o del banquero, es de 8 o 9 (mano natural) no se reparten más cartas a ninguna de las dos partes, el que posee esa puntuación levanta los naipes y se ve quién ha ganado. En caso de que ninguno de los dos haya llegado a 8 o 9 pueden pedir una tercera carta. En este último supuesto, las leyes de la probabilidad desaconsejan claramente pedirla cuando la suma es 6 o 7. Por el contrario, es aconsejable pedirla cuando se tiene 0, 1, 2, 3 y 4. Cinco es el término medio y, por lo general, las probabilidades de mejorar o empeorar están empatadas al 50%, quedando al criterio del jugador solicitar o no un naipe más.
+El reparto de la tercera carta se rige según la siguiente tabla:
+![normas](https://github.com/user-attachments/assets/8646cc70-422b-4744-bf5f-2eda24cf1460)
+
 
 Las diferentes apuestas:
 - 10, 20 y 50
