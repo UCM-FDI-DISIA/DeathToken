@@ -1,7 +1,6 @@
 # 😈Death Token😈
 ## Proyectos II 2024/2025 - 2ºV GDV
-### Nombre del grupo: 
-#### undefined
+### Nombre del grupo: Ludopatiats
 ### Participantes:
 
 Iván Palomino Rodríguez
@@ -73,18 +72,29 @@ Una vez finalizado el jugador puede salir del juego con más monedas si gana (mu
 <summary> Diseño del juego </summary>
 
 ## Diseño del juego
+<details>
+  <summary> Sistema de fichas y ruleta </summary>
+	
 ### Sistema de fichas y Ruleta
 En cada juego podrás apostar una cantidad de fichas básicas, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas 10.000 podrás realizar un tiro en la Ruleta, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
 
 En esta ruleta podrás conseguir varias recompensas: aumento o reducción del nivel de locura, más o menos almas, y, con ínfima probabilidad, conseguir la Guadaña de forma gratuita.
 
 Las fichas rojas o almas son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de 200 de estas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
+</details>
 
+<details>
+<summary> Locura </summary>
+	
 ### Locura
 La locura es una mecánica que hará que se modifiquen los juegos, permitiendo un cambio drástico en la jugabilidad. Esta se implementará mediante una barra en la esquina superior izquierda, debajo de los contadores de fichas, que irá incrementando con cada partida que juegues (también afectada por el resultado de la ruleta). Cuando juegues a un juego la locura aumentará en 1 hasta un máximo de 10. Cuando llegue al máximo, la barra pasará de morado a amarillo y se activará la locura durante 5 juegos. Cuando finalice volverá al estado normal y el nivel de locura volverá a 0. 
 
 Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido.
+</details>
 
+<details>
+<summary> Juegos </summary>
+	
 ### Juegos
 #### Slots: 
 Utiliza la mecánica de los slots tradicionales: inicias con una apuesta y si consigues que tres figuras se alineen horizontalmente recuperarás el dinero multiplicado por la combinación ganadora.
@@ -186,6 +196,7 @@ Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que o
 [Escenario pelea normal](https://github.com/user-attachments/assets/07b4ac54-db16-46a8-8ff8-df9ce52206a1)
 
 [Escenario pelea con Locura](https://github.com/user-attachments/assets/c29c9406-dbce-41fe-9a62-6b0f276d9147)
+</details>
 </details>
 
 <details>
