@@ -187,3 +187,70 @@ Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que o
 
 [Escenario pelea con Locura](https://github.com/user-attachments/assets/c29c9406-dbce-41fe-9a62-6b0f276d9147)
 </details>
+
+<details>
+<summary> Hud </summary>
+	
+## Hud:
+Todos los botones del juego funcionarán de la misma manera:
+al pasar el cursor por encima cambiarán a un color determinado más brillante y al hacer click en ellos, se encogerán de tamaño para luego dar paso a su acción determinada.
+En todas las pantallas del juego aparecerá siempre un indicador en la esquina superior izquierda con una ficha de poker al lado y a continuación la cantidad de fichas que tenga el jugador, y al lado, de la misma manera, aparecerá un contador de almas, pero con un símbolo de alma roja.
+Las imágenes a continuación se corresponden con una idea de cómo se va a visualizar la interfaz y el juego.
+	
+[IMAGEN 1](https://github.com/user-attachments/assets/d56d6995-f759-44d0-b4ba-3e64305aecfd)
+ 
+- La imagen superior se corresponde al lobby o zona de movimiento entre los distintos juegos. Será la pantalla que aparecerá a continuación de la de inicio. Ahí estarán los cuatro juegos y la ruleta de premios.
+- La imagen inferior se corresponde a una idea temprana de cómo se quiere el menú de inicio,con tres botones: uno de iniciar,otro de salir y otros de ajustes.
+
+[IMAGEN 2](https://github.com/user-attachments/assets/4fc4f87d-f89b-49e0-8b48-f546401047e6)
+
+- Corresponde al juego del Bacará en el que se ven las zonas de cartas del jugador, el banquero y el empate.
+
+[IMAGEN 3](https://github.com/user-attachments/assets/0620b4c1-7bf5-4c7d-9925-d7024f6aaae9)
+
+- La imagen superior se corresponde al juego de la slot,donde tendrás el lugar para apostar, la cantidad de dinero que tienes,en medio la slot y un botón de inicio de juego. 
+- La imagen inferior corresponde a la ruleta de premios, solo se podrá pulsar y una vez finalizado recibirá el premio correspondiente
+
+</details>
+
+<details>
+<summary> Música y arte </summary>
+		
+## Música y arte:
+El juego presentará una estética inspirada en el arte, la música y las animaciones clásicas de Disney y producciones similares de los años 20 y 30, tomando inspiración de juegos como Cuphead.
+
+El juego contará con la siguiente paleta de color:
+![image9](https://github.com/user-attachments/assets/b32ee196-b15d-44e7-a843-6115c19349ce)
+
+Diseño del jugador:
+![IMG_0087](https://github.com/user-attachments/assets/13542bf3-9f31-4024-a636-2b18481ca5cc)
+
+Contará con sonidos característicos de los casinos (giro de ruletas, el tintineo de monedas, eco de las máquinas tragamonedas…) todo con un filtro antiguo para acentuar la ambientación. La música ambiente será alegre reflejando la atmósfera del casino, pero se volverá oscura y disonante cuando se alcance el modo Locura.
+
+</details>
+
+<details>
+<summary> Referencias </summary>
+			
+## Referencias:
+Nuestra principal referencia ha sido la estética y la dinámica general de un casino clásico, buscando capturar su atmósfera.
+
+Algunos juegos que han servido de inspiración en términos de mecánicas y estilo son:
+
+- Cuphead, con su estética de dibujos animados de los años 30 y su exigente jugabilidad.
+
+[Cuphead](https://github.com/user-attachments/assets/8b25dd1d-acf8-485f-9a34-c2b0eb177597)
+
+- Balatro, que incorpora una ingeniosa combinación de estrategia y azar.
+
+[Balatro](https://github.com/user-attachments/assets/c24e4e4c-d4ce-42f3-9485-36355d902337)
+
+- Los minijuegos de Super Mario 64 DS, que aportan un enfoque dinámico y entretenido.
+
+[Super Mario 64 DS](https://github.com/user-attachments/assets/d2a8af99-9e95-4be9-bb39-d680dc4a0c5d)
+
+Además, para el diseño de personajes, nos hemos inspirado en el estilo y la ambientación de Soul Eater.
+
+[Soul Eater](https://github.com/user-attachments/assets/f6d6a28e-9e56-467c-9c1c-8da3c2ec6864)
+
+</details>
