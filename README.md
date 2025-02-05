@@ -154,11 +154,9 @@ Habrá una carta en la que saldrá un número aleatorio del uno al cuatro, depen
 Se sacarán de un saco 4 bolas de colores. El objetivo del juego consiste en predecir de qué color van a salir las bolas de colores. Los colores son rojo, cian, verde y amarillo. Para decidir la apuesta abajo de la pantalla habrá diferentes fichas con una cantidad de ficha puesta(10, 20, 50 etc). Una vez seleccionada se pondrá en las diferentes casillas que el jugador quiera depositar la apuesta, estas casillas serán 1 bola de cada color, 10 casillas con combinaciones de 2 colores y 20 casillas de combinaciones de 3 colores. Cuando ya se acabe la apuesta, se verán como salen 4 bolas de colores, revelando que combinación de colores es la ganadora. Si el jugador ha ganado, recibirá un mensaje de cuántas fichas ha obtenido.
 		
 Las diferentes apuestas y recompensas serán:	
-- Cualquier combinación con los 3 mismos colores acertados: x6
-- Una combinación con los 3 mismos colores acertada: x18
-- Una combinación con los 2 mismos colores acertados: x10
-- Cualquier combinación con 2 colores acertados: x
-- Un color acertado: x
+- Apuesta 1 color: x2
+- Apuesta 2 colores: x5
+- Apuesta 3 colores: x20
 
 #### Modo Locura:
 
