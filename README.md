@@ -36,35 +36,27 @@ Consiguiendo las suficientes fichas podrás conseguir una Guadaña  y convertirt
 
 ## Jugabilidad
 ### Victoria/Derrota
-El objetivo del jugador es convertir su alma errante en la Muerte. Para ello, tendrá que conseguir suficientes fichas rojas para comprar la Guadaña de la Muerte o conseguirla en la ruleta del Casino.
+El objetivo del jugador es convertir su alma errante en la Muerte. Para ello, tendrá que conseguir suficientes fichas rojas para comprar la **Guadaña de la Muerte** o conseguirla en la ruleta del Casino.
 
 Por el contrario, si el jugador pierde todas sus fichas de juego entra en bancarrota y pierde el juego.
 
 ### Controles
-Para poder moverse en los menús y el mapa se usará el joystick, en mando, o WASD, en teclado, el movimiento será cartesiano (x,y). Para seleccionar se usará el botón “B” (XBox)/“X” (PlayStation)/Click Izquierdo o Espacio. Y la cruceta o las flechas para poder aumentar o disminuir la apuesta. 
+Para poder moverse en los menús y el mapa se usará el **joystick**, en mando, o **WASD**, en teclado, el movimiento será cartesiano (x,y). Para seleccionar se usará el botón **“B”** (XBox)/**“X”** (PlayStation)/**Click Izquierdo o Espacio**. Y la **cruceta** o las **flechas** para poder aumentar o disminuir la apuesta. 
 ### Cámara
-En el lobby, la cámara mostrará un plano amplio cenital similar al de juegos como Pokémon o The Binding of Isaac para poder visualizar tanto al jugador como a la multitud de juegos que le rodean.
+En el **lobby**, la cámara mostrará un plano amplio **cenital** similar al de juegos como Pokémon o The Binding of Isaac para poder visualizar tanto al jugador como a la multitud de juegos que le rodean.
 
-En los diferentes juegos, se mostrará un plano frontal de los mismos (Ver en las siguientes imágenes de referencia).
+En los diferentes **juegos**, se mostrará un **plano frontal** de los mismos (Ver en las siguientes imágenes de referencia).
 [Vista de las Slots](https://github.com/user-attachments/assets/8f7056ec-6b97-49d0-9db5-525e02cb1ad3)
 [Vista de la ruleta](https://github.com/user-attachments/assets/f2737f54-3456-4d6c-8e47-5358e3c03781)
 
 ### Ciclo de juego y menús
-El jugador iniciará el juego y se le presentará un menú de inicio donde aparecerá el título y unos botones para iniciar el juego y otro para salir, que brillarán verde cuando estén seleccionados. Al iniciar se verá una animación de apertura de puertas y accederás al interior del casino.
+El jugador iniciará el juego y se le presentará un **menú de inicio** donde aparecerá el título y unos botones para iniciar el juego y otro para salir, que brillarán verde cuando estén seleccionados. Al iniciar se verá una animación de apertura de puertas y accederás al interior del casino.
+Al entrar, el jugador con **sprite de fantasma** se encontrará en mitad de un **lobby con cuatro mesas de juegos** repartidas por el salón, junto con una **ruleta** con premios arriba a la izquierda y un stand en el extremo superior con **la Guadaña**.
 
-Al entrar, el jugador con sprite de fantasma se encontrará en mitad de un lobby con cuatro mesas de juegos repartidas por el salón, junto con una ruleta con premios arriba a la izquierda y un stand en el extremo superior con la Guadaña.
+Inicialmente el jugador iniciará con **500 fichas** con las que apostar. El jugador se moverá por la zona y seleccionará el juego que quiere, acercándose a alguna de estas mesas, que se marcará con un reborde blanco indicando que puede seleccionarse.
+Una vez finalizado el juego, el jugador puede salir del juego con **más monedas** si gana (multiplicando la apuesta por el **multiplicador obtenido**) o **perdiendo las monedas apostadas** si ha perdido. Cuando haya salido del juego podrá ir a la **ruleta**, moviéndose por el escenario y seleccionarla. En ella el jugador podrá **gastar fichas** a cambio de tiradas en las que podrá obtener **recompensas** que le ayuden a avanzar (o incluso lo perjudiquen).
 
-Inicialmente el jugador iniciará con 500 fichas con las que apostar. El jugador se moverá por la zona y seleccionará el juego que quiere, acercándose a alguna de estas mesas, que se marcará con un reborde blanco indicando que puede seleccionarse. En cada juego habrá varios botones:
-
-- Un botón circular con una “i” en la esquina superior derecha que al pulsarlo despliegue una explicación del funcionamiento y reglas del juego.
-    
-- Antes de iniciar, salvo en la ruleta, el jugador deberá seleccionar la apuesta que quiera hacer de entre varias opciones. En la esquina inferior derecha aparecerá un indicador “- __ +”, donde para aumentar o disminuir se usará la cruceta del mando o las flechas del teclado (también se podrá hacer click en los botones -/+). En medio aparecerá la cantidad que se vaya a apostar. Los botones -/+ desaparecerán en cuanto empiece la partida.
-    
-- Una X roja aparecerá al lado del botón de información que permita al jugador salir del juego y regresar al lobby, siempre y cuando no esté en mitad de una partida.
-    
-En el lobby estos botones se sustituyen por uno de pausa, con forma de engranaje, en la esquina superior derecha, que abrirá un menú de pausa similar al de inicio, en el que se congele el juego de fondo y haya un botón para salir y otro para continuar.
-
-Una vez finalizado el jugador puede salir del juego con más monedas si gana (multiplicando la apuesta por el multiplicador obtenido) o perdiendo las monedas apostadas si ha perdido. Cuando haya salido del juego podrá ir a la ruleta, moviéndose por el escenario y seleccionarla. En ella el jugador podrá gastar fichas a cambio de tiradas en las que podrá obtener recompensas que le ayuden a avanzar (o incluso lo perjudiquen). En el momento en el que el jugador consigue la “milestone” ganará la partida, en el que se verá en una pantalla de victoria cómo se ha convertido en la nueva Muerte; si pierde todas las monedas la perderá y se verá una pantalla de Game Over con su alma errante vagando por el infierno. En cualquiera de las dos, podrá volver al inicio pulsando cualquier botón.
+En el momento en el que el jugador **consigue la “milestone”** ganará la partida, en el que se verá en una **pantalla de victoria** cómo se ha convertido en la nueva Muerte; **si pierde todas las monedas** la perderá y se verá una pantalla de **Game Over** con su alma errante vagando por el infierno. En cualquiera de las dos, podrá volver al inicio pulsando cualquier botón.
 
 </details>
 
@@ -76,20 +68,21 @@ Una vez finalizado el jugador puede salir del juego con más monedas si gana (mu
   <summary> Sistema de fichas y ruleta </summary>
 	
 ### Sistema de fichas y Ruleta
-En cada juego podrás apostar una cantidad de fichas básicas, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas 10.000 podrás realizar un tiro en la Ruleta, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
+En cada juego podrás apostar una cantidad de **fichas básicas**, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas **10.000** podrás realizar un **tiro en la Ruleta**, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
 
-En esta ruleta podrás conseguir varias recompensas: aumento o reducción del nivel de locura, más o menos almas, y, con ínfima probabilidad, conseguir la Guadaña de forma gratuita.
+En esta **ruleta** podrás conseguir varias recompensas: aumento o reducción del **nivel de locura**, más o menos **almas**, y, con ínfima probabilidad, conseguir la Guadaña de forma gratuita.
 
-Las fichas rojas o almas son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de 200 de estas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
+Las **fichas rojas o almas** son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de **200** de estas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
 </details>
 
 <details>
 <summary> Locura </summary>
 	
 ### Locura
-La locura es una mecánica que hará que se modifiquen los juegos, permitiendo un cambio drástico en la jugabilidad. Esta se implementará mediante una barra en la esquina superior izquierda, debajo de los contadores de fichas, que irá incrementando con cada partida que juegues (también afectada por el resultado de la ruleta). Cuando juegues a un juego la locura aumentará en 1 hasta un máximo de 10. Cuando llegue al máximo, la barra pasará de morado a amarillo y se activará la locura durante 5 juegos. Cuando finalice volverá al estado normal y el nivel de locura volverá a 0. 
+La locura es una mecánica que hará que se **modifiquen los juegos**, permitiendo un cambio drástico en la jugabilidad. Esta se implementará mediante una **barra** que irá incrementando con cada partida que juegues (también afectada por el resultado de la ruleta). Cuando juegues a un juego la locura aumentará en 1 hasta un **máximo de 10**. Cuando llegue al máximo se activará la locura durante **5 juegos**. Cuando finalice volverá al estado normal y el nivel de locura volverá a 0. 
+Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas.
 
-Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido.
+Además por cada victoria el jugador recibirá una cantidad de **almas rojas** correspondiente al **multiplicador obtenido**.
 </details>
 
 <details>
@@ -103,7 +96,7 @@ Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibu
 
 Valores a apostar:
 - 10, 20, 50
-- 
+
 Las recompensas de las combinaciones serán:
 - 2 Telarañas: x1
 - 3 Diablillos: x2
@@ -134,7 +127,7 @@ El reparto de la tercera carta se rige según la siguiente tabla:
 
 
 Las diferentes apuestas:
-- 10, 20 y 50
+- 20, 50 y 100
 
 Las recompensas de las apuestas serán:
 - Apuesta al jugador: x2
@@ -183,7 +176,7 @@ Al terminar la pelea se resuelve los cálculos de las fichas:
 
 - La pelea es entre 4 personajes en vez de 2. Esto hace que los personajes eligen a quien atacan de forma aleatoria haciendo más difícil predecir qué va a pasar. De vez en cuando aparecerán espontáneos que intentarán interrumpir la pantalla y golpear a los luchadores. También intentarán modificar la apuesta. Para ello, el jugador deberá disparar (hacer click) en los fantasmas que supongan una amenaza para deshacerse de ellos y que el combate siga su curso natural. El movimiento de dichos espontáneos será independiente del transcurso de los turnos de los luchadores.
 		
-Ideas Extras (Si nos da tiempo):
+Ideas Extras (Si el tiempo lo permite):
 
 - Los Personajes que pelean tienen un valor de ánimo que afecta a cómo se comportan. Este ánimo se refleja en pistas por un locutor que avisa de cómo se van a comportar los peleadores en cada turno. Este ánimo se establece a un valor aleatorio que sería reflejado en los perfiles de los luchadores con alguna palabra clave. Ej: Enfocado, descargando, derrotista, relajado, ...
 - El ánimo sería un valor que se va modificando según un aumento o disminuya las apuestas o ocurran diferentes cosas en el combate. El locutor anunciará los cambios en las apuestas y de forma sutil los valores de ánimo de cada uno de los personajes.
@@ -203,24 +196,25 @@ Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que o
 <summary> Hud </summary>
 	
 ## Hud:
-Todos los botones del juego funcionarán de la misma manera:
+Todos los **botones** del juego funcionarán de la misma manera:
 al pasar el cursor por encima cambiarán a un color determinado más brillante y al hacer click en ellos, se encogerán de tamaño para luego dar paso a su acción determinada.
-En todas las pantallas del juego aparecerá siempre un indicador en la esquina superior izquierda con una ficha de poker al lado y a continuación la cantidad de fichas que tenga el jugador, y al lado, de la misma manera, aparecerá un contador de almas, pero con un símbolo de alma roja.
+
+En todas las pantallas del juego aparecerá siempre un **indicador** en la esquina superior izquierda con una ficha de poker al lado y a continuación la cantidad de **fichas** que tenga el jugador, y al lado, de la misma manera, aparecerá un **contador de almas**, pero con un símbolo de alma roja. La **barra de Locura**, de color morado, estará debajo de los contadores de ficha, y cuando se llene y se active el modo locura se volverá amarilla.
+
 Las imágenes a continuación se corresponden con una idea de cómo se va a visualizar la interfaz y el juego.
-	
-[IMAGEN 1](https://github.com/user-attachments/assets/d56d6995-f759-44d0-b4ba-3e64305aecfd)
- 
-- La imagen superior se corresponde al lobby o zona de movimiento entre los distintos juegos. Será la pantalla que aparecerá a continuación de la de inicio. Ahí estarán los cuatro juegos y la ruleta de premios.
+
+Imagen 1) 
+- La imagen superior se corresponde al lobby o zona de movimiento entre los distintos juegos. Ahí estarán los cuatro juegos y la ruleta de premios. También se pueden visualizar los distintos elementos de la interfaz.
 - La imagen inferior se corresponde a una idea temprana de cómo se quiere el menú de inicio,con tres botones: uno de iniciar,otro de salir y otros de ajustes.
-
-[IMAGEN 2](https://github.com/user-attachments/assets/4fc4f87d-f89b-49e0-8b48-f546401047e6)
-
-- Corresponde al juego del Bacará en el que se ven las zonas de cartas del jugador, el banquero y el empate.
-
-[IMAGEN 3](https://github.com/user-attachments/assets/0620b4c1-7bf5-4c7d-9925-d7024f6aaae9)
-
-- La imagen superior se corresponde al juego de la slot,donde tendrás el lugar para apostar, la cantidad de dinero que tienes,en medio la slot y un botón de inicio de juego. 
-- La imagen inferior corresponde a la ruleta de premios, solo se podrá pulsar y una vez finalizado recibirá el premio correspondiente
+  [Imagen HUD 1](https://github.com/user-attachments/assets/7eebd677-ebf6-4f3c-aff2-0375c2d9fdda)
+  
+Imagen 2)
+- La imagen corresponde a un mock-up de la interfaz en varios juegos (Slots en la superior y Bacará en la inferior).
+  [Imagen HUD 2](https://github.com/user-attachments/assets/d1f3ee19-456c-4e36-b3da-7dfdc0c19c26)
+  
+Imagen 3)
+- La imagen corresponde a la ruleta de premios, solo se podrá pulsar canjeando el número de fichas correspondiente y una vez finalizado recibirá el premio correspondiente.
+  [Imagen HUD 3](https://github.com/user-attachments/assets/44b541ab-1cc4-4e90-b28d-c6caecce4057)
 
 </details>
 
@@ -228,7 +222,7 @@ Las imágenes a continuación se corresponden con una idea de cómo se va a visu
 <summary> Música y arte </summary>
 		
 ## Música y arte:
-El juego presentará una estética inspirada en el arte, la música y las animaciones clásicas de Disney y producciones similares de los años 20 y 30, tomando inspiración de juegos como Cuphead.
+El juego presentará una estética inspirada en el **arte**, la **música** y las **animaciones** clásicas de Disney y producciones similares de los **años 20 y 30**, tomando inspiración de juegos como Cuphead.
 
 El juego contará con la siguiente paleta de color:
 ![image9](https://github.com/user-attachments/assets/b32ee196-b15d-44e7-a843-6115c19349ce)
@@ -236,7 +230,7 @@ El juego contará con la siguiente paleta de color:
 Diseño del jugador:
 ![IMG_0087](https://github.com/user-attachments/assets/13542bf3-9f31-4024-a636-2b18481ca5cc)
 
-Contará con sonidos característicos de los casinos (giro de ruletas, el tintineo de monedas, eco de las máquinas tragamonedas…) todo con un filtro antiguo para acentuar la ambientación. La música ambiente será alegre reflejando la atmósfera del casino, pero se volverá oscura y disonante cuando se alcance el modo Locura.
+Contará con **sonidos** característicos de los **casinos** (giro de ruletas, el tintineo de monedas, eco de las máquinas tragamonedas…) todo con un **filtro antiguo** para acentuar la ambientación. La música ambiente será **alegre** reflejando la atmósfera del casino, pero se volverá **oscura y disonante** cuando se alcance el **modo Locura**.
 
 </details>
 
