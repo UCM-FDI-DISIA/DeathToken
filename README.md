@@ -70,16 +70,30 @@ En el momento en el que el jugador **consigue la “milestone”** ganará la pa
 ### Sistema de fichas y Ruleta
 En cada juego podrás apostar una cantidad de **fichas básicas**, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas **10.000** podrás realizar un **tiro en la Ruleta**, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
 
-En esta **ruleta** podrás conseguir varias recompensas: aumento o reducción del **nivel de locura**, más o menos **almas**, y, con ínfima probabilidad, conseguir la Guadaña de forma gratuita.
-
 Las **fichas rojas o almas** son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de **200** de estas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
+
+La Ruleta contará con 2 modos, igual que el resto de juegos:
+Modo normal:
+  33% -> Ganar locura
+  33% -> Ganar 4000 almas azules
+  17% -> Nada
+  17% -> Ganar 1 alma roja
+Modo locura:
+  2% -> Guadaña (Victoria instantánea)
+  2% -> Muerte (Derrota instantánea)
+  31% -> Nada
+  31% -> Ganar 1 alma roja
+  17% -> Ganar 20 almas rojas
+  17% -> Perder almas rojas
+
 </details>
 
 <details>
 <summary> Locura </summary>
 	
 ### Locura
-La locura es una mecánica que hará que se **modifiquen los juegos**, permitiendo un cambio drástico en la jugabilidad. Esta se implementará mediante una **barra** que irá incrementando con cada partida que juegues (también afectada por el resultado de la ruleta). Cuando juegues a un juego la locura aumentará en 1 hasta un **máximo de 10**. Cuando llegue al máximo se activará la locura durante **5 juegos**. Cuando finalice volverá al estado normal y el nivel de locura volverá a 0. 
+La locura es una mecánica que hará que se modifiquen los juegos, permitiendo un cambio drástico en la jugabilidad. Esta se implementará mediante una barra que irá incrementando con cada partida que juegues (también afectada por el resultado de la ruleta). Tras un spin de la ruleta existirá la posibilidad de conseguir locura. Una vez conseguida, se podrán invertir **5 jugadas** con locura en los juegos o en la ruleta.
+Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido.
 Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas.
 
 Además por cada victoria el jugador recibirá una cantidad de **almas rojas** correspondiente al **multiplicador obtenido**.
