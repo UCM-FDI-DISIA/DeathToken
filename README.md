@@ -204,6 +204,13 @@ Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que o
 
 [Escenario pelea con Locura](https://github.com/user-attachments/assets/c29c9406-dbce-41fe-9a62-6b0f276d9147)
 </details>
+<details>
+	<summary> Sistema de inicio de sesión y tabla de clasificación </summary>
+	
+### Sistema de inicio de sesión y tabla de clasificación:
+Al iniciar el juego en el menú principal, el jugador deberá poner un usuario en un recuadro, este se almacenará en una base de datos junto con el nº de fichas, almas y si tiene locura( en caso de tener la tiradas que tenga). Si el usuario ya está registrado, entrará en el juego con todos su nº de objetos que ya tenía en la sesión de antes. 
+En el menú de pausa habrá un botón de Clasificación donde se mostrará, las almas y las fichas que tenga cada jugador registrado en la base de datos ordenado por mayor puntaje.
+</details>
 </details>
 
 <details>
@@ -231,6 +238,7 @@ Imagen 3)
   [Imagen HUD 3](https://github.com/user-attachments/assets/44b541ab-1cc4-4e90-b28d-c6caecce4057)
 
 </details>
+
 
 <details>
 <summary> Música y arte </summary>
