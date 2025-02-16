@@ -1,6 +1,3 @@
-// Javier Gómez Zúñiga
-// Ismael Ortega Sánchez
-// 2ºGDV TPV
 
 #include <iostream>
 #include "checkML.h"
