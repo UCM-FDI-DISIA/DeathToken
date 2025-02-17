@@ -2,12 +2,14 @@
 
 #include "Pickable.h"
 
-Pickable::Pickable(PlayState* g, istream& pos, Vector2D<> speed, Texture* tex, int w, int h)
+Pickable::Pickable(GameState* g, istream& pos, Vector2D<> speed, Texture* tex, int w, int h)
 	: sceneObject(g, pos, speed, w, h, tex)
-{	}
-Pickable::Pickable(PlayState* g, Vector2D<> pos, Vector2D<> speed, Texture* tex, int w, int h)
+{
+}
+Pickable::Pickable(GameState* g, Vector2D<> pos, Vector2D<> speed, Texture* tex, int w, int h)
 	: sceneObject(g, pos, speed, w, h, tex)
-{	}
+{
+}
 
 // Si colisiona con el jugador llama a trigger action y se elimina
 Collision

@@ -1,12 +1,11 @@
 #include "checkML.h"
 
-#include "playState.h"
 #include "Player.h"
 #include "Texture.h"
 #include "AnimState.h"
 
 // Se crea el jugador leyendo de archivo su posición y vidas
-Player::Player(PlayState* g, istream& in, Texture* tex, Texture* superTex)
+Player::Player(GameState* g, istream& in, Texture* tex, Texture* superTex)
 	:sceneObject(g, in, Vector2D{ 0, JUMP_MAG }, 1, 1, tex), miniTexture(tex), superTexture(superTex),
 	super(false), invencible(false), timeInv(0), salto(SUELO), currentjump(0)
 {
@@ -28,9 +27,9 @@ void Player::resetLevel() {
 	frame = 1;
 	int tile = Game::TILE_SIDE;
 	speed.setY(-tile);
-	AnimState* dead = new AnimState(state->getGame(), state);
-	dead->connect([this]() -> bool { return deadAnim();});
-	state->getGame()->push(dead);
+	//AnimState* dead = new AnimState(state->getGame(), state);
+	//dead->connect([this]() -> bool { return deadAnim();});
+	//state->getGame()->push(dead);
 }
 // Gestiona si Mario recibe super o si le hacen daño y pierde el super o una vida y se reinicia
 void Player::superOrDamage(bool sup) {
@@ -117,11 +116,11 @@ void Player::update() {
 		else if (speed.getY() < 0) salto = SALTO;
 
 		// Si el personaje está a la mitad, se avanza el offset
-		if (pos.getX() >= (Game::WIN_WIDTH / 2) * Game::TILE_SIDE + state->getOffset() && speed.getX() > 0) {
-			state->offsetPlus(speed.getX());
-		}
-		// Evitar que hay retroceso de la pantalla
-		if (pos.getX() <= state->getOffset() && speed.getX() < 0) pos.setX(state->getOffset());
+		//if (pos.getX() >= (Game::WIN_WIDTH / 2) * Game::TILE_SIDE + state->getOffset() && speed.getX() > 0) {
+		//	state->offsetPlus(speed.getX());
+		//}
+		//// Evitar que hay retroceso de la pantalla
+		//if (pos.getX() <= state->getOffset() && speed.getX() < 0) pos.setX(state->getOffset());
 
 		if (invencible) {
 			timeInv++;
@@ -156,7 +155,7 @@ void Player::handleEvent(const SDL_Event& evento) {
 			}
 			break;
 		case SDLK_ESCAPE:
-			state->pausa();
+			//state->pausa();
 			break;
 		}
 	}
@@ -165,16 +164,16 @@ void Player::handleEvent(const SDL_Event& evento) {
 
 bool Player::deadAnim() {
 	if (speed.getY() < SPEED_LIMIT)
-		speed += {0, PlayState::GRAVITY};
+		//speed += {0, GameState::GRAVITY};
 	int newY = pos.getY() + speed.getY();
-	if (newY >= Game::WIN_HEIGHT * Game::TILE_SIDE) {
+	/*if (newY >= Game::WIN_HEIGHT * Game::TILE_SIDE) {
 		pos = OGpos;
 		frame = 0;
 		timeInv = 0;
 		invencible = false;
 		speed = { 0,JUMP_MAG };
 		return false;
-	}
-	pos.setY(newY);
+	}*/
+	//pos.setY(newY);
 	return true;
 }

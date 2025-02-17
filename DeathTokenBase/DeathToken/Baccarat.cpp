@@ -1,6 +1,6 @@
 #include "Baccarat.h"
 
-Baccarat::Baccarat() {}
+Baccarat::Baccarat(Game* game) : GameState(game) {}
 
 void Baccarat::repartir() {
 	for (int i = 0; i < 2; i++) {

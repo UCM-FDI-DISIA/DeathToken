@@ -24,7 +24,7 @@ private:
 	void MovementFrames();
 	bool deadAnim();
 public:
-	Player(PlayState* g,istream& in, Texture* tex, Texture* superTex);
+	Player(GameState* g,istream& in, Texture* tex, Texture* superTex);
 	Player(const Player&);
 	~Player() { miniTexture = nullptr; superTexture = nullptr; }
 	sceneObject* clone() const override;
