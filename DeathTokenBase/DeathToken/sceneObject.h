@@ -12,7 +12,7 @@ protected:
 	static constexpr int SPEED_LIMIT = Game::TILE_SIDE - 4;
 	static constexpr int MOVE_PERIOD = 2; 
 	Point2D<> pos;
-	Vector2D<> speed;
+	//Vector2D<> speed;
 	Texture* texture;
 	int frame;
 	int w, h;
@@ -21,7 +21,7 @@ protected:
 	GameList<sceneObject>::anchor anchor;
 	
 public:
-	sceneObject(PlayState*, istream&, Vector2D<>, int, int, Texture*);
+	sceneObject(PlayState*,/* istream&, Vector2D<>,*/ int, int, Texture*);
 	sceneObject(PlayState*, Vector2D<>, Vector2D<>, int, int, Texture*);
 	sceneObject(PlayState*, Texture*);
 	virtual ~sceneObject() { texture = nullptr; state = nullptr; };
