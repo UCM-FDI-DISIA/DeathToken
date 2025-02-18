@@ -1,8 +1,7 @@
 #include <string>
 #include "checkML.h"
 #include "Game.h"
-#include "playState.h"
-#include "MainMenu.h"
+#include "Slots.h"
 
 // Formato de la especificación de una textura
 struct TextureSpec
@@ -17,23 +16,7 @@ const std::string textureRoot = "../assets/images/";
 
 // EspecificaciÃ³n de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
-	TextureSpec{"portada.png", 1, 1},
-	TextureSpec{"nivel1.png", 1, 1},
-	TextureSpec{"nivel2.png", 1, 1},
-	TextureSpec{"salir.png", 1, 1},
-	TextureSpec{"continuar.png", 1, 1},
-	TextureSpec{"volverAlMenu.png", 1, 1},
-	TextureSpec{"background.png", 9, 7},
-	TextureSpec{"mario.png", 12, 1},
-	TextureSpec{"supermario.png", 22, 1},
-	TextureSpec{"goomba.png",3,1},
-	TextureSpec{"koopa.png",4,1},
-	TextureSpec{"blocks.png",6,1},
-	TextureSpec{"mushroom.png",1,1},
-	TextureSpec{"lift.png",1,1},
-	TextureSpec{"coin.png",4,1},
-	TextureSpec{"hasGanado.png",1,1},
-	TextureSpec{"gameOver.png",1,1}
+	TextureSpec{"celdaSlots.png",1,1}
 };
 
 Game::Game() {
@@ -41,8 +24,8 @@ Game::Game() {
 	window = SDL_CreateWindow("Mario 1x01",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		WIN_WIDTH * TILE_SIDE,
-		WIN_HEIGHT * TILE_SIDE,
+		WIN_WIDTH,
+		WIN_HEIGHT,
 		SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
@@ -56,7 +39,7 @@ Game::Game() {
 			textureSpec[i].numColumns);
 
 
-	MainMenu* menu = new MainMenu(this);
+	Slots* menu = new Slots(this);
 	pushState(menu);
 }
 Game::~Game() {

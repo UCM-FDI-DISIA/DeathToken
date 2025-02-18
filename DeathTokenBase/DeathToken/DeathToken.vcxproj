@@ -131,44 +131,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AnimState.h" />
     <ClInclude Include="Baccarat.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Carrete.h" />
     <ClInclude Include="checkML.h" />
-    <ClInclude Include="Collision.h" />
-    <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="gameList.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
-    <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="PauseState.h" />
-    <ClInclude Include="Pickable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playState.h" />
     <ClInclude Include="sceneObject.h" />
+    <ClInclude Include="Slots.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimState.cpp" />
     <ClCompile Include="Baccarat.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Carrete.cpp" />
-    <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="PauseState.cpp" />
-    <ClCompile Include="Pickable.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playState.cpp" />
     <ClCompile Include="sceneObject.cpp" />
+    <ClCompile Include="Slots.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

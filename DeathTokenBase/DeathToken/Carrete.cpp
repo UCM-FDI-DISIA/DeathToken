@@ -1,5 +1,6 @@
 #include "Carrete.h"
-Carrete::Carrete(PlayState* g,Texture* celdas,Texture* iconos): sceneObject(g, 1,1,celdas), simbolos(iconos) {
+Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* iconos)
+	: sceneObject(g, pos, w, h, celdas), simbolos(iconos) {
 }
 vector<int> Carrete::vectorAleatorio() {
 	vector<int> vector;
@@ -10,4 +11,15 @@ vector<int> Carrete::vectorAleatorio() {
 	}
 
 	return vector;
+}
+void Carrete::render() const {
+	SDL_Rect r;
+	r.w = w;
+	r.h = h;
+	r.x = pos.getX();
+
+	for (int i = 0; i < nCeldas; ++i) {
+		r.y = pos.getY() + i * h;
+		texture->render(r);
+	}
 }

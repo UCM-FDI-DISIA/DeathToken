@@ -6,33 +6,16 @@
 
 using uint = unsigned int;
 enum TextureName {
-		PORTADA,
-		NIVEL1,
-		NIVEL2,
-		SALIR,
-		CONTINUAR,
-		MENU,
-		BACKGROUND,
-		MARIO,
-		SUPERMARIO,
-		GOOMBA,
-		KOOPA,
-		BLOCK,
-		MUSHROOM,
-		LIFT,
-		COIN,
-		WIN,
-		LOST,
+		CELDA,
 		NUM_TEXTURES,  // Truco C++: número de texturas definidas
 	};
 class Game : private GameStateMachine {
 public:
 	
 
-	static constexpr uint WIN_WIDTH = 18;
-	static constexpr uint WIN_HEIGHT = 16;
+	static constexpr uint WIN_WIDTH = 800;
+	static constexpr uint WIN_HEIGHT = 600;
 	static constexpr uint FRAME_RATE = 50;
-	static constexpr uint TILE_SIDE = 32;
 private:
 	// Ventana de la SDL (se destruirá en el destructor)
 	SDL_Window* window = nullptr;

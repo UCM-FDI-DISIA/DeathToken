@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include "sceneObject.h"
 #include "EventHandler.h"
 
@@ -38,3 +38,4 @@ public:
 	void resetLevel();
 	void superOrDamage(bool);
 };
+*/

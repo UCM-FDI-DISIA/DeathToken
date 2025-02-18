@@ -1,3 +1,4 @@
+/*
 #include "checkML.h"
 
 #include "playState.h"
@@ -178,3 +179,4 @@ bool Player::deadAnim() {
 	pos.setY(newY);
 	return true;
 }
+*/

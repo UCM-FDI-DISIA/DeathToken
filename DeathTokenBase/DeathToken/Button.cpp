@@ -22,7 +22,7 @@ void Button::render() const {
 	if (!hover)
 		text->render(box);
 	else {
-		SDL_Rect point(box.x - Game::TILE_SIDE, box.y, box.h, box.h);
+		SDL_Rect point(box.x, box.y, box.h, box.h);
 		pointer->render(point);
 		text->render(box, SDL_Color(255, 255, 0));
 	}
