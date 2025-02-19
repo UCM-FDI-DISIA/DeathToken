@@ -3,14 +3,13 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Baccarat.h"
-class Player;
+#include "Marbles.h"
 
 class Menu : public GameState
 {
-	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
-	Button* canicas;
+	Button* marbles;
 	Button* peleas;
 	Button* slots;
 public:
