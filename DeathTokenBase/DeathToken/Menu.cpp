@@ -12,10 +12,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(slots);
 	slots->connect([this]() { cambiaJuego(new Baccarat(getGame())); });
 
-	canicas = new Button(this, 405, 735, 125, 125, game->getTexture(CANICASBUT), game->getTexture(MARIO));
-	addObjects(canicas);
-	addEventListener(canicas);
-	canicas->connect([this]() { cambiaJuego(new Baccarat(getGame())); });
+	marbles = new Button(this, 405, 735, 125, 125, game->getTexture(CANICASBUT), game->getTexture(MARIO));
+	addObjects(marbles);
+	addEventListener(marbles);
+	marbles->connect([this]() { cambiaJuego(new Marbles(getGame())); });
 
 	peleas = new Button(this, 1365, 735, 125, 125, game->getTexture(PELEASBUT), game->getTexture(MARIO));
 	addObjects(peleas);

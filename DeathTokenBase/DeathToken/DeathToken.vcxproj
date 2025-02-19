@@ -144,6 +144,7 @@
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Marbles.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Pickable.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Marbles.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Pickable.cpp" />
