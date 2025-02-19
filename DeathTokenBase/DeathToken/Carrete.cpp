@@ -1,17 +1,31 @@
 #include "Carrete.h"
-Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* iconos)
-	: sceneObject(g, pos, w, h, celdas), simbolos(iconos) {
-}
+
+
 vector<int> Carrete::vectorAleatorio() {
 	vector<int> vector;
+
 	for (int i = 0; i < NUM_ELEMS; ++i) {
 		for (int j : frecuencias) {
 			vector.push_back(i);
 		}
 	}
 
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	shuffle(vector.begin(), vector.end(), std::default_random_engine(seed));
+
 	return vector;
 }
+
+Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* iconos)
+	: sceneObject(g, pos, w, h, celdas), simbolos(iconos) {
+
+	resultante = vectorAleatorio();
+}
+
+void Carrete::update() {
+	moverIndice();
+}
+
 void Carrete::render() const {
 	SDL_Rect r;
 	r.w = w;
@@ -22,4 +36,16 @@ void Carrete::render() const {
 		r.y = pos.getY() + i * h;
 		texture->render(r);
 	}
+}
+void Carrete::moverIndice() {
+	if (giro) {
+		++indice;
+		if (indice == resultante.size() - 1) indice = 0;
+	}	
+}
+void Carrete::iniciarGiro() {
+	giro = true;
+}
+void Carrete::pararGiro() {
+	giro = false;
 }
