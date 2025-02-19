@@ -8,8 +8,8 @@
 Player::Player(GameState* g, Point2D<> pos, Texture* texture)
 	:sceneObject(g, pos, texture), texture(texture)
 {
-	w = 100;
-	h = 100;
+	w = Game::WIN_WIDTH / 10;
+	h = Game::WIN_HEIGHT / 10;
 }
 
 void Player::render() const {
@@ -25,11 +25,11 @@ void Player::render() const {
 
 // Actualización y colisiones del personaje
 void Player::update() {
-	if (speed.getX() == SPEED_MAG && pos.getX() < Game::WIN_WIDTH * 10 - w ) {//el por diez sobra es pq ahora esta mal puesto el width
+	if (speed.getX() == SPEED_MAG && pos.getX() < Game::WIN_WIDTH - w) {//el por diez sobra es pq ahora esta mal puesto el width
 		pos.setX(pos.getX() + speed.getX());
 	}
 
-	if (speed.getX() == -SPEED_MAG) {
+	if (speed.getX() == -SPEED_MAG && pos.getX() > 0) {
 		pos.setX(pos.getX() + speed.getX());
 	}
 

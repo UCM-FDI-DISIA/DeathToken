@@ -5,7 +5,9 @@
 #include "gameStateMachine.h";
 
 class Player;
+
 using uint = unsigned int;
+
 enum TextureName {
 	BACKGROUND,
 	BACCARATBUT,
@@ -17,8 +19,9 @@ enum TextureName {
 };
 class Game : private GameStateMachine {
 public:
-	static constexpr uint WIN_WIDTH = 192;
-	static constexpr uint WIN_HEIGHT = 108;
+	static int WIN_WIDTH;
+	static int WIN_HEIGHT;
+	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
 private:
@@ -29,7 +32,7 @@ private:
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
 
-	
+
 
 public:
 	Game();
