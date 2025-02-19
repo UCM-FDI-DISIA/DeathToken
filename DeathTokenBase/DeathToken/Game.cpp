@@ -2,7 +2,6 @@
 #include "checkML.h"
 #include "Game.h"
 #include "Menu.h"
-
 // Formato de la especificación de una textura
 struct TextureSpec
 {
@@ -16,7 +15,7 @@ const std::string textureRoot = "../assets/images/";
 
 // EspecificaciÃ³n de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
-	TextureSpec{"portada.png", 1, 1},
+	TextureSpec{"map/Casino_bg.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
@@ -32,6 +31,7 @@ Game::Game() {
 		WIN_WIDTH * TILE_SIDE,
 		WIN_HEIGHT * TILE_SIDE,
 		SDL_WINDOW_SHOWN);
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error cargando SDL";
@@ -45,7 +45,7 @@ Game::Game() {
 
 
 	Menu* menu = new Menu(this);
-	pushState(menu);
+	pushState(menu);	
 }
 Game::~Game() {
 	SDL_DestroyRenderer(renderer);

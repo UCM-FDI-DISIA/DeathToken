@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "gameStateMachine.h";
 
+class Player;
 using uint = unsigned int;
 enum TextureName {
 	BACKGROUND,
@@ -16,12 +17,10 @@ enum TextureName {
 };
 class Game : private GameStateMachine {
 public:
-
-
 	static constexpr uint WIN_WIDTH = 192;
 	static constexpr uint WIN_HEIGHT = 108;
 	static constexpr uint FRAME_RATE = 50;
-	static constexpr uint TILE_SIDE = 10;
+	static constexpr uint TILE_SIDE = 1;
 private:
 	// Ventana de la SDL (se destruirá en el destructor)
 	SDL_Window* window = nullptr;
@@ -29,6 +28,8 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
+
+	
 
 public:
 	Game();

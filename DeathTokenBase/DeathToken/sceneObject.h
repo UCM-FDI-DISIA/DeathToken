@@ -8,7 +8,7 @@ class Texture;
 
 class sceneObject : public GameObject {
 protected:
-	static constexpr int SPEED_LIMIT = Game::TILE_SIDE - 4;
+	static constexpr int SPEED_LIMIT = 4;
 	static constexpr int MOVE_PERIOD = 2;
 	Point2D<> pos;
 	Vector2D<> speed;
@@ -23,9 +23,9 @@ public:
 	sceneObject(GameState*, istream&, Vector2D<>, int, int, Texture*);
 	sceneObject(GameState*, Vector2D<>, Vector2D<>, int, int, Texture*);
 	sceneObject(GameState*, Texture*);
+	sceneObject(GameState*, Vector2D<>, Texture*);
 	virtual ~sceneObject() { texture = nullptr; state = nullptr; };
 	void setListAnchor(GameList<sceneObject>::anchor&& anchor);
-	virtual sceneObject* clone() const = 0;
 	virtual Collision hit(const SDL_Rect&, Collision::Target) = 0;
 	virtual void update();
 	Vector2D<> position() const { return pos; };

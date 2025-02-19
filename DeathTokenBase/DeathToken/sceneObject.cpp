@@ -16,6 +16,9 @@ sceneObject::sceneObject(GameState* p, Vector2D<> pos, Vector2D<> sp, int w, int
 {	}
 sceneObject::sceneObject(GameState* p, Texture* text) : GameObject(p), state(p), texture(text)
 {	}
+sceneObject::sceneObject(GameState* p, Vector2D<> pos, Texture* text): GameObject(p), pos(pos), texture(text) {
+
+}
 
 // Devuelve el rect de collision
 SDL_Rect
@@ -33,7 +36,7 @@ SDL_Rect
 sceneObject::getRenderRect() const
 {
 	return SDL_Rect{
-		pos.getX() /*- state->getOffset()*/,  // coordenadas de la ventana
+		pos.getX() - 0,  // coordenadas de la ventana
 		pos.getY() - h,
 		w,
 		h

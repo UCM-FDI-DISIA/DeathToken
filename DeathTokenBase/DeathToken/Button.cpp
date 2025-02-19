@@ -1,8 +1,8 @@
 #include "Button.h"
 #include "Game.h"
 
-Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* pointer)
-	: GameObject(g), text(t), pointer(pointer), hover(false)
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
+	: GameObject(g), text(t), hover(false)
 {
 	box.x = x;
 	box.y = y;
@@ -23,7 +23,6 @@ void Button::render() const {
 		text->render(box);
 	else {
 		SDL_Rect point(box.x - Game::TILE_SIDE, box.y, box.h, box.h);
-		pointer->render(point);
 		text->render(box, SDL_Color(255, 255, 0));
 	}
 }
