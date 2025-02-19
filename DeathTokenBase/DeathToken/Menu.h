@@ -4,9 +4,11 @@
 #include "Button.h"
 #include "Baccarat.h"
 #include "Marbles.h"
+class Player;
 
 class Menu : public GameState
 {
+	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
 	Button* marbles;
