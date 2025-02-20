@@ -8,17 +8,17 @@
 Player::Player(GameState* g, Point2D<> pos, Texture* texture)
 	:sceneObject(g, pos, texture), texture(texture)
 {
-	w = Game::WIN_WIDTH / 10;
-	h = Game::WIN_HEIGHT / 10;
+	w = Game::WIN_WIDTH / 14;
+	h = Game::WIN_HEIGHT / 7;
 }
 
 void Player::render() const {
 	SDL_Rect render = getRenderRect();
 	if (speed.getX() < 0) {
-		texture->renderFrame(render, 0, 1, SDL_FLIP_HORIZONTAL);
+		texture->renderFrame(render, 0, 0);
 	}
 	else {
-		texture->renderFrame(render, 0, 1);
+		texture->renderFrame(render, 0, 0, SDL_FLIP_HORIZONTAL);
 	}
 
 }
@@ -33,11 +33,11 @@ void Player::update() {
 		pos.setX(pos.getX() + speed.getX());
 	}
 
-	if (speed.getY() == SPEED_MAG) {
+	if (speed.getY() == SPEED_MAG && pos.getY() < Game::WIN_HEIGHT) {
 		pos.setY(pos.getY() + speed.getY());
 	}
 
-	if (speed.getY() == -SPEED_MAG) {
+	if (speed.getY() == -SPEED_MAG && pos.getY() > 0 + h) {
 		pos.setY(pos.getY() + speed.getY());
 	}
 }

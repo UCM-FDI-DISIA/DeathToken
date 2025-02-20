@@ -24,7 +24,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"player.png", 4, 1},
+	TextureSpec{"player.png", 1, 1},
 };
 
 Game::Game() {
