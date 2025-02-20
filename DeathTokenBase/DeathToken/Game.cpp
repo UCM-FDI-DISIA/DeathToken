@@ -6,7 +6,7 @@
 int Game::WIN_WIDTH = 1600;
 int Game::WIN_HEIGHT = 700;
 
-// Formato de la especificación de una textura
+// Formato de la especificaciï¿½n de una textura
 struct TextureSpec
 {
 	const char* name;	// Ruta del archivo
@@ -26,6 +26,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"player.png", 4, 1},
 	TextureSpec{"marbles/Marbles_bg.png",1,1}
+	TextureSpec{"player.png", 1, 1},
 };
 
 Game::Game() {
@@ -86,7 +87,7 @@ void Game::run() {
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - inicio;
 
-		// Duerme el resto de la duración del frame
+		// Duerme el resto de la duraciï¿½n del frame
 		if (elapsed < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - elapsed);
 	}
