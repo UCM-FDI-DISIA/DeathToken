@@ -4,15 +4,15 @@
 Slots::Slots(Game* g) : GameState(g)
 {
 	int x = game->WIN_WIDTH / 4;
-	carrete1 = new Carrete(this, { x , 100 }, tamCelda, tamCelda, game->getTexture(CELDA), game->getTexture(CELDA));
+	carrete1 = new Carrete(this, { x , 100 }, tamCelda, tamCelda, game->getTexture(CELDA), game->getTexture(ICONOS));
 	gameObjects.push_back(carrete1);
 
 	x = game->WIN_WIDTH / 4 * 2;
-	carrete2 = new Carrete(this, { x , 100 }, tamCelda, tamCelda, game->getTexture(CELDA), game->getTexture(CELDA));
+	carrete2 = new Carrete(this, { x , 100 }, tamCelda, tamCelda, game->getTexture(CELDA), game->getTexture(ICONOS));
 	gameObjects.push_back(carrete2);
 
 	x = game->WIN_WIDTH / 4 * 3;
-	carrete3 = new Carrete(this, { x , 100 }, tamCelda, tamCelda, game->getTexture(CELDA), game->getTexture(CELDA));
+	carrete3 = new Carrete(this, { x , 100 }, tamCelda, tamCelda, game->getTexture(CELDA), game->getTexture(ICONOS));
 	gameObjects.push_back(carrete3);
 	
 	/*

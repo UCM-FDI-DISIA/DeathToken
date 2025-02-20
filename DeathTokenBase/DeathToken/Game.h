@@ -7,6 +7,7 @@
 using uint = unsigned int;
 enum TextureName {
 		CELDA,
+		ICONOS,
 		NUM_TEXTURES,  // Truco C++: número de texturas definidas
 	};
 class Game : private GameStateMachine {

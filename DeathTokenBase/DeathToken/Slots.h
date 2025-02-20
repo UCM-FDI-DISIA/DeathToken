@@ -21,5 +21,4 @@ private:
 	
 public:
 	Slots(Game*);
-	void render() const override;
 };

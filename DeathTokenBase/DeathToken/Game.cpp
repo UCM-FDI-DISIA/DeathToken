@@ -16,7 +16,8 @@ const std::string textureRoot = "../assets/images/";
 
 // Especificación de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
-	TextureSpec{"celdaSlots.png",1,1}
+	TextureSpec{"celdaSlots.png",1,1},
+	TextureSpec{"iconosSlots.png",7,1},
 };
 
 Game::Game() {
