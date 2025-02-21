@@ -3,8 +3,8 @@
 #include "Game.h"
 #include "Menu.h"
 
-int Game::WIN_WIDTH = 1600;
-int Game::WIN_HEIGHT = 700;
+int Game::WIN_WIDTH = 0;
+int Game::WIN_HEIGHT = 0;
 
 // Formato de la especificaci�n de una textura
 struct TextureSpec
@@ -26,6 +26,11 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"player.png", 1, 1},
 	TextureSpec{"marbles/Marbles_bg.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
+
 	
 };
 
@@ -37,7 +42,7 @@ Game::Game() {
 		WIN_WIDTH * TILE_SIDE,
 		WIN_HEIGHT * TILE_SIDE,
 		SDL_WINDOW_SHOWN);
-	//SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error cargando SDL";
