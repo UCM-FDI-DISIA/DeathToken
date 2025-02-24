@@ -13,6 +13,7 @@ private:
 	int indice;
 	Texture* iconos;
 	bool giro = false;
+	vector<int> carretesRes;
 
 public:
 	Carrete(GameState*,Point2D<int>, int, int, Texture*,Texture*);
@@ -20,6 +21,7 @@ public:
 	vector<int> vectorAleatorio();
 	void moverIndice();
 	int getIndice() const { return indice; };
+	vector<int> getCarrete()const { return carretesRes; };
 	void iniciarGiro();
 	void pararGiro();
 	void render() const override;
