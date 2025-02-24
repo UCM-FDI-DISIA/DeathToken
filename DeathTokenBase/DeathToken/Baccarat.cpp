@@ -1,6 +1,22 @@
 #include "Baccarat.h"
+#include "Game.h"
 
-Baccarat::Baccarat(Game* game) : GameState(game) {}
+Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)) {
+
+	repartir();
+	addObjects(new Cards(this, tap.jugador[0], { Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
+	addObjects(new Cards(this, tap.banca[0], { Game::WIN_WIDTH * 3 / 4 - Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
+	addObjects(new Cards(this, tap.jugador[1], { Game::WIN_WIDTH / 4 + Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
+	addObjects(new Cards(this, tap.banca[1], { Game::WIN_WIDTH * 3 / 4 + Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
+}
+
+void Baccarat::render() const {
+	texture->render();
+	GameState::render();
+}
+
+void Baccarat::update() {
+}
 
 void Baccarat::repartir() {
 	for (int i = 0; i < 2; i++) {
@@ -11,6 +27,9 @@ void Baccarat::repartir() {
 		tap.banca.push_back(numAleatorio);
 		cartas.push_back(numAleatorio);
 	}
+}
+
+void Baccarat::repartirTercera() {
 	sumaJug = (tap.jugador[0] + tap.jugador[1]) % 10;
 	sumaBanca = (tap.banca[0] + tap.banca[1]) % 10;
 	if (sumaJug < 6) {

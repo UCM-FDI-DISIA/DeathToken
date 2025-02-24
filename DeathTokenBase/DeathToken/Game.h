@@ -15,6 +15,8 @@ enum TextureName {
 	CANICASBUT,
 	PELEASBUT,
 	MARIO,
+	BACMAT,//tapete
+	CARDS,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };
 class Game : private GameStateMachine {
