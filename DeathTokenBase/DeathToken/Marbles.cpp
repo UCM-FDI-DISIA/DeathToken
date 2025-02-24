@@ -4,21 +4,21 @@
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)) {
 	marbles = { 0,0,0,0 };
 
-	buttonType1_1 = new Button(this, (Game::WIN_WIDTH / 4) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT / 4) + (Game::WIN_HEIGHT / 9) / 2, 118, 118, game->getTexture(BUTTONMARBLES1));
+	buttonType1_1 = new Button(this,  Game::WIN_WIDTH/2 -118 ,Game::WIN_HEIGHT- Game::WIN_HEIGHT/4 -118 - 118 , 118, 118, game->getTexture(BUTTONMARBLES1));
 	addObjects(buttonType1_1);
 	addEventListener(buttonType1_1);
 
-	buttonType1_2 = new Button(this, (Game::WIN_WIDTH / 4) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT / 4) + (Game::WIN_HEIGHT / 9) / 2, 118,118, game->getTexture(BUTTONMARBLES1));
-	addObjects(buttonType1_1);
-	addEventListener(buttonType1_1);
+	buttonType1_2 = new Button(this, Game::WIN_WIDTH/2 , Game::WIN_HEIGHT-Game::WIN_HEIGHT/4 - 118- 118, 118,118, game->getTexture(BUTTONMARBLES1));
+	addObjects(buttonType1_2);
+	addEventListener(buttonType1_2);
 
-	buttonType1_3 = new Button(this, (Game::WIN_WIDTH / 4) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT / 4) + (Game::WIN_HEIGHT / 9) / 2, 118,118, game->getTexture(BUTTONMARBLES1));
-	addObjects(buttonType1_1);
-	addEventListener(buttonType1_1);
+	buttonType1_3 = new Button(this, Game::WIN_WIDTH / 2 - 118, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - 118, 118,118, game->getTexture(BUTTONMARBLES1));
+	addObjects(buttonType1_3);
+	addEventListener(buttonType1_3);
 
-	buttonType1_4 = new Button(this, (Game::WIN_WIDTH / 4) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT / 4) + (Game::WIN_HEIGHT / 9) / 2, 118,118, game->getTexture(BUTTONMARBLES1));
-	addObjects(buttonType1_1);
-	addEventListener(buttonType1_1);
+	buttonType1_4 = new Button(this, Game::WIN_WIDTH / 2, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - 118,118,118, game->getTexture(BUTTONMARBLES1));
+	addObjects(buttonType1_4);
+	addEventListener(buttonType1_4);
 
 }
 
