@@ -1,31 +1,28 @@
 #include "Fighter.h"
-#include "../json/JSON.h"
 
 // Implementación de loadFromJSON
 bool Fighter::loadFromJSON(const string& filename) {
-    JSONValue* jsonData = JSON::ParseFromFile(filename);
-
-    if (jsonData == nullptr || !jsonData->IsObject()) {
-        cout << "Error al cargar el JSON." << endl;
+    // Abrir el archivo JSON
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "No se pudo abrir el archivo JSON." << endl;
         return false;
     }
 
-    JSONObject root = jsonData->AsObject();
-    if (root.find("name") != root.end() && root["name"]->IsString()) {
-        name = root["name"]->AsString();
-    }
-    if (root.find("health") != root.end() && root["health"]->IsNumber()) {
-        health = static_cast<int>(root["health"]->AsNumber());
-    }
-    if (root.find("attack") != root.end() && root["attack"]->IsNumber()) {
-        attack = static_cast<int>(root["attack"]->AsNumber());
-    }
-    if (root.find("desc") != root.end() && root["desc"]->IsString()) {
-        desc = root["desc"]->AsString();
-    }
+    // Cargar el JSON desde el archivo
+    json j;
+    file >> j;
 
-    delete jsonData;
+    // Asignar los valores del JSON a los atributos del peleador
+    name = j["name"];
+    maxHealth = j["health"];
+    health = maxHealth;  // Inicia con la salud máxima
+    attack = j["attack"];
+    desc = j["desc"];
+    ability = maxHealth + (attack * 1.3f);  // Calcular la habilidad
+    mindset = 100; // Valor por defecto para el "mindset"
+
+    file.close();
     return true;
 }
-
 

@@ -23,6 +23,8 @@
     <ClCompile Include="..\SRC\json\JSONValue.cpp" />
     <ClCompile Include="..\SRC\json\json_demo.cpp" />
     <ClCompile Include="..\SRC\main.cpp" />
+    <ClCompile Include="..\src\sdlutils\BattleManager.cpp" />
+    <ClCompile Include="..\src\sdlutils\Fighter.cpp" />
     <ClCompile Include="..\SRC\sdlutils\SDLUtils.cpp" />
     <ClCompile Include="..\SRC\sdlutils\SDLUtilsError.cpp" />
     <ClCompile Include="..\SRC\sdlutils\sdlutils_demo.cpp" />
@@ -30,13 +32,17 @@
     <ClCompile Include="..\SRC\sdlutils\Texture.cpp" />
     <ClCompile Include="..\SRC\utils\Collisions.cpp" />
     <ClCompile Include="..\SRC\utils\Vector2D.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SRC\json\JSON.h" />
     <ClInclude Include="..\SRC\json\JSONValue.h" />
     <ClInclude Include="..\SRC\json\json_demo.h" />
+    <ClInclude Include="..\src\sdlutils\BattleManager.h" />
+    <ClInclude Include="..\src\sdlutils\Fighter.h" />
     <ClInclude Include="..\SRC\sdlutils\Font.h" />
     <ClInclude Include="..\SRC\sdlutils\InputHandler.h" />
+    <ClInclude Include="..\src\sdlutils\json.hpp" />
     <ClInclude Include="..\SRC\sdlutils\macros.h" />
     <ClInclude Include="..\SRC\sdlutils\Music.h" />
     <ClInclude Include="..\SRC\sdlutils\RandomNumberGenerator.h" />
