@@ -8,38 +8,105 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH1 = (118.0 / 1080.0) * Game::WIN_HEIGHT;
+	//ROJO
 	buttonType1_1 = new Button(this,  Game::WIN_WIDTH/2 - PosPW1,Game::WIN_HEIGHT- Game::WIN_HEIGHT/4 - PosPH1 - PosPH1, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1));
 	addObjects(buttonType1_1);
 	addEventListener(buttonType1_1);
-
-	buttonType1_2 = new Button(this, Game::WIN_WIDTH/2 , Game::WIN_HEIGHT-Game::WIN_HEIGHT/4 - PosPH1 - PosPH1, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1));
+	//VERDE
+	buttonType1_2 = new Button(this, Game::WIN_WIDTH / 2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1));
 	addObjects(buttonType1_2);
 	addEventListener(buttonType1_2);
-
-	buttonType1_3 = new Button(this, Game::WIN_WIDTH / 2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1));
+	//AZUL
+	buttonType1_3 = new Button(this, Game::WIN_WIDTH / 2, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1 - PosPH1, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1));
 	addObjects(buttonType1_3);
 	addEventListener(buttonType1_3);
-
+	//AMARILLO
 	buttonType1_4 = new Button(this, Game::WIN_WIDTH / 2, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1));
 	addObjects(buttonType1_4);
 	addEventListener(buttonType1_4);
 
 	//Botones rectangulares para las apuestas de 2 colores /BUTTONMARBLES2
 
-	double PosPW2 = (116.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPW2 = (166.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH2 = (83.0 / 1080.0) * Game::WIN_HEIGHT;
-
-	buttonType2_1 = new Button(this, Game::WIN_WIDTH / 2 - PosPW2, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH2 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	//ROJO/VERDE
+	buttonType2_1 = new Button(this, Game::WIN_WIDTH / 2 - 3 * PosPW2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH2 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
 	addObjects(buttonType2_1);
 	addEventListener(buttonType2_1);
+	//ROJO/ROJO
+	buttonType2_2 = new Button(this, Game::WIN_WIDTH / 2 - 2 * PosPW2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_2);
+	addEventListener(buttonType2_2);
+	//VERDE/VERDE
+	buttonType2_3 = new Button(this, Game::WIN_WIDTH / 2 - 2 * PosPW2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_3);
+	addEventListener(buttonType2_3);
+	//ROJO/AMARILLO
+	buttonType2_4 = new Button(this, Game::WIN_WIDTH / 2 - PosPW2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_4);
+	addEventListener(buttonType2_4);
+	//VERDE/AZUL
+	buttonType2_5 = new Button(this, Game::WIN_WIDTH / 2 - PosPW2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_5);
+	addEventListener(buttonType2_5);
+	//ROJO/AZUL
+	buttonType2_6 = new Button(this, Game::WIN_WIDTH / 2 + PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_6);
+	addEventListener(buttonType2_6);
+	//VERDE/AMARILLO
+	buttonType2_7 = new Button(this, Game::WIN_WIDTH / 2 + PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_7);
+	addEventListener(buttonType2_7);
+	//AZUL/AZUL
+	buttonType2_8 = new Button(this, Game::WIN_WIDTH / 2 + PosPW2 + PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_8);
+	addEventListener(buttonType2_8);
+	//AMARILLO/AMARILLO
+	buttonType2_9 = new Button(this, Game::WIN_WIDTH / 2 +  PosPW2 + PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_9);
+	addEventListener(buttonType2_9);
+	//AMARILLO/AZUL
+	buttonType2_10 = new Button(this, Game::WIN_WIDTH / 2 + 2 * PosPW2 + PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH2 - PosPH2, PosPW2, PosPH2, game->getTexture(BUTTONMARBLES2));
+	addObjects(buttonType2_10);
+	addEventListener(buttonType2_10);
 
+
+
+	//Botones rectangulares para las apuestas individuales de 3 mismos colores /	BUTTONMARBLES
+	double PosPW3 = (302.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPH3 = (102.0 / 1080.0) * Game::WIN_HEIGHT;
+	double PosPW4 = (239.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPH4 = (180.0 / 1080.0) * Game::WIN_HEIGHT;
+	//ROJO/ROJO/ROJO
+	buttonType3_1 = new Button(this, Game::WIN_WIDTH / 2 - 2*PosPW3 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - 2 * PosPH1 - (PosPH4 - PosPH4 / 4), PosPW3, PosPH3, game->getTexture(BUTTONMARBLES3));
+	addObjects(buttonType3_1);
+	addEventListener(buttonType3_1);
+	//VERDE/VERDE/VERDE
+	buttonType3_2 = new Button(this, Game::WIN_WIDTH / 2 - PosPW3 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4   - 2*PosPH1 - (PosPH4- PosPH4/4), PosPW3, PosPH3, game->getTexture(BUTTONMARBLES3));
+	addObjects(buttonType3_2);
+	addEventListener(buttonType3_2);
+	//AZUL/AZUL/AZUL
+	buttonType3_3 = new Button(this, Game::WIN_WIDTH / 2 + PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - 2 * PosPH1 - (PosPH4 - PosPH4 / 4), PosPW3, PosPH3, game->getTexture(BUTTONMARBLES3));
+	addObjects(buttonType3_3);
+	addEventListener(buttonType3_3);
+	//AMARILLO/AMARILLO/AMARILLO
+	buttonType3_4 = new Button(this, Game::WIN_WIDTH / 2 + PosPW3 + PosPW4/2, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - 2 * PosPH1 - (PosPH4 - PosPH4 / 4), PosPW3, PosPH3, game->getTexture(BUTTONMARBLES3));
+	addObjects(buttonType3_4);
+	addEventListener(buttonType3_4);
+
+	//Boton cuadrado para la apuesta de todos los posibles combianciones de tres mismos colores / BUTTONMAARBLES4
+	
+
+	buttonType4_1 = new Button(this, Game::WIN_WIDTH / 2 - PosPW1, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - PosPH1 - PosPH1 - PosPH4, PosPW4, PosPH4, game->getTexture(BUTTONMARBLES4));
+	addObjects(buttonType4_1);
+	addEventListener(buttonType4_1);
 }
 
 
 void Marbles::generateMarbles() {
 	//En un vector voy metiendo aleatoriamente +1, representando ROJO/VERDE/AZUL/AMARILLO
 	marbles = { 0,0,0,0 };
-	for (int i = 0; i > 3; i++) {
+	for (int i = 0; i < 3; i++) {
 		int color = rand() % 3;
 		marbles[color]++;
 	}

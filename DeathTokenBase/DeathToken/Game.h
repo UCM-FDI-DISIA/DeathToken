@@ -20,7 +20,7 @@ enum TextureName {
 	BUTTONMARBLES1,
 	BUTTONMARBLES2,
 	BUTTONMARBLES3,
-	BUTTONMAARBLES4,
+	BUTTONMARBLES4,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };
 class Game : private GameStateMachine {
