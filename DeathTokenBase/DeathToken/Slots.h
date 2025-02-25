@@ -5,6 +5,7 @@
 #include "Carrete.h"
 
 #include <iostream>
+#include <unordered_map>
 
 class Slots : public GameState {
 private:
@@ -18,6 +19,8 @@ private:
 	Carrete* carrete2;
 	Carrete* carrete3;
 	int comprobanteIndice;
+
+	unordered_map<int, int> puntuaciones;
 	
 public:
 	Slots(Game*);

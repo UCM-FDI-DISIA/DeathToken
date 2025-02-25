@@ -37,9 +37,17 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 			carrete3->iniciarGiro();
 
 		});
+
+	/*puntuaciones.insert(0, 2);
+	puntuaciones.insert(1, 3);
+	puntuaciones.insert(2, 10);
+	puntuaciones.insert(3, 30);
+	puntuaciones.insert(4, 90);
+	puntuaciones.insert(5, 150);
+	puntuaciones.insert(6, 300);*/
 	
 }
-void Slots::update() {
+/*void Slots::update() {
 	GameState::update();
 	if (comprobanteIndice == 3) {
 		comprobanteIndice = 0;
@@ -47,9 +55,14 @@ void Slots::update() {
 		vector<int> vectorCarrete1 = carrete1->getCarrete();
 		vector<int> vectorCarrete2 = carrete2->getCarrete();
 		vector<int> vectorCarrete3 = carrete3->getCarrete();
-
+		int multiplicador = 0;
 		for (int i = 0; i < vectorCarrete1.size() - 1; ++i) {
-
+			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
+				multiplicador += puntuaciones.at(vectorCarrete1[i]);
+			}
+			else if (((vectorCarrete1[i] == vectorCarrete2[i])||(vectorCarrete1[i] == vectorCarrete3[i]) || (vectorCarrete2[i] == vectorCarrete3[i])) && puntuaciones.at(vectorCarrete1[i]) == 0) {
+				multiplicador += puntuaciones.at(0);
+			}
 		}
 	}	
-}
+}*/
