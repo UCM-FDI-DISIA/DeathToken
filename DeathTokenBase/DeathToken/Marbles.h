@@ -4,6 +4,7 @@
 #include "vector"
 #include "Texture.h"
 #include "Button.h"
+#include "Game.h"
 #include <map>
 
 class Marbles : public GameState
@@ -43,7 +44,16 @@ protected:
 
 	//Boton cuadrado para la apuesta de todos los posibles combianciones de tres mismos colores / BUTTONMAARBLES4
 	Button* buttonType4_1;
-
+	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPH1 = (118.0 / 1080.0) * Game::WIN_HEIGHT;
+	double PosPW3 = (302.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPH3 = (102.0 / 1080.0) * Game::WIN_HEIGHT;
+	double PosPW2 = (166.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPH2 = (83.0 / 1080.0) * Game::WIN_HEIGHT;
+	double PosPW4 = (239.0 / 1920.0) * Game::WIN_WIDTH;
+	double PosPH4 = (180.0 / 1080.0) * Game::WIN_HEIGHT;
+	double marginW = (5.0 / 1920.0) * Game::WIN_WIDTH;
+	double marginH = (5.0 / 1080.0) * Game::WIN_WIDTH;
 public:
 	Marbles(Game* game);
 
@@ -53,6 +63,8 @@ public:
 	void generateMarbles();
 	int checkBets(int moneyBet);
 	void startRound();
+	void createMarbleButton();
+	void marblesButtonCreation();
 
 	//Detectar botones y que apuesta hace y con que cantidad de monedas
 	//Metodo play que hace que el juego lanze las 3 bolas de colores con un random
