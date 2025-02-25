@@ -17,7 +17,7 @@ vector<int> Carrete::vectorAleatorio() {
 }
 
 Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* ic)
-	: sceneObject(g, pos, w, h, celdas), iconos(ic), indice(0),carretesRes({0,0,0}) {
+	: sceneObject(g, pos, w, h, celdas), iconos(ic), indice(0) {
 
 	resultante = vectorAleatorio();
 }
@@ -32,7 +32,7 @@ void Carrete::render() const {
 	r.h = h;
 	r.x = pos.getX();
 
-	for (int i = 0; i < nCeldas; ++i) {
+	for (int i = 0; i < NUM_ELEMS; ++i) {
 		r.y = pos.getY() + i * h;
 		texture->render(r);
 
@@ -53,13 +53,8 @@ void Carrete::iniciarGiro() {
 }
 void Carrete::pararGiro() {
 	giro = false;
-
-	for (int i = 0; i < carretesRes.size() - 1; ++i) {
-
-		int ind = indice + i;
-		if (ind == resultante.size()) ind = 0;
-		else if (ind == resultante.size() + 1) ind = 1;
-
-		carretesRes[i] = resultante[ind];		
+	for (int i = 0; i < 3; ++i) {
+		int ind = (indice + i) % resultante.size();
+		carretesRes.push_back(resultante[ind]);
 	}
 }

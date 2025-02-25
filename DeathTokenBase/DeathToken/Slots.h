@@ -7,19 +7,19 @@
 #include <iostream>
 #include <unordered_map>
 
+#define N_COLUM 3
+#define TAM_CELDA 100
+#define DISTANCIA_BOTON 450
+#define TAM_BOTON 50
+
 class Slots : public GameState {
 private:
-	const int nColum = 3;
-	const int tamCelda = 100;
-	const int mitadSlot = 25;
-	const int alturaCelda = 100;
-	const int ditanciaBoton = 450;
-	const int tamBoton = 50;
+
 	Carrete* carrete1;
 	Carrete* carrete2;
 	Carrete* carrete3;
 	int comprobanteIndice;
-
+	vector<int> multiplicadores = {2,3,10,30,90,150,3000 };
 	unordered_map<int, int> puntuaciones;
 	
 public:
