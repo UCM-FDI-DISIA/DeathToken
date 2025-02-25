@@ -141,10 +141,12 @@
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
+    <ClInclude Include="MatrizSlots.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playState.h" />
     <ClInclude Include="sceneObject.h" />
     <ClInclude Include="Slots.h" />
+    <ClInclude Include="SlotsLocura.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
@@ -156,10 +158,12 @@
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MatrizSlots.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playState.cpp" />
     <ClCompile Include="sceneObject.cpp" />
     <ClCompile Include="Slots.cpp" />
+    <ClCompile Include="SlotsLocura.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

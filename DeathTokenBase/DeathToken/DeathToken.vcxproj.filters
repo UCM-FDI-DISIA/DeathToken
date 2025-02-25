@@ -63,6 +63,12 @@
     <ClInclude Include="Slots.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="SlotsLocura.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrizSlots.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -99,6 +105,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Slots.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="SlotsLocura.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrizSlots.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
