@@ -4,26 +4,37 @@
 #include "Texture.h"
 #include "gameStateMachine.h";
 
+class Player;
+
 using uint = unsigned int;
+
 enum TextureName {
-		CELDA,
-		ICONOS,
-		NUM_TEXTURES,  // Truco C++: número de texturas definidas
-	};
+	CELDA,
+	ICONOS,
+	BACKGROUND,
+	BACCARATBUT,
+	SLOTSBUT,
+	CANICASBUT,
+	PELEASBUT,
+	MARIO,
+	NUM_TEXTURES,  // Truco C++: nï¿½mero de texturas definidas
+};
 class Game : private GameStateMachine {
 public:
-	
-
-	static constexpr uint WIN_WIDTH = 800;
-	static constexpr uint WIN_HEIGHT = 600;
+	static int WIN_WIDTH;
+	static int WIN_HEIGHT;
+	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
+	static constexpr uint TILE_SIDE = 1;
 private:
-	// Ventana de la SDL (se destruirá en el destructor)
+	// Ventana de la SDL (se destruirï¿½ en el destructor)
 	SDL_Window* window = nullptr;
 	// Renderizador de la SDL (para dibujar)
 	SDL_Renderer* renderer = nullptr;
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
+
+
 
 public:
 	Game();

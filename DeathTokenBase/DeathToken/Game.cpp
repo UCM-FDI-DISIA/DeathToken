@@ -2,8 +2,12 @@
 #include "checkML.h"
 #include "Game.h"
 #include "Slots.h"
+#include "Menu.h"
 
-// Formato de la especificación de una textura
+int Game::WIN_WIDTH = 0;
+int Game::WIN_HEIGHT = 0;
+
+// Formato de la especificaciï¿½n de una textura
 struct TextureSpec
 {
 	const char* name;	// Ruta del archivo
@@ -18,20 +22,27 @@ const std::string textureRoot = "../assets/images/";
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"celdaSlots.png",1,1},
 	TextureSpec{"iconosSlots.png",7,1},
+	TextureSpec{"map/Casino_bg.png", 1, 1},
+	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"player.png", 1, 1},
 };
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("Mario 1x01",
+	window = SDL_CreateWindow("Death Token 1x01",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		WIN_WIDTH,
 		WIN_HEIGHT,
 		SDL_WINDOW_SHOWN);
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
 		throw "Error cargando SDL";
-
+	inicializa(window);
 	// Carga las texturas
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures[i] = new Texture(renderer,
@@ -40,7 +51,7 @@ Game::Game() {
 			textureSpec[i].numColumns);
 
 
-	Slots* menu = new Slots(this);
+	Menu* menu = new Menu(this);
 	pushState(menu);
 }
 Game::~Game() {
@@ -77,7 +88,7 @@ void Game::run() {
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - inicio;
 
-		// Duerme el resto de la duración del frame
+		// Duerme el resto de la duraciï¿½n del frame
 		if (elapsed < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - elapsed);
 	}

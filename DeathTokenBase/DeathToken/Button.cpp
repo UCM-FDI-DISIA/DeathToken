@@ -15,7 +15,7 @@ Button::update()
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 
-	// Comprueba si el ratón está sobre el rectángulo
+	// Comprueba si el ratï¿½n estï¿½ sobre el rectï¿½ngulo
 	hover = SDL_PointInRect(&point, &box);
 }
 void Button::render() const {

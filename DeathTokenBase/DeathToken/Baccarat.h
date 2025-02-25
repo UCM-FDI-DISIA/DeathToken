@@ -1,13 +1,14 @@
 #pragma once
 #include <cstdlib>
 #include <vector>
+#include "gameState.h"
 using namespace std;
 struct Tapete {
 	vector<int> banca;
 	vector<int> jugador;
 };
 
-class Baccarat
+class Baccarat : public GameState
 {
 protected:
 	Tapete tap;
@@ -19,8 +20,8 @@ protected:
 	const int xOcho = 8;
 	//bool locura; global?
 public:
-	Baccarat();
-	~Baccarat();
+	Baccarat(Game* game);
+	
 
 	void repartir();
 	void terceraBanca();
