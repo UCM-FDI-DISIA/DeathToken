@@ -9,6 +9,23 @@ Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
 	box.w = w;
 	box.h = h;
 }
+
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, int type, std::vector<int>NCMarbles)
+	: GameObject(g),text(t), hover(false), NCMarbles(NCMarbles), type(type)
+{
+	box.x = x;
+	box.y = y;
+	box.w = w;
+	box.h = h;
+	stop = type;
+	CMarbles.push_back(g->getGame()->getTexture(REDMARBLE)); 
+	CMarbles.push_back(g->getGame()->getTexture(GREENMARBLE));
+	CMarbles.push_back(g->getGame()->getTexture(BLUEMARBLE));
+	CMarbles.push_back(g->getGame()->getTexture(YELLOWMARBLE));
+
+	
+}
+
 void
 Button::update()
 {
@@ -17,13 +34,113 @@ Button::update()
 
 	// Comprueba si el ratón está sobre el rectángulo
 	hover = SDL_PointInRect(&point, &box);
+	
 }
 void Button::render() const {
-	if (!hover)
+	if (!hover) {
 		text->render(box);
+
+
+		SDL_Rect auxBox;
+		int pos = 0;
+
+		switch (type)
+		{
+		case 1 : {
+			for (int i = 0; i < NCMarbles.size(); i++) {
+				if (NCMarbles[i] == 1) {
+					auxBox.x = box.x + box.w / 2-(74.0/1080.0 * Game::WIN_HEIGHT)/2;
+					auxBox.y = box.y + box.h / 2-(74.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+					auxBox.w = (74.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (74.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					break;
+
+				}
+			}
+
+			break;
+		}case 2: {
+			for (int i = 0; i < NCMarbles.size(); i++) {
+				if (NCMarbles[i] == 2 ) {
+					
+					auxBox.x = box.x + box.w / 4 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+					auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+					auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					
+					
+
+					auxBox.x = box.x + (box.w - box.w / 4) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+					auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+					auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+
+
+				}
+				else if (NCMarbles[i] == 1) {
+					if (pos == 0) {
+						auxBox.x = box.x +  box.w/4 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+						CMarbles[i]->render(auxBox);
+						pos++;
+					}
+					else {
+						auxBox.x = box.x + (box.w -box.w/4) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+						CMarbles[i]->render(auxBox);
+						break;
+					}
+				}
+			}
+			break;
+		}case 3 : {
+			for (int i = 0; i < NCMarbles.size(); i++) {
+				if (NCMarbles[i] == 3) {
+					auxBox.x = box.x + box.w / 4 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+					auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+					auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					auxBox.x = box.x +(box.w- box.w / 4) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+					auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+					auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					auxBox.x = box.x + 2*box.w / 4 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+					auxBox.y = box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+					auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					break;
+				}
+			}
+
+			break;
+		}case 4: {
+			
+
+			break;
+		}
+		default:
+			break;
+		}
+	}
 	else {
 		SDL_Rect point(box.x - Game::TILE_SIDE, box.y, box.h, box.h);
 		text->render(box, SDL_Color(255, 255, 0));
+	}
+	
+}
+Button::~Button() {
+	for (auto texture : CMarbles) {
+		delete texture;
 	}
 }
 void Button::handleEvent(const SDL_Event& event) {

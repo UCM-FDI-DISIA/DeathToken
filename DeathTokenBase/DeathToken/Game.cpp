@@ -30,6 +30,11 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
+
 
 	
 };
