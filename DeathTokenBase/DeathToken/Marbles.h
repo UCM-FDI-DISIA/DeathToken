@@ -63,7 +63,7 @@ public:
 	void generateMarbles();
 	int checkBets(int moneyBet);
 	void startRound();
-	void createMarbleButton();
+	void createMarbleButton(double x, double y, double width, double height, Texture texture, std::vector<int> bet);
 	void marblesButtonCreation();
 
 	//Detectar botones y que apuesta hace y con que cantidad de monedas

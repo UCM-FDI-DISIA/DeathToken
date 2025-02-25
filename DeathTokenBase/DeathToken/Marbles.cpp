@@ -152,6 +152,8 @@ void  Marbles::marblesButtonCreation() {
 }
 
 void
-Marbles::createMarbleButton() {
-	//Button * btn = new Button
+Marbles::createMarbleButton(double x, double y, double width, double height, Texture texture, std::vector<int> bet) {
+	/*Button* btn = new MarblesButton(this, x, y, width, height, texture, bet);
+	addObjects(btn);
+	addEventListener(btn);*/
 }
