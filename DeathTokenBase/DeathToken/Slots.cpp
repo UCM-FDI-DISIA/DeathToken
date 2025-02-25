@@ -47,9 +47,9 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 	puntuaciones.insert(6, 300);*/
 	
 }
-/*void Slots::update() {
+void Slots::update() {
 	GameState::update();
-	if (comprobanteIndice == 3) {
+	/*if (comprobanteIndice == 3) {
 		comprobanteIndice = 0;
 
 		vector<int> vectorCarrete1 = carrete1->getCarrete();
@@ -64,5 +64,5 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 				multiplicador += puntuaciones.at(0);
 			}
 		}
-	}	
-}*/
+	}	*/
+}

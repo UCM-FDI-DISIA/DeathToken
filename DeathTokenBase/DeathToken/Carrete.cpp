@@ -60,6 +60,6 @@ void Carrete::pararGiro() {
 		if (ind == resultante.size()) ind = 0;
 		else if (ind == resultante.size() + 1) ind = 1;
 
-		carretesRes.push_back(resultante[ind + i]);		
+		carretesRes[i] = resultante[ind];		
 	}
 }

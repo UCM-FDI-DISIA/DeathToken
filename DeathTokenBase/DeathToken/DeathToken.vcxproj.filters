@@ -42,9 +42,6 @@
     <ClInclude Include="Player.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="playState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="sceneObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -69,6 +66,15 @@
     <ClInclude Include="MatrizSlots.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Marbles.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -87,9 +93,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="playState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="sceneObject.cpp">
@@ -111,6 +114,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="MatrizSlots.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Marbles.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

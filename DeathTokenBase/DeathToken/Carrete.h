@@ -26,4 +26,6 @@ public:
 	void pararGiro();
 	void render() const override;
 	void update() override;
+
+	virtual Collision hit(const SDL_Rect&, Collision::Target) { return NO_COLLISION; }
 };

@@ -1,5 +1,5 @@
 #pragma once
-/*
+
 #include "sceneObject.h"
 #include "EventHandler.h"
 
@@ -16,10 +16,4 @@ public:
 	void update() override;
 	Collision hit(const SDL_Rect&, Collision::Target) override;
 	void handleEvent(const SDL_Event& evento) override;
-	bool getSuper() const { return super; }
-	bool getInv() const { return invencible; }
-	int getVidas() const { return vidas; }
-	void resetLevel();
-	void superOrDamage(bool);
 };
-*/

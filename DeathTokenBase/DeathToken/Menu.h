@@ -3,6 +3,7 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Baccarat.h"
+#include "Slots.h"
 #include "Marbles.h"
 class Player;
 
