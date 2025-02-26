@@ -1,34 +1,13 @@
 # 😈Death Token😈
 ## Proyectos II 2024/2025 - 2ºV GDV
 ### Nombre del grupo: Ludopatiats
-### Participantes:
-
-Iván Palomino Rodríguez
-
-Jule Page Galocha
-
-Javier Gómez Zúñiga
-
-Michel Herraiz Gurillo
-
-Jaime Nieto Méndez
-
-Ismael Ortega Sánchez
-
-Sergio Naranjo Barroso
-
-Daniel Ramos Sanchez-Manjavacas
 
 ## INDICE:
 <details>
 <summary> Descripción del juego </summary>
 
 ## Descripción del juego
-### Sinopsis
-Estás muerto. Ya no hay más vida para ti y ahora eres un alma errante que vaga por el infierno. Pero algo llama tu atención en el Casino de la Muerte.
-
-Consiguiendo las suficientes fichas podrás conseguir una Guadaña  y convertirte en la nueva Parca. Así que decidirás explorar los juegos de cartas y fichas que se te ofrecen para lograr tu objetivo.
-
+Death Token consiste en una colección de juegos de casino en los cual tendrás que probar suerte para conseguir el mayor número de fichas y así mejorar y acercarte al objetivo final. Cada juego tendrá su mecánica en la que tendrás que jugar con cartas, manejar apuestas y desarrollar apuestas ganadoras. Podrás hacer uso además de una ruleta de la suerte  que te otorgue potenciadores y te ayude a obtener mejores beneficios. Uno de ellos será el **Modo Locura**, en el que cada juego se verá modificado con un giro inesperado. Si consigues ganar en este modo, otendrás un token especial llamado **alma roja**, que, consiguiendo suficientes, será el que te permita adquirir la victoria.
 </details>
 
 <details>
@@ -253,6 +232,16 @@ Diseño del jugador:
 ![IMG_0087](https://github.com/user-attachments/assets/13542bf3-9f31-4024-a636-2b18481ca5cc)
 
 Contará con **sonidos** característicos de los **casinos** (giro de ruletas, el tintineo de monedas, eco de las máquinas tragamonedas…) todo con un **filtro antiguo** para acentuar la ambientación. La música ambiente será **alegre** reflejando la atmósfera del casino, pero se volverá **oscura y disonante** cuando se alcance el **modo Locura**.
+
+</details>
+
+<details>
+<summary> Lore </summary>
+
+## Lore
+Estás muerto. Ya no hay más vida para ti y ahora eres un alma errante que vaga por el infierno. Pero algo llama tu atención en el Infierno en el que te encuentras, en un gran edificio lleno de luces y colores llamádo el Casino de la Muerte.
+
+Consiguiendo las suficientes fichas podrás hacerte con una Guadaña y convertirte en la nueva Parca. Así que decidirás explorar los juegos de cartas y fichas que se te ofrecen para lograr tu objetivo.
 
 </details>
 
