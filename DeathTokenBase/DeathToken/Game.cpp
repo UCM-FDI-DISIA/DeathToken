@@ -3,8 +3,8 @@
 #include "Game.h"
 #include "Menu.h"
 
-int Game::WIN_WIDTH = 0;
-int Game::WIN_HEIGHT = 0;
+int Game::WIN_WIDTH = 40;
+int Game::WIN_HEIGHT = 40;
 
 // Formato de la especificación de una textura
 struct TextureSpec

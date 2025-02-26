@@ -21,7 +21,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	peleas = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(peleas);
 	addEventListener(peleas);
-	peleas->connect([this]() { cambiaJuego(new Baccarat(getGame())); });
+	peleas->connect([this]() { cambiaJuego(new Peleas(getGame())); });
 
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT/2}, game->getTexture(MARIO));

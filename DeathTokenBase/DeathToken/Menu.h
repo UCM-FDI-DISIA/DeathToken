@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "Baccarat.h"
 #include "Marbles.h"
+#include "Peleas.h"
 class Player;
 
 class Menu : public GameState

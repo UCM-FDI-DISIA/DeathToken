@@ -4,10 +4,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "json.hpp" // Usar la librería nlohmann/json
+//#include "json.hpp" // Usar la librería nlohmann/json
 
 using namespace std;
-using json = nlohmann::json;
+//using json = nlohmann::json;
 
 class Fighter {
 public:

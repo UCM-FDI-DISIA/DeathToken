@@ -7,10 +7,8 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include "json.hpp"  // Incluir la librería JSON
 
 using namespace std;
-using json = nlohmann::json;
 
 const int MINMINDSET = 20;
 const int MAXMINDSET = 80 - MINMINDSET;
@@ -27,8 +25,6 @@ public:
     BattleManager();
 
     bool loadFightersFromJSON(const string& filename);
-    bool loadMatchupsFromJSON(const string& filename);
-    void generateMatchQueue();
     void StartBattle();
 
 private:
