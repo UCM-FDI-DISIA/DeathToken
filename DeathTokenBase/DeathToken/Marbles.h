@@ -6,7 +6,7 @@
 class Marbles : public GameState
 {
 private:
-	UISlots* ui;
+	UIChips* ui;
 public:
 	Marbles(Game* game);
 };
