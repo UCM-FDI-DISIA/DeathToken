@@ -1,13 +1,26 @@
 #include "Baccarat.h"
 #include "Game.h"
+#include <random>
 
 Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)) {
 
 	repartir();
-	addObjects(new Cards(this, tap.jugador[0], { Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
-	addObjects(new Cards(this, tap.banca[0], { Game::WIN_WIDTH * 3 / 4 - Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
-	addObjects(new Cards(this, tap.jugador[1], { Game::WIN_WIDTH / 4 + Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
-	addObjects(new Cards(this, tap.banca[1], { Game::WIN_WIDTH * 3 / 4 + Game::WIN_WIDTH / 14, Game::WIN_HEIGHT / 3 }));
+	//derch player
+	int a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 21.2, b = Game::WIN_HEIGHT / 5.34;
+	player1 = new Cards(this, tap.jugador[0], { a, b });
+	addObjects(player1);
+	//banker izq
+	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42; b = Game::WIN_HEIGHT / 5.32;
+	player2 = new Cards(this, tap.banca[0], { a, b });
+	addObjects(player2);
+	//izq player
+	a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.35; b = Game::WIN_HEIGHT / 5.34;
+	banker1 = new Cards(this, tap.jugador[1], { a , b });
+	addObjects(banker1);
+	//banker dch
+	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20; b = Game::WIN_HEIGHT / 5.32;
+	banker2 = new Cards(this, tap.banca[1], { a, b });
+	addObjects(banker2);
 }
 
 void Baccarat::render() const {
@@ -16,6 +29,11 @@ void Baccarat::render() const {
 }
 
 void Baccarat::update() {
+	cout << cont << endl;
+	if (cont > 150) {
+		repartir();
+	}
+	cont++;
 }
 
 void Baccarat::repartir() {
@@ -59,18 +77,25 @@ void Baccarat::terceraBanca() {
 }
 
 int Baccarat::generaAleatorio() {
-	int num = rand() % 12 + 1;
+	random_device rd;  // Semilla basada en hardware (si está disponible)
+	mt19937 gen(rd()); // Mersenne Twister como generador de números aleatorios
+	uniform_int_distribution<> distrib(1, 13);
+
+	int num = distrib(gen);
 	int i = 0;
 	int cont = 0;
+
 	while (i < cartas.size() && cartas.size() > 4) {
 		if (cartas[i] == num) {
 			cont++;
 			if (cont == 4) {
-				num = rand() % 12 + 1;
+				num = rand() % 13 + 1;
 				cont = 0;
 				i = 0;
 			}
 		}
+		i++;
 	}
+
 	return num;
 }

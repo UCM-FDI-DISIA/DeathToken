@@ -6,8 +6,8 @@ Cards::Cards(GameState* game, int frame, Point2D<> pos) :
 	texture(game->getGame()->getTexture(CARDS)),
 	frame(frame)
 {
-	w = Game::WIN_WIDTH / 14;
-	h = Game::WIN_HEIGHT / 7;
+	w = Game::WIN_WIDTH / 20;
+	h = Game::WIN_HEIGHT / 8;
 }
 
 void Cards::render() const {

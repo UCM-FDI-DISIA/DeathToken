@@ -13,6 +13,10 @@ struct Tapete {
 class Baccarat : public GameState
 {
 protected:
+	Cards* player1;
+	Cards* player2;
+	Cards* banker1;
+	Cards* banker2;
 	Texture* texture;
 	Tapete tap;
 	vector<int> cartas;
@@ -21,6 +25,7 @@ protected:
 	int sumaBanca;
 	const int xDos = 2;
 	const int xOcho = 8;
+	int cont = 0;
 	//bool locura; global?
 public:
 	Baccarat(Game* game);

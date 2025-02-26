@@ -17,6 +17,7 @@ enum TextureName {
 	MARIO,
 	BACMAT,//tapete
 	CARDS,
+	CARDBACK,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };
 class Game : private GameStateMachine {

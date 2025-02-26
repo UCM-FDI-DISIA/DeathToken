@@ -4,9 +4,9 @@
 class Cards : public sceneObject
 {
 	Texture* texture;
-	int frame = 0;
 	int frameCard = 0;
 public:
+	int frame = 0;
 	Cards(GameState* game, int frame, Point2D<> pos);
 	void render() const override;
 	void update() override;
