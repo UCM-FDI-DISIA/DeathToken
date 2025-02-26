@@ -8,16 +8,13 @@
 #include <unordered_map>
 
 #define N_COLUM 3
-#define TAM_CELDA 100
-#define DISTANCIA_BOTON 450
-#define TAM_BOTON 50
+#define TAM_CELDA 150
+#define DISTANCIA_BOTON TAM_CELDA * 4 + 50
+#define TAM_BOTON 100
 
 class Slots : public GameState {
 private:
-
-	Carrete* carrete1;
-	Carrete* carrete2;
-	Carrete* carrete3;
+	vector<Carrete*> carretes;
 	int comprobanteIndice;
 	vector<int> multiplicadores = {2,3,10,30,90,150,3000 };
 	unordered_map<int, int> puntuaciones;
