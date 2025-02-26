@@ -62,6 +62,7 @@ void Marbles::startRound() {
 	play = true;
 }
 void Marbles::update() {
+	GameState::update();
 	if (play) {//Cuando se activa el boton de jugar
 		generateMarbles();//Se generar las canicas aleatorias
 		int moneyWin = checkBets(moneyBet);//Comparar canicas con apuesta

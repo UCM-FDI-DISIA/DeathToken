@@ -18,7 +18,6 @@ Button::update()
 
 	// Comprueba si el ratón está sobre el rectángulo
 	hover = SDL_PointInRect(&point, &box);
-	
 }
 void Button::render() const {
 	if (!hover) {
