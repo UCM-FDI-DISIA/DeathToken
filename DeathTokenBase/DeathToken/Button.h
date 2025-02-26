@@ -14,14 +14,8 @@ protected:
 	SDL_Rect box;
 	bool hover;
 	Callback cb;
-	int stop;
-	int type;
-	std::vector<Texture*> CMarbles;
-	std::vector<int> NCMarbles;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*,int type, std::vector<int>);
 	Button(GameState*,int x,int y,int w,int h,Texture*);
-	~Button();
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event&) override;
@@ -67,4 +61,16 @@ public:
 	void update() override;
 	void render() const override;
 	void setSlot();
+};
+
+class ButtonMarbles : public Button
+{
+protected:
+	int stop;
+	int type;
+	std::vector<Texture*> CMarbles;
+	std::vector<int> NCMarbles;
+public:
+	ButtonMarbles(GameState*, int x, int y, int w, int h, Texture*, int type, std::vector<int>);
+	void render() const override;
 };
