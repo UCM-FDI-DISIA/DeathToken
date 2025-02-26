@@ -14,12 +14,15 @@ protected:
 	struct Bet {
 		std::vector<int> typeOfBet;
 		int multiplier;
+		int moneyBet;
 	};
 	
 	Texture* texture;
 	std::vector<int> marbles;
 	std::map<int, Bet> bets;
 	std::vector<Texture*> RMarbles;
+	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
+	std::vector<ButtonMarbles*> MarblesButtons;
 
 	bool play = false;
 	int moneyBet;
@@ -60,11 +63,11 @@ protected:
 	double marginH = (5.0 / 1080.0) * Game::WIN_WIDTH;
 public:
 	Marbles(Game* game);
-
+	~Marbles();
 	void render() const override;
 	void update() override;
 
-	void generateMarbles();
+	void  generateMarbles();
 	int checkBets(int moneyBet);
 	void startRound();
 	void createMarbleButton(double x, double y, double width, double height, Texture texture, std::vector<int> bet);
