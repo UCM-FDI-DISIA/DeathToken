@@ -127,101 +127,87 @@ void Button::render() const {
 			for (int i = 0; i < NCMarbles.size(); i++) {
 				if (NCMarbles[i] == 3) {
 					if (i == 0) {
+						//1/1
 						auxBox.x = box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + box.h / 5 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.y = box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + box.h / 5 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						//2/1
+						auxBox.x = box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + box.h / 5 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						//3/1
+						auxBox.x = box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + box.h / 5 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
+						
+						
 					}
 					else if (i ==1) {
-						auxBox.x = box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y =  box.y + 2 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
-
+						//1/2
 						auxBox.x = box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y  + 2 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.y = box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y  + 2 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						//2/2
+						auxBox.x = box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y  + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 2 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						//3/2
+						auxBox.x = box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
+						
+						
 					}
 					else if (i == 2) {
-						auxBox.x = box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 3 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 3 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
-
+						//1/3
 						auxBox.x = box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 3 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.y = box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 3 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						//2/3
+						auxBox.x = box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);
+						//3/3
+						auxBox.x = box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+						CMarbles[i]->render(auxBox);
+						
 					}
 					else if (i == 3) {
-						auxBox.x = box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 4 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
 
-						auxBox.x = box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 4 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
-
-						auxBox.x = box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 4 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
-						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
-						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
-						CMarbles[i]->render(auxBox);
-
+						//1/4
 						auxBox.x = box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
-						auxBox.y = box.y + 4 * (box.h / 5) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.y = box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+						CMarbles[i]->render(auxBox);
+						//2/4
+						auxBox.x = box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
+						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
+						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
+						CMarbles[i]->render(auxBox);
+						//3/4
+						auxBox.x = box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2;
+						auxBox.y = box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2;
 						auxBox.w = (52.0 / 1920.0 * Game::WIN_WIDTH);
 						auxBox.h = (52.0 / 1080.0 * Game::WIN_HEIGHT);
 						CMarbles[i]->render(auxBox);

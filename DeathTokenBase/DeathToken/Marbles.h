@@ -18,6 +18,8 @@ protected:
 	Texture* texture;
 	std::vector<int> marbles;
 	std::map<int, Bet> bets;
+	std::vector<Texture*> RMarbles;
+
 	bool play = false;
 	int moneyBet;
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1

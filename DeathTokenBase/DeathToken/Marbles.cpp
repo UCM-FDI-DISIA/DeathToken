@@ -3,18 +3,35 @@
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)) {
 	marbles = { 0,0,0,0 };
-	
+
 	Marbles::marblesButtonCreation();
+
+	RMarbles.push_back(game->getTexture(REDMARBLE));
+	RMarbles.push_back(game->getTexture(GREENMARBLE));
+	RMarbles.push_back(game->getTexture(BLUEMARBLE));
+	RMarbles.push_back(game->getTexture(YELLOWMARBLE));
+	
 }
 
 
 void Marbles::generateMarbles() {
 	//En un vector voy metiendo aleatoriamente +1, representando ROJO/VERDE/AZUL/AMARILLO
+	int pos = 1;
+	SDL_Rect auxBox;
+
 	marbles = { 0,0,0,0 };
 	for (int i = 0; i < 3; i++) {
 		int color = rand() % 3;
 		marbles[color]++;
+		auxBox.x = 0/*Game::WIN_WIDTH / 5*/ * pos;
+		auxBox.y =0 /*Game::WIN_HEIGHT / 5*/;
+		auxBox.w = (124.0 / 1920.0 * Game::WIN_WIDTH);
+		auxBox.h = (124.0 / 1080.0 * Game::WIN_HEIGHT);
+		
+		RMarbles[color]->render(auxBox);
+		pos++;
 	}
+	pos = 0;
 }
 int  Marbles::checkBets(int moneyBet) {
 	int moneyWin = 0;
@@ -54,6 +71,8 @@ void Marbles::update() {
 		}
 		play = false;
 	}
+	generateMarbles();
+
 }
 
 void Marbles::render() const {
@@ -62,8 +81,6 @@ void Marbles::render() const {
 }
 void  Marbles::marblesButtonCreation() {
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1
-
-	
 
 	//ROJO
 	buttonType1_1 = new Button(this, Game::WIN_WIDTH / 2 - PosPW1- marginW, Game::WIN_HEIGHT - Game::WIN_HEIGHT / 4 - 2*PosPH1- 2*marginH, PosPW1, PosPH1, game->getTexture(BUTTONMARBLES1),1, {1,0,0,0});
