@@ -34,6 +34,18 @@ enum TextureName {
 	UIX3CLCK,
 	UIX5,
 	UIX5CLCK,
+	UICHIP1,
+	UICHIP2,
+	UICHIP5,
+	UICHIP10,
+	UICHIP25,
+	UICHIP50,
+	UICHIP100,
+	UICHIP200,
+	UICHIP500,
+	UICHIP1K,
+	UICHIP2K,
+	UICHIP5K,
 	MARIO,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };

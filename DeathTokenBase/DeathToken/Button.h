@@ -6,6 +6,8 @@
 
 using Callback = std::function<void()>;
 
+class UIChips;
+
 class Button : public GameObject, public EventHandler{
 protected:
 	Texture* text;
@@ -38,8 +40,23 @@ public:
 	ButtonBet(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 };
 
-class ButtonChip : public ButtonUI
+class ButtonChip : public Button
 {
+protected:
+	Texture* textures[3];
+	SDL_Rect boxB;
+	SDL_Rect boxC;
+	bool onUse;
+	bool clicked;
+	UIChips* ui;
+	int id;
+	int value;
+	int values[3];
 public:
-	ButtonChip(GameState*, int x, int y, int w, int h, Texture*, Texture*);
+	ButtonChip(GameState*, UIChips* ui, int x, int y, int w, int h, int id,
+			   int v0, int v1, int v2, Texture*, Texture*, Texture*);
+	void setOnUse(const bool& val);
+	void changePage(const int& n);
+	void update() override;
+	void render() const override;
 };

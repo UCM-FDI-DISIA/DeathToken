@@ -134,9 +134,6 @@
     <ClInclude Include="AnimState.h" />
     <ClInclude Include="Baccarat.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="ButtonBet.h" />
-    <ClInclude Include="ButtonChip.h" />
-    <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EndState.h" />
@@ -162,9 +159,6 @@
     <ClCompile Include="AnimState.cpp" />
     <ClCompile Include="Baccarat.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="ButtonBet.cpp" />
-    <ClCompile Include="ButtonChip.cpp" />
-    <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />

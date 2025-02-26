@@ -81,15 +81,6 @@
     <ClInclude Include="UI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonUI.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonChip.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonBet.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -144,15 +135,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonUI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonChip.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonBet.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

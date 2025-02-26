@@ -1,5 +1,6 @@
 #include "Button.h"
 #include "Game.h"
+#include "UI.h"
 
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
 	: GameObject(g), text(t), hover(false)
@@ -69,5 +70,46 @@ ButtonUI::render() const
 ButtonBet::ButtonBet(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
 	: ButtonUI(g, x, y, w, h, t, tC) {}
 
-ButtonChip::ButtonChip(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: ButtonUI(g, x, y, w, h, t, tC) {}
+ButtonChip::ButtonChip(GameState* g, UIChips* ui, int x, int y, int w, int h, int id,
+						int v0, int v1, int v2, Texture* t0, Texture* t1, Texture* t2)
+	: Button(g, x, y, w, h, t0), ui(ui), onUse(false), clicked(false), id(id)
+{
+	value = v0;
+	values[0] = v0;
+	values[1] = v1;
+	values[2] = v2;
+	textures[0] = t0;
+	textures[1] = t1;
+	textures[2] = t2;
+	boxB.x = x;
+	boxB.y = y - 20;
+	boxB.w = w;
+	boxB.h = h;
+	boxC = boxB;
+}
+void
+ButtonChip::update()
+{
+	Button::update();
+	int mouseState = SDL_GetMouseState(NULL, NULL);
+	if (hover && !onUse)
+		ui->changeChip(id);
+	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
+}
+void
+ButtonChip::render() const
+{
+	if (onUse)
+		text->render(boxB);
+	else
+		text->render(box);
+}
+void ButtonChip::setOnUse(const bool& val)
+{
+	onUse = val;
+}
+void ButtonChip::changePage(const int& n)
+{
+	value = values[n];
+	text = textures[n];
+}

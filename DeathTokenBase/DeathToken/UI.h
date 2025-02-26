@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "GameState.h"
 #include "Button.h"
+#include <vector>
 class Player;
 
 class UI
@@ -13,8 +14,8 @@ protected:
 	ButtonUI* go;
 	bool onBet;
 public:
-	inline int relativePosX(const float& n);
-	inline int relativePosY(const float& n);
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
 	UI(GameState* g, Game* game);
 	
 	void OnExit();
@@ -30,12 +31,18 @@ protected:
 	ButtonUI* info;
 	ButtonUI* repeat;
 
+	int chipPage;
+	std::vector<ButtonChip*> chips;
+	int chipOnUse;
+
 	virtual void OnErase() {};
 	virtual void OnInfo() {};
 	virtual void OnRepeat() {};
+	void OnArrow(const bool& left);
 
 public:
 	UIChips(GameState* gS, Game* game);
+	void changeChip(const int& id);
 };
 
 class UISlots : public UI
