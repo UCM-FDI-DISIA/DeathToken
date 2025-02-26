@@ -133,16 +133,19 @@
   <ItemGroup>
     <ClInclude Include="AnimState.h" />
     <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Fighter.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="gameList.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Marbles.h" />
     <ClInclude Include="Menu.h" />
@@ -157,8 +160,10 @@
   <ItemGroup>
     <ClCompile Include="AnimState.cpp" />
     <ClCompile Include="Baccarat.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
@@ -172,6 +177,9 @@
     <ClCompile Include="sceneObject.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="peleadores.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
