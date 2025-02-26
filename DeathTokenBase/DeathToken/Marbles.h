@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Button.h"
 #include "Game.h"
+#include "UI.h"
 #include <map>
 
 class Marbles : public GameState
@@ -22,6 +23,7 @@ protected:
 
 	bool play = false;
 	int moneyBet;
+	UIChips* ui;
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1
 	Button* buttonType1_1;
 	Button* buttonType1_2;

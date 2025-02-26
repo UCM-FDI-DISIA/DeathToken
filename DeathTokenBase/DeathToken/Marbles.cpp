@@ -3,6 +3,7 @@
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)) {
 	marbles = { 0,0,0,0 };
+	ui = new UIChips(this, game);
 
 	Marbles::marblesButtonCreation();
 
