@@ -70,9 +70,9 @@ ButtonUI::render() const
 ButtonBet::ButtonBet(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
 	: ButtonUI(g, x, y, w, h, t, tC) {}
 
-ButtonChip::ButtonChip(GameState* g, UIChips* ui, int x, int y, int w, int h, int id,
+ButtonChip::ButtonChip(GameState* g, UI* ui, int x, int y, int w, int h, int id,
 						int v0, int v1, int v2, Texture* t0, Texture* t1, Texture* t2)
-	: Button(g, x, y, w, h, t0), ui(ui), onUse(false), clicked(false), id(id)
+	: Button(g, x, y, w, h, t0), ui(ui), onUse(false), clicked(false), id(id), slot(false)
 {
 	value = v0;
 	values[0] = v0;
@@ -103,7 +103,7 @@ ButtonChip::update()
 	}
 	if (hover && !onUse)
 		ui->changeChip(id);
-	else if (!clicked && hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)))
+	else if (!clicked && hover && !slot && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)))
 		clicked = true;
 	else if (clicked && (!mouseState))
 		clicked = false;
@@ -123,12 +123,20 @@ ButtonChip::render() const
 	else
 		text->render(box);
 }
-void ButtonChip::setOnUse(const bool& val)
+void
+ButtonChip::setOnUse(const bool& val)
 {
 	onUse = val;
+	if (!val) clicked = false;
 }
-void ButtonChip::changePage(const int& n)
+void
+ButtonChip::changePage(const int& n)
 {
 	value = values[n];
 	text = textures[n];
+}
+void
+ButtonChip::setSlot()
+{
+	slot = true;
 }

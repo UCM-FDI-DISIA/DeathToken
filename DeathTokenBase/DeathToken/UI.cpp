@@ -1,7 +1,7 @@
 #include "UI.h"
 #include "Game.h"
 
-UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false)
+UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
 	gS->addObjects(exit);
@@ -12,6 +12,42 @@ UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false)
 	gS->addObjects(go);
 	gS->addEventListener(go);
 	go->connect([this]() { OnGo(); });
+
+	arrowL = new ButtonUI(gS, relativeX(230.0f), relativeY(913.5f), relativeX(97.0f), relativeY(109.0f), game->getTexture(UIARROWL), game->getTexture(UIARROWLCLCK));
+	gS->addObjects(arrowL);
+	gS->addEventListener(arrowL);
+	arrowL->connect([this]() { OnArrow(true); });
+
+	arrowR = new ButtonUI(gS, relativeX(897.0f), relativeY(913.5f), relativeX(97.0f), relativeY(109.0f), game->getTexture(UIARROWR), game->getTexture(UIARROWRCLCK));
+	gS->addObjects(arrowR);
+	gS->addEventListener(arrowR);
+	arrowR->connect([this]() { OnArrow(false); });
+
+	chips = std::vector<ButtonChip*>(4);
+	chips[0] = new ButtonChip(gS, this, relativeX(367.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 0,
+							  1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
+	chips[0]->setOnUse(true);
+	gS->addObjects(chips[0]);
+	gS->addEventListener(chips[0]);
+	chips[0]->connect([this]() {});
+
+	chips[1] = new ButtonChip(gS, this, relativeX(497.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 1,
+							  2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1K));
+	gS->addObjects(chips[1]);
+	gS->addEventListener(chips[1]);
+	chips[1]->connect([this]() {});
+
+	chips[2] = new ButtonChip(gS, this, relativeX(627.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 2,
+							  5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2K));
+	gS->addObjects(chips[2]);
+	gS->addEventListener(chips[2]);
+	chips[2]->connect([this]() {});
+
+	chips[3] = new ButtonChip(gS, this, relativeX(757.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 3,
+							  10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5K));
+	gS->addObjects(chips[3]);
+	gS->addEventListener(chips[3]);
+	chips[3]->connect([this]() {});
 }
 inline int
 UI::relativeX(const float& n)
@@ -28,69 +64,15 @@ UI::OnExit()
 {
 	if (!onBet) game->pop();
 }
-
-UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game), chipOnUse(0), chipPage(0)
-{
-	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
-	gS->addObjects(erase);
-	gS->addEventListener(erase);
-	erase->connect([this]() { OnErase(); });
-
-	arrowL = new ButtonUI(gS, relativeX(230.0f), relativeY(913.5f), relativeX(97.0f), relativeY(109.0f), game->getTexture(UIARROWL), game->getTexture(UIARROWLCLCK));
-	gS->addObjects(arrowL);
-	gS->addEventListener(arrowL);
-	arrowL->connect([this]() { OnArrow(true); });
-
-	arrowR = new ButtonUI(gS, relativeX(897.0f), relativeY(913.5f), relativeX(97.0f), relativeY(109.0f), game->getTexture(UIARROWR), game->getTexture(UIARROWRCLCK));
-	gS->addObjects(arrowR);
-	gS->addEventListener(arrowR);
-	arrowR->connect([this]() { OnArrow(false); });
-
-	info = new ButtonUI(gS, relativeX(1377.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
-	gS->addObjects(info);
-	gS->addEventListener(info);
-	info->connect([this]() { OnInfo(); });
-
-	repeat = new ButtonUI(gS, relativeX(1537.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIREPEAT), game->getTexture(UIREPEATCLCK));
-	gS->addObjects(repeat);
-	gS->addEventListener(repeat);
-	repeat->connect([this]() { OnRepeat(); });
-
-	chips = std::vector<ButtonChip*>(4);
-	chips[0] = new ButtonChip(gS, this, relativeX(367.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 0,
-							  1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
-	chips[0]->setOnUse(true);
-	gS->addObjects(chips[0]);
-	gS->addEventListener(chips[0]);
-	chips[0]->connect([this]() {  });
-
-	chips[1] = new ButtonChip(gS, this, relativeX(497.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 1,
-		                      2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1K));
-	gS->addObjects(chips[1]);
-	gS->addEventListener(chips[1]);
-	chips[1]->connect([this]() {});
-
-	chips[2] = new ButtonChip(gS, this, relativeX(627.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 2,
-		                      5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2K));
-	gS->addObjects(chips[2]);
-	gS->addEventListener(chips[2]);
-	chips[2]->connect([this]() {});
-
-	chips[3] = new ButtonChip(gS, this, relativeX(757.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 3,
-		                      10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5K));
-	gS->addObjects(chips[3]);
-	gS->addEventListener(chips[3]);
-	chips[3]->connect([this]() {});
-}
 void
-UIChips::changeChip(const int& id)
+UI::changeChip(const int& id)
 {
 	chips[chipOnUse]->setOnUse(false);
 	chipOnUse = id;
 	chips[chipOnUse]->setOnUse(true);
 }
 void
-UIChips::OnArrow(const bool& left)
+UI::OnArrow(const bool& left)
 {
 	int aux = chipPage;
 	if (left && chipPage > 0) chipPage--;
@@ -105,8 +87,30 @@ UIChips::OnArrow(const bool& left)
 	}
 }
 
+UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
+{
+	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
+	gS->addObjects(erase);
+	gS->addEventListener(erase);
+	erase->connect([this]() { OnErase(); });
+
+	info = new ButtonUI(gS, relativeX(1377.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
+	gS->addObjects(info);
+	gS->addEventListener(info);
+	info->connect([this]() { OnInfo(); });
+
+	repeat = new ButtonUI(gS, relativeX(1537.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIREPEAT), game->getTexture(UIREPEATCLCK));
+	gS->addObjects(repeat);
+	gS->addEventListener(repeat);
+	repeat->connect([this]() { OnRepeat(); });
+}
+
 UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
 {
+	for (ButtonChip* i : chips)
+	{
+		i->setSlot();
+	}
 	x2 = new ButtonUI(gS, relativeX(50.0f), relativeY(209.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIX2), game->getTexture(UIX2CLCK));
 	gS->addObjects(x2);
 	gS->addEventListener(x2);
@@ -122,7 +126,7 @@ UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
 	gS->addEventListener(x5);
 	x5->connect([this]() { Onx5(); });
 
-	info = new ButtonUI(gS, relativeX(1537.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
+	info = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
 	gS->addObjects(info);
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });

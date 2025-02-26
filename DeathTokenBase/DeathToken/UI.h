@@ -13,10 +13,20 @@ protected:
 	ButtonUI* exit;
 	ButtonUI* go;
 	bool onBet;
+
+	ButtonUI* arrowL;
+	ButtonUI* arrowR;
+	int chipPage;
+	std::vector<ButtonChip*> chips;
+	int chipOnUse;
+	void OnArrow(const bool& left);
+
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
 	UI(GameState* g, Game* game);
+
+	void changeChip(const int& id);
 	
 	void OnExit();
 	virtual void OnGo() {};
@@ -26,23 +36,16 @@ class UIChips : public UI
 {
 protected:
 	ButtonUI* erase;
-	ButtonUI* arrowL;
-	ButtonUI* arrowR;
 	ButtonUI* info;
 	ButtonUI* repeat;
-
-	int chipPage;
-	std::vector<ButtonChip*> chips;
-	int chipOnUse;
 
 	virtual void OnErase() {};
 	virtual void OnInfo() {};
 	virtual void OnRepeat() {};
-	void OnArrow(const bool& left);
+	
 
 public:
 	UIChips(GameState* gS, Game* game);
-	void changeChip(const int& id);
 };
 
 class UISlots : public UI
