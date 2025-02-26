@@ -90,16 +90,35 @@ ButtonChip::ButtonChip(GameState* g, UIChips* ui, int x, int y, int w, int h, in
 void
 ButtonChip::update()
 {
-	Button::update();
+	SDL_Point point;
+	SDL_GetMouseState(&point.x, &point.y);
 	int mouseState = SDL_GetMouseState(NULL, NULL);
+	if (clicked)
+	{
+		hover = SDL_PointInRect(&point, &boxC);
+	}
+	else
+	{
+		hover = SDL_PointInRect(&point, &box);
+	}
 	if (hover && !onUse)
 		ui->changeChip(id);
-	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
+	else if (!clicked && hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)))
+		clicked = true;
+	else if (clicked && (!mouseState))
+		clicked = false;
+	if (clicked)
+	{
+		boxC.x = point.x - (boxC.w / 2);
+		boxC.y = point.y -(boxC.h / 2);
+	}
 }
 void
 ButtonChip::render() const
 {
-	if (onUse)
+	if (clicked)
+		text->render(boxC);
+	else if (onUse)
 		text->render(boxB);
 	else
 		text->render(box);
