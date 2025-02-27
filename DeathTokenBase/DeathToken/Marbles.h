@@ -13,8 +13,8 @@ class Marbles : public GameState
 protected:
 	struct Bet {
 		std::vector<int> typeOfBet;
-		int multiplier;
-		int moneyBet;
+		int multiplier= 0;
+		int moneyBet= 0;
 	};
 	
 	Texture* texture;
@@ -23,12 +23,14 @@ protected:
 	std::vector<Texture*> RMarbles;
 	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
 	std::vector<ButtonMarbles*> MarblesButtons;
-
+	std::vector<ButtonMarbles*> buttons;
 	bool play = false;
 	int moneyBet;
 	UIChips* ui;
+	int clave = 0;
+
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1
-	Button* buttonType1_1;
+	/*Button* buttonType1_1;
 	Button* buttonType1_2;
 	Button* buttonType1_3;
 	Button* buttonType1_4;
@@ -50,7 +52,7 @@ protected:
 	Button* buttonType3_4;
 
 	//Boton cuadrado para la apuesta de todos los posibles combianciones de tres mismos colores / BUTTONMAARBLES4
-	Button* buttonType4_1;
+	Button* buttonType4_1;*/
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH1 = (118.0 / 1080.0) * Game::WIN_HEIGHT;
 	double PosPW3 = (302.0 / 1920.0) * Game::WIN_WIDTH;
@@ -70,9 +72,11 @@ public:
 	void  generateMarbles();
 	int checkBets(int moneyBet);
 	void startRound();
-	void createMarbleButton(double x, double y, double width, double height, Texture texture, std::vector<int> bet);
+	void createMarbleButton(int x, int y, int width, int height, Texture* texture,int type, std::vector<int> NCMarbles);
 	void marblesButtonCreation();
-
+	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet);
+	void clearBets();
+	
 	//Detectar botones y que apuesta hace y con que cantidad de monedas
 	//Metodo play que hace que el juego lanze las 3 bolas de colores con un random
 	//Con las bolas que salen detectar si estan igual que la apuesta
