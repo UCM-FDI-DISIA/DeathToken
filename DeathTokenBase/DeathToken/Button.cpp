@@ -140,3 +140,8 @@ ButtonChip::setSlot()
 {
 	slot = true;
 }
+int
+ButtonChip::getValue()
+{
+	return value;
+}

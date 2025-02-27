@@ -43,9 +43,9 @@ enum TextureName {
 	UICHIP100,
 	UICHIP200,
 	UICHIP500,
-	UICHIP1K,
-	UICHIP2K,
-	UICHIP5K,
+	UICHIP1000,
+	UICHIP2000,
+	UICHIP5000,
 	MARIO,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };
