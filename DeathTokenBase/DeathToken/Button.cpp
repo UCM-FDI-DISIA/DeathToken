@@ -16,7 +16,7 @@ Button::update()
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 
-	// Comprueba si el ratón está sobre el rectángulo
+	// Comprueba si el ratï¿½n estï¿½ sobre el rectï¿½ngulo
 	hover = SDL_PointInRect(&point, &box);
 }
 void Button::render() const {
@@ -142,6 +142,11 @@ ButtonChip::setSlot()
 {
 	slot = true;
 }
+int
+ButtonChip::getValue()
+{
+	return value;
+}
 
 ButtonMarbles::ButtonMarbles(GameState* g, int x, int y, int w, int h, Texture* t, int type, std::vector<int>NCMarbles)
 	: Button(g, x, y, w, h, t), NCMarbles(NCMarbles), type(type)
@@ -152,7 +157,6 @@ ButtonMarbles::ButtonMarbles(GameState* g, int x, int y, int w, int h, Texture* 
 	CMarbles.push_back(g->getGame()->getTexture(BLUEMARBLE));
 	CMarbles.push_back(g->getGame()->getTexture(YELLOWMARBLE));
 }
-
 void
 ButtonMarbles::render() const
 {
@@ -343,4 +347,3 @@ ButtonMarbles::render() const
 		SDL_Rect point(box.x, box.y, box.h, box.h);
 		text->render(box, SDL_Color(255, 255, 0));
 	}
-}

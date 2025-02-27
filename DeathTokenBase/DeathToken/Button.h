@@ -61,6 +61,7 @@ public:
 	void update() override;
 	void render() const override;
 	void setSlot();
+	int getValue();
 };
 
 class ButtonMarbles : public Button

@@ -27,6 +27,7 @@ public:
 	UI(GameState* g, Game* game);
 
 	void changeChip(const int& id);
+	int currentChipValue();
 	
 	void OnExit();
 	virtual void OnGo() {};
