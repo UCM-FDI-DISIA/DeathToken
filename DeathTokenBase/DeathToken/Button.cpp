@@ -347,3 +347,4 @@ ButtonMarbles::render() const
 		SDL_Rect point(box.x, box.y, box.h, box.h);
 		text->render(box, SDL_Color(255, 255, 0));
 	}
+}

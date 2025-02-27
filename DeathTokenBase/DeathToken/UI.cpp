@@ -74,7 +74,7 @@ UI::changeChip(const int& id)
 int
 UI::currentChipValue()
 {
-	chips[chipOnUse]->getValue();
+	return chips[chipOnUse]->getValue();
 }
 void
 UI::OnArrow(const bool& left)
