@@ -38,3 +38,19 @@ void Menu::render() const {
 	texture->render();
 	GameState::render();
 }
+Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
+	Collision col;
+	bool hit = false;
+
+	for (sceneObject* obj : objetos) {
+		if (!hit) {
+			col = obj->hit(rect, target);
+			hit = col.result != col.NONE;
+			if (target == Collision::PLAYER && col.result == col.OBSTACLE) {
+				hit == true;
+			}
+		}
+	}
+	if (hit) return col;
+	else return col = NO_COLLISION;
+}
