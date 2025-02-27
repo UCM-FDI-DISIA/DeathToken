@@ -14,7 +14,7 @@ public:
     Fighter() = default;
 
     // Carga los datos del peleador desde un archivo JSON
-    bool loadFromJSON(const string& filename);
+    bool loadFromJSON(const std::string& s);
 
     // Métodos Getters para acceder a los atributos
     string getName() const { return name; }

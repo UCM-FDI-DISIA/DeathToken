@@ -26,6 +26,7 @@ public:
 
     bool loadFightersFromJSON(const string& filename);
     void StartBattle();
+    bool loadMatchupsFromJSON(const string& filename);
 
 private:
     vector<Fighter> fighters;
