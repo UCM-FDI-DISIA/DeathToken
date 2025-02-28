@@ -72,7 +72,7 @@ public:
 	void  generateMarbles();
 	int checkBets(int moneyBet);
 	void startRound();
-	void createMarbleButton(int x, int y, int width, int height, Texture* texture,int type, std::vector<int> NCMarbles);
+	void createMarbleButton(int x, int y, int width, int height, Texture*, Texture*, int type, std::vector<int> NCMarbles);
 	void marblesButtonCreation();
 	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet);
 	void clearBets();
