@@ -1,5 +1,7 @@
 #include "UI.h"
 #include "Game.h"
+#include "Marbles.h"
+#include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
 {
@@ -91,9 +93,9 @@ UI::OnArrow(const bool& left)
 		}
 	}
 }
-
 UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
+
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
 	gS->addObjects(erase);
 	gS->addEventListener(erase);
@@ -109,6 +111,7 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 	gS->addEventListener(repeat);
 	repeat->connect([this]() { OnRepeat(); });
 }
+
 
 UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
 {
@@ -155,4 +158,18 @@ void
 UISlots::OnInfo()
 {
 
+}
+
+UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
+void UIMarbles::OnGo() {
+	
+	marbles->startRound();
+	
+}
+
+void UIMarbles::OnErase() {
+	marbles->clearBets();
+	for (auto& button : bets) {
+		button->clear();
+	}
 }

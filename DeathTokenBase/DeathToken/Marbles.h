@@ -7,7 +7,6 @@
 #include "Game.h"
 #include "UI.h"
 #include <map>
-
 class Marbles : public GameState
 {
 protected:
@@ -16,7 +15,8 @@ protected:
 		int multiplier= 0;
 		int moneyBet= 0;
 	};
-	
+	UIMarbles* ui;
+
 	Texture* texture;
 	std::vector<int> marbles;
 	std::map<int, Bet> bets;
@@ -26,7 +26,6 @@ protected:
 	std::vector<ButtonMarbles*> buttons;
 	bool play = false;
 	int moneyBet;
-	UIChips* ui;
 	int clave = 0;
 
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1
@@ -74,7 +73,7 @@ public:
 	void startRound();
 	void createMarbleButton(int x, int y, int width, int height, Texture*, Texture*, int type, std::vector<int> NCMarbles);
 	void marblesButtonCreation();
-	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet);
+	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles);
 	void clearBets();
 	
 	//Detectar botones y que apuesta hace y con que cantidad de monedas
