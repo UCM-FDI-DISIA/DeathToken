@@ -21,6 +21,9 @@ Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, 
 
 	resultante = vectorAleatorio();
 }
+Carrete:: ~Carrete() {
+	iconos = nullptr;
+}
 
 void Carrete::update() {
 	moverIndice();

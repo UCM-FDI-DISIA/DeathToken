@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Button.h"
 #include "Carrete.h"
+#include "checkML.h"
 
 #include <iostream>
 #include <unordered_map>
@@ -23,5 +24,6 @@ private:
 
 public:
 	Slots(Game*);
+	~Slots();
 	void update() override;
 };

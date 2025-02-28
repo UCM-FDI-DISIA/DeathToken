@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <chrono>
 #include <random>
+#include "checkML.h"
 
 #define NUM_ELEMS 3
 class Carrete : public sceneObject {
@@ -17,7 +18,7 @@ private:
 
 public:
 	Carrete(GameState*,Point2D<int>, int, int, Texture*,Texture*);
-	~Carrete() {};
+	~Carrete();
 	vector<int> vectorAleatorio();
 	void moverIndice();
 	int getIndice() const { return indice; };

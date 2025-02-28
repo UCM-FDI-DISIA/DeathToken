@@ -31,6 +31,10 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 	}
 
 }
+Slots:: ~Slots() {
+	for (Carrete* i : carretes) i = nullptr;
+	GameState:: ~GameState();
+}
 void Slots::update() {
 
 	GameState::update();
