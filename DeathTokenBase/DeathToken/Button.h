@@ -1,21 +1,23 @@
 #pragma once
+#include "Game.h"
 #include "gameState.h"
 #include "EventHandler.h"
 #include "Texture.h"
 #include <functional>
+#include <string>
 
 using Callback = std::function<void()>;
 
 class UI;
 
-class Button : public GameObject, public EventHandler{
+class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
 	SDL_Rect box;
 	bool hover;
 	Callback cb;
 public:
-	Button(GameState*,int x,int y,int w,int h,Texture*);
+	Button(GameState*, int x, int y, int w, int h, Texture*);
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event&) override;
@@ -36,8 +38,28 @@ public:
 
 class ButtonBet : public ButtonUI
 {
+protected:
+	Game* game;
+	int currentBet;
+	SDL_Rect chipSpace;
+	Texture* currentText;
+	std::string currentBetSprite;
+	std::string lastChipSprite;
+	UI* ui;
+	const std::unordered_map<std::string, TextureName> stringToTexture = {
+	{"UICHIP1", UICHIP1}, {"UICHIP2", UICHIP2}, {"UICHIP5", UICHIP5},
+	{"UICHIP10", UICHIP10}, {"UICHIP25", UICHIP25}, {"UICHIP50", UICHIP50},
+	{"UICHIP100", UICHIP100}, {"UICHIP200", UICHIP200}, {"UICHIP500", UICHIP500},
+	{"UICHIP1000", UICHIP1000}, {"UICHIP2000", UICHIP2000}, {"UICHIP5000", UICHIP5000}
+	};
 public:
-	ButtonBet(GameState*, int x, int y, int w, int h, Texture*, Texture*);
+	ButtonBet(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*);
+	TextureName showChip();
+	void clear();
+	int getBet();
+	void update() override;
+	void render() const override;
+	void handleEvent(const SDL_Event&) override;
 };
 
 class ButtonChip : public Button
@@ -55,7 +77,7 @@ protected:
 	bool slot;
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
-			   int v0, int v1, int v2, Texture*, Texture*, Texture*);
+		int v0, int v1, int v2, Texture*, Texture*, Texture*);
 	void setOnUse(const bool& val);
 	void changePage(const int& n);
 	void update() override;
