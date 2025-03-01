@@ -3,24 +3,39 @@
 #include <random>
 
 Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)) {
-
+	addEventListener(this);
 	repartir();
 	//derch player
 	int a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 21.2, b = Game::WIN_HEIGHT / 5.34;
-	player1 = new Cards(this, tap.jugador[0], { a, b });
+	player1 = new Cards(this, 0, { a, b });
 	addObjects(player1);
 	//banker izq
 	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42; b = Game::WIN_HEIGHT / 5.32;
-	player2 = new Cards(this, tap.banca[0], { a, b });
+	player2 = new Cards(this, 0, { a, b });
 	addObjects(player2);
 	//izq player
 	a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.35; b = Game::WIN_HEIGHT / 5.34;
-	banker1 = new Cards(this, tap.jugador[1], { a , b });
+	banker1 = new Cards(this, 0, { a , b });
 	addObjects(banker1);
 	//banker dch
 	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20; b = Game::WIN_HEIGHT / 5.32;
-	banker2 = new Cards(this, tap.banca[1], { a, b });
+	banker2 = new Cards(this, 0, { a, b });
 	addObjects(banker2);
+
+	clearDeck();
+}
+
+void Baccarat::handleEvent(const SDL_Event& event) {
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p) {
+		repartir();
+
+		player1->frame = tap.jugador[0];
+		banker1->frame = tap.banca[0];
+		player2->frame = tap.jugador[1];
+		banker2->frame = tap.banca[1];
+
+		clearDeck();
+	}
 }
 
 void Baccarat::render() const {
@@ -28,12 +43,17 @@ void Baccarat::render() const {
 	GameState::render();
 }
 
+void Baccarat::clearDeck() {
+	while (0 < cartas.size())
+		cartas.pop_back();
+	while (0 < tap.jugador.size())
+		tap.jugador.pop_back();
+	while (0 < tap.banca.size())
+		tap.banca.pop_back();
+}
+
 void Baccarat::update() {
-	cout << cont << endl;
-	if (cont > 150) {
-		repartir();
-	}
-	cont++;
+
 }
 
 void Baccarat::repartir() {
@@ -89,7 +109,7 @@ int Baccarat::generaAleatorio() {
 		if (cartas[i] == num) {
 			cont++;
 			if (cont == 4) {
-				num = rand() % 13 + 1;
+				num = distrib(gen);
 				cont = 0;
 				i = 0;
 			}
