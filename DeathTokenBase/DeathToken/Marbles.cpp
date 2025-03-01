@@ -22,10 +22,10 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 }
 Marbles::~Marbles() {
 	delete ui; 
-	for (auto b : buttons) {
+	for (auto b : marbleButtons) {
 		delete b;
 	}
-	buttons.clear();
+	marbleButtons.clear();
 	/*delete buttonType1_1;
 	delete buttonType1_2;
 	delete buttonType1_3;
@@ -96,10 +96,7 @@ void Marbles::startRound() {
 		std::cout << "HAS PERDIDO";
 
 	}
-	
-	bets.clear();
-
-
+	clearBets();
 }
 void Marbles::update() {
 	
@@ -166,9 +163,6 @@ void  Marbles::marblesButtonCreation() {
 
 void
 Marbles::createMarbleButton(int x, int y, int width, int height, Texture* texture, Texture* textureC, int type, std::vector<int> NCMarbles) {
-	ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
-	addObjects(btnMarbles);
-	addEventListener(btnMarbles);
 	//el multi hay que cambiarlo, cuando se pasan los datos o dependiendo de
 	//de la variable tipo que se le pasa asignarle un multi
 	int multiplier = 0;
@@ -187,18 +181,35 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 	else if (type == 4) {
 		multiplier = 5;
 	}
-	btnMarbles->connect([this, NCMarbles, multiplier, &btnMarbles]() { newBet(NCMarbles, multiplier, moneyBet, btnMarbles); });
+	ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
+	marbleButtons.push_back(btnMarbles);
+	addObjects(marbleButtons.back());
+	addEventListener(marbleButtons.back());
+	btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() { newBet(NCMarbles, multiplier, moneyBet, btnMarbles); });
 }
 
 void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles) {
 	
 	moneyBet = btnMarbles->getBet();
-	std::cout << moneyBet;
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
 }
 
 void Marbles::clearBets() {
+	betsHistory = bets;
 	bets.clear();
+	for (auto i : marbleButtons)
+	{
+		i->clear();
+	}
+}
+
+void Marbles::repeat()
+{
+	bets = betsHistory;
+	for (auto i : marbleButtons)
+	{
+		i->repeat();
+	}
 }

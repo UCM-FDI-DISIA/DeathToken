@@ -69,7 +69,7 @@ ButtonUI::render() const
 }
 
 ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), ui(ui)
+	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), betHistory(0), ui(ui)
 {
 	connect([this]() { });
 
@@ -97,7 +97,13 @@ ButtonBet::showChip()
 void
 ButtonBet::clear()
 {
+	betHistory = currentBet;
 	currentBet = 0;
+}
+void
+ButtonBet::repeat()
+{
+	currentBet = betHistory;
 }
 int
 ButtonBet::getBet()
@@ -401,4 +407,19 @@ ButtonMarbles::render() const
 		break;
 	}
 	ButtonBet::render();
+}
+void
+ButtonMarbles::handleEvent(const SDL_Event& event)
+{
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ui->currentChipValue();
+		currentBet += chip;
+		lastChipSprite = "UICHIP" + std::to_string(chip);
+		currentText = game->getTexture(showChip());
+	}
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		cb();
+	}
 }

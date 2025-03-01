@@ -73,4 +73,5 @@ public:
 
 	void OnGo() override;
 	void OnErase() override;
+	void OnRepeat() override;
 };

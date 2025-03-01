@@ -20,10 +20,10 @@ protected:
 	Texture* texture;
 	std::vector<int> marbles;
 	std::map<int, Bet> bets;
+	std::map<int, Bet> betsHistory;
 	std::vector<Texture*> RMarbles;
 	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
-	std::vector<ButtonMarbles*> MarblesButtons;
-	std::vector<ButtonMarbles*> buttons;
+	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
 	int moneyBet;
 	int clave = 0;
@@ -75,6 +75,7 @@ public:
 	void marblesButtonCreation();
 	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles);
 	void clearBets();
+	void repeat();
 	
 	//Detectar botones y que apuesta hace y con que cantidad de monedas
 	//Metodo play que hace que el juego lanze las 3 bolas de colores con un random

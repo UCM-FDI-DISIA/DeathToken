@@ -162,14 +162,14 @@ UISlots::OnInfo()
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
 void UIMarbles::OnGo() {
-	
 	marbles->startRound();
-	
 }
 
 void UIMarbles::OnErase() {
 	marbles->clearBets();
-	for (auto& button : bets) {
-		button->clear();
-	}
+}
+
+void UIMarbles::OnRepeat()
+{
+	marbles->repeat();
 }
