@@ -13,12 +13,6 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 	{
 	Marbles::marblesButtonCreation();
 
-	////////////////////////
-	/*COSAS QUE HACER
-		ASIGNAR BOTON PLAY AL METODO GENERAR CANICAS
-		AL PULSAR CUALQUIER BOTON DE APUESTA SE AÑADA UN NUEVO VALUE EN EL MAP
-		QUE FUNCIONE EL BOTON DE LIMPIAR
-	*/
 }
 Marbles::~Marbles() {
 	delete ui; 
@@ -26,19 +20,7 @@ Marbles::~Marbles() {
 		delete b;
 	}
 	marbleButtons.clear();
-	/*delete buttonType1_1;
-	delete buttonType1_2;
-	delete buttonType1_3;
-	delete buttonType1_4;
-	delete buttonType2_1;
-	delete buttonType2_2;
-	delete buttonType2_3;
-	delete buttonType2_4;
-	delete buttonType2_5;
-	delete buttonType2_6;
-	delete buttonType2_7;
-	delete buttonType2_8;
-	delete buttonType2_9;*/
+	
 }
 
 void  Marbles::generateMarbles() {
@@ -88,9 +70,9 @@ void Marbles::startRound() {
 	int moneyWin = checkBets(moneyBet);//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 	if (moneyWin > 0) {
+
 		std::cout << "HAS GANDADO" << moneyWin;
-		//mostrar mensaje LOLOLOLO HASSSS GANADOOOOO
-		//AMAZING
+		
 	}
 	else {
 		std::cout << "HAS PERDIDO";
@@ -163,8 +145,7 @@ void  Marbles::marblesButtonCreation() {
 
 void
 Marbles::createMarbleButton(int x, int y, int width, int height, Texture* texture, Texture* textureC, int type, std::vector<int> NCMarbles) {
-	//el multi hay que cambiarlo, cuando se pasan los datos o dependiendo de
-	//de la variable tipo que se le pasa asignarle un multi
+	
 	int multiplier = 0;
 
 	if(type == 1) {
