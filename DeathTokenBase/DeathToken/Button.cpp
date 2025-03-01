@@ -41,9 +41,9 @@ void Button::connect(Callback callback) {
 
 ButtonUI::ButtonUI(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
 	: Button(g, x, y, w, h, t), textC(tC), clicked(false) {
-	boxB.x =(int)( x - (w * 0.05f));
+	boxB.x = (int)(x - (w * 0.05f));
 	boxB.y = (int)(y - (h * 0.05f));
-	boxB.w = (int)( w * 1.1f);
+	boxB.w = (int)(w * 1.1f);
 	boxB.h = (int)(h * 1.1f);
 }
 void
@@ -140,7 +140,7 @@ ButtonBet::handleEvent(const SDL_Event& event)
 }
 
 ButtonChip::ButtonChip(GameState* g, UI* ui, int x, int y, int w, int h, int id,
-						int v0, int v1, int v2, Texture* t0, Texture* t1, Texture* t2)
+	int v0, int v1, int v2, Texture* t0, Texture* t1, Texture* t2)
 	: Button(g, x, y, w, h, t0), ui(ui), onUse(false), clicked(false), id(id), slot(false)
 {
 	value = v0;
@@ -179,7 +179,7 @@ ButtonChip::update()
 	if (clicked)
 	{
 		boxC.x = point.x - (boxC.w / 2);
-		boxC.y = point.y -(boxC.h / 2);
+		boxC.y = point.y - (boxC.h / 2);
 	}
 }
 void

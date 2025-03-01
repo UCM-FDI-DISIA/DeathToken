@@ -10,14 +10,14 @@ using Callback = std::function<void()>;
 
 class UI;
 
-class Button : public GameObject, public EventHandler{
+class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
 	SDL_Rect box;
 	bool hover;
 	Callback cb;
 public:
-	Button(GameState*,int x,int y,int w,int h,Texture*);
+	Button(GameState*, int x, int y, int w, int h, Texture*);
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event&) override;
@@ -79,7 +79,7 @@ protected:
 	bool slot;
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
-			   int v0, int v1, int v2, Texture*, Texture*, Texture*);
+		int v0, int v1, int v2, Texture*, Texture*, Texture*);
 	void setOnUse(const bool& val);
 	void changePage(const int& n);
 	void update() override;
