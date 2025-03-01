@@ -20,9 +20,9 @@ const std::string textureRoot = "../assets/images/";
 // Especificación de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"map/Casino_bg.png", 1, 1},
+	TextureSpec{"map/Casino_baccarat_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"map/Casino_marbles_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"player.png", 1, 1},
 };
