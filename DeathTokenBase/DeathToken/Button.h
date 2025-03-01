@@ -41,6 +41,7 @@ class ButtonBet : public ButtonUI
 protected:
 	Game* game;
 	int currentBet;
+	int betHistory;
 	SDL_Rect chipSpace;
 	Texture* currentText;
 	std::string currentBetSprite;
@@ -56,6 +57,7 @@ public:
 	ButtonBet(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*);
 	TextureName showChip();
 	void clear();
+	void repeat();
 	int getBet();
 	void update() override;
 	void render() const override;

@@ -69,7 +69,7 @@ ButtonUI::render() const
 }
 
 ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), ui(ui)
+	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), betHistory(0), ui(ui)
 {
 	connect([this]() {});
 
@@ -97,7 +97,13 @@ ButtonBet::showChip()
 void
 ButtonBet::clear()
 {
+	betHistory = currentBet;
 	currentBet = 0;
+}
+void
+ButtonBet::repeat()
+{
+	currentBet = betHistory;
 }
 int
 ButtonBet::getBet()
