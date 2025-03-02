@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "Carrete.h"
 #include "checkML.h"
+#include "UI.h"
 
 #include <iostream>
 #include <unordered_map>
@@ -21,6 +22,7 @@ private:
 	int comprobanteIndice;
 	vector<int> multiplicadores = { 2,3,10,30,90,150,3000 };
 	unordered_map<int, int> puntuaciones;
+	UISlots* ui;
 
 public:
 	Slots(Game*);

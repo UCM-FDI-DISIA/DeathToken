@@ -3,6 +3,8 @@
 
 Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 {
+	ui = new UISlots(this, g);
+
 	int offset = 20;
 	int x = (game->WIN_WIDTH / 2) - (TAM_CELDA + TAM_CELDA / 2) - offset;
 
@@ -33,7 +35,6 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 }
 Slots:: ~Slots() {
 	for (Carrete* i : carretes) i = nullptr;
-	GameState:: ~GameState();
 }
 void Slots::update() {
 
