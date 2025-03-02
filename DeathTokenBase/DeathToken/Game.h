@@ -1,5 +1,5 @@
 #pragma once
-#include "gameStateMachine.h";
+#include "gameStateMachine.h"
 
 #include <SDL.h>
 #include <array>
