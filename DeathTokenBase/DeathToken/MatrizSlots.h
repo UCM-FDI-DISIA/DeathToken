@@ -6,15 +6,15 @@
 #include <random>
 class MatrizSlots : public sceneObject {
 private:
-	const int TAM = 4;
-	const int NUM_ELEMS = 18;
 	Texture* iconos;
 	vector<vector<int>> mat;
-
+	int fil; int col;
 public:
-	MatrizSlots(GameState*, Point2D<int>, int, int, Texture*, Texture*);
+	MatrizSlots(GameState*, Point2D<int>, int, int, Texture*, Texture*, int, int);
 	~MatrizSlots() {};
 
 	void render() const override;
 	void update() override;
+
+	virtual Collision hit(const SDL_Rect&, Collision::Target) { return NO_COLLISION; }
 };

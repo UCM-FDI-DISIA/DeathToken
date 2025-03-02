@@ -3,15 +3,16 @@
 #include "Texture.h"
 #include "Button.h"
 #include "Carrete.h"
+#include "MatrizSlots.h"
 
 #include <iostream>
 
+
 class SlotsLocura : public GameState {
 private:
-	const int nColum = 4;
-	const int tamCelda = 100;
-
-	int comprobanteIndice;
+	constexpr static int N_COLUM = 4;
+	constexpr static int TAM_CELDA = 150;
+	MatrizSlots* mat;
 
 public:
 	SlotsLocura(Game*);

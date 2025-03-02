@@ -8,18 +8,20 @@
 #include <iostream>
 #include <unordered_map>
 
-#define N_COLUM 3
-#define TAM_CELDA 150
-#define DISTANCIA_BOTON TAM_CELDA * 4 + 50
-#define TAM_BOTON 100
+
 
 class Slots : public GameState {
 private:
+	constexpr static int N_COLUM = 3;
+	constexpr static int TAM_CELDA = 150;
+	constexpr static int DISTANCIA_BOTON = TAM_CELDA * 4 + 50;
+	constexpr static int TAM_BOTON = 100;
+
 	vector<Carrete*> carretes;
 	int comprobanteIndice;
-	vector<int> multiplicadores = {2,3,10,30,90,150,3000 };
+	vector<int> multiplicadores = { 2,3,10,30,90,150,3000 };
 	unordered_map<int, int> puntuaciones;
-	
+
 public:
 	Slots(Game*);
 	~Slots();
