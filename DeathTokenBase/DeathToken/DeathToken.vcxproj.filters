@@ -81,7 +81,7 @@
     <ClInclude Include="UI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Cards.h">
+    <ClInclude Include="Font.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -135,9 +135,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Cards.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
