@@ -137,6 +137,7 @@
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="gameList.h" />
     <ClInclude Include="gameObject.h" />
