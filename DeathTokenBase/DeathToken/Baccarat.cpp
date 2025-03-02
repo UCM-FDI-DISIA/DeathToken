@@ -4,37 +4,48 @@
 
 Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)) {
 	addEventListener(this);
-	repartir();
+	handCards();
 	//derch player
-	int a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 21.2, b = Game::WIN_HEIGHT / 5.34;
-	player1 = new Cards(this, 0, { a, b });
+	int a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3, b = Game::WIN_HEIGHT / 5.33;
+	player1 = new Cards(this, 0, { a , b });
 	addObjects(player1);
 	//banker izq
 	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42; b = Game::WIN_HEIGHT / 5.32;
+	banker1 = new Cards(this, 0, { a, b });
+	addObjects(banker1);
+	//izq player
+	a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70; b = Game::WIN_HEIGHT / 5.33;
 	player2 = new Cards(this, 0, { a, b });
 	addObjects(player2);
-	//izq player
-	a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.35; b = Game::WIN_HEIGHT / 5.34;
-	banker1 = new Cards(this, 0, { a , b });
-	addObjects(banker1);
 	//banker dch
 	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20; b = Game::WIN_HEIGHT / 5.32;
 	banker2 = new Cards(this, 0, { a, b });
 	addObjects(banker2);
-
+	//tercera player
+	a = Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81; b = Game::WIN_HEIGHT / 5.33;
+	player3 = new Cards(this, 14, { a, b }, 270);
+	addObjects(player3);
+	//tercera banca
+	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5, b = Game::WIN_HEIGHT / 5.32;
+	banker3 = new Cards(this, 14, { a, b }, 90);
+	addObjects(banker3);
 	clearDeck();
 }
 
 void Baccarat::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p) {
-		repartir();
+		player3->frame = 14;//inicializamos invisible
+		banker3->frame = 14;
+		handCards();
+		//eleccion frame cartas
+		player1->frame = mat.player[0];
+		banker1->frame = mat.banker[0];
+		player2->frame = mat.player[1];
+		banker2->frame = mat.banker[1];
 
-		player1->frame = tap.jugador[0];
-		banker1->frame = tap.banca[0];
-		player2->frame = tap.jugador[1];
-		banker2->frame = tap.banca[1];
+		handThird();//reparte tercera
 
-		clearDeck();
+		clearDeck();//borramos mazo repartido
 	}
 }
 
@@ -44,59 +55,67 @@ void Baccarat::render() const {
 }
 
 void Baccarat::clearDeck() {
-	while (0 < cartas.size())
-		cartas.pop_back();
-	while (0 < tap.jugador.size())
-		tap.jugador.pop_back();
-	while (0 < tap.banca.size())
-		tap.banca.pop_back();
+	while (0 < cardsVec.size())
+		cardsVec.pop_back();
+	while (0 < mat.player.size())
+		mat.player.pop_back();
+	while (0 < mat.banker.size())
+		mat.banker.pop_back();
 }
 
-void Baccarat::update() {
+void Baccarat::update() {//para que las cartas se muevan enun futuro
 
 }
 
-void Baccarat::repartir() {
-	for (int i = 0; i < 2; i++) {
-		numAleatorio = generaAleatorio();
-		tap.jugador.push_back(numAleatorio);
-		cartas.push_back(numAleatorio);
-		numAleatorio = generaAleatorio();
-		tap.banca.push_back(numAleatorio);
-		cartas.push_back(numAleatorio);
+void Baccarat::handCards() {
+	for (int i = 0; i < 2; i++) {//reparte las 4 primeras cartas
+		rndNum = generateRnd();
+		mat.player.push_back(rndNum);
+		cardsVec.push_back(rndNum);
+		rndNum = generateRnd();
+		mat.banker.push_back(rndNum);
+		cardsVec.push_back(rndNum);
 	}
 }
 
-void Baccarat::repartirTercera() {
-	sumaJug = (tap.jugador[0] + tap.jugador[1]) % 10;
-	sumaBanca = (tap.banca[0] + tap.banca[1]) % 10;
-	if (sumaJug < 6) {
-		numAleatorio = generaAleatorio();
-		tap.jugador.push_back(numAleatorio);
-		cartas.push_back(numAleatorio);
-		terceraBanca();
+void Baccarat::handThird() {//reparte la tercera segun las normas
+	//cout << mat.player[0] << " " << mat.player[1] << endl;
+	if (mat.player[0] > 9) mat.player[0] = 0;//para q las figuras no tengan valor
+	if (mat.player[1] > 9) mat.player[1] = 0;
+	if (mat.banker[0] > 9) mat.banker[0] = 0;
+	if (mat.banker[1] > 9) mat.banker[1] = 0;
+	playerComb = (mat.player[0] + mat.player[1]) % 10;
+	bankerComb = (mat.banker[0] + mat.banker[1]) % 10;//cuando pasa de 10 no se cuentan decena
+	cout << playerComb << " " << bankerComb << endl;
+	if (playerComb < 6) {
+		rndNum = generateRnd();
+		mat.player.push_back(rndNum);
+		cardsVec.push_back(rndNum);
+		player3->frame = rndNum;
+		bankThird();
 	}
-	else if (sumaJug == 6 || sumaJug == 7) {
-		if (sumaBanca < 6) {
-			numAleatorio = generaAleatorio();
-			tap.banca.push_back(numAleatorio);
-			cartas.push_back(numAleatorio);
+	else if (playerComb == 6 || playerComb == 7) {
+		if (bankerComb < 6) {
+			rndNum = generateRnd();
+			mat.banker.push_back(rndNum);
+			cardsVec.push_back(rndNum);
+			banker3->frame = rndNum;
 		}
 	}
 }
 
-void Baccarat::terceraBanca() {
-	if (sumaBanca < 3 || sumaBanca == 3 && tap.jugador.back() % 10 != 8 ||
-		tap.jugador.back() % 10 < 8 && (sumaBanca == 4 && tap.jugador.back() % 10 > 1 ||
-			sumaBanca == 5 && tap.jugador.back() % 10 > 3 || sumaBanca == 6 && tap.jugador.back() % 10 > 5)) {
-
-		numAleatorio = generaAleatorio();
-		tap.banca.push_back(numAleatorio);
-		cartas.push_back(numAleatorio);
+void Baccarat::bankThird() {//se llama desde handthird si es necesario
+	if (bankerComb < 3 || bankerComb == 3 && mat.player.back() % 10 != 8 ||
+		mat.player.back() % 10 < 8 && (bankerComb == 4 && mat.player.back() % 10 > 1 ||
+			bankerComb == 5 && mat.player.back() % 10 > 3 || bankerComb == 6 && mat.player.back() % 10 > 5)) {
+		rndNum = generateRnd();
+		mat.banker.push_back(rndNum);
+		cardsVec.push_back(rndNum);
+		banker3->frame = rndNum;
 	}
 }
 
-int Baccarat::generaAleatorio() {
+int Baccarat::generateRnd() {
 	random_device rd;  // Semilla basada en hardware (si está disponible)
 	mt19937 gen(rd()); // Mersenne Twister como generador de números aleatorios
 	uniform_int_distribution<> distrib(1, 13);
@@ -105,8 +124,8 @@ int Baccarat::generaAleatorio() {
 	int i = 0;
 	int cont = 0;
 
-	while (i < cartas.size() && cartas.size() > 4) {
-		if (cartas[i] == num) {
+	while (i < cardsVec.size() && cardsVec.size() > 4) {
+		if (cardsVec[i] == num) {
 			cont++;
 			if (cont == 4) {
 				num = distrib(gen);

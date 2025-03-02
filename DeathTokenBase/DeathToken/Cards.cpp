@@ -1,10 +1,11 @@
 #include "Cards.h"
 #include "Game.h"
 
-Cards::Cards(GameState* game, int frame, Point2D<> pos) :
+Cards::Cards(GameState* game, int frame, Point2D<> pos, double angle) :
 	sceneObject(game, pos, game->getGame()->getTexture(CARDS)),
 	texture(game->getGame()->getTexture(CARDS)),
-	frame(frame)
+	frame(frame),
+	angle(angle)
 {
 	w = Game::WIN_WIDTH / 20;
 	h = Game::WIN_HEIGHT / 8;
@@ -12,7 +13,7 @@ Cards::Cards(GameState* game, int frame, Point2D<> pos) :
 
 void Cards::render() const {
 	SDL_Rect render = getRenderRect();
-	texture->renderFrame(render, 0, frame);
+	texture->renderFrame(render, 0, frame, angle);
 }
 
 
