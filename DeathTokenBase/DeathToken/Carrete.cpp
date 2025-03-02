@@ -17,7 +17,7 @@ vector<int> Carrete::vectorAleatorio() {
 }
 
 Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* ic)
-	: sceneObject(g, pos, w, h, celdas), iconos(ic), indice(0) {
+	: sceneObject(g, pos, w, h, celdas), iconos(ic), indice(0)  {
 
 	resultante = vectorAleatorio();
 }

@@ -1,5 +1,4 @@
 #include "Button.h"
-#include "Game.h"
 #include "UI.h"
 
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
@@ -20,12 +19,14 @@ Button::update()
 	hover = SDL_PointInRect(&point, &box);
 }
 void Button::render() const {
-	if (!hover)
+	if (!hover) {
 		text->render(box);
+	}
 	else {
 		SDL_Rect point(box.x, box.y, box.h, box.h);
 		text->render(box, SDL_Color(255, 255, 0));
 	}
+	
 }
 void Button::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
@@ -40,10 +41,10 @@ void Button::connect(Callback callback) {
 
 ButtonUI::ButtonUI(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
 	: Button(g, x, y, w, h, t), textC(tC), clicked(false) {
-	boxB.x = x - (w * 0.05f);
-	boxB.y = y - (h * 0.05f);
-	boxB.w = w * 1.1f;
-	boxB.h = h * 1.1f;
+	boxB.x = (int)(x - (w * 0.05f));
+	boxB.y = (int)(y - (h * 0.05f));
+	boxB.w = (int)(w * 1.1f);
+	boxB.h = (int)(h * 1.1f);
 }
 void
 ButtonUI::update()
@@ -67,11 +68,79 @@ ButtonUI::render() const
 	}
 }
 
-ButtonBet::ButtonBet(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: ButtonUI(g, x, y, w, h, t, tC) {}
+ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
+	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), betHistory(0), ui(ui)
+{
+	connect([this]() { });
+
+	chipSpace.x = (int)(x + (w / 2 - 50));
+	chipSpace.y = (int)(y + (h / 2 - 50));
+	chipSpace.w = (int)(100);
+	chipSpace.h = (int)(100);
+
+	currentText = game->getTexture(UICHIP1);
+}
+TextureName
+ButtonBet::showChip()
+{
+	currentBetSprite = "UICHIP" + std::to_string(currentBet);
+	auto aux = stringToTexture.find(currentBetSprite);
+	if (aux != stringToTexture.end())
+	{
+		return aux->second;
+	}
+	else
+	{
+		return stringToTexture.find(lastChipSprite)->second;
+	}
+}
+void
+ButtonBet::clear()
+{
+	betHistory = currentBet;
+	currentBet = 0;
+}
+void
+ButtonBet::repeat()
+{
+	currentBet = betHistory;
+}
+int
+ButtonBet::getBet()
+{
+	return currentBet;
+}
+void
+ButtonBet::update()
+{
+	Button::update();
+	int mouseState = SDL_GetMouseState(NULL, NULL);
+	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
+}
+void
+ButtonBet::render() const
+{
+	ButtonUI::render();
+	if (currentBet > 0)
+	{
+		currentText->render(chipSpace);
+	}
+}
+void
+ButtonBet::handleEvent(const SDL_Event& event)
+{
+	Button::handleEvent(event);
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ui->currentChipValue();
+		currentBet += chip;
+		lastChipSprite = "UICHIP" + std::to_string(chip);
+		currentText = game->getTexture(showChip());
+	}
+}
 
 ButtonChip::ButtonChip(GameState* g, UI* ui, int x, int y, int w, int h, int id,
-						int v0, int v1, int v2, Texture* t0, Texture* t1, Texture* t2)
+	int v0, int v1, int v2, Texture* t0, Texture* t1, Texture* t2)
 	: Button(g, x, y, w, h, t0), ui(ui), onUse(false), clicked(false), id(id), slot(false)
 {
 	value = v0;
@@ -110,7 +179,7 @@ ButtonChip::update()
 	if (clicked)
 	{
 		boxC.x = point.x - (boxC.w / 2);
-		boxC.y = point.y -(boxC.h / 2);
+		boxC.y = point.y - (boxC.h / 2);
 	}
 }
 void
@@ -139,4 +208,218 @@ void
 ButtonChip::setSlot()
 {
 	slot = true;
+}
+int
+ButtonChip::getValue()
+{
+	return value;
+}
+
+ButtonMarbles::ButtonMarbles(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC, int type, std::vector<int>NCMarbles)
+	: ButtonBet(gS, game, ui, x, y, w, h, t, tC), NCMarbles(NCMarbles), type(type)
+{
+	stop = type;
+	CMarbles.push_back(gS->getGame()->getTexture(REDMARBLE));
+	CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLE));
+	CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLE));
+	CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLE));
+}
+void
+ButtonMarbles::render() const
+{
+	SDL_Rect auxBox;
+	int pos = 0;
+
+	switch (type)
+	{
+	case 1: {
+		for (int i = 0; i < NCMarbles.size(); i++) {
+			if (NCMarbles[i] == 1) {
+				auxBox.x = (int)(box.x + box.w / 2.0 - (74.0 / 1080.0 * Game::WIN_HEIGHT) / 2.0);
+				auxBox.y = (int)(box.y + box.h / 2.0 - (74.0 / 1920.0 * Game::WIN_WIDTH) / 2.0);
+				auxBox.w = (int)((74.0 / 1920.0 * Game::WIN_WIDTH));
+				auxBox.h = (int)((74.0 / 1080.0 * Game::WIN_HEIGHT));
+				CMarbles[i]->render(auxBox);
+				break;
+
+			}
+		}
+
+		break;
+	}case 2: {
+		for (int i = 0; i < NCMarbles.size(); i++) {
+			if (NCMarbles[i] == 2) {
+
+				auxBox.x = (int)(box.x + box.w / 4.0 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+				auxBox.y = (int)(box.y + box.h / 2.0 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+				auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+				auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+				CMarbles[i]->render(auxBox);
+
+
+
+				auxBox.x = (int)(box.x + (box.w - box.w / 4) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+				auxBox.y = (int)(box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+				auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+				auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+				CMarbles[i]->render(auxBox);
+
+
+			}
+			else if (NCMarbles[i] == 1) {
+				if (pos == 0) {
+					auxBox.x = (int)(box.x + box.w / 4 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					pos++;
+				}
+				else {
+					auxBox.x = (int)(box.x + (box.w - box.w / 4) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + box.h / 2 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					break;
+				}
+			}
+		}
+		break;
+	}case 3: {
+		for (int i = 0; i < NCMarbles.size(); i++) {
+			if (NCMarbles[i] == 3) {
+				auxBox.x = (int)(box.x + box.w / 4 - (74.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+				auxBox.y = (int)(box.y + box.h / 2 - (74.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+				auxBox.w = (int)(74.0 / 1920.0 * Game::WIN_WIDTH);
+				auxBox.h = (int)(74.0 / 1080.0 * Game::WIN_HEIGHT);
+				CMarbles[i]->render(auxBox);
+				auxBox.x = (int)(box.x + (box.w - box.w / 4) - (74.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+				auxBox.y = (int)(box.y + box.h / 2 - (74.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+				auxBox.w = (int)(74.0 / 1920.0 * Game::WIN_WIDTH);
+				auxBox.h = (int)(74.0 / 1080.0 * Game::WIN_HEIGHT);
+				CMarbles[i]->render(auxBox);
+				auxBox.x = (int)(box.x + 2 * box.w / 4 - (74.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+				auxBox.y = (int)(box.y + box.h / 2 - (74.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+				auxBox.w = (int)(74.0 / 1920.0 * Game::WIN_WIDTH);
+				auxBox.h = (int)(74.0 / 1080.0 * Game::WIN_HEIGHT);
+				CMarbles[i]->render(auxBox);
+				break;
+			}
+		}
+
+		break;
+	}case 4: {
+		for (int i = 0; i < NCMarbles.size(); i++) {
+			if (NCMarbles[i] == 3) {
+				if (i == 0) {
+					//1/1
+					auxBox.x = (int)(box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//2/1
+					auxBox.x = (int)(box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//3/1
+					auxBox.x = (int)(box.x + box.w / 5 - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+
+
+				}
+				else if (i == 1) {
+					//1/2
+					auxBox.x = (int)(box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//2/2
+					auxBox.x = (int)(box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//3/2
+					auxBox.x = (int)(box.x + 2 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+
+
+				}
+				else if (i == 2) {
+					//1/3
+					auxBox.x = (int)(box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//2/3
+					auxBox.x = (int)(box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//3/3
+					auxBox.x = (int)(box.x + 3 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+
+				}
+				else if (i == 3) {
+
+					//1/4
+					auxBox.x = (int)(box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + box.h / 4 - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//2/4
+					auxBox.x = (int)(box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 2 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+					//3/4
+					auxBox.x = (int)(box.x + 4 * (box.w / 5) - (52.0 / 1080.0 * Game::WIN_HEIGHT) / 2);
+					auxBox.y = (int)(box.y + 3 * (box.h / 4) - (52.0 / 1920.0 * Game::WIN_WIDTH) / 2);
+					auxBox.w = (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+					auxBox.h = (int)(52.0 / 1080.0 * Game::WIN_HEIGHT);
+					CMarbles[i]->render(auxBox);
+				}
+			}
+		}
+
+		break;
+	}
+	default:
+		break;
+	}
+	ButtonBet::render();
+}
+void
+ButtonMarbles::handleEvent(const SDL_Event& event)
+{
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ui->currentChipValue();
+		currentBet += chip;
+		lastChipSprite = "UICHIP" + std::to_string(chip);
+		currentText = game->getTexture(showChip());
+	}
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		cb();
+	}
 }

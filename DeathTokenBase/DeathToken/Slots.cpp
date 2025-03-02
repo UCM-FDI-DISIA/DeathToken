@@ -1,17 +1,17 @@
 #include "Slots.h"
+#include "Game.h"
 
 
-Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
+Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this, g, this))
 {
-	ui = new UISlots(this, g);
-
 	int offset = 20;
 	int x = (game->WIN_WIDTH / 2) - (TAM_CELDA + TAM_CELDA / 2) - offset;
 
-	Button* botonIncio = new Button(this, x - TAM_BOTON - offset, game->WIN_HEIGHT/2 - TAM_BOTON/2, TAM_BOTON, TAM_BOTON, game->getTexture(CELDA));
+	/*Button* botonIncio = new Button(this, x - TAM_BOTON - offset, game->WIN_HEIGHT / 2 - TAM_BOTON / 2, TAM_BOTON, TAM_BOTON, game->getTexture(CELDA));
 	addObjects(botonIncio);
 	addEventListener(botonIncio);
 	botonIncio->connect([this] {for (Carrete* c : carretes) c->iniciarGiro();});
+	*/
 
 	for (int i = 0; i < N_COLUM; ++i) {
 		carretes.push_back(new Carrete(this, { x , TAM_CELDA }, TAM_CELDA, TAM_CELDA, game->getTexture(CELDA), game->getTexture(ICONOS)));
@@ -21,7 +21,10 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0)
 		addEventListener(button);
 
 		Carrete* c = carretes[i];
-		button->connect([this, c] { c->pararGiro(); ++comprobanteIndice; });
+		button->connect([this, c]{  
+				c->pararGiro();
+				if(c->getParada())++comprobanteIndice;
+			});
 		x += TAM_CELDA + offset;
 	}
 
@@ -66,6 +69,9 @@ void Slots::update() {
 		vectorCarrete1.erase(vectorCarrete1.begin(), vectorCarrete1.end() - 1);
 		vectorCarrete2.erase(vectorCarrete2.begin(), vectorCarrete2.end() - 1);
 		vectorCarrete3.erase(vectorCarrete3.begin(), vectorCarrete3.end() - 1);
-		cout << multiplicador << "\n";
+		std :: cout << multiplicador << "\n";
 	}
+}
+void Slots::iniciarGiro() {
+	{for (Carrete* c : carretes) c->iniciarGiro(); }
 }

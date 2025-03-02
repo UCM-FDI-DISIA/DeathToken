@@ -4,8 +4,8 @@
 #include "Slots.h"
 #include "Menu.h"
 
-int Game::WIN_WIDTH = 0;
-int Game::WIN_HEIGHT = 0;
+int Game::WIN_WIDTH = 1920;
+int Game::WIN_HEIGHT = 1080;
 
 // Formato de la especificaci�n de una textura
 struct TextureSpec
@@ -60,6 +60,22 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/chips/chipRef_2K.png", 1, 1},
 	TextureSpec{"ui/chips/chipRef_5K.png", 1, 1},
 	TextureSpec{"player.png", 1, 1},
+	TextureSpec{"marbles/Marbles_bg.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
+
+
+	
 };
 
 Game::Game() {

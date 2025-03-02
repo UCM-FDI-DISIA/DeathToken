@@ -12,7 +12,7 @@
 
 
 class Slots : public GameState {
-private:
+protected:
 	constexpr static int N_COLUM = 3;
 	constexpr static int TAM_CELDA = 150;
 	constexpr static int DISTANCIA_BOTON = TAM_CELDA * 4 + 50;
@@ -28,4 +28,5 @@ public:
 	Slots(Game*);
 	~Slots();
 	void update() override;
+	void iniciarGiro();
 };

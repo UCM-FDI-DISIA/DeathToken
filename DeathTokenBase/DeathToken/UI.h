@@ -4,7 +4,6 @@
 #include "Button.h"
 #include <vector>
 class Player;
-
 class UI
 {
 protected:
@@ -27,9 +26,10 @@ public:
 	UI(GameState* g, Game* game);
 
 	void changeChip(const int& id);
+	int currentChipValue();
 	
 	void OnExit();
-	virtual void OnGo() {};
+	virtual void OnGo() = 0;
 };
 
 class UIChips : public UI
@@ -47,21 +47,31 @@ protected:
 public:
 	UIChips(GameState* gS, Game* game);
 };
-
+class Slots;
 class UISlots : public UI
 {
 protected:
+	Slots* slots;
 	ButtonUI* x2;
 	ButtonUI* x3;
 	ButtonUI* x5;
 	ButtonUI* info;
-
+public:
+	UISlots(GameState*, Game*, Slots*);
+	void OnGo() override;
 	void Onx2();
 	void Onx3();
 	void Onx5();
 	void OnInfo();
-
-public:
-	UISlots(GameState* gS, Game* game);
 };
+class Marbles;
+class UIMarbles :public   UIChips{
+	Marbles* marbles;
+	std::vector<ButtonBet*> bets;
+public:
+	UIMarbles(GameState* gS, Game* game, Marbles* marbles);
 
+	void OnGo() override;
+	void OnErase() override;
+	void OnRepeat() override;
+};

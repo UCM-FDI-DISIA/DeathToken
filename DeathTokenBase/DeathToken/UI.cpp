@@ -1,5 +1,8 @@
 #include "UI.h"
 #include "Game.h"
+#include "Marbles.h"
+#include "Slots.h"
+#include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
 {
@@ -32,19 +35,19 @@ UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(
 	chips[0]->connect([this]() {});
 
 	chips[1] = new ButtonChip(gS, this, relativeX(497.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 1,
-							  2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1K));
+							  2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1000));
 	gS->addObjects(chips[1]);
 	gS->addEventListener(chips[1]);
 	chips[1]->connect([this]() {});
 
 	chips[2] = new ButtonChip(gS, this, relativeX(627.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 2,
-							  5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2K));
+							  5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2000));
 	gS->addObjects(chips[2]);
 	gS->addEventListener(chips[2]);
 	chips[2]->connect([this]() {});
 
 	chips[3] = new ButtonChip(gS, this, relativeX(757.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 3,
-							  10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5K));
+							  10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5000));
 	gS->addObjects(chips[3]);
 	gS->addEventListener(chips[3]);
 	chips[3]->connect([this]() {});
@@ -71,6 +74,11 @@ UI::changeChip(const int& id)
 	chipOnUse = id;
 	chips[chipOnUse]->setOnUse(true);
 }
+int
+UI::currentChipValue()
+{
+	return chips[chipOnUse]->getValue();
+}
 void
 UI::OnArrow(const bool& left)
 {
@@ -86,9 +94,9 @@ UI::OnArrow(const bool& left)
 		}
 	}
 }
-
 UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
+
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
 	gS->addObjects(erase);
 	gS->addEventListener(erase);
@@ -105,7 +113,8 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 	repeat->connect([this]() { OnRepeat(); });
 }
 
-UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
+
+UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot)
 {
 	for (ButtonChip* i : chips)
 	{
@@ -131,6 +140,10 @@ UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 }
+void 
+UISlots::OnGo() {
+	slots->iniciarGiro();
+}
 void
 UISlots::Onx2()
 {
@@ -150,4 +163,18 @@ void
 UISlots::OnInfo()
 {
 
+}
+
+UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
+void UIMarbles::OnGo() {
+	marbles->startRound();
+}
+
+void UIMarbles::OnErase() {
+	marbles->clearBets();
+}
+
+void UIMarbles::OnRepeat()
+{
+	marbles->repeat();
 }

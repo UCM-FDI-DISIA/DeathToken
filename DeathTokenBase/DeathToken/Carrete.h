@@ -23,6 +23,7 @@ public:
 	void moverIndice();
 	int getIndice() const { return indice; };
 	vector<int> getCarrete() const { return carretesRes; };
+	bool getParada() { return giro; }
 	void deleteCarrete() { carretesRes.erase(carretesRes.erase(carretesRes.begin(), carretesRes.end() - 1)); }
 	void iniciarGiro();
 	void pararGiro();
