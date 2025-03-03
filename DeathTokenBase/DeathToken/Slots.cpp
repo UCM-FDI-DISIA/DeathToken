@@ -45,7 +45,7 @@ void Slots::update() {
 		vector<int> vectorCarrete3 = carretes[2]->getCarrete();
 
 		int multiplicador = 0;
-		for (int i = 0; i < 3; ++i) {
+		for (int i = 0; i < N_COLUM; ++i) {
 
 			bool telarañas1_2 = vectorCarrete1[i] == vectorCarrete2[i] && puntuaciones.find(vectorCarrete1[i])->first == 0;
 			bool telarañas1_3 = vectorCarrete1[i] == vectorCarrete3[i] && puntuaciones.find(vectorCarrete1[i])->first == 0;
@@ -61,9 +61,9 @@ void Slots::update() {
 			}
 		}
 		for (Carrete* c : carretes) c->deleteCarrete();
-		vectorCarrete1.erase(vectorCarrete1.begin(), vectorCarrete1.end() - 1);
-		vectorCarrete2.erase(vectorCarrete2.begin(), vectorCarrete2.end() - 1);
-		vectorCarrete3.erase(vectorCarrete3.begin(), vectorCarrete3.end() - 1);
+		vectorCarrete1.erase(vectorCarrete1.begin(), vectorCarrete1.end());
+		vectorCarrete2.erase(vectorCarrete2.begin(), vectorCarrete2.end());
+		vectorCarrete3.erase(vectorCarrete3.begin(), vectorCarrete3.end());
 		std :: cout << multiplicador << "\n";
 	}
 }

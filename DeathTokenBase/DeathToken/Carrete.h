@@ -17,7 +17,7 @@ private:
 	bool giro = false;
 	vector<int>carretesRes;
 
-	const int delta = 1;
+	const int delta = 5;
 	int act;
 
 public:
