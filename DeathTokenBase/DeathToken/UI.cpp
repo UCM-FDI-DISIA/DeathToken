@@ -179,14 +179,14 @@ void UIMarbles::OnRepeat()
 UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
 
 void UIBaccarat::OnGo() {
-	//baccarat->startRound();
+	baccarat->startRound();
 }
 
 void UIBaccarat::OnErase() {
-	//baccarat->clearBets();
+	baccarat->clearBets();
 }
 
 void UIBaccarat::OnRepeat()
 {
-	//baccarat->repeat();
+	baccarat->repeat();
 }

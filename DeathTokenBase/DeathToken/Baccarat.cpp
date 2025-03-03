@@ -2,7 +2,7 @@
 #include "Game.h"
 #include <random>
 
-Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)) {
+Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)), ui(new UIBaccarat(this, game, this)) {
 	addEventListener(this);
 	handCards();
 	//derch player
@@ -30,23 +30,15 @@ Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMA
 	banker3 = new Cards(this, 14, { a, b }, 90);
 	addObjects(banker3);
 	clearDeck();
+
+	//Buttons
+	createMarbleButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 2, Game::WIN_WIDTH / 5, Game::WIN_HEIGHT / 8, 8);//x8 apuesta
+	//a = Game::WIN_WIDTH / 2, b = Game::WIN_HEIGHT /2;
+	//banker3 = new Cards(this, 10, { a, b });
+	//addObjects(banker3);
 }
 
 void Baccarat::handleEvent(const SDL_Event& event) {
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p) {
-		player3->frame = 14;//inicializamos invisible
-		banker3->frame = 14;
-		handCards();
-		//eleccion frame cartas
-		player1->frame = mat.player[0];
-		banker1->frame = mat.banker[0];
-		player2->frame = mat.player[1];
-		banker2->frame = mat.banker[1];
-
-		handThird();//reparte tercera
-
-		clearDeck();//borramos mazo repartido
-	}
 }
 
 void Baccarat::render() const {
@@ -64,7 +56,7 @@ void Baccarat::clearDeck() {
 }
 
 void Baccarat::update() {//para que las cartas se muevan enun futuro
-
+	GameState::update();
 }
 
 void Baccarat::handCards() {
@@ -124,6 +116,7 @@ int Baccarat::generateRnd() {
 	int i = 0;
 	int cont = 0;
 
+	// ya no os quiero (cleon)
 	while (i < cardsVec.size() && cardsVec.size() > 4) {
 		if (cardsVec[i] == num) {
 			cont++;
@@ -137,4 +130,73 @@ int Baccarat::generateRnd() {
 	}
 
 	return num;
+}
+//APUESTAS
+void Baccarat::newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat) {
+	moneyBet = btnBaccarat->getBet();
+
+	// así es más chuli (cleon)
+	bets[clave++] = { multiplier, moneyBet };
+	//clave++;
+}
+
+void
+Baccarat::createMarbleButton(int x, int y, int width, int height, int type) {
+
+	int multiplier = 0;
+
+	// cleon cree que "type" sobra
+	// cleon cree que el copypaste es el mal
+	if (type == 1) {
+		multiplier = 2;
+	}
+	else if (type == 2) {
+		multiplier = 5;
+
+	}
+	else if (type == 3) {
+		multiplier = 20;
+
+	}
+	else if (type == 4) {
+		multiplier = 5;
+	}
+	ButtonBaccarat* btnBaccarat = new ButtonBaccarat(this, game, ui, x, y, width, height, type);
+	bacButtons.push_back(btnBaccarat);
+	addObjects(bacButtons.back());
+	addEventListener(bacButtons.back());
+	btnBaccarat->connect([this, multiplier, btnBaccarat]() { newBet(multiplier, moneyBet, btnBaccarat); });
+}
+
+void Baccarat::clearBets() {
+	betsHistory = bets;
+	bets.clear();
+	for (auto i : bacButtons)
+	{
+		i->clear();
+	}
+}
+
+void Baccarat::repeat()
+{
+	bets = betsHistory;
+	for (auto i : bacButtons)
+	{
+		i->repeat();
+	}
+}
+
+void Baccarat::startRound() {
+	player3->frame = 14;//inicializamos invisible
+	banker3->frame = 14;
+	handCards();
+	//eleccion frame cartas
+	player1->frame = mat.player[0];
+	banker1->frame = mat.banker[0];
+	player2->frame = mat.player[1];
+	banker2->frame = mat.banker[1];
+
+	handThird();//reparte tercera
+
+	clearDeck();//borramos mazo repartido
 }

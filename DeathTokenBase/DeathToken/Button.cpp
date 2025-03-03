@@ -26,7 +26,7 @@ void Button::render() const {
 		SDL_Rect point(box.x, box.y, box.h, box.h);
 		text->render(box, SDL_Color(255, 255, 0));
 	}
-	
+
 }
 void Button::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
@@ -71,7 +71,7 @@ ButtonUI::render() const
 ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
 	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), betHistory(0), ui(ui)
 {
-	connect([this]() { });
+	connect([this]() {});
 
 	chipSpace.x = (int)(x + (w / 2 - 50));
 	chipSpace.y = (int)(y + (h / 2 - 50));
@@ -410,6 +410,37 @@ ButtonMarbles::render() const
 }
 void
 ButtonMarbles::handleEvent(const SDL_Event& event)
+{
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ui->currentChipValue();
+		currentBet += chip;
+		lastChipSprite = "UICHIP" + std::to_string(chip);
+		currentText = game->getTexture(showChip());
+	}
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		cb();
+	}
+}
+//BACCARAT
+ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, int type)
+	: ButtonBet(gS, game, ui, x, y, w, h, game->getTexture(CARDS), game->getTexture(CARDS)), type(type)
+{
+
+}
+
+void
+ButtonBaccarat::render() const
+{
+	if (currentBet > 0)
+	{
+		currentText->render(chipSpace);
+	}
+}
+
+void
+ButtonBaccarat::handleEvent(const SDL_Event& event)
 {
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
