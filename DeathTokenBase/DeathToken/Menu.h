@@ -13,11 +13,11 @@ class Menu : public GameState
 	Texture* texture;
 	Button* baccarat;
 	Button* marbles;
-	Button* peleas;
+	Button* fights;
 	Button* slots;
 public:
 	Menu(Game* game);
-	void cambiaJuego(GameState* juego);
+	void gameChanger(GameState* juego);
 	void render() const override;
 };
 
