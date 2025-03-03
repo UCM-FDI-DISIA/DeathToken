@@ -87,3 +87,16 @@ public:
 	void setSlot();
 	int getValue();
 };
+
+class ButtonMarbles : public ButtonBet
+{
+protected:
+	int stop;
+	int type;
+	std::vector<Texture*> CMarbles;
+	std::vector<int> NCMarbles;
+public:
+	ButtonMarbles(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*, int type, std::vector<int>);
+	void render() const override;
+	void handleEvent( const SDL_Event& event) override;
+};

@@ -1,8 +1,9 @@
 #pragma once
+#include "gameStateMachine.h"
+
 #include <SDL.h>
 #include <array>
 #include "Texture.h"
-#include "gameStateMachine.h";
 
 class Player;
 
@@ -47,9 +48,19 @@ enum TextureName {
 	UICHIP2000,
 	UICHIP5000,
 	MARIO,
-	BACMAT,//tapete
-	CARDS,
-	CARDBACK,
+	MARBLESBACK,
+	BUTTONMARBLES1,
+	BUTTONMARBLES1CLCK,
+	BUTTONMARBLES2,
+	BUTTONMARBLES2CLCK,
+	BUTTONMARBLES3,
+	BUTTONMARBLES3CLCK,
+	BUTTONMARBLES4,
+	BUTTONMARBLES4CLCK,
+	REDMARBLE,
+	GREENMARBLE,
+	BLUEMARBLE,
+	YELLOWMARBLE,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };
 class Game : private GameStateMachine {

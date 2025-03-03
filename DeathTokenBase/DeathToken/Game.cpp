@@ -3,10 +3,10 @@
 #include "Game.h"
 #include "Menu.h"
 
-int Game::WIN_WIDTH = 0;
-int Game::WIN_HEIGHT = 0;
+int Game::WIN_WIDTH = 1920;
+int Game::WIN_HEIGHT = 1080;
 
-// Formato de la especificación de una textura
+// Formato de la especificaciï¿½n de una textura
 struct TextureSpec
 {
 	const char* name;	// Ruta del archivo
@@ -57,9 +57,22 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/chips/chipRef_2K.png", 1, 1},
 	TextureSpec{"ui/chips/chipRef_5K.png", 1, 1},
 	TextureSpec{"player.png", 1, 1},
-	TextureSpec{"baccarat/Baccarat_bg2.png", 1, 1},
-	TextureSpec{"baccarat/barajaBaccarat.png", 14, 1},
-	TextureSpec{"baccarat/carta_back.jpg", 1, 1},
+	TextureSpec{"marbles/Marbles_bg.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
+
+
+	
 };
 
 Game::Game() {
@@ -120,7 +133,7 @@ void Game::run() {
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - inicio;
 
-		// Duerme el resto de la duración del frame
+		// Duerme el resto de la duraciï¿½n del frame
 		if (elapsed < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - elapsed);
 	}
