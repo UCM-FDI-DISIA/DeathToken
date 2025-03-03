@@ -4,8 +4,10 @@
 #include <SDL.h>
 #include <array>
 #include "Texture.h"
+#include <random>
 
 class Player;
+
 
 using uint = unsigned int;
 
@@ -13,6 +15,8 @@ enum TextureName {
 	CELDA,
 	ICONOS,
 	BACKGROUND,
+	BACMAT,
+	CARDS,
 	BACCARATBUT,
 	SLOTSBUT,
 	CANICASBUT,
@@ -49,7 +53,7 @@ enum TextureName {
 	UICHIP1000,
 	UICHIP2000,
 	UICHIP5000,
-	MARIO,
+	GHOST,
 	MARBLESBACK,
 	BUTTONMARBLES1,
 	BUTTONMARBLES1CLCK,
@@ -80,8 +84,6 @@ private:
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
 
-
-
 public:
 	Game();
 	~Game();
@@ -92,4 +94,7 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+
+	std::mt19937 gen;
+	std::mt19937& getGen() { return gen; }; // Devolver referencia
 };

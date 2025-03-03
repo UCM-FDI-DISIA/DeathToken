@@ -100,3 +100,14 @@ public:
 	void render() const override;
 	void handleEvent( const SDL_Event& event) override;
 };
+//BACCARAT
+class ButtonBaccarat : public ButtonBet
+{
+protected:
+	int type;
+	std::vector<int> NCBaccarat;
+public:
+	ButtonBaccarat(GameState*, Game* game, UI* ui, int x, int y, int w, int h);
+	void render() const override;
+	void handleEvent( const SDL_Event& event) override;
+};

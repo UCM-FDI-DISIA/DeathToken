@@ -4,6 +4,8 @@
 #include "Slots.h"
 #include "Menu.h"
 
+
+
 int Game::WIN_WIDTH = 1920;
 int Game::WIN_HEIGHT = 1080;
 
@@ -23,6 +25,8 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"celdaSlots.png",1,1},
 	TextureSpec{"iconosSlots.png",7,1},
 	TextureSpec{"map/Casino_bg.png", 1, 1},
+	TextureSpec{"baccarat/Baccarat_bg2.png", 1, 1},
+	TextureSpec{"baccarat/barajaBaccarat.png", 14, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
@@ -101,7 +105,12 @@ Game::Game() {
 
 	Menu* menu = new Menu(this);
 	pushState(menu);
+
+	//SEMILLA DE NUMEROS ALEATORIOS
+	random_device rd;
+	gen = std::mt19937(rd()); // Inicializar con una semilla aleatoria
 }
+
 Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
