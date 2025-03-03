@@ -5,25 +5,21 @@
 Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this, g, this))
 {
 	int offset = 20;
+	int y = 50;
 	int x = (game->WIN_WIDTH / 2) - (TAM_CELDA + TAM_CELDA / 2) - offset;
 
-	/*Button* botonIncio = new Button(this, x - TAM_BOTON - offset, game->WIN_HEIGHT / 2 - TAM_BOTON / 2, TAM_BOTON, TAM_BOTON, game->getTexture(CELDA));
-	addObjects(botonIncio);
-	addEventListener(botonIncio);
-	botonIncio->connect([this] {for (Carrete* c : carretes) c->iniciarGiro();});
-	*/
-
 	for (int i = 0; i < N_COLUM; ++i) {
-		carretes.push_back(new Carrete(this, { x , TAM_CELDA }, TAM_CELDA, TAM_CELDA, game->getTexture(CELDA), game->getTexture(ICONOS)));
+		carretes.push_back(new Carrete(this, { x , y }, TAM_CELDA, TAM_CELDA, game->getTexture(CELDA), game->getTexture(ICONOS)));
 		addObjects(carretes[i]);
-		Button* button = new Button(this, x + (TAM_CELDA - TAM_BOTON)/2, DISTANCIA_BOTON, TAM_BOTON, TAM_BOTON, game->getTexture(CELDA));
+		Button* button = new Button(this, x + (TAM_CELDA - TAM_BOTON)/2, y + DISTANCIA_BOTON, TAM_BOTON, TAM_BOTON, game->getTexture(CELDA));
 		addObjects(button);
 		addEventListener(button);
 
 		Carrete* c = carretes[i];
 		button->connect([this, c]{  
-				c->pararGiro();
 				if(c->getParada())++comprobanteIndice;
+				c->pararGiro();
+				
 			});
 		x += TAM_CELDA + offset;
 	}
@@ -40,7 +36,6 @@ Slots:: ~Slots() {
 	for (Carrete* i : carretes) i = nullptr;
 }
 void Slots::update() {
-
 	GameState::update();
 	if (comprobanteIndice == 3) {
 		comprobanteIndice = 0;
@@ -71,6 +66,15 @@ void Slots::update() {
 		vectorCarrete3.erase(vectorCarrete3.begin(), vectorCarrete3.end() - 1);
 		std :: cout << multiplicador << "\n";
 	}
+}
+void Slots::render() const {
+	SDL_Rect r;
+	r.x = r.y = 0;
+	r.h = Game::WIN_HEIGHT;
+	r.w = Game::WIN_WIDTH;
+	game->getTexture(MARBLESBACK)->render(r);
+	
+	GameState::render();
 }
 void Slots::iniciarGiro() {
 	{for (Carrete* c : carretes) c->iniciarGiro(); }

@@ -6,15 +6,19 @@
 #include <random>
 #include "checkML.h"
 
-#define NUM_ELEMS 3
 class Carrete : public sceneObject {
 private:
+	constexpr static int NUM_ELEMS = 3;
+
 	const vector<int> frecuencias = { 4,3,3,3,2,2,1};
 	vector<int> resultante;
 	int indice;
 	Texture* iconos;
 	bool giro = false;
 	vector<int>carretesRes;
+
+	const int delta = 1;
+	int act;
 
 public:
 	Carrete(GameState*,Point2D<int>, int, int, Texture*,Texture*);

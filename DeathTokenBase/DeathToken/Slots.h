@@ -15,7 +15,7 @@ class Slots : public GameState {
 protected:
 	constexpr static int N_COLUM = 3;
 	constexpr static int TAM_CELDA = 150;
-	constexpr static int DISTANCIA_BOTON = TAM_CELDA * 4 + 50;
+	constexpr static int DISTANCIA_BOTON = TAM_CELDA * 3 + 50;
 	constexpr static int TAM_BOTON = 100;
 
 	vector<Carrete*> carretes;
@@ -28,5 +28,6 @@ public:
 	Slots(Game*);
 	~Slots();
 	void update() override;
+	void render() const override;
 	void iniciarGiro();
 };
