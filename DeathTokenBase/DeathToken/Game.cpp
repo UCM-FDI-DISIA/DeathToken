@@ -1,6 +1,7 @@
 #include <string>
 #include "checkML.h"
 #include "Game.h"
+#include "Slots.h"
 #include "Menu.h"
 
 int Game::WIN_WIDTH = 1920;
@@ -19,6 +20,8 @@ const std::string textureRoot = "../assets/images/";
 
 // Especificación de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
+	TextureSpec{"celdaSlots.png",1,1},
+	TextureSpec{"iconosSlots.png",7,1},
 	TextureSpec{"map/Casino_bg.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
@@ -80,8 +83,8 @@ Game::Game() {
 	window = SDL_CreateWindow("Death Token 1x01",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		WIN_WIDTH * TILE_SIDE,
-		WIN_HEIGHT * TILE_SIDE,
+		WIN_WIDTH,
+		WIN_HEIGHT,
 		SDL_WINDOW_SHOWN);
 	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);

@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "Game.h"
 #include "Marbles.h"
+#include "Slots.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -113,7 +114,7 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 }
 
 
-UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
+UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot)
 {
 	for (ButtonChip* i : chips)
 	{
@@ -138,6 +139,10 @@ UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
 	gS->addObjects(info);
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
+}
+void 
+UISlots::OnGo() {
+	slots->iniciarGiro();
 }
 void
 UISlots::Onx2()

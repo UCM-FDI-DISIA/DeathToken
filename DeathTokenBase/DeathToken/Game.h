@@ -10,6 +10,8 @@ class Player;
 using uint = unsigned int;
 
 enum TextureName {
+	CELDA,
+	ICONOS,
 	BACKGROUND,
 	BACCARATBUT,
 	SLOTSBUT,
@@ -61,7 +63,7 @@ enum TextureName {
 	GREENMARBLE,
 	BLUEMARBLE,
 	YELLOWMARBLE,
-	NUM_TEXTURES,  // Truco C++: número de texturas definidas
+	NUM_TEXTURES,  // Truco C++: nï¿½mero de texturas definidas
 };
 class Game : private GameStateMachine {
 public:
@@ -71,7 +73,7 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
 private:
-	// Ventana de la SDL (se destruirá en el destructor)
+	// Ventana de la SDL (se destruirï¿½ en el destructor)
 	SDL_Window* window = nullptr;
 	// Renderizador de la SDL (para dibujar)
 	SDL_Renderer* renderer = nullptr;
