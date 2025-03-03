@@ -86,7 +86,7 @@ void Baccarat::handThird() {//reparte la tercera segun las normas
 	if (mat.banker[1] > 9) mat.banker[1] = 0;
 	playerComb = (mat.player[0] + mat.player[1]) % 10;
 	bankerComb = (mat.banker[0] + mat.banker[1]) % 10;//cuando pasa de 10 no se cuentan decena
-	cout << playerComb << " " << bankerComb << endl;
+	//cout << playerComb << " " << bankerComb << endl;
 	if (playerComb < 6) {
 		rndNum = generateRnd();
 		mat.player.push_back(rndNum);

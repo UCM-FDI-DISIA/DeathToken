@@ -5,17 +5,17 @@
 PauseState::PauseState(Game* g) : GameState(g)
 {
 	//las texturas pone mario en todo pero no es asi
-	cont = new Button(this, 175, 150, 225, 25, game->getTexture(MARIO));
+	cont = new Button(this, 175, 150, 225, 25, game->getTexture(GHOST));
 	addObjects(cont);
 	addEventListener(cont);
 	cont->connect([this]() { continuar(); });
 
-	menu = new Button(this, 113, 250, 350, 25, game->getTexture(MARIO));
+	menu = new Button(this, 113, 250, 350, 25, game->getTexture(GHOST));
 	addObjects(menu);
 	addEventListener(menu);
 	menu->connect([this]() { backToMenu(); });
 
-	salir = new Button(this, 225, 350, 125, 25, game->getTexture(MARIO));
+	salir = new Button(this, 225, 350, 125, 25, game->getTexture(GHOST));
 	addObjects(salir);
 	addEventListener(salir);
 	salir->connect([this]() { exit(); });

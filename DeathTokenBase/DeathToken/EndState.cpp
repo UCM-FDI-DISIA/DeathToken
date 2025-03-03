@@ -6,19 +6,19 @@ EndState::EndState(Game* g, bool win) : GameState(g)
 {
 	if (win) {
 		box = { 163,70,250,25 };
-		result = game->getTexture(MARIO);
+		result = game->getTexture(GHOST);
 	}
 	else {
 		box = { 175,70,225,25 };
-		result = game->getTexture(MARIO);
+		result = game->getTexture(GHOST);
 	}
 
-	menu = new Button(this, 113, 150, 350, 25, game->getTexture(MARIO));
+	menu = new Button(this, 113, 150, 350, 25, game->getTexture(GHOST));
 	addObjects(menu);
 	addEventListener(menu);
 	menu->connect([this]() { backToMenu(); });
 
-	salir = new Button(this, 225, 250, 125, 25, game->getTexture(MARIO));
+	salir = new Button(this, 225, 250, 125, 25, game->getTexture(GHOST));
 	addObjects(salir);
 	addEventListener(salir);
 	salir->connect([this]() { exit(); });

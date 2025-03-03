@@ -75,3 +75,15 @@ public:
 	void OnErase() override;
 	void OnRepeat() override;
 };
+
+class Baccarat;
+class UIBaccarat :public   UIChips {
+	Baccarat* baccarat;
+	std::vector<ButtonBet*> bets;
+public:
+	UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat);
+
+	void OnGo() override;
+	void OnErase() override;
+	void OnRepeat() override;
+};
