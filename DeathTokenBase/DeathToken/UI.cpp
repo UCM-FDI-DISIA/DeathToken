@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Marbles.h"
 #include "Slots.h"
+#include "Baccarat.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
