@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Baccarat.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Cards.h" />
     <ClInclude Include="Carrete.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Baccarat.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Carrete.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />

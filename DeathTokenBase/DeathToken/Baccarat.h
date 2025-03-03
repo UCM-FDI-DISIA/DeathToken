@@ -48,10 +48,13 @@ protected:
 public:
 	Baccarat(Game* game);
 	virtual ~Baccarat() {
-		delete ui;
-		for (auto b : bacButtons) {
-			delete b;
-		}
+		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
+		ui = nullptr;  // Evita accesos a memoria liberada
+
+		//for (auto& b : bacButtons) {
+		//	delete b;  // Libera cada botón
+		//}
+		
 	};
 	void handleEvent(const SDL_Event& event) override;
 	void clearDeck();
