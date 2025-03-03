@@ -4,38 +4,32 @@
 
 Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)), ui(new UIBaccarat(this, game, this)) {
 	addEventListener(this);
-	handCards();
-	//derch player
-	int a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3, b = Game::WIN_HEIGHT / 5.33;
-	player1 = new Cards(this, 0, { a , b });
-	addObjects(player1);
-	//banker izq
-	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42; b = Game::WIN_HEIGHT / 5.32;
-	banker1 = new Cards(this, 0, { a, b });
-	addObjects(banker1);
-	//izq player
-	a = Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70; b = Game::WIN_HEIGHT / 5.33;
-	player2 = new Cards(this, 0, { a, b });
-	addObjects(player2);
-	//banker dch
-	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20; b = Game::WIN_HEIGHT / 5.32;
-	banker2 = new Cards(this, 0, { a, b });
-	addObjects(banker2);
-	//tercera player
-	a = Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81; b = Game::WIN_HEIGHT / 5.33;
-	player3 = new Cards(this, 14, { a, b }, 270);
-	addObjects(player3);
-	//tercera banca
-	a = Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5, b = Game::WIN_HEIGHT / 5.32;
-	banker3 = new Cards(this, 14, { a, b }, 90);
-	addObjects(banker3);
-	clearDeck();
-
+	addCards();
 	//Buttons
-	createMarbleButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 2, Game::WIN_WIDTH / 5, Game::WIN_HEIGHT / 8, 8);//x8 apuesta
-	//a = Game::WIN_WIDTH / 2, b = Game::WIN_HEIGHT /2;
-	//banker3 = new Cards(this, 10, { a, b });
-	//addObjects(banker3);
+	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8);//x8 apuesta
+	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2);//x2 apuesta
+	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2);//x2 apuesta
+}
+
+Cards* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
+	Cards* carta = new Cards(this, frame, { a, b }, rot);
+	addObjects(carta);
+	return carta;
+}
+
+void Baccarat::addCards() {//llama al metodo que crea las cartas
+	//derch player
+	player1 = createCard(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3, Game::WIN_HEIGHT / 5.33, 0, 0);
+	//banker izq
+	banker1 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42, Game::WIN_HEIGHT / 5.32, 0, 0);
+	//izq player
+	player2 = createCard(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70, Game::WIN_HEIGHT / 5.33, 0, 0);
+	//banker dch
+	banker2 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 5.32, 0, 0);;
+	//tercera player
+	player3 = createCard(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81, Game::WIN_HEIGHT / 5.33, 90, 14);
+	//tercera banca
+	banker3 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5, Game::WIN_HEIGHT / 5.32, 270, 14);
 }
 
 void Baccarat::handleEvent(const SDL_Event& event) {
@@ -108,11 +102,9 @@ void Baccarat::bankThird() {//se llama desde handthird si es necesario
 }
 
 int Baccarat::generateRnd() {
-	random_device rd;  // Semilla basada en hardware (si está disponible)
-	mt19937 gen(rd()); // Mersenne Twister como generador de números aleatorios
 	uniform_int_distribution<> distrib(1, 13);
 
-	int num = distrib(gen);
+	int num = distrib(game->getGen());
 	int i = 0;
 	int cont = 0;
 
@@ -121,7 +113,7 @@ int Baccarat::generateRnd() {
 		if (cardsVec[i] == num) {
 			cont++;
 			if (cont == 4) {
-				num = distrib(gen);
+				num = distrib(game->getGen());
 				cont = 0;
 				i = 0;
 			}
@@ -131,6 +123,34 @@ int Baccarat::generateRnd() {
 
 	return num;
 }
+
+void Baccarat::win() {
+	playerComb = 0, bankerComb = 0;
+	
+	for (int i = 0; i < mat.player.size(); i++) {
+		if (mat.player[i] > 9) mat.player[i] = 0;
+		playerComb += mat.player[i];
+	}
+	for (int i = 0; i < mat.banker.size(); i++) {
+		if (mat.banker[i] > 9) mat.banker[i] = 0;
+		bankerComb += mat.banker[i];
+	}
+	playerComb = playerComb % 10;
+	bankerComb = bankerComb % 10;
+
+#if _DEBUG
+	if (playerComb > bankerComb) {
+		cout << "GANA PLAYER" << endl;
+	}
+	else if (playerComb < bankerComb) {
+		cout << "GANA BANKER" << endl;
+	}
+	else {
+		cout << "GANA EMPATE" << endl;
+	}
+#endif
+}
+
 //APUESTAS
 void Baccarat::newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat) {
 	moneyBet = btnBaccarat->getBet();
@@ -141,27 +161,8 @@ void Baccarat::newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat)
 }
 
 void
-Baccarat::createMarbleButton(int x, int y, int width, int height, int type) {
-
-	int multiplier = 0;
-
-	// cleon cree que "type" sobra
-	// cleon cree que el copypaste es el mal
-	if (type == 1) {
-		multiplier = 2;
-	}
-	else if (type == 2) {
-		multiplier = 5;
-
-	}
-	else if (type == 3) {
-		multiplier = 20;
-
-	}
-	else if (type == 4) {
-		multiplier = 5;
-	}
-	ButtonBaccarat* btnBaccarat = new ButtonBaccarat(this, game, ui, x, y, width, height, type);
+Baccarat::createBaccaratButton(int x, int y, int width, int height, int multiplier) {
+	ButtonBaccarat* btnBaccarat = new ButtonBaccarat(this, game, ui, x, y, width, height);
 	bacButtons.push_back(btnBaccarat);
 	addObjects(bacButtons.back());
 	addEventListener(bacButtons.back());
@@ -197,6 +198,6 @@ void Baccarat::startRound() {
 	banker2->frame = mat.banker[1];
 
 	handThird();//reparte tercera
-
+	win();
 	clearDeck();//borramos mazo repartido
 }

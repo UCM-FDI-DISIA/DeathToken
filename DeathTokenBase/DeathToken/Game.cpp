@@ -3,6 +3,8 @@
 #include "Game.h"
 #include "Menu.h"
 
+
+
 int Game::WIN_WIDTH = 1920;
 int Game::WIN_HEIGHT = 1080;
 
@@ -100,7 +102,12 @@ Game::Game() {
 
 	Menu* menu = new Menu(this);
 	pushState(menu);
+
+	//SEMILLA DE NUMEROS ALEATORIOS
+	random_device rd;
+	gen = std::mt19937(rd()); // Inicializar con una semilla aleatoria
 }
+
 Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

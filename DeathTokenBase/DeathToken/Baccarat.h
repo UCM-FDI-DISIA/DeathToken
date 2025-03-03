@@ -39,15 +39,20 @@ protected:
 	Mat mat;
 	vector<int> cardsVec;
 	int rndNum;
-	int playerComb;
-	int bankerComb;
+	int playerComb = 0;
+	int bankerComb = 0;
 	const int xTwo = 2;
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
 	//bool locura; global?
 public:
 	Baccarat(Game* game);
-
+	virtual ~Baccarat() {
+		delete ui;
+		for (auto b : bacButtons) {
+			delete b;
+		}
+	};
 	void handleEvent(const SDL_Event& event) override;
 	void clearDeck();
 	void update() override;
@@ -56,9 +61,12 @@ public:
 	void handThird();
 	void bankThird();
 	int generateRnd();
+	Cards* createCard(int a, int b, int rot, int frame);
+	void addCards();
+	void win();
 
-
-	void createMarbleButton(int x, int y, int width, int height, int type);
+	//metodos apuestas
+	void createBaccaratButton(int x, int y, int width, int height, int multiplier);
 	void newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat);
 	void clearBets();
 	void repeat();

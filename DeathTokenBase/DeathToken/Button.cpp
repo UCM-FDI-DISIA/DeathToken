@@ -424,8 +424,8 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 	}
 }
 //BACCARAT
-ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, int type)
-	: ButtonBet(gS, game, ui, x, y, w, h, game->getTexture(CARDS), game->getTexture(CARDS)), type(type)
+ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h)
+	: ButtonBet(gS, game, ui, x, y, w, h, NULL, NULL)
 {
 
 }
@@ -433,6 +433,7 @@ ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, 
 void
 ButtonBaccarat::render() const
 {
+	//ButtonBet::render(); //para ver posicion boton si metemos textura
 	if (currentBet > 0)
 	{
 		currentText->render(chipSpace);
