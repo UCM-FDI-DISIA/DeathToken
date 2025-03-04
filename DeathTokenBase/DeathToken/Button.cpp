@@ -34,6 +34,12 @@ void Button::handleEvent(const SDL_Event& event) {
 		if (SDL_PointInRect(&point, &box))
 			cb();
 	}
+	//si player encima de button y presiono enter entra
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es enter
+		if (hover)
+			cb();
+
+	}
 }
 void Button::connect(Callback callback) {
 	cb = callback;
@@ -454,4 +460,9 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 	{
 		cb();
 	}
+}
+
+//colision player button
+bool Button::playerHovered(const SDL_Rect& playerRect) {
+	return SDL_HasIntersection(&playerRect, &box);//rect player y rect button
 }

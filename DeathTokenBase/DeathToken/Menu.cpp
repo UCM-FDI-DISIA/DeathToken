@@ -45,6 +45,7 @@ void Menu::gameChanger(GameState* juego) {
 void Menu::render() const {
 	texture->render();
 	GameState::render();
+	
 }
 Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 	Collision col;
@@ -71,7 +72,7 @@ void Menu::update() {//detecto interseciones player/button
 	baccarat->Button::getHover() = baccarat->playerHovered(playerRect);
 	slots->Button::getHover() = slots->playerHovered(playerRect);
 	marbles->Button::getHover() = marbles->playerHovered(playerRect);
-	peleas->Button::getHover() = peleas->playerHovered(playerRect);
+	fights->Button::getHover() = fights->playerHovered(playerRect);
 }
 
 //para que cuando intersecten player y button de a entre y entre en el boton
@@ -82,6 +83,6 @@ void Menu::handleEvent(const SDL_Event& event) {
 		if (baccarat->Button::getHover()) baccarat->Button::getCallback();
 		else if (slots->Button::getHover()) slots->Button::getCallback();
 		else if (marbles->Button::getHover()) marbles->Button::getCallback();
-		else if (peleas->Button::getHover()) peleas->Button::getCallback();
+		else if (fights->Button::getHover()) fights->Button::getCallback();
 	}
 }
