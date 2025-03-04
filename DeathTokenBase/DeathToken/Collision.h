@@ -1,25 +1,24 @@
-ï»¿#pragma once
+#pragma once
 #include <SDL.h>
 
 
 struct Collision
 {
 	enum Target {
-		ENEMIES = 1,	// afecta a enemigos
+		LIMITES = 1,	// afecta a enemigos
 		PLAYER = 2,	// afecta al jugador
-		BOTH = 3,	// afecta a ambos
+		JUEGO = 3,	// afecta a juego
 	};
 
-	// Tipo de resultado de la colisioÌn
+	// Tipo de resultado de la colisión
 	enum Result {
-		NONE,		// no ha habido colisioÌn
-		DAMAGE,		// la colisioÌn produce danÌƒo
-		OBSTACLE,	// la colisioÌn impide el movimiento
+		NONE,		// no ha habido colisión
+		OBSTACLE,	// la colisión impide el movimiento
 	};
 
 	Result result = NONE;
-	int horizontal = 0;   // profundidad de la colisioÌn horizontal
-	int vertical = 0;     // profundidad de la colisioÌn vertical
+	int horizontal = 0;   // profundidad de la colisión horizontal
+	int vertical = 0;     // profundidad de la colisión vertical
 
 	operator bool() const { return result == OBSTACLE; }
 };

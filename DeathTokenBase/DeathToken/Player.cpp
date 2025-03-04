@@ -2,8 +2,9 @@
 
 #include "Player.h"
 #include "Texture.h"
+#include "AnimState.h"
 
-// Se crea el jugador leyendo de archivo su posicioÌn y vidas
+// Se crea el jugador leyendo de archivo su posición y vidas
 Player::Player(GameState* g, Point2D<> pos, Texture* texture)
 	:sceneObject(g, pos, texture), texture(texture)
 {
@@ -22,7 +23,7 @@ void Player::render() const {
 
 }
 
-// ActualizacioÌn y colisiones del personaje
+// Actualización y colisiones del personaje
 void Player::update() {
 	if (speed.getX() == SPEED_MAG && pos.getX() < Game::WIN_WIDTH - w) {//el por diez sobra es pq ahora esta mal puesto el width
 		pos.setX(pos.getX() + speed.getX());
@@ -44,7 +45,7 @@ void Player::update() {
 Collision Player::hit(const SDL_Rect& rect, Collision::Target target) {
 	return NO_COLLISION;
 }
-// Recibe el input y establece la nueva direccioÌn de movimiento (solo salta si estaÌ en el suelo)
+// Recibe el input y establece la nueva dirección de movimiento (solo salta si está en el suelo)
 void Player::handleEvent(const SDL_Event& evento) {
 	if (evento.type == SDL_KEYDOWN) {
 		switch (evento.key.keysym.sym) {
@@ -70,4 +71,14 @@ void Player::handleEvent(const SDL_Event& evento) {
 		}
 	}
 	else if (evento.type == SDL_KEYUP && evento.key.keysym.sym != SDLK_SPACE) { speed.setX(0); speed.setY(0); }
+}
+
+//cojo el rect del player para hacer colisiones con botones
+SDL_Rect Player::getRect() const {
+	SDL_Rect rect;
+	rect.x = pos.getX();
+	rect.y = pos.getY();
+	rect.w = w;//ancho
+	rect.h = h;//alto
+	return rect;
 }
