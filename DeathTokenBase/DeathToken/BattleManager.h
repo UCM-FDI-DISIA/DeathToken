@@ -16,17 +16,19 @@ const int MOD = 20;
 struct Matchup {
     Fighter fighter1;
     Fighter fighter2;
-    int advantageFighterIndex;
+    int advantageFighterIndex = 0;
     string battleDescription;
 };
 
 class BattleManager {
 public:
     BattleManager();
-
+    
+    // Carga de objetos del json
     bool loadFightersFromJSON(const string& filename);
-    void StartBattle();
     bool loadMatchupsFromJSON(const string& filename);
+
+    void StartBattle();
 
 private:
     vector<Fighter> fighters;

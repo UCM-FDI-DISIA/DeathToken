@@ -3,7 +3,6 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-
 #include <random>
 #include "json.hpp" 
 #include <algorithm>
@@ -85,10 +84,11 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 }
 
 void BattleManager::StartBattle() {
-    if (battleQueue.empty()) {
+    /*if (battleQueue.empty()) {
         cout << "No hay enfrentamientos en la cola." << endl;
         return;
-    }
+    }*/
+    assert(!battleQueue.empty());
 
     // Obtener el primer enfrentamiento en la cola
     Matchup currentMatch = battleQueue.front();
@@ -112,7 +112,7 @@ void BattleManager::StartBattle() {
     }
     else
     {
-        currentMatch.fighter1.setMindset(rndMindset2 + MOD);
-        currentMatch.fighter2.setMindset(rndMindset1 - MOD);
+        currentMatch.fighter1.setMindset(rndMindset1 + MOD);
+        currentMatch.fighter2.setMindset(rndMindset2 - MOD);
     }
 }
