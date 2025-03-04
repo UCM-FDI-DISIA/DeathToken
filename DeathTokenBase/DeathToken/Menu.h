@@ -5,6 +5,7 @@
 #include "Baccarat.h"
 #include "Marbles.h"
 #include "Collision.h"
+#include "SceneObject.h"
 
 class Player;
 
@@ -22,5 +23,7 @@ public:
 	void cambiaJuego(GameState* juego);
 	void render() const override;
 	Collision checkCollision(const SDL_Rect& rect, Collision::Target target);
+	void update() override;
+	void handleEvent(const SDL_Event& event);//para colisiones con button
 };
 

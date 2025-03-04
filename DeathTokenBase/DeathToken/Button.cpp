@@ -27,12 +27,23 @@ void Button::render() const {
 	}
 }
 void Button::handleEvent(const SDL_Event& event) {
-	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+	/*if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		SDL_Point point{ event.button.x, event.button.y };
 		if (SDL_PointInRect(&point, &box))
+			cb();
+	}*/
+
+	// Si el player esta encima de button y presiono enter entra
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
+		if (hover) 
 			cb();
 	}
 }
 void Button::connect(Callback callback) {
 	cb = callback;
+}
+
+//colision player button
+bool Button::playerHovered(const SDL_Rect& playerRect) {
+	return SDL_HasIntersection(&playerRect, &box);//rect player y rect button
 }

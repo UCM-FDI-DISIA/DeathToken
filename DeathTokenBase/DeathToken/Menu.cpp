@@ -54,3 +54,26 @@ Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 	if (hit) return col;
 	else return col = NO_COLLISION;
 }
+
+void Menu::update() {//detecto interseciones player/button
+	GameState::update();
+
+	SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
+
+	baccarat->Button::getHover() = baccarat->playerHovered(playerRect);
+	slots->Button::getHover() = slots->playerHovered(playerRect);
+	marbles->Button::getHover() = marbles->playerHovered(playerRect);
+	peleas->Button::getHover() = peleas->playerHovered(playerRect);
+}
+
+//para que cuando intersecten player y button de a entre y entre en el boton
+void Menu::handleEvent(const SDL_Event& event) {
+	//GameState::handleEvent(event); //en principio evita repeticiones de codigo pero funciona igual sin esto
+
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es el enter
+		if (baccarat->Button::getHover()) baccarat->Button::getCallback();
+		else if (slots->Button::getHover()) slots->Button::getCallback();
+		else if (marbles->Button::getHover()) marbles->Button::getCallback();
+		else if (peleas->Button::getHover()) peleas->Button::getCallback();
+	}
+}
