@@ -26,11 +26,11 @@ Carrete:: ~Carrete() {
 }
 
 void Carrete::update() {
-	if (act == delta) {
-		moverIndice();
-		act = 0;
-	}
-	else act++;
+		if (act == delta) {
+			if (giro) indice = (indice + 1) % resultante.size();
+			act = 0;
+		}
+		else act++;
 }
 
 void Carrete::render() const {
@@ -44,15 +44,8 @@ void Carrete::render() const {
 		texture->render(r);
 
 		int ind = indice - i;
-		if (ind == -1) ind = resultante.size() - 1;
-		else if (ind == -2) ind = resultante.size() - 2;
+		if (ind < 0) ind += resultante.size();
 		iconos->renderFrame(r, 0, resultante[ind]);
-	}
-}
-void Carrete::moverIndice() {
-	if (giro) {
-		++indice;
-		if (indice == resultante.size()) indice = 0;
 	}
 }
 void Carrete::iniciarGiro() {
@@ -61,7 +54,8 @@ void Carrete::iniciarGiro() {
 void Carrete::pararGiro() {
 	if (giro) {
 		for (int i = 0; i < NUM_ELEMS; ++i) {
-			int ind = (indice - i) % resultante.size();
+			int ind = indice - i;
+			if (ind < 0) ind += resultante.size();
 			carretesRes.push_back(resultante[ind]);
 		}
 		giro = false;

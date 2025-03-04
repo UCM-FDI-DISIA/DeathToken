@@ -16,18 +16,19 @@ private:
 	Texture* iconos;
 	bool giro = false;
 	vector<int>carretesRes;
+	
+	vector<int> vectorAleatorio();
 
-	const int delta = 5;
+	const int delta = 1;
 	int act;
 
 public:
 	Carrete(GameState*,Point2D<int>, int, int, Texture*,Texture*);
 	~Carrete();
-	vector<int> vectorAleatorio();
-	void moverIndice();
-	int getIndice() const { return indice; };
-	vector<int> getCarrete() const { return carretesRes; };
+	
+	int getIndice() const { return indice; }
 	bool getParada() { return giro; }
+	vector<int> getCarrete() const { return carretesRes; }
 	void deleteCarrete() { carretesRes.erase(carretesRes.erase(carretesRes.begin(), carretesRes.end() - 1)); }
 	void iniciarGiro();
 	void pararGiro();
