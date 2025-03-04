@@ -1,13 +1,12 @@
 #include <string>
 #include "checkML.h"
 #include "Game.h"
-#include "Slots.h"
 #include "Menu.h"
 
 
 
-int Game::WIN_WIDTH = 1920;
-int Game::WIN_HEIGHT = 1080;
+int Game::WIN_WIDTH = 0;
+int Game::WIN_HEIGHT = 0;
 
 // Formato de la especificaci�n de una textura
 struct TextureSpec

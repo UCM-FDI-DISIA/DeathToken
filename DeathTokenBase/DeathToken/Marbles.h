@@ -41,7 +41,7 @@ protected:
 	double marginH = (5.0 / 1080.0) * Game::WIN_WIDTH;
 public:
 	Marbles(Game* game);
-	~Marbles();
+	virtual ~Marbles();
 	void render() const override;
 	void update() override;
 

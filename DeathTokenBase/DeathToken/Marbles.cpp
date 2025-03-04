@@ -1,6 +1,7 @@
 #include "Marbles.h"
 #include "Game.h"	
 #include <iostream>
+#include <random>
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
 	marbles( { 0,0,0,0 }),
@@ -15,13 +16,12 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 
 }
 Marbles::~Marbles() {
-	delete ui; 
 	for (auto b : marbleButtons) {
 		delete b;
 	}
-	// cuando lleguéis aquí, la instancia se borrará y con ella "marblebuttons"
-	marbleButtons.clear();
-	
+	delete ui;
+
+
 }
 
 void  Marbles::generateMarbles() {
@@ -31,7 +31,10 @@ void  Marbles::generateMarbles() {
 	int pos = 1;
 	SDL_Rect auxBox;
 	for (int i = 0; i < 3; i++) {
-		int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
+		std::uniform_int_distribution<> distrib(0, 3);
+		int color = distrib(game->getGen());
+
+		//int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
 		marbles[color]++;
 		auxBox.x = Game::WIN_WIDTH / 4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
@@ -52,10 +55,10 @@ int  Marbles::checkBets(int moneyBet) {
 		const Bet& typeBet = betkey.second;//Pillo la apuesta
 
 		bool won = true;
-
+		
 		// cleon no sabe qué es esto, pero sospecha
 		for (int i = 0; i < 4; i++) {
-			if (marbles[i] < typeBet.typeOfBet[i]) { //Si algun numero del vector es mayor a las canicas, se da esa apuesta como perdida
+			if (marbles[i] <= typeBet.typeOfBet[i]) { //Si algun numero del vector es mayor a las canicas, se da esa apuesta como perdida
 				won = false;
 			}
 		}
@@ -73,7 +76,7 @@ void Marbles::startRound() {
 	int moneyWin = checkBets(moneyBet);//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
-	//  #if _DEBUG
+	  #if _DEBUG
 	if (moneyWin > 0) {
 
 		std::cout << "HAS GANDADO" << moneyWin;
@@ -83,7 +86,7 @@ void Marbles::startRound() {
 		std::cout << "HAS PERDIDO";
 
 	}
-	//  #endif
+	  #endif
 
 	clearBets();
 }
