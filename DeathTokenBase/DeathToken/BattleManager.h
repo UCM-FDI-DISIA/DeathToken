@@ -29,6 +29,7 @@ public:
     bool loadMatchupsFromJSON(const string& filename);
 
     void StartBattle();
+    void ExecuteTurns(Matchup currentMatch);
 
 private:
     vector<Fighter> fighters;
