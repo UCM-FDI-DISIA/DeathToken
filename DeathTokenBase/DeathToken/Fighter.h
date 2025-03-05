@@ -35,10 +35,15 @@ public:
     inline float getAbility() const { return ability; }
     inline int getMaxHealth() const { return maxHealth; }
     inline int getMindset() const { return mindset; }
+    inline bool isAlive() const { return health > 0; } // es un metodo util para saber si el combate sigue o no
 
     // Métodos Setters
     inline void setHealth(int value) { health = value; }
     inline void setMindset(int value) { mindset = value; }
+
+    inline void takeDamage(int value) { health = health - value < 0 ? 0 : health - value; }
+    inline void boostMindset(int value) { mindset += value; }
+    inline void reduceMindset(int value) { mindset -= value; }
    
 private:
     string name;
