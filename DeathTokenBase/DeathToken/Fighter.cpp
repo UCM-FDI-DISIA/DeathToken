@@ -14,7 +14,6 @@ bool Fighter::loadFromJSON(const std::string& jsonString)
   health = maxHealth;
   attack = j["attack"].get<int>();
   desc = j["desc"].get<std::string>();
-  ability = maxHealth + (attack * 1.3f);
   mindset = 50;  // Valor por defecto
 
   return true;
