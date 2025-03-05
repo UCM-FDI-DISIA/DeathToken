@@ -11,7 +11,14 @@ using namespace std;
 
 class Fighter {
 public:
-    Fighter() = default;
+    Fighter(): 
+        name("")
+        , maxHealth(0)
+        , health(0)
+        , attack(0)
+        , desc("Vacio")
+        , mindset(50) 
+    {}
 
 #ifdef DEBUG
     // Mostrar los detalles del peleador (opcional para debug)
@@ -32,9 +39,10 @@ public:
     inline int getHealth() const { return health; }
     inline int getAttack() const { return attack; }
     inline string getDesc() const { return desc; }
-    inline float getAbility() const { return ability; }
+    inline float getAbility() const { return health + attack * 1.3f; }
     inline int getMaxHealth() const { return maxHealth; }
     inline int getMindset() const { return mindset; }
+
     inline bool isAlive() const { return health > 0; } // es un metodo util para saber si el combate sigue o no
 
     // Métodos Setters
@@ -51,7 +59,6 @@ private:
     int health;
     int attack;
     string desc;
-    float ability;  // Habilidad calculada (puede usarse para determinar las probabilidades)
     int mindset;    // Valor adicional que puede afectar el rendimiento
 };
 

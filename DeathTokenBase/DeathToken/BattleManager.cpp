@@ -117,78 +117,95 @@ void BattleManager::StartBattle() {
     ExecuteTurns(currentMatch);
 }
 
+void ActionTurn(Fighter& active, Fighter& objetive) {
 
-void 
-BattleManager::ExecuteTurns(Matchup currentMatch) {
-    
-    Fighter fighter1 = currentMatch.fighter1;
-    Fighter fighter2 = currentMatch.fighter2;
+   
+    float hitBackProb = 2.5f + 15.0f * (50.0f - active.getMindset()) / 200.0f;
+    float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
+    float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
 
-    float hitBackProb1 = 2.5f + 15.0f * (50.0f - fighter1.getMindset()) / 200.0f;
-    float failProb1 = 7.5f + 12.5f * (50.0f - fighter1.getMindset()) / 100.0f;
-    float criticalProb1 = 10.0f + 30.0f * (fighter1.getMindset() - 50.0f) / 100.0f;
-    
-    float hitBackProb2 = 2.5f + 15.0f * (50.0f - fighter2.getMindset()) / 200.0f;
-    float failProb2 = 7.5f + 12.5f * (50.0f - fighter2.getMindset()) / 100.0f;
-    float criticalProb2 = 10.0f + 30.0f * (fighter2.getMindset() - 50.0f) / 100.0f;
-
-    while (fighter1.isAlive() && fighter2.isAlive()) {
+   
         // Habra que meter los couts en la caja de dialogo en su momento
-        cout << "¡" << fighter1.getName() << " se dispone a atacar ferozmente a su enemigo ! \n";
+        cout << "¡" << active.getName() << " se dispone a atacar ferozmente a su enemigo ! \n";
         float prob = rand() % 100;
         // Golpearse a si mismo
-        if (prob < hitBackProb1) {
-            fighter1.takeDamage(fighter1.getAttack());
-            cout << "¡Pero se ha golpeado a si mismo, " << fighter1.getName() << " se ha vuelto loco! \n";
-            if (fighter1.isAlive()) {
-                fighter1.reduceMindset(MOD);
+        if (prob < hitBackProb) {
+            active.takeDamage(active.getAttack());
+            cout << "¡Pero se ha golpeado a si mismo, " << active.getName() << " se ha vuelto loco! \n";
+            if (active.isAlive()) {
+                active.reduceMindset(MOD);
                 cout << "Esto seguro que mina su concentración en el combate.\n";
                 cout << "¡Ahora es más probable que pierda!\n";
             }
             else {
                 cout << "¡LA CATASTROFE SE HIZO REALIDAD!\n";
-                cout << "¡" << fighter1.getName() << " ha caido por su propia mano! \n";
-                break;
+                cout << "¡" << active.getName() << " ha caido por su propia mano! \n";
             }
         }
         // Fallo
-        else if (prob < hitBackProb1 + failProb1) // se suman para tener en cuenta que no se cumplido la anterior condicion
+        else if (prob < hitBackProb + failProb) // se suman para tener en cuenta que no se cumplido la anterior condicion
         {
-            cout << fighter1.getName() << " lamentablemente su golpe. \n";
-            fighter1.reduceMindset(MOD);
+            cout << active.getName() << " lamentablemente su golpe ha fallado a su objetivo. \n";
+            active.reduceMindset(MOD);
             cout << "Esto seguro que mina su concentración en el combate.\n";
             cout << "¡Ahora es más probable que pierda!\n";
         }
         // Critico
-        else if (prob < hitBackProb1 + failProb1 + criticalProb1) // se suman para tener en cuenta que no se cumplido la anterior condicion
+        else if (prob < hitBackProb + failProb + criticalProb) // se suman para tener en cuenta que no se cumplido la anterior condicion
         {
-            fighter2.takeDamage(fighter1.getAttack() * 3);
-            cout << "¡MADRE MIA, CRÍTICO!" << fighter1.getName() << " acaba de destrozar a su oponente. \n";
+            objetive.takeDamage(active.getAttack() * 3);
+            cout << "¡MADRE MIA, CRÍTICO!" << active.getName() << " acaba de destrozar a su oponente. \n";
             cout << " Tras semejante golpe tal vez deban replantearse el resultado del combate.\n";
-            if (fighter2.isAlive()) {
-                fighter1.boostMindset(MOD);
-                fighter2.reduceMindset(MOD);
+            if (objetive.isAlive()) {
+                active.boostMindset(MOD);
+                objetive.reduceMindset(MOD);
                 cout << "Esto seguro que mejora su concentración en el combate.\n";
                 cout << "¡Ahora es más probable que gane!\n";
-                cout << "¡Y "<< fighter2.getName() << " es más probable que pierda!\n";
+                cout << "¡Y " << objetive.getName() << " es más probable que pierda!\n";
             }
             else {
-                cout << fighter1.getName() << " gana este brutal encuentro.\n";
+                cout << active.getName() << " gana este brutal encuentro.\n";
                 cout << "Enhorabuena a todos los que confiaron en nuestro increible ganador.\n";
-                break;
             }
         }
         else {
-            fighter2.takeDamage(fighter1.getAttack());
-            cout << fighter1.getName() << " golpea duramente a su oponente. \n";
-            if (!fighter2.isAlive()) {
-                cout << fighter1.getName() << " gana este brutal encuentro.\n";
+            objetive.takeDamage(active.getAttack());
+            cout << active.getName() << " golpea duramente a su oponente. \n";
+            if (!objetive
+                .isAlive()) {
+                cout << active.getName() << " gana este brutal encuentro.\n";
                 cout << "Enhorabuena a todos los que confiaron en nuestro increible ganador.\n";
-                break;
             }
         }
-        this_thread::sleep_for(chrono::seconds(1));
+    
+}
+void 
+BattleManager::ExecuteTurns(Matchup currentMatch) {
+    
+    
+    Fighter fighter1 = currentMatch.fighter1;
+    Fighter fighter2 = currentMatch.fighter2;
 
+    // Empieza el que tiene menos habilidad
+    if (fighter1.getAbility() > fighter2.getAbility()) {
+        fighter2 = currentMatch.fighter1;
+        fighter1 = currentMatch.fighter2;
+    }
+   
+
+    while (fighter1.isAlive() && fighter2.isAlive()) {
+        
+        ActionTurn(fighter1, fighter2);
+        if (!(fighter1.isAlive() && fighter2.isAlive())) {
+            break;
+        }
+        this_thread::sleep_for(chrono::seconds(1));
         cout << "Ahora turno de "<< fighter2.getName() <<"\n";
+        ActionTurn(fighter2, fighter1);
+        if (!(fighter1.isAlive() && fighter2.isAlive())) {
+            break;
+        }
+        this_thread::sleep_for(chrono::seconds(1));
+        cout << "Ahora turno de " << fighter1.getName() << "\n";
     }
 }
