@@ -195,3 +195,28 @@ void UIBaccarat::OnRepeat()
 {
 	baccarat->repeat();
 }
+
+
+//Tutorial
+
+UITutorial::UITutorial(GameState* gS, Game* game) : gS(gS), game(game) {
+	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
+	gS->addObjects(exit);
+	gS->addEventListener(exit);
+	exit->connect([this]() { OnExit(); });
+}
+
+inline int
+UITutorial::relativeX(const float& n)
+{
+	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
+}
+inline int
+UITutorial::relativeY(const float& n)
+{
+	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+}
+
+void UITutorial::OnExit() {
+	game->pop();
+}

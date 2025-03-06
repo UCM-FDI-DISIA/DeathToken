@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Player.h"
+#include "Tutorial.h"
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
@@ -10,7 +11,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	baccarat = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	baccarat->connect([this]() { gameChanger(new Tutorial(getGame())); });
 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);

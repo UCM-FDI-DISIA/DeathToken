@@ -87,3 +87,20 @@ public:
 	void OnErase() override;
 	void OnRepeat() override;
 };
+
+
+class UITutorial
+{
+protected:
+	GameState* gS;
+	Game* game;
+	ButtonUI* exit;
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+
+	UITutorial(GameState* gS, Game* game);
+
+	void OnExit();
+	
+};
