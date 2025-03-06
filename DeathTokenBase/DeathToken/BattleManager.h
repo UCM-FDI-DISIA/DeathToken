@@ -34,6 +34,7 @@ public:
 private:
     vector<Fighter> fighters;
     vector<Matchup> battleQueue;  // Cola de enfrentamientos
+    
+    void ActionTurn(Fighter& active, Fighter& objetive);
 };
-
 #endif

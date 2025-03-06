@@ -11,6 +11,14 @@
 
 using json = nlohmann::json;
 
+// Para random
+random_device rd;
+mt19937 gen(rd());
+uniform_real_distribution<float> dist(0.0f, 100.0f);
+
+// Tiempo entre turnos
+constexpr int SEG = 1.2f;
+
 BattleManager::BattleManager() {
     srand(static_cast<unsigned int>(time(0)));  // Inicializar aleatorio
 }
@@ -101,8 +109,6 @@ void BattleManager::StartBattle() {
     int rndMindset1 = (rand() % MAXMINDSET) + MINMINDSET;
     int rndMindset2 = (rand() % MAXMINDSET) + MINMINDSET;
 
-   
-
     if (currentMatch.advantageFighterIndex == 1)
     {
         currentMatch.fighter1.setMindset(rndMindset1 + MOD);
@@ -117,44 +123,48 @@ void BattleManager::StartBattle() {
     ExecuteTurns(currentMatch);
 }
 
-void ActionTurn(Fighter& active, Fighter& objetive) {
+void 
+BattleManager::ActionTurn(Fighter& active, Fighter& objetive) {
 
-   
+    
+
     float hitBackProb = 2.5f + 15.0f * (50.0f - active.getMindset()) / 200.0f;
     float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
     float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
-
    
         // Habra que meter los couts en la caja de dialogo en su momento
-        cout << "¡" << active.getName() << " se dispone a atacar ferozmente a su enemigo ! \n";
-        float prob = rand() % 100;
+        cout << "¡" << active.getName() << " se dispone a atacar ferozmente a su enemigo!\n";
+        float prob = dist(gen);
+
         // Golpearse a si mismo
         if (prob < hitBackProb) {
             active.takeDamage(active.getAttack());
-            cout << "¡Pero se ha golpeado a si mismo, " << active.getName() << " se ha vuelto loco! \n";
+            cout << "¡Pero se ha golpeado a si mismo, " << active.getName() << " se ha vuelto loco!\n";
             if (active.isAlive()) {
                 active.reduceMindset(MOD);
-                cout << "Esto seguro que mina su concentración en el combate.\n";
+                cout << "Esto seguro que mina su concentración en el combate\n";
                 cout << "¡Ahora es más probable que pierda!\n";
             }
             else {
                 cout << "¡LA CATASTROFE SE HIZO REALIDAD!\n";
-                cout << "¡" << active.getName() << " ha caido por su propia mano! \n";
+                cout << "¡" << active.getName() << " ha caido por su propia mano!\n";
             }
         }
+
         // Fallo
         else if (prob < hitBackProb + failProb) // se suman para tener en cuenta que no se cumplido la anterior condicion
         {
-            cout << active.getName() << " lamentablemente su golpe ha fallado a su objetivo. \n";
+            cout << active.getName() << " lamentablemente su golpe ha fallado a su objetivo.\n";
             active.reduceMindset(MOD);
             cout << "Esto seguro que mina su concentración en el combate.\n";
             cout << "¡Ahora es más probable que pierda!\n";
         }
+
         // Critico
         else if (prob < hitBackProb + failProb + criticalProb) // se suman para tener en cuenta que no se cumplido la anterior condicion
         {
             objetive.takeDamage(active.getAttack() * 3);
-            cout << "¡MADRE MIA, CRÍTICO!" << active.getName() << " acaba de destrozar a su oponente. \n";
+            cout << "¡MADRE MIA, CRÍTICO!" << active.getName() << " acaba de destrozar a su oponente.\n";
             cout << " Tras semejante golpe tal vez deban replantearse el resultado del combate.\n";
             if (objetive.isAlive()) {
                 active.boostMindset(MOD);
@@ -168,6 +178,7 @@ void ActionTurn(Fighter& active, Fighter& objetive) {
                 cout << "Enhorabuena a todos los que confiaron en nuestro increible ganador.\n";
             }
         }
+        // No hay acciones especiales
         else {
             objetive.takeDamage(active.getAttack());
             cout << active.getName() << " golpea duramente a su oponente. \n";
@@ -177,11 +188,9 @@ void ActionTurn(Fighter& active, Fighter& objetive) {
                 cout << "Enhorabuena a todos los que confiaron en nuestro increible ganador.\n";
             }
         }
-    
 }
 void 
 BattleManager::ExecuteTurns(Matchup currentMatch) {
-    
     
     Fighter fighter1 = currentMatch.fighter1;
     Fighter fighter2 = currentMatch.fighter2;
@@ -192,20 +201,29 @@ BattleManager::ExecuteTurns(Matchup currentMatch) {
         fighter1 = currentMatch.fighter2;
     }
    
-
+    cout << "Comenzará la pelea " << fighter1.getName() << ".\n";
+    cout << "Mucha suerte a todos los jugadores.\n";
+    cout << "\n";
     while (fighter1.isAlive() && fighter2.isAlive()) {
         
         ActionTurn(fighter1, fighter2);
+        std::swap(fighter2,fighter1);
+        
         if (!(fighter1.isAlive() && fighter2.isAlive())) {
             break;
         }
-        this_thread::sleep_for(chrono::seconds(1));
-        cout << "Ahora turno de "<< fighter2.getName() <<"\n";
+
+        this_thread::sleep_for(chrono::seconds(SEG));
+        cout << "Ahora es turno de "<< fighter2.getName() <<".\n";
+        cout << "\n";
+
         ActionTurn(fighter2, fighter1);
         if (!(fighter1.isAlive() && fighter2.isAlive())) {
             break;
         }
-        this_thread::sleep_for(chrono::seconds(1));
-        cout << "Ahora turno de " << fighter1.getName() << "\n";
+        
+        this_thread::sleep_for(chrono::seconds(SEG));
+        cout << "Ahora es turno de " << fighter1.getName() << ".\n";
+        cout << "\n";
     }
 }
