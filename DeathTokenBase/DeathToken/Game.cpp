@@ -30,6 +30,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"map/Casino_marbles_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"ui/Exit.png", 1, 1},
 	TextureSpec{"ui/Exit_Clicked.png", 1, 1},
 	TextureSpec{"ui/Erase.png", 1, 1},
@@ -76,9 +77,9 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
-
-
-
+	TextureSpec{"roulette/rouletteBG.jpeg",1,1},
+	TextureSpec{"roulette/rouletteButton.png",1,1},
+	TextureSpec{"roulette/roulette.png",1,1},
 };
 
 Game::Game() {

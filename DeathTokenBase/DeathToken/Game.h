@@ -21,6 +21,7 @@ enum TextureName {
 	SLOTSBUT,
 	CANICASBUT,
 	PELEASBUT,
+	ROULETTEBUT,
 	UIEXIT,
 	UIEXITCLCK,
 	UIERASE,
@@ -67,6 +68,9 @@ enum TextureName {
 	GREENMARBLE,
 	BLUEMARBLE,
 	YELLOWMARBLE,
+	ROULETTEBG,
+	ROULETTEPLAY,
+	ROULETTE,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
 };
 class Game : private GameStateMachine {

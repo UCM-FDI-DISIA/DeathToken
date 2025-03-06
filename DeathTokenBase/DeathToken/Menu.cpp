@@ -31,6 +31,12 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
+	//Baccarat button
+	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 4, wBut, hBut, game->getTexture(ROULETTEBUT));
+	addObjects(roulette);
+	addEventListener(roulette);
+	roulette->connect([this]() { gameChanger(new RouletteScene(getGame())); });
+
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
 		addObjects(ghost);
@@ -45,7 +51,6 @@ void Menu::gameChanger(GameState* juego) {
 void Menu::render() const {
 	texture->render();
 	GameState::render();
-	
 }
 Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 	Collision col;

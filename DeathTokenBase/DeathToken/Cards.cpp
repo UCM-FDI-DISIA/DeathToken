@@ -20,6 +20,7 @@ void Cards::render() const {
 void Cards::update() {
 
 }
+
 Collision Cards::hit(const SDL_Rect&, Collision::Target) {
 	return NO_COLLISION;
 }

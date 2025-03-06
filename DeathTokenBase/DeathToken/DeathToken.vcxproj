@@ -148,6 +148,8 @@
     <ClInclude Include="MatrizSlots.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Roulette.h" />
+    <ClInclude Include="RouletteScene.h" />
     <ClInclude Include="sceneObject.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="SlotsLocura.h" />
@@ -168,6 +170,8 @@
     <ClCompile Include="MatrizSlots.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Roulette.cpp" />
+    <ClCompile Include="RouletteScene.cpp" />
     <ClCompile Include="sceneObject.cpp" />
     <ClCompile Include="Slots.cpp" />
     <ClCompile Include="SlotsLocura.cpp" />

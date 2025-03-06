@@ -7,6 +7,7 @@
 #include "Marbles.h"
 #include "Collision.h"
 #include "SceneObject.h"
+#include "RouletteScene.h"
 
 class Player;
 
@@ -19,6 +20,7 @@ class Menu : public GameState
 	Button* marbles;
 	Button* fights;
 	Button* slots;
+	Button* roulette;
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);

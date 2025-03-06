@@ -2,14 +2,16 @@
 #include "Vector2D.h"
 #include "sceneObject.h"
 
-class Cards : public sceneObject
+class Roulette : public sceneObject
 {
 	Texture* texture;
-	int frameCard = 0;
-	double angle = 0;
+	double rot = 0;
+	int speed = 0;
+	float decelerate = 0.95;
 public:
-	int frame = 0;
-	Cards(GameState* game, int frame, Point2D<> pos, double angle = 0);
+	Roulette(GameState* game, Point2D<> pos, Texture* text);
+	void addSpeed(int s);
+
 	void render() const override;
 	void update() override;
 	Collision hit(const SDL_Rect&, Collision::Target) override;
