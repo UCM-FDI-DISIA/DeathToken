@@ -150,70 +150,74 @@ Antes de que se muestran las bolas habrá un juego del trilero. En este se meter
 [Boceto de las apuesta y tablero](https://github.com/user-attachments/assets/b66c7004-7c0c-4365-bff1-7614b5f253b2)
 
 #### Peleas Reanimadas:
-Descripción general
-Peleas Reanimadas es un juego de peleas automáticas (auto-fight) en el que los jugadores apuestan por el ganador de un combate y confían en la suerte para obtener ganancias.
+- **Descripción general**
+	Peleas Reanimadas es un juego de peleas automáticas (auto-fight) en el que los jugadores apuestan por el ganador de un combate y confían en la suerte para 	obtener ganancias.
 
-Peleadores
-Cada peleador cuenta con atributos únicos de vida y ataque, mientras que la probabilidad de activar acciones especiales es la misma para todos. Sin embargo, existe un factor adicional: el ánimo.
+- **Peleadores**
+	Cada peleador cuenta con atributos únicos de vida y ataque, mientras que la probabilidad de activar acciones especiales es la misma para todos. Sin 		embargo, existe un factor adicional: el ánimo.
 
-Ánimo y su impacto en el combate
-El ánimo se determina aleatoriamente antes del inicio de cada combate y afecta directamente la probabilidad de que ocurran eventos positivos o negativos durante la pelea:
+- **Ánimo y su impacto en el combate**
+	El ánimo se determina aleatoriamente antes del inicio de cada combate y afecta directamente la probabilidad de que ocurran eventos positivos o negativos 	durante la pelea:
 
-Mayor ánimo: aumenta la posibilidad de golpes críticos y reduce la probabilidad de fallos o autogolpes.
-Menor ánimo: incrementa la probabilidad de fallos y autogolpes, disminuyendo las oportunidades de éxito en la pelea.
-El valor de ánimo de cada peleador varía dependiendo de su oponente, influenciado por la historia entre ambos personajes. Por ejemplo, un combate entre dos rivales históricos (como un Madrid vs. Barça) podría generar ventajas o desventajas en el ánimo.
+	- Mayor ánimo: aumenta la posibilidad de golpes críticos y reduce la probabilidad de fallos o autogolpes.
+	- Menor ánimo: incrementa la probabilidad de fallos y autogolpes, disminuyendo las oportunidades de éxito en la pelea.
+	El valor de ánimo de cada peleador varía dependiendo de su oponente, influenciado por la historia entre ambos personajes. Por ejemplo, un combate entre 	dos rivales históricos (como un Madrid vs. Barça) podría generar ventajas o desventajas en el ánimo.
 
-Antes del combate, el jugador podrá ver una breve historia que proporciona contexto sobre la relación entre los peleadores, lo que puede dar pistas sobre quién tiene más probabilidades de ganar. Esta información se mostrará en el panel de apuestas.
+	Antes del combate, el jugador podrá ver una breve historia que proporciona contexto sobre la relación entre los peleadores, lo que puede dar pistas sobre 	quién tiene más probabilidades de ganar. Esta información se mostrará en el panel de apuestas.
 
-Juego
-Panel de apuestas
+- **Juego**
+Panel de apuestas:
 Antes de cada pelea, se mostrará el panel de apuestas con información relevante sobre el combate. En pantalla aparecerán dos tarjetas, una para cada peleador, con los siguientes datos:
 
-Nombre
-Imagen
-Cuota de apuesta: Calculada con la fórmula (Vida Máx + Ataque * 1.3).
-Ánimo: Representado con una palabra clave (Ej: Enfocado, Descentrado).
-Fichas apostadas
+1. Nombre
+2. Imagen
+3. Cuota de apuesta: Calculada con la fórmula (Vida Máx + Ataque * 1.3).
+4. Ánimo: Representado con una palabra clave (Ej: Enfocado, Descentrado).
+5. Fichas apostadas
 Además, se incluirá:
 
-Descripción del enfrentamiento, brindando contexto sobre la relación entre los peleadores y posibles ventajas de uno sobre el otro.
-Tabla de acciones especiales, con información sobre los eventos que pueden alterar el combate.
-Botón de ayuda, que dirigirá a una guía detallada sobre el juego.
-Una vez realizada la apuesta, el combate iniciará automáticamente.
+- Descripción del enfrentamiento, brindando contexto sobre la relación entre los peleadores y posibles ventajas de uno sobre el otro.
+- Tabla de acciones especiales, con información sobre los eventos que pueden alterar el combate.
+- Botón de ayuda, que dirigirá a una guía detallada sobre el juego.
+- Una vez realizada la apuesta, el combate iniciará automáticamente.
 
-Desarrollo del combate
+- **Desarrollo del combate**
 Las peleas transcurren en turnos automáticos, donde el jugador actúa como espectador sin intervenir directamente. Sin embargo, ciertas acciones especiales pueden afectar las probabilidades de victoria y permitir ajustes en las apuestas.
 
-Acciones especiales y su impacto en las apuestas
+**Acciones especiales y su impacto en las apuestas**
 Cuando ocurren acciones especiales, el jugador puede ganar o perder fichas de diferentes maneras:
 
-Golpe crítico:
+1. Golpe crítico:
 
-Inflige triple de daño.
-Reduce el ánimo del oponente y aumenta el propio.
-Afecta las fichas:
-Se elimina un 10% de las fichas apostadas (mínimo 1 ficha si la apuesta es mayor a 0).
-Se permite reinvertir las fichas perdidas en alguno de los peleadores.
-El peleador que realizó el golpe crítico aumenta su apuesta en un 30% con fichas del jugador (si el jugador no tiene fichas adicionales, no se podrá aumentar la apuesta).
-Ataque fallido:
+- Inflige triple de daño.
+- Reduce el ánimo del oponente y aumenta el propio.
+**Afecta las fichas:**
+- Se elimina un 10% de las fichas apostadas (mínimo 1 ficha si la apuesta es mayor a 0).
+- Se permite reinvertir las fichas perdidas en alguno de los peleadores.
+- El peleador que realizó el golpe crítico aumenta su apuesta en un 30% con fichas del jugador (si el jugador no tiene fichas adicionales, no se podrá aumentar la 
+  apuesta).
+  
+2. Ataque fallido:
 
-El peleador no logra golpear a su oponente.
-Disminuye su ánimo.
-Afecta las fichas:
-Se pierde un 25% de la apuesta realizada por el peleador que falló.
-Se permite reinvertir las fichas perdidas.
-Autogolpe:
+- El peleador no logra golpear a su oponente.
+- Disminuye su ánimo.
+**Afecta las fichas:**
+- Se pierde un 25% de la apuesta realizada por el peleador que falló.
+- Se permite reinvertir las fichas perdidas.
 
-El peleador se golpea a sí mismo.
-Disminuye su ánimo.
-Afecta las fichas:
-Se pierde permanentemente un 15% de las fichas apostadas en ese peleador.
-Estas fichas se eliminan del saldo del jugador y no pueden recuperarse.
-Resolución de la pelea y recompensas
+3. Autogolpe:
+
+- El peleador se golpea a sí mismo.
+- Disminuye su ánimo.
+**Afecta las fichas:**
+- Se pierde permanentemente un 15% de las fichas apostadas en ese peleador.
+- Estas fichas se eliminan del saldo del jugador y no pueden recuperarse.
+
+- **Resolución de la pelea y recompensas**
 Al finalizar el combate, las fichas se calculan de la siguiente manera:
 
-Se pierden las fichas apostadas en el peleador derrotado.
-Se multiplican las fichas apostadas en el ganador según su cuota y se entregan al jugador.
+- Se pierden las fichas apostadas en el peleador derrotado.
+- Se multiplican las fichas apostadas en el ganador según su cuota y se entregan al jugador.
 
 #### Modo Locura:
 Descripción general
