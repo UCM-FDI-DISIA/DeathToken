@@ -207,23 +207,24 @@ BattleManager::ExecuteTurns(Matchup currentMatch) {
     while (fighter1.isAlive() && fighter2.isAlive()) {
         
         ActionTurn(fighter1, fighter2);
-        std::swap(fighter2,fighter1);
         
         if (!(fighter1.isAlive() && fighter2.isAlive())) {
             break;
         }
 
         this_thread::sleep_for(chrono::seconds(SEG));
-        cout << "Ahora es turno de "<< fighter2.getName() <<".\n";
         cout << "\n";
 
+        cout << "Ahora es turno de "<< fighter2.getName() <<".\n";
         ActionTurn(fighter2, fighter1);
         if (!(fighter1.isAlive() && fighter2.isAlive())) {
             break;
         }
         
         this_thread::sleep_for(chrono::seconds(SEG));
-        cout << "Ahora es turno de " << fighter1.getName() << ".\n";
         cout << "\n";
+
+        cout << "Ahora es turno de " << fighter1.getName() << ".\n";
+        
     }
 }
