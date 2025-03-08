@@ -5,7 +5,7 @@ class Peleas : public GameState
 {
 public:
 	Peleas(Game* game);
-	/*void render() const override;*/
+	void render() const override;
 private:
 	BattleManager* _battleM;
 };
