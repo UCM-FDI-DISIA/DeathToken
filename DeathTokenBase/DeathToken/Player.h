@@ -16,5 +16,4 @@ public:
 	void update() override;
 	Collision hit(const SDL_Rect&, Collision::Target) override;
 	void handleEvent(const SDL_Event& evento) override;
-	SDL_Rect getRect() const;//rect player
 };

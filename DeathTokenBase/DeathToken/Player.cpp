@@ -1,7 +1,8 @@
 #include "checkML.h"
+
 #include "Player.h"
 #include "Texture.h"
-
+#include "AnimState.h"
 
 // Se crea el jugador leyendo de archivo su posición y vidas
 Player::Player(GameState* g, Point2D<> pos, Texture* texture)
@@ -72,12 +73,3 @@ void Player::handleEvent(const SDL_Event& evento) {
 	else if (evento.type == SDL_KEYUP && evento.key.keysym.sym != SDLK_SPACE) { speed.setX(0); speed.setY(0); }
 }
 
-//cojo el rect del player para hacer colisiones con botones
-SDL_Rect Player::getRect() const {
-	SDL_Rect rect;
-	rect.x = pos.getX();
-	rect.y = pos.getY() - h;
-	rect.w = w;//ancho
-	rect.h = h;//alto
-	return rect;
-}

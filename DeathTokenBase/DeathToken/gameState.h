@@ -8,7 +8,7 @@ class Game;
 
 class GameState {
 protected:
-	std::list<GameObject*> gameObjects;
+	GameList<GameObject> gameObjects;
 	std::list<EventHandler*> eventHandlers;
 	Game* game;
 public:

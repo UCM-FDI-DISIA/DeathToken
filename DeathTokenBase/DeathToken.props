@@ -5,9 +5,9 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <TargetName>$(ProjectName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)SDL2\include;$(SolutionDir)SDL2_image\include;$(SolutionDir)SDL2_ttf\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)SDL2\lib;$(SolutionDir)SDL2_image\lib;$(SolutionDir)SDL2_ttf\lib;$(LibraryPath)</LibraryPath>
-    <LocalDebuggerEnvironment>PATH=$(SolutionDir)SDL2\lib;$(SolutionDir)SDL2_image\lib;$(SolutionDir)SDL2_ttf\lib;%PATH%;$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+    <IncludePath>$(SolutionDir)SDL2\include;$(SolutionDir)SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2\lib;$(SolutionDir)SDL2_image\lib;$(LibraryPath)</LibraryPath>
+    <LocalDebuggerEnvironment>PATH=$(SolutionDir)SDL2\lib;$(SolutionDir)SDL2_image\lib;%PATH%;$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -15,7 +15,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
