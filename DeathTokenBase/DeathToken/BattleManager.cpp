@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <thread>
 #include <chrono>
+#include <SDL_ttf.h>
 
 using json = nlohmann::json;
 
@@ -16,10 +17,13 @@ random_device rd;
 mt19937 gen(rd());
 uniform_real_distribution<float> dist(0.0f, 100.0f);
 
-// Tiempo entre turnos
-constexpr int SEG = 1.2f;
+// Tiempo entre turnos (milisegundos)
+constexpr int MSEG = 1500;
 
-BattleManager::BattleManager() {
+BattleManager::BattleManager() : 
+    fighters()
+    , battleQueue()
+{
     srand(static_cast<unsigned int>(time(0)));  // Inicializar aleatorio
 }
 
@@ -96,10 +100,11 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 
 void BattleManager::StartBattle() {
     assert(!battleQueue.empty());
+  
+    int i = rand() % battleQueue.size();
 
     // Obtener el primer enfrentamiento en la cola
-    Matchup currentMatch = battleQueue.front();
-    battleQueue.erase(battleQueue.begin());
+    Matchup currentMatch = battleQueue[i];
 
     // Mostrar la descripción de la batalla
     cout << "Descripción de la batalla: " << currentMatch.battleDescription << endl;
@@ -120,7 +125,6 @@ void BattleManager::StartBattle() {
         currentMatch.fighter2.setMindset(rndMindset2 - MOD);
     }
 
-    ExecuteTurns(currentMatch);
 }
 
 void 
@@ -212,7 +216,7 @@ BattleManager::ExecuteTurns(Matchup currentMatch) {
             break;
         }
 
-        this_thread::sleep_for(chrono::seconds(SEG));
+        this_thread::sleep_for(chrono::milliseconds(MSEG));
         cout << "\n";
 
         cout << "Ahora es turno de "<< fighter2.getName() <<".\n";
@@ -221,7 +225,7 @@ BattleManager::ExecuteTurns(Matchup currentMatch) {
             break;
         }
         
-        this_thread::sleep_for(chrono::seconds(SEG));
+        this_thread::sleep_for(chrono::milliseconds(MSEG));
         cout << "\n";
 
         cout << "Ahora es turno de " << fighter1.getName() << ".\n";
