@@ -8,10 +8,10 @@
 class DialogueBox {
 public:
     DialogueBox(SDL_Renderer* renderer, TTF_Font* font);
-    ~DialogueBox();
-
+    ~DialogueBox() { renderer = nullptr; TTF_CloseFont(font); };
     void showMessage(const std::string& message);
     void hideMessage();
+    void ResetMessage();
     void render();
 
 private:
