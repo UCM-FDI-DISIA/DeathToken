@@ -12,3 +12,8 @@ Peleas::Peleas(Game* game) : GameState(game) , _battleM(new BattleManager()) {
 	}
 
 }
+void 
+Peleas::render() const{
+
+
+}

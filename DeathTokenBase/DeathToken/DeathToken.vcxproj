@@ -142,6 +142,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Fighter.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Baccarat.cpp" />
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Game.cpp" />

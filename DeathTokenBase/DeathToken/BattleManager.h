@@ -7,12 +7,10 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include "DialogueBox.h"
 
 using namespace std;
 
-const int MINMINDSET = 20;
-const int MAXMINDSET = 80 - MINMINDSET;
-const int MOD = 20;
 struct Matchup {
     Fighter fighter1;
     Fighter fighter2;
@@ -35,6 +33,7 @@ public:
 private:
     vector<Fighter> fighters;
     vector<Matchup> battleQueue;  // Cola de enfrentamientos
+    
     
     void ActionTurn(Fighter& active, Fighter& objetive);
 };

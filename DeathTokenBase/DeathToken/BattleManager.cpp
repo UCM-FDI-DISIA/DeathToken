@@ -11,20 +11,27 @@
 #include <SDL_ttf.h>
 
 using json = nlohmann::json;
+// Valores para el animo
+const int MINMINDSET = 20;
+const int MAXMINDSET = 80;
+constexpr int MOD = 20;
+
+// Tiempo entre turnos (milisegundos)
+constexpr int MSEG = 1500;
 
 // Para random
 random_device rd;
 mt19937 gen(rd());
 uniform_real_distribution<float> dist(0.0f, 100.0f);
+uniform_int_distribution<int> range(0, 27); // 28 es el numero de enfrentamientos. Incluyendo el 0 lo hace que llegue hasta el 27
+uniform_real_distribution<float> mindsetRange(5, 20);
+uniform_real_distribution<float> inicialMindSet(MINMINDSET, MAXMINDSET);
 
-// Tiempo entre turnos (milisegundos)
-constexpr int MSEG = 1500;
 
 BattleManager::BattleManager() : 
     fighters()
     , battleQueue()
 {
-    srand(static_cast<unsigned int>(time(0)));  // Inicializar aleatorio
 }
 
 bool BattleManager::loadFightersFromJSON(const string& filename)
@@ -98,10 +105,12 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
   return true;
 }
 
+
+
 void BattleManager::StartBattle() {
     assert(!battleQueue.empty());
   
-    int i = rand() % battleQueue.size();
+    int i = range(gen);
 
     // Obtener el primer enfrentamiento en la cola
     Matchup currentMatch = battleQueue[i];
@@ -111,8 +120,8 @@ void BattleManager::StartBattle() {
     cout << "Peleadores: " << currentMatch.fighter1.getName() << " vs " << currentMatch.fighter2.getName() << endl;
 
     // Asignar un "mindset" aleatorio a los luchadores
-    int rndMindset1 = (rand() % MAXMINDSET) + MINMINDSET;
-    int rndMindset2 = (rand() % MAXMINDSET) + MINMINDSET;
+    int rndMindset1 = inicialMindSet(gen);
+    int rndMindset2 = inicialMindSet(gen);
 
     if (currentMatch.advantageFighterIndex == 1)
     {
@@ -145,7 +154,7 @@ BattleManager::ActionTurn(Fighter& active, Fighter& objetive) {
             active.takeDamage(active.getAttack());
             cout << "¡Pero se ha golpeado a si mismo, " << active.getName() << " se ha vuelto loco!\n";
             if (active.isAlive()) {
-                active.reduceMindset(MOD);
+                active.reduceMindset(mindsetRange(gen));
                 cout << "Esto seguro que mina su concentración en el combate\n";
                 cout << "¡Ahora es más probable que pierda!\n";
             }
@@ -159,7 +168,7 @@ BattleManager::ActionTurn(Fighter& active, Fighter& objetive) {
         else if (prob < hitBackProb + failProb) // se suman para tener en cuenta que no se cumplido la anterior condicion
         {
             cout << active.getName() << " lamentablemente su golpe ha fallado a su objetivo.\n";
-            active.reduceMindset(MOD);
+            active.reduceMindset(mindsetRange(gen));
             cout << "Esto seguro que mina su concentración en el combate.\n";
             cout << "¡Ahora es más probable que pierda!\n";
         }
@@ -171,8 +180,8 @@ BattleManager::ActionTurn(Fighter& active, Fighter& objetive) {
             cout << "¡MADRE MIA, CRÍTICO!" << active.getName() << " acaba de destrozar a su oponente.\n";
             cout << " Tras semejante golpe tal vez deban replantearse el resultado del combate.\n";
             if (objetive.isAlive()) {
-                active.boostMindset(MOD);
-                objetive.reduceMindset(MOD);
+                active.boostMindset(mindsetRange(gen));
+                objetive.reduceMindset(mindsetRange(gen));
                 cout << "Esto seguro que mejora su concentración en el combate.\n";
                 cout << "¡Ahora es más probable que gane!\n";
                 cout << "¡Y " << objetive.getName() << " es más probable que pierda!\n";
