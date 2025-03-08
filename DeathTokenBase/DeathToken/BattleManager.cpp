@@ -31,6 +31,7 @@ uniform_real_distribution<float> inicialMindSet(MINMINDSET, MAXMINDSET);
 BattleManager::BattleManager() :
     fighters()
     , battleQueue()
+    , currentMatch()
 {
 }
 
@@ -113,7 +114,7 @@ void BattleManager::StartBattle() {
     int i = range(gen);
 
     // Obtener el primer enfrentamiento en la cola
-    Matchup currentMatch = battleQueue[i];
+    currentMatch = battleQueue[i];
 
     // Mostrar la descripción de la batalla
     cout << "Descripción de la batalla: " << currentMatch.battleDescription << endl;

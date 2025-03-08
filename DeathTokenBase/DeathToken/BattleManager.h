@@ -16,7 +16,6 @@ struct Matchup {
     Fighter fighter2;
     int advantageFighterIndex = 0;
     string battleDescription;
-    int lastBattleIndex = INT32_MAX;
 };
 
 class BattleManager {
@@ -30,9 +29,13 @@ public:
     void StartBattle();
     void ExecuteTurns(Matchup currentMatch);
 
+    inline Fighter getFigther1() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch.fighter1; }
+    inline Fighter getFigther2() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch.fighter2; }
+
 private:
     vector<Fighter> fighters;
     vector<Matchup> battleQueue;  // Cola de enfrentamientos
+    Matchup currentMatch;
     
     
     void ActionTurn(Fighter& active, Fighter& objetive);
