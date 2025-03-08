@@ -16,5 +16,23 @@ Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dia
 void
 Peleas::render() const {
 
-    dialog->render(); 
+    SDL_Rect fondo;
+    fondo.x = fondo.y = 0;
+    fondo.h = Game::WIN_HEIGHT;
+    fondo.w = Game::WIN_WIDTH;
+    game->getTexture(PELEASFONDO)->render(fondo);
+
+    SDL_Rect r;
+    r.x = r.y = 0;
+    r.h = Game::WIN_HEIGHT;
+    r.w = Game::WIN_WIDTH;
+    game->getTexture(PELEASTARJETAFONDO)->render(r);
+
+    SDL_Rect tarjetas;
+    tarjetas.x = tarjetas.y = 0;
+    tarjetas.h = Game::WIN_HEIGHT;
+    tarjetas.w = Game::WIN_WIDTH;
+    game->getTexture(PELEASTARJETAS)->render(tarjetas);
+
+    GameState::render();
 }
