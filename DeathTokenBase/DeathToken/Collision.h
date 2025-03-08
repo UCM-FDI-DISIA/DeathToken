@@ -5,14 +5,15 @@
 struct Collision
 {
 	enum Target {
-		LIMITES = 1,	// afecta a enemigos
+		ENEMIES = 1,	// afecta a enemigos
 		PLAYER = 2,	// afecta al jugador
-		JUEGO = 3,	// afecta a juego
+		BOTH = 3,	// afecta a ambos
 	};
 
 	// Tipo de resultado de la colisión
 	enum Result {
 		NONE,		// no ha habido colisión
+		DAMAGE,		// la colisión produce daño
 		OBSTACLE,	// la colisión impide el movimiento
 	};
 
