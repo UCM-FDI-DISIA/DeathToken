@@ -101,6 +101,7 @@ Game::Game() {
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
 
+	TTF_Init();
 
 	Menu* menu = new Menu(this);
 	pushState(menu);

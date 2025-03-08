@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <array>
+#include <SDL_ttf.h>
 #include "Texture.h"
 #include <random>
 
