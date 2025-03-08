@@ -9,6 +9,7 @@ public:
     Peleas(Game* game);
     ~Peleas() { delete _battleM; delete dialog; }
     void render() const override;
+    void update() override;
 private:
     BattleManager* _battleM;
     DialogueBox* dialog;

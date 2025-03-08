@@ -45,6 +45,9 @@ public:
 
     inline bool isAlive() const { return health > 0; } // es un metodo util para saber si el combate sigue o no
 
+    float getOdds(float Ability2) const;
+    std::string getStringMindset() const;
+
     // Métodos Setters
     inline void setHealth(int value) { health = value; }
     inline void setMindset(float value) { mindset = value; }

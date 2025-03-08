@@ -29,6 +29,7 @@ public:
     void StartBattle();
     void ExecuteTurns(Matchup currentMatch);
 
+    inline Matchup getCurrentMatchUp() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch; }
     inline Fighter getFigther1() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch.fighter1; }
     inline Fighter getFigther2() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch.fighter2; }
 
