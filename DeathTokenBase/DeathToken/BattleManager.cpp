@@ -120,8 +120,8 @@ void BattleManager::StartBattle() {
     cout << "Peleadores: " << currentMatch.fighter1.getName() << " vs " << currentMatch.fighter2.getName() << endl;
 
     // Asignar un "mindset" aleatorio a los luchadores
-    int rndMindset1 = inicialMindSet(gen);
-    int rndMindset2 = inicialMindSet(gen);
+    float rndMindset1 = inicialMindSet(gen);
+    float rndMindset2 = inicialMindSet(gen);
 
     if (currentMatch.advantageFighterIndex == 1)
     {
