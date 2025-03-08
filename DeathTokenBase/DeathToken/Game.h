@@ -28,6 +28,7 @@ public:
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
+	static TTF_Font* font;
 private:
 	// Ventana de la SDL (se destruirá en el destructor)
 	SDL_Window* window = nullptr;
