@@ -30,6 +30,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
 };
 
+TTF_Font* Game::font = nullptr;
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -53,7 +54,7 @@ Game::Game() {
 
 
 	TTF_Init();
-
+	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", 32);
 	Menu* menu = new Menu(this);
 	pushState(menu);
 }
@@ -63,6 +64,7 @@ Game::~Game() {
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+	TTF_CloseFont(font);
 	// Desactiva la SDL
 	SDL_Quit();
 }
