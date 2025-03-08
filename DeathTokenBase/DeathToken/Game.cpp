@@ -30,6 +30,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
 };
 
+
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Death Token 1x01",
@@ -37,7 +38,7 @@ Game::Game() {
 		SDL_WINDOWPOS_CENTERED,
 		WIN_WIDTH * TILE_SIDE,
 		WIN_HEIGHT * TILE_SIDE,
-		SDL_WINDOW_SHOWN);
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
 	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr)
@@ -49,6 +50,7 @@ Game::Game() {
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
+
 
 	TTF_Init();
 
