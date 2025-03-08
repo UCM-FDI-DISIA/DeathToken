@@ -9,9 +9,7 @@ Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dia
     {
         //std::thread BattleThread([this]() {_battleM->StartBattle();});
         //BattleThread.detach();
-        dialog->showMessage("Buenas a todos y bienvenidos a peleas reanimadas");
-        dialog->showMessage("Buenas a todos y bienvenidos a peleas reanimadas");
-        dialog->showMessage("Buenas a todos");
+        
     }
 
 }
