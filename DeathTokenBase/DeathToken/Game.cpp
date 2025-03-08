@@ -52,6 +52,7 @@ Game::Game() {
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
 
+	TTF_Init();
 
 	TTF_Init();
 	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", 32);
