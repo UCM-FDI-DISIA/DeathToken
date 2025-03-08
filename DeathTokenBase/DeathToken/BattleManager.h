@@ -18,6 +18,7 @@ struct Matchup {
     Fighter fighter2;
     int advantageFighterIndex = 0;
     string battleDescription;
+    int lastBattleIndex = INT32_MAX;
 };
 
 class BattleManager {
