@@ -1,6 +1,6 @@
 #pragma once
 #include "Baccarat.h"
-class BaccaratFlip: Baccarat
+class BaccaratFlip : public Baccarat
 {
 private:
 	//botones, eventos????

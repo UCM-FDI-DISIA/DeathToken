@@ -25,7 +25,7 @@ void Baccarat::addCards() {//llama al metodo que crea las cartas
 	//izq player
 	player2 = createCard(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70, Game::WIN_HEIGHT / 5.33, 0, 0);
 	//banker dch
-	banker2 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 5.32, 0, 0);;
+	banker2 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 5.32, 0, 0);
 	//tercera player
 	player3 = createCard(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81, Game::WIN_HEIGHT / 5.33, 90, 14);
 	//tercera banca

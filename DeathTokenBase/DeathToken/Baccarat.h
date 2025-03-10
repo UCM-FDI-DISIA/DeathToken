@@ -60,7 +60,7 @@ public:
 	void clearDeck();
 	void update() override;
 	void render() const override;
-	void handCards();
+	virtual void handCards();
 	void handThird();
 	void bankThird();
 	int generateRnd();
@@ -73,5 +73,5 @@ public:
 	void newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat);
 	void clearBets();
 	void repeat();
-	void startRound();
+	virtual void startRound();
 };
