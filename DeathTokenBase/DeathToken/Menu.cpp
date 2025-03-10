@@ -56,7 +56,7 @@ Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 			col = obj->hit(rect, target);
 			hit = col.result != col.NONE;
 			if (target == Collision::PLAYER && col.result == col.OBSTACLE) {
-				hit == true;
+				hit = true;
 			}
 		}
 	}
