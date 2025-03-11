@@ -19,17 +19,17 @@ Cards* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
 
 void Baccarat::addCards() {//llama al metodo que crea las cartas
 	//derch player
-	player1 = createCard(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3, Game::WIN_HEIGHT / 5.33, 0, 0);
+	player1 = createCard((int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.33), 0, 0);
 	//banker izq
-	banker1 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42, Game::WIN_HEIGHT / 5.32, 0, 0);
+	banker1 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32), 0, 0);
 	//izq player
-	player2 = createCard(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70, Game::WIN_HEIGHT / 5.33, 0, 0);
+	player2 = createCard((int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.33), 0, 0);
 	//banker dch
-	banker2 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 5.32, 0, 0);
+	banker2 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32), 0, 0);;
 	//tercera player
-	player3 = createCard(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81, Game::WIN_HEIGHT / 5.33, 90, 14);
+	player3 = createCard((int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81), (int)(Game::WIN_HEIGHT / 5.33), 90, 14);
 	//tercera banca
-	banker3 = createCard(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5, Game::WIN_HEIGHT / 5.32, 270, 14);
+	banker3 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5), (int)(Game::WIN_HEIGHT / 5.32), 270, 14);
 }
 
 void Baccarat::handleEvent(const SDL_Event& event) {

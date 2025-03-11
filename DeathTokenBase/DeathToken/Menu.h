@@ -8,12 +8,13 @@
 #include "Marbles.h"
 #include "Collision.h"
 #include "SceneObject.h"
+#include <list>
 
 class Player;
 
 class Menu : public GameState
 {
-	GameList<sceneObject> objetos;
+	list<sceneObject*> objetos;
 	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
