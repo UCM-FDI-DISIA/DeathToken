@@ -140,7 +140,6 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="gameList.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
