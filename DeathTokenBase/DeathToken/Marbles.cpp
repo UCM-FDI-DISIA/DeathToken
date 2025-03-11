@@ -16,9 +16,9 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 
 }
 Marbles::~Marbles() {
-	for (auto b : marbleButtons) {
+	/*for (auto b : marbleButtons) {
 		delete b;
-	}
+	}*/
 	delete ui;
 
 
