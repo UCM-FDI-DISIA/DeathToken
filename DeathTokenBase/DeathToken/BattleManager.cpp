@@ -4,78 +4,91 @@
 #include <cstdlib>
 #include <ctime>
 #include <random>
+#include "json.hpp" 
+#include <algorithm>
+using json = nlohmann::json;
 
 BattleManager::BattleManager() {
     srand(static_cast<unsigned int>(time(0)));  // Inicializar aleatorio
 }
 
-// Cargar luchadores desde archivos JSON
-bool BattleManager::loadFightersFromJSON(const string& filename) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cout << "No se pudo abrir el archivo de peleadores." << endl;
-        return false;
-    }
+bool BattleManager::loadFightersFromJSON(const string& filename)
+{
+  ifstream file(filename);
+  if (!file.is_open()) {
+    std::cout << "No se pudo abrir el archivo de peleadores." << endl;
+    return false;
+  }
 
-    json j;
-    file >> j;
+  json j;
+  file >> j;
 
-    // Procesar el JSON y cargar los peleadores
-    for (auto& item : j) {
-        Fighter fighter;
-        fighter.loadFromJSON(item);
-        fighters.push_back(fighter);
-    }
+  for (auto& item : j["peleadores"]) {
+    Fighter fighter;
+    // Convertir el JSON a string antes de pasarlo
+    fighter.loadFromJSON(item.dump());
+    fighters.push_back(fighter);
+  }
 
-    file.close();
-    return true;
+  file.close();
+  return true;
 }
 
-bool BattleManager::loadMatchupsFromJSON(const string& filename) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
-        return false;
-    }
+bool BattleManager::loadMatchupsFromJSON(const string& filename)
+{
+  ifstream file(filename);
+  if (!file.is_open()) {
+    cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
+    return false;
+  }
 
+  try {
     json j;
     file >> j;
+
+    // Verificar si "matchups" existe en el JSON
+    if (j.find("matchups") == j.end()) {
+      cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
+      return false;
+    }
 
     // Procesar el JSON y cargar los enfrentamientos
     for (auto& item : j["matchups"]) {
-        int id1 = item["F1"];
-        int id2 = item["F2"];
-        int advantageFighterIndex = item["advantageFighterIndex"];
-        string battleDescription = item["battleDescription"];
+      int id1 = item["F1"];
+      int id2 = item["F2"];
+      int advantageFighterIndex = item["advantageFighterIndex"];
+      string battleDescription = item["battleDescription"];
 
-      
-        if (id1 < 0 || id1 >= fighters.size() || id2 < 0 || id2 >= fighters.size()) {
-            cout << "Índice de peleador inválido." << endl;
-            continue;
-        }
+      if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
+          id2 >= fighters.size()) {
+        cout << "Índice de peleador inválido." << endl;
+        continue;
+      }
 
-        Matchup matchup;
-        matchup.fighter1 = fighters[id1];
-        matchup.fighter2 = fighters[id2];
-        matchup.advantageFighterIndex = advantageFighterIndex;
-        matchup.battleDescription = battleDescription;
+      Matchup matchup;
+      matchup.fighter1 = fighters[id1];
+      matchup.fighter2 = fighters[id2];
+      matchup.advantageFighterIndex = advantageFighterIndex;
+      matchup.battleDescription = battleDescription;
 
-        battleQueue.push_back(matchup);
+      battleQueue.push_back(matchup);
     }
+  }
+  catch (const json::parse_error& e) {
+    cout << "Error al procesar el JSON: " << e.what() << endl;
+    return false;
+  }
 
-    file.close();
-    return true;
-}
-
-void BattleManager::generateMatchQueue() {
-    // Ya no es necesario hacer nada aquí, la cola se genera directamente al cargar los matchups
+  file.close();
+  return true;
 }
 
 void BattleManager::StartBattle() {
-    if (battleQueue.empty()) {
+    /*if (battleQueue.empty()) {
         cout << "No hay enfrentamientos en la cola." << endl;
         return;
-    }
+    }*/
+    assert(!battleQueue.empty());
 
     // Obtener el primer enfrentamiento en la cola
     Matchup currentMatch = battleQueue.front();
@@ -99,7 +112,7 @@ void BattleManager::StartBattle() {
     }
     else
     {
-        currentMatch.fighter1.setMindset(rndMindset2 + MOD);
-        currentMatch.fighter2.setMindset(rndMindset1 - MOD);
+        currentMatch.fighter1.setMindset(rndMindset1 + MOD);
+        currentMatch.fighter2.setMindset(rndMindset2 - MOD);
     }
 }

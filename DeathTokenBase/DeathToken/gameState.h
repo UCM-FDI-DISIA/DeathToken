@@ -1,14 +1,13 @@
 ﻿#pragma once
 #include <SDL.h>
 #include <list>
-#include "gameList.h"
 #include "gameObject.h"
 #include "EventHandler.h"
 class Game;
 
 class GameState {
 protected:
-	GameList<GameObject> gameObjects;
+	std::list<GameObject*> gameObjects;
 	std::list<EventHandler*> eventHandlers;
 	Game* game;
 public:
