@@ -29,9 +29,9 @@ public:
     void StartBattle();
     void ExecuteTurns(Matchup currentMatch);
 
-    inline Matchup getCurrentMatchUp() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch; }
-    inline Fighter getFigther1() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch.fighter1; }
-    inline Fighter getFigther2() const { /*assert(currentMatch.advantageFighterIndex != 0);*/ return currentMatch.fighter2; }
+    inline Matchup getCurrentMatchUp() const { return currentMatch; }
+    inline Fighter getFigther1() const { return currentMatch.fighter1; }
+    inline Fighter getFigther2() const { return currentMatch.fighter2; }
 
 private:
     vector<Fighter> fighters;
