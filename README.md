@@ -129,11 +129,12 @@ Las recompensas de las apuestas serán:
 		
 #### Modo Locura:
 
-Habrá una carta en la que saldrá un número aleatorio del uno al tres, dependiendo del número, se implementará una nueva mecánica al juego la cual afectará a las apuestas:
+Habrá una carta en la que saldrá un número aleatorio del uno al cuatro, dependiendo del número, se implementará una nueva mecánica al juego la cual afectará a las apuestas:
 
-1. Adición de cartas: Una vez repartidas las dos cartas para la banca, para el jugador y las terceras cartas en caso de ser necesario, se ofrecerán tres cartas dadas la vuelta al jugador de las que tendrá que elegir dos para ver. Estas tres cartas las tendrá que colocar en la banca o en el jugador sumando al resultado inicial el valor de dichas cartas y teniendo en cuenta que deberá poner como mínimo 1 de ellas en cada sitio, y que tendrá que colocar la tercera carta en uno de ellos sin saber su valor.
-2. BlackJack: el juego cambiará a ser el BlackJack. Las apuestas cambiarán de forma que se apostará una cantidad de dinero que se cuadriplicara en caso de victoria. Se repartirán dos cartas boca arriba al jugador y dos al crupier, una boca abajo y otra boca arriba. El jugador podra decidir si seguir pidiendo cartas o no con el objetivo de quedarse lo mas cerca de sumar 21 o igualarlo, pero sin pasarse. El crupier tendra que descubrir la carta boca abajo una vez se plante el jugador y añadir cartas hasta llegar como minimo a 17, es decir si la suma del crupier es mayor o igual a 17 se planta y si es menor a 17 continua echando. Gana el que mas cerca este de 21. En caso de recibir 21 con las dos primeras cartas será victoria directa para el jugador. En caso de empate se devolverá el dinero apostado. Las cartas valen del 2 al 10 su respectivo valor, las figuras 10 y el 1 vale tanto 1 como 11, si con 11 la suma de tus cartas se pasa de 21 esta carta valdráa 1, en otro caso valdría 11.
-3. Acumulación: en caso de que el jugador gane, tendrá que decidir si sigue apostando o termina la partida. Si sigue apostando, estará obligado a hacerlo con el dinero ganado en la anterior ronda, en caso de ganar la siguiente, sus ganancias no serán por dos sino por cuatro, y así sucesivamente. Pero si pierde, perderá todo lo ganado. En caso de ganar cinco veces seguidas se triplicara el multiplicador de apuesta en vez de duplicarlo, esto ocurrirá con cada cinco victorias.
+1. Cambio de cartas: Una vez repartidas las dos cartas para la banca y para el jugador, se cambiara la segunda carta del jugador por la segunda carta de la banca antes de darles la vuelta.
+2. Dobles: si el jugador gana, gana el doble , si pierde, pierde el doble.
+3. Tercera carta obligatoria: se repartirá la tercera carta a la vez que las otras dos de forma que tanto la banca como el jugador jugarán con tres cartas de golpe y no habrá una cuarta.
+4. Acumulacion: en caso de que el jugador gane, tendrá que decidir si sigue apostando o termina la partida. Si sigue apostando, estará obligado a hacerlo con el dinero ganado en la anterior ronda, en caso de ganar la siguiente, sus ganancias no serán por dos sino por cuatro, y así sucesivamente. Pero si pierde, perderá todo lo ganado. En caso de ganar cinco veces seguidas se triplicara el multiplicador de apuesta en vez de duplicarlo, esto ocurrirá con cada cinco victorias.
 
 #### Canicas:
 Se sacarán de un saco 3 bolas de colores. El objetivo del juego consiste en predecir de qué color van a salir las bolas de colores. Los colores son rojo, cian, verde y amarillo. Para decidir la apuesta, abajo de la pantalla habrá diferentes fichas con una cantidad de apuesta(10, 20, 50 etc). Una vez seleccionada se pondrá en las diferentes casillas que el jugador quiera depositar la apuesta, estas casillas serán 4 casillas con 1 bola de cada color, 10 casillas con combinaciones de 2 colores y 20 casillas de combinaciones de 3 colores. Cuando ya se acabe la apuesta, se verán como salen 3 bolas de colores, revelando que combinación de colores es la ganadora. Si el jugador ha ganado, recibirá un mensaje de cuántas fichas ha obtenido.
@@ -150,116 +151,32 @@ Antes de que se muestran las bolas habrá un juego del trilero. En este se meter
 [Boceto de las apuesta y tablero](https://github.com/user-attachments/assets/b66c7004-7c0c-4365-bff1-7614b5f253b2)
 
 #### Peleas Reanimadas:
-- **Descripción general**
-	Peleas Reanimadas es un juego de peleas automáticas (auto-fight) en el que los jugadores apuestan por el ganador de un combate y confían en la suerte para 	obtener ganancias.
+Las peleas reanimadas inician mostrando los perfiles de los peleadores. Estos perfiles se compondrán de nombre, apariencia (sprite) y cuota. En ese momento el jugador debe elegir su apuesta inicial. (Mirar Peleas Reanimadas 1 (Intro)).
 
-- **Peleadores**
-	Cada peleador cuenta con atributos únicos de vida y ataque, mientras que la probabilidad de activar acciones especiales es la misma para todos. Sin 		embargo, existe un factor adicional: el ánimo.
+La pelea se divide en turnos donde como en todos los combates por peleas se pega uno y luego el otro (Empieza siempre el que tenga mayor cuota). El giro es que una vez inicie la pelea el jugador NO tendrá control de los personajes peleando. Cada turno el jugador debe de elegir si aumenta la apuesta hacia alguno de los personajes o la reduce. En cada turno solo se puede hacer una de estas dos. Al reducir la apuesta es importante que sólo puedes retirar la mitad de las fichas apostadas a un personaje siempre que quede al menos la misma cantidad de fichas jugadas inicialmente.
 
-- **Ánimo y su impacto en el combate**
-	El ánimo se determina aleatoriamente antes del inicio de cada combate y afecta directamente la probabilidad de que ocurran eventos positivos o negativos 	durante la pelea:
+Durante el turno de los personajes que pelean pueden ocurrir varios eventos que cambien el curso del combate.
+- Golpes críticos hacen más daño
+- El ataque falla al tratar de golpear
+- Se pegan a sí mismos sin querer
+- Se preparan para recibir un ataque y reducen el daño durante unos turnos.
 
-	- Mayor ánimo: aumenta la posibilidad de golpes críticos y reduce la probabilidad de fallos o autogolpes.
-	- Menor ánimo: incrementa la probabilidad de fallos y autogolpes, disminuyendo las oportunidades de éxito en la pelea.
-	El valor de ánimo de cada peleador varía dependiendo de su oponente, influenciado por la historia entre ambos personajes. Por ejemplo, un combate entre 	dos rivales históricos (como un Madrid vs. Barça) podría generar ventajas o desventajas en el ánimo.
-
-	Antes del combate, el jugador podrá ver una breve historia que proporciona contexto sobre la relación entre los peleadores, lo que puede dar pistas sobre 	quién tiene más probabilidades de ganar. Esta información se mostrará en el panel de apuestas.
-
-- **Juego**
-Panel de apuestas:
-Antes de cada pelea, se mostrará el panel de apuestas con información relevante sobre el combate. En pantalla aparecerán dos tarjetas, una para cada peleador, con los siguientes datos:
-
-1. Nombre
-2. Imagen
-3. Cuota de apuesta: Calculada con la fórmula (Vida Máx + Ataque * 1.3).
-4. Ánimo: Representado con una palabra clave (Ej: Enfocado, Descentrado).
-5. Fichas apostadas
-Además, se incluirá:
-
-- Descripción del enfrentamiento, brindando contexto sobre la relación entre los peleadores y posibles ventajas de uno sobre el otro.
-- Tabla de acciones especiales, con información sobre los eventos que pueden alterar el combate.
-- Botón de ayuda, que dirigirá a una guía detallada sobre el juego.
-- Una vez realizada la apuesta, el combate iniciará automáticamente.
-
-- **Desarrollo del combate**
-Las peleas transcurren en turnos automáticos, donde el jugador actúa como espectador sin intervenir directamente. Sin embargo, ciertas acciones especiales pueden afectar las probabilidades de victoria y permitir ajustes en las apuestas.
-
-**Acciones especiales y su impacto en las apuestas**
-Cuando ocurren acciones especiales, el jugador puede ganar o perder fichas de diferentes maneras:
-
-1. Golpe crítico:
-
-- Inflige triple de daño.
-- Reduce el ánimo del oponente y aumenta el propio.
-**Afecta las fichas:**
-- Se elimina un 10% de las fichas apostadas (mínimo 1 ficha si la apuesta es mayor a 0).
-- Se permite reinvertir las fichas perdidas en alguno de los peleadores.
-- El peleador que realizó el golpe crítico aumenta su apuesta en un 30% con fichas del jugador (si el jugador no tiene fichas adicionales, no se podrá aumentar la 
-  apuesta).
-  
-2. Ataque fallido:
-
-- El peleador no logra golpear a su oponente.
-- Disminuye su ánimo.
-**Afecta las fichas:**
-- Se pierde un 25% de la apuesta realizada por el peleador que falló.
-- Se permite reinvertir las fichas perdidas.
-
-3. Autogolpe:
-
-- El peleador se golpea a sí mismo.
-- Disminuye su ánimo.
-**Afecta las fichas:**
-- Se pierde permanentemente un 15% de las fichas apostadas en ese peleador.
-- Estas fichas se eliminan del saldo del jugador y no pueden recuperarse.
-
-- **Resolución de la pelea y recompensas**
-Al finalizar el combate, las fichas se calculan de la siguiente manera:
-
-- Se pierden las fichas apostadas en el peleador derrotado.
-- Se multiplican las fichas apostadas en el ganador según su cuota y se entregan al jugador.
+Al terminar la pelea se resuelve los cálculos de las fichas:
+- Se le quitan al jugador las invertidas en el perdedor
+- Se multiplican las fichas las invertidas en el personaje ganador por la cuota y se le dan al jugador.
 
 #### Modo Locura:
-Descripción general
-La Locura del Precio Justo es un juego de apuestas y estrategia en el que los jugadores compiten contra un rival para adivinar el precio de un objeto.
 
-Mecánica del juego
-Presentación del objeto
+- La pelea es entre 4 personajes en vez de 2. Esto hace que los personajes eligen a quien atacan de forma aleatoria haciendo más difícil predecir qué va a pasar. De vez en cuando aparecerán espontáneos que intentarán interrumpir la pantalla y golpear a los luchadores. También intentarán modificar la apuesta. Para ello, el jugador deberá disparar (hacer click) en los fantasmas que supongan una amenaza para deshacerse de ellos y que el combate siga su curso natural. El movimiento de dichos espontáneos será independiente del transcurso de los turnos de los luchadores.
+		
+Ideas Extras (Si el tiempo lo permite):
 
-Se muestra un objeto con una descripción clave que ayuda a determinar su precio.
-La descripción se divide en dos partes:
-Rango de precios aproximado, basado en la categoría del objeto.
-Estado o características específicas, que determinan si el precio se encuentra en el límite inferior, medio o superior de su rango.
-Ejemplo:
-"El Pergamino del Dragón es un objeto único en el mundo, conservado en un estado deplorable."
+- Los Personajes que pelean tienen un valor de ánimo que afecta a cómo se comportan. Este ánimo se refleja en pistas por un locutor que avisa de cómo se van a comportar los peleadores en cada turno. Este ánimo se establece a un valor aleatorio que sería reflejado en los perfiles de los luchadores con alguna palabra clave. Ej: Enfocado, descargando, derrotista, relajado, ...
+- El ánimo sería un valor que se va modificando según un aumento o disminuya las apuestas o ocurran diferentes cosas en el combate. El locutor anunciará los cambios en las apuestas y de forma sutil los valores de ánimo de cada uno de los personajes.
+Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que ocurran eventos positivos como críticos o que se preparen para recibir golpes. Por otro lado, si se reducen muchos las apuestas o el oponente recibe situaciones negativas, como que recibe un crítico o falla un golpe se reduce su ánimo. Aumentará la probabilidad de que falle, de que se distraiga o incluso en algunos casos llegar a que se puedan llegar a rendir sin acabar el combate.
+- Que el valor de ánimo o la probabilidad de victoria cambie según quien se enfrente. Como puede ser de que vayan muy motivados contra ciertos rivales porque tienen alguna historia detrás, como podría ser un madrid vs barça. Esta historia corta de unas pocas líneas podría dar pistas de quién es más dado a ganar el enfrentamiento. 
+- Ej: Goku en su larga carrera contra Naruto suele conectar golpes devastadores con una precisión impecable. Mientras que el pelo piña trata de seguirle el ritmo. ¿Acaso será otro día donde veremos como goku cena pizza con piña? 
 
-Si los objetos únicos en el mundo suelen valer entre 100 - 200 fichas, el estado deplorable sugiere que su precio estará más cerca de 100 fichas.
-Límites de generación de precios
-
-El precio del objeto siempre estará dentro de un rango que el jugador pueda pagar, evitando situaciones donde no pueda ganar.
-Apuesta del jugador y del rival
-
-El jugador introduce su apuesta, es decir, el precio que cree correcto.
-El rival también hará su apuesta de forma automática.
-Evaluación de apuestas
-
-Se muestran los precios elegidos por ambos jugadores.
-Se revela el precio real del objeto.
-Se determina quién estuvo más cerca del precio correcto.
-Condiciones de victoria y recompensas
-
-Acierto exacto:
-El jugador gana 5x el valor del objeto.
-El juego termina inmediatamente.
-Precio más cercano:
-El jugador gana 2x el valor del objeto.
-Derrota:
-El jugador pierde la cantidad más alta que haya apostado durante la partida.
-Duración del juego
-
-La partida finaliza en cualquiera de los siguientes casos:
-Al acertar el precio exacto.
-Tras tres rondas, en cuyo caso gana el jugador con la mejor precisión general.
 [Peleas Reanimadas 1 (Intro)](https://github.com/user-attachments/assets/edbf9d59-1986-45bc-9c6d-49bba4cda15a)
 
 [Escenario pelea normal](https://github.com/user-attachments/assets/07b4ac54-db16-46a8-8ff8-df9ce52206a1)
