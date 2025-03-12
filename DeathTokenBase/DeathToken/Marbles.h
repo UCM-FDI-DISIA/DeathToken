@@ -37,8 +37,8 @@ protected:
 	double PosPH2 = (83.0 / 1080.0) * Game::WIN_HEIGHT;
 	double PosPW4 = (239.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH4 = (180.0 / 1080.0) * Game::WIN_HEIGHT;
-	double marginW = (5.0 / 1920.0) * Game::WIN_WIDTH;
-	double marginH = (5.0 / 1080.0) * Game::WIN_WIDTH;
+	double marginW = (10.0 / 1920.0) * Game::WIN_WIDTH;
+	double marginH = (10.0 / 1080.0) * Game::WIN_WIDTH;
 public:
 	Marbles(Game* game);
 	virtual ~Marbles();

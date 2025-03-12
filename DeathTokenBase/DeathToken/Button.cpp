@@ -225,10 +225,20 @@ ButtonMarbles::ButtonMarbles(GameState* gS, Game* game, UI* ui, int x, int y, in
 	: ButtonBet(gS, game, ui, x, y, w, h, t, tC), NCMarbles(NCMarbles), type(type)
 {
 	stop = type;
-	CMarbles.push_back(gS->getGame()->getTexture(REDMARBLE));
-	CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLE));
-	CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLE));
-	CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLE));
+	if (type == 1 || type == 3)
+	{
+		CMarbles.push_back(gS->getGame()->getTexture(REDMARBLE));
+		CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLE));
+		CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLE));
+		CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLE));
+	}
+	else
+	{
+		CMarbles.push_back(gS->getGame()->getTexture(REDMARBLESM));
+		CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLESM));
+		CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLESM));
+		CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLESM));
+	}
 }
 void
 ButtonMarbles::render() const
