@@ -3,8 +3,6 @@
 #include "Game.h"
 #include "Menu.h"
 
-
-
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
 

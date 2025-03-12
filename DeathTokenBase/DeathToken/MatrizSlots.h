@@ -1,5 +1,6 @@
 #pragma once
 #include "sceneObject.h"
+#include "Celda.h"
 #include <vector>
 #include <algorithm>
 #include <chrono>
@@ -7,7 +8,7 @@
 class MatrizSlots : public sceneObject {
 private:
 	Texture* iconos;
-	vector<vector<int>> mat;
+	vector<vector<Celda*>> mat;
 	int fil; int col;
 public:
 	MatrizSlots(GameState*, Point2D<int>, int, int, Texture*, Texture*, int, int);

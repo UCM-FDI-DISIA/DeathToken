@@ -1,7 +1,7 @@
 #include "MatrizSlots.h"
 
 MatrizSlots::MatrizSlots(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* ic, int filas, int colum)
-	: sceneObject(g, pos, w, h, celdas), iconos(ic), mat(filas, vector<int>(colum)), fil (filas), col (colum)
+	: sceneObject(g, pos, w*filas, h*filas, celdas), iconos(ic), mat(filas, vector<Celda*>(colum)), fil (filas), col (colum)
 {
 
 }
