@@ -11,7 +11,14 @@ using namespace std;
 
 class Fighter {
 public:
-    Fighter() = default;
+    Fighter(): 
+        name("")
+        , maxHealth(0)
+        , health(0)
+        , attack(0)
+        , desc("Vacio")
+        , mindset(50) 
+    {}
 
 #ifdef DEBUG
     // Mostrar los detalles del peleador (opcional para debug)
@@ -32,13 +39,22 @@ public:
     inline int getHealth() const { return health; }
     inline int getAttack() const { return attack; }
     inline string getDesc() const { return desc; }
-    inline float getAbility() const { return ability; }
+    inline float getAbility() const { return health + attack * 1.3f; }
     inline int getMaxHealth() const { return maxHealth; }
-    inline int getMindset() const { return mindset; }
+    inline float getMindset() const { return mindset; }
+
+    inline bool isAlive() const { return health > 0; } // es un metodo util para saber si el combate sigue o no
+
+    float getOdds(float Ability2) const;
+    std::string getStringMindset() const;
 
     // Métodos Setters
     inline void setHealth(int value) { health = value; }
-    inline void setMindset(int value) { mindset = value; }
+    inline void setMindset(float value) { mindset = value; }
+
+    inline void takeDamage(int value) { health = health - value < 0 ? 0 : health - value; }
+    inline void boostMindset(float value) { mindset += value; }
+    inline void reduceMindset(float value) { mindset -= value; }
    
 private:
     string name;
@@ -46,8 +62,7 @@ private:
     int health;
     int attack;
     string desc;
-    float ability;  // Habilidad calculada (puede usarse para determinar las probabilidades)
-    int mindset;    // Valor adicional que puede afectar el rendimiento
+    float mindset;    // Valor adicional que puede afectar el rendimiento
 };
 
 #endif // FIGHTER_H

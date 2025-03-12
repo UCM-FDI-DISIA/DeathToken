@@ -2,6 +2,7 @@
 #include "gameStateMachine.h"
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <array>
 #include "Texture.h"
 #include <random>
@@ -67,6 +68,9 @@ enum TextureName {
 	GREENMARBLE,
 	BLUEMARBLE,
 	YELLOWMARBLE,
+	PELEASFONDO,
+	PELEASTARJETAFONDO,
+	PELEASTARJETAS,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
 };
 class Game : private GameStateMachine {
@@ -76,6 +80,7 @@ public:
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
+	static TTF_Font* font;
 private:
 	// Ventana de la SDL (se destruir� en el destructor)
 	SDL_Window* window = nullptr;

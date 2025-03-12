@@ -76,10 +76,15 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
+	TextureSpec{"FondoTarjetasConReglas.png", 1, 1},
+	TextureSpec{"FondoDeFotoDeTarjeta.png", 1, 1},
+	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
 
 
 
 };
+
+TTF_Font* Game::font = nullptr;
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -101,7 +106,8 @@ Game::Game() {
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
 
-
+	TTF_Init();
+	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", 32);
 	Menu* menu = new Menu(this);
 	pushState(menu);
 
