@@ -28,8 +28,15 @@ void DialogueBox::hideMessage() {
     visible = false;
 }
 
-void DialogueBox::render() const {
+void DialogueBox::render(bool transparente) const {
     if (!visible) return;
+    int transparent;
+    if (transparente) {
+        transparent = SDL_ALPHA_TRANSPARENT;
+    }
+    else {
+        transparent = 255;
+    }
 
     SDL_Color textColor = { 255, 255, 255, 255 };  // Blanco para el texto
 
@@ -61,7 +68,7 @@ void DialogueBox::render() const {
     // Habilitar el modo de mezcla para permitir transparencia
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     // Establecer el color del cuadro de diálogo (transparente con negro)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 127);  // Fondo negro semi-transparente
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, transparent);  // Fondo negro semi-transparente
     SDL_RenderFillRect(renderer, &dialogBox);  // Dibujar el cuadro de diálogo
 
     // Renderizar el texto sobre el cuadro de diálogo
@@ -72,9 +79,16 @@ void DialogueBox::render() const {
     SDL_FreeSurface(textSurface);
 }
 
-void DialogueBox::render(int x, int y) const {
+void DialogueBox::render(int x, int y, bool transparente) const {
     if (!visible) return;
-
+    int transparent;
+    if (transparente) {
+        transparent = SDL_ALPHA_TRANSPARENT;
+    }
+    else {
+        transparent = 255;
+    }
+    
     SDL_Color textColor = { 0, 0, 0, 255 };  // Blanco para el texto
 
     // Crear la superficie del texto (con ajuste de ancho de 400px)
@@ -104,7 +118,7 @@ void DialogueBox::render(int x, int y) const {
 
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     // Establecer el color del cuadro de diálogo (transparente con negro)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_TRANSPARENT);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, transparent);
 
     SDL_RenderFillRect(renderer, &dialogBox);  // Dibujar el cuadro de diálogo
 

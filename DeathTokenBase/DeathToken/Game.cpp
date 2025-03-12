@@ -59,12 +59,16 @@ Game::Game() {
 	pushState(menu);
 }
 Game::~Game() {
+	
 	SDL_DestroyRenderer(renderer);
+	
 	SDL_DestroyWindow(window);
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+
 	TTF_CloseFont(font);
+	
 	// Desactiva la SDL
 	SDL_Quit();
 }
