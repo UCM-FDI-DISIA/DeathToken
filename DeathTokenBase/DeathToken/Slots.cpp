@@ -63,7 +63,10 @@ void Slots::update() {
 			}
 		}
 		for (Carrete* c : carretes) c->deleteCarrete();
+		#if _DEBUG
+
 		std :: cout << multiplicador << "\n";
+		#endif
 	}
 }
 void Slots::render() const {

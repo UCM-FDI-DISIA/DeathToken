@@ -10,7 +10,7 @@ vector<int> Carrete::vectorAleatorio() {
 		}
 	}
 
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	unsigned int seed =(unsigned int) std::chrono::system_clock::now().time_since_epoch().count();
 	shuffle(vector.begin(), vector.end(), std::default_random_engine(seed));
 
 	return vector;
@@ -44,7 +44,7 @@ void Carrete::render() const {
 		texture->render(r);
 
 		int ind = indice - i;
-		if (ind < 0) ind += resultante.size();
+		if (ind < 0) ind += (int)resultante.size();
 		iconos->renderFrame(r, 0, resultante[ind]);
 	}
 }
@@ -55,7 +55,7 @@ void Carrete::pararGiro() {
 	if (giro) {
 		for (int i = 0; i < NUM_ELEMS; ++i) {
 			int ind = indice - i;
-			if (ind < 0) ind += resultante.size();
+			if (ind < 0) ind += (int)resultante.size();
 			carretesRes.push_back(resultante[ind]);
 		}
 		giro = false;
