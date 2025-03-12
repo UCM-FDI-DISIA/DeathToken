@@ -57,7 +57,7 @@ public:
 		
 	};
 	void handleEvent(const SDL_Event& event) override;
-	void clearDeck();
+	virtual void clearDeck();
 	void update() override;
 	void render() const override;
 	virtual void handCards();

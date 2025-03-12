@@ -10,13 +10,15 @@ void BaccaratBlackjack::handCards() {
 }
 
 void BaccaratBlackjack::startRound() {
+	clearDeck();
+	canAsk = true;
 	handCards();
 	//eleccion frame cartas
 	player1->frame = mat.player[0];
 	//banker1->frame = mat.banker[0];
 	player2->frame = mat.player[1];
 	banker2->frame = mat.banker[1];
-	askCards();//borramos mazo repartido
+	askCards();
 }
 
 void BaccaratBlackjack::askCards() {
@@ -24,22 +26,68 @@ void BaccaratBlackjack::askCards() {
 	more = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(SLOTSBUT));
 	addObjects(more);
 	addEventListener(more);
-	more->connect([this]() { handOneCard(false); });
+	more->connect([this]() { handOneCard(); });
 	yBut = Game::WIN_HEIGHT * 3 / 5;
 	stand = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(SLOTSBUT));
 	addObjects(stand);
 	addEventListener(stand);
-	stand->connect([this]() { clearDeck(); });
+	stand->connect([this]() { bancaAI(); });
 }
 
-void BaccaratBlackjack::handOneCard(bool banker) {
-	rndNum = generateRnd();
-	if (!banker) {
+void BaccaratBlackjack::handOneCard() {
+	if (totalCards(mat.player) < 21 && canAsk) {
+		rndNum = generateRnd();
 		mat.player.push_back(rndNum);
+		playerCardVec.push_back(createCard(playerXpos, playerYpos, 0, mat.player[mat.player.size() - 1]));
+		playerXpos -= Game::WIN_WIDTH / 40;
+		cardsVec.push_back(rndNum);
 	}
-	else
-	{
+}
+
+void BaccaratBlackjack::bancaAI() {
+	canAsk = false;
+	banker1->frame = mat.banker[0];
+	while (totalCards(mat.banker) < 17) {
+		rndNum = generateRnd();
 		mat.banker.push_back(rndNum);
+		bankerCardVec.push_back(createCard(bankerXpos, bankerYpos, 0, mat.banker[mat.banker.size() - 1]));
+		bankerXpos += Game::WIN_WIDTH / 40;
+		cardsVec.push_back(rndNum);
 	}
-	cardsVec.push_back(rndNum);
+}
+
+int BaccaratBlackjack::totalCards(vector<int> askedCards) {
+	int t = 0;
+	int marker = 0;
+	for (int i : askedCards)
+	{
+		if (i == 1) {
+			marker++;
+			i = 11;
+		}
+		if (t + i > 21 && marker > 0) { t -= 10; marker--; }
+		t += i;
+	}
+	return t;
+}
+
+void BaccaratBlackjack::clearDeck() {
+	banker1->frame = 0;
+	Baccarat::clearDeck();
+	playerXpos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 40);
+	bankerXpos = (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 + Game::WIN_WIDTH / 40);
+
+	for (int i = bankerCardVec.size(); i > 0; i--) {
+		bankerCardVec.pop_back();
+		gameObjects.pop_back();
+	}
+	for (int i = playerCardVec.size(); i > 0; i--) {
+		playerCardVec.pop_back();
+		gameObjects.pop_back();
+	}
+
+	eventHandlers.pop_back();
+	eventHandlers.pop_back();
+	gameObjects.pop_back();
+	gameObjects.pop_back();
 }
