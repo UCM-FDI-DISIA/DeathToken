@@ -16,9 +16,7 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 
 }
 Marbles::~Marbles() {
-	/*for (auto b : marbleButtons) {
-		delete b;
-	}*/
+	
 	delete ui;
 
 
@@ -46,7 +44,7 @@ void  Marbles::generateMarbles() {
 	}
 	pos = 0;
 }
-int  Marbles::checkBets(int moneyBet) {
+int  Marbles::checkBets() {
 	int moneyWin = 0;
 	//Cuando se hagan los botones cada apuesta hecha se metera en un map indicando que apuesta 
 	//hecha en un vector y el multi que da si gana
@@ -76,6 +74,9 @@ int  Marbles::checkBets(int moneyBet) {
 		if (won|| wonTriple) {
 			moneyWin += typeBet.moneyBet * typeBet.multiplier;
 		}
+		else {
+			moneyWin -= typeBet.moneyBet;
+		}
 	}
 
 	return moneyWin;
@@ -83,7 +84,7 @@ int  Marbles::checkBets(int moneyBet) {
 
 void Marbles::startRound() {
 	generateMarbles();//Se generar las canicas aleatorias
-	int moneyWin = checkBets(moneyBet);//Comparar canicas con apuesta
+	int moneyWin = checkBets();//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
 	  #if _DEBUG
@@ -168,19 +169,18 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 	
 	int multiplier = 0;
 
-	if(type == 1) {
+
+	switch (type) {
+	case 1:
 		multiplier = 2;
-	}
-	else if (type == 2) {
+		break;
+	case 2:
+	case 4:
 		multiplier = 5;
-
-	}
-	else if (type == 3) {
+		break;
+	case 3:
 		multiplier = 20;
-
-	}
-	else if (type == 4) {
-		multiplier = 5;
+		break;
 	}
 	ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
 	marbleButtons.push_back(btnMarbles);

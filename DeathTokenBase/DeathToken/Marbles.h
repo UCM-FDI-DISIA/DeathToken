@@ -46,7 +46,7 @@ public:
 	void update() override;
 
 	void  generateMarbles();
-	int checkBets(int moneyBet);
+	int checkBets();
 	void startRound();
 	void createMarbleButton(int x, int y, int width, int height, Texture*, Texture*, int type, std::vector<int> NCMarbles);
 	void marblesButtonCreation();
