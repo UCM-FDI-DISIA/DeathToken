@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Player.h"
+#include "Peleas.h"
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
@@ -29,7 +30,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
