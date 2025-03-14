@@ -162,7 +162,6 @@
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Carrete.cpp" />
     <ClCompile Include="Text.cpp" />
-    <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
