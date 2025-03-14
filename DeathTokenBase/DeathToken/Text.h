@@ -15,7 +15,7 @@ public:
     void eraseMessage();
     void setColor(int red, int green, int blue);
     void setAlpha(int alpha);
-    void setWidht(int width);
+    void setWidth(int width);
     void update() override {};
     void render() const override;
 

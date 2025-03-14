@@ -47,7 +47,7 @@ Text::setAlpha(int alpha) {
     this->alpha = alpha;
 }
 void
-Text::setWidht(int width)
+Text::setWidth(int width)
 {
     boxWidth = width;
 }
