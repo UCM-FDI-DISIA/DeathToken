@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <array>
 #include "Texture.h"
 #include "gameStateMachine.h";
@@ -59,6 +60,10 @@ enum TextureName {
 	MARIO,
 	NUM_TEXTURES,  // Truco C++: número de texturas definidas
 };
+enum TypoName {
+	GRAND_CASINO,
+	NUM_TYPO,
+};
 class Game : private GameStateMachine {
 public:
 	static int WIN_WIDTH;
@@ -73,14 +78,14 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
-
-
+	std::array<const char*, NUM_TYPO> typo;
 
 public:
 	Game();
 	~Game();
 	void run();
 	Texture* getTexture(TextureName name) const;
+	const char* getTypo(TypoName name) const;
 	SDL_Renderer* getRenderer() const;
 	void push(GameState*);
 	void replace(GameState*);

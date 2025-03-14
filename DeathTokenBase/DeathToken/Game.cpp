@@ -2,6 +2,7 @@
 #include "checkML.h"
 #include "Game.h"
 #include "Menu.h"
+#include <iostream>
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
@@ -69,6 +70,10 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"player.png", 1, 1},
 };
 
+std::array<std::string, NUM_TYPO> typoList{
+	"../assets/typo/Grand_Casino.otf",
+};
+
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Death Token 1x01",
@@ -88,7 +93,12 @@ Game::Game() {
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
-
+	TTF_Init();
+	std::string aux;
+	for (int i = 0; i < NUM_TYPO; i++)
+	{
+		typo[i] = typoList[i].c_str();
+	}
 
 	Menu* menu = new Menu(this);
 	pushState(menu);
@@ -99,6 +109,7 @@ Game::~Game() {
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+	TTF_Quit();
 	// Desactiva la SDL
 	SDL_Quit();
 }
@@ -134,6 +145,9 @@ void Game::run() {
 }
 Texture* Game::getTexture(TextureName name) const {
 	return textures[name];
+}
+const char* Game::getTypo(TypoName name) const {
+	return typo[name];
 }
 SDL_Renderer* Game::getRenderer() const { return renderer; }
 
