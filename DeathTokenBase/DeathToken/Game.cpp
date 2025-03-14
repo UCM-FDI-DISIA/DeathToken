@@ -94,7 +94,6 @@ Game::Game() {
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
 	TTF_Init();
-	std::string aux;
 	for (int i = 0; i < NUM_TYPO; i++)
 	{
 		typo[i] = typoList[i].c_str();
