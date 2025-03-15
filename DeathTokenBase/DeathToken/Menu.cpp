@@ -4,6 +4,9 @@
 
 #include "Baccarat.h"
 #include "Slots.h"
+#include "SlotsLocura.h"
+#include "Marbles.h"
+
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
@@ -17,7 +20,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new Slots(getGame())); });
+	slots->connect([this]() { gameChanger(new SlotsLocura(getGame())); });
 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
