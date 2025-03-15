@@ -60,9 +60,6 @@
     <ClInclude Include="SlotsLocura.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="MatrizSlots.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -120,9 +117,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="SlotsLocura.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrizSlots.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">

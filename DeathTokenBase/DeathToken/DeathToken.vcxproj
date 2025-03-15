@@ -145,7 +145,6 @@
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="Marbles.h" />
-    <ClInclude Include="MatrizSlots.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sceneObject.h" />
@@ -166,7 +165,6 @@
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Marbles.cpp" />
-    <ClCompile Include="MatrizSlots.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sceneObject.cpp" />

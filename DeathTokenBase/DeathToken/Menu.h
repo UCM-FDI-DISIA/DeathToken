@@ -2,9 +2,6 @@
 #include "Texture.h"
 #include "GameState.h"
 #include "Button.h"
-#include "Baccarat.h"
-#include "Slots.h"
-#include "Marbles.h"
 #include "Collision.h"
 #include "SceneObject.h"
 #include <list>

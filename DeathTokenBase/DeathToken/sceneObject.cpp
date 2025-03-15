@@ -46,14 +46,6 @@ sceneObject::getRenderRect() const
 	};
 }
 
-// Comprueba que os objetos se eliminen cuando caen al vacío
-void sceneObject::update() {
-	int side = Game::TILE_SIDE;
-	SDL_Rect rect = getCollisionRect();
-	if (rect.y + rect.h >= Game::WIN_HEIGHT * side - side / 2
-		|| pos.getX() < 0)
-		delete this;
-}
 // Intenta mover el objeto segun su velocidad comprobando las colisiones
 Collision
 sceneObject::tryToMove(const Vector2D<>& speed, Collision::Target target)

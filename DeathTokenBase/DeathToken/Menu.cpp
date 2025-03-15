@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Player.h"
 
+#include "Baccarat.h"
+#include "Slots.h"
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
