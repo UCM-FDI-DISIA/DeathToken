@@ -97,9 +97,6 @@ UI::OnArrow(const bool& left)
 }
 UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
-	test = new Text(gS, game->getTypo(GRAND_CASINO), 200, 200, 24);
-	test->addMessage("PRUEBA TEXTO");
-	gS->addObjects(test);
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
 	gS->addObjects(erase);
 	gS->addEventListener(erase);
