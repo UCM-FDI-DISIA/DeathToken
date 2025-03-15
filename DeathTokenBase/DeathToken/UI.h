@@ -2,7 +2,6 @@
 #include "Texture.h"
 #include "GameState.h"
 #include "Button.h"
-#include "SDL_ttf.h"
 #include "Text.h"
 #include <vector>
 class Player;
@@ -38,7 +37,6 @@ public:
 class UIChips : public UI
 {
 protected:
-	Text* test;
 	ButtonUI* erase;
 	ButtonUI* info;
 	ButtonUI* repeat;

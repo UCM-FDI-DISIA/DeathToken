@@ -7,14 +7,22 @@
 
 class Text : public GameObject {
 public:
-    Text(GameState* gS, const char*, int x, int y, int size);
-    Text(GameState* gS, const char*, int x, int y, int size, int red, int green, int blue, int alpha);
+    //Constructora sencilla, texto blanco, si no se especifica alineamiento a la izquierda
+    Text(GameState* gS, const char* typo, int x, int y, int size, bool alignedRight = false);
+    //Constructora para color, si no se especifica alineamiento a la izquierda
+    Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color textColor, bool alignedRight = false);
+    //Constructora para usar contorno, relleno blanco y contorno negro, si no se especifica alineamiento a la izquierda
+    Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize, bool alignedRight = false);
+    //Constructora para usar contorno con colores, si no se especifica alineamiento a la izquierda
+    Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize,
+         SDL_Color textColor, SDL_Color outlineColor, bool alignedRight = false);
     virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
     void setMessage(const std::string& message);
     void addMessage(const std::string& message);
     void eraseMessage();
-    void setColor(int red, int green, int blue);
-    void setAlpha(int alpha);
+    void setColor(int red, int green, int blue, int alpha);
+    void setOutlineColor(int red, int green, int blue, int alpha);
+    //Para cajas de texto, por defecto el ancho es infinito (no habrá saltos de línea automáticos)
     void setWidth(int width);
     void update() override {};
     void render() const override;
@@ -27,11 +35,16 @@ protected:
     int x;
     int y;
     int size;
+    int outlineSize;
 
-    int red;
-    int green;
-    int blue;
-    int alpha;
+    SDL_Color textColor;
+    SDL_Color outlineColor;
 
-    int boxWidth; //Para cajas de texto, por defecto todo el ancho de la pantalla
+    bool alignedRight;
+    int boxWidth;
+
+private:
+    void createTextSurfaces(SDL_Surface*& textSurface, SDL_Surface*& outlineSurface) const;
+    void createTextTextures(SDL_Texture*& textTexture, SDL_Texture*& outlineTexture, SDL_Surface*& textSurface, SDL_Surface*& outlineSurface) const;
+    void createTextRects(SDL_Rect& textRect, SDL_Rect& outlineRect, SDL_Surface*& textSurface, SDL_Surface*& outlineSurface) const;
 };
