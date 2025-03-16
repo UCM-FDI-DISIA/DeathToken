@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "Game.h"
 #include "UI.h"
+#include "Award.h"
 #include <map>
 class Marbles : public GameState
 {

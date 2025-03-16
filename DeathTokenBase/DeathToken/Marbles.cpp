@@ -89,7 +89,7 @@ void Marbles::startRound() {
 
 	  #if _DEBUG
 	if (moneyWin > 0) {
-
+		game->push(new Award( game,  this, moneyBet,moneyWin));
 		std::cout << "HAS GANDADO" << moneyWin<< "\n";
 		
 	}

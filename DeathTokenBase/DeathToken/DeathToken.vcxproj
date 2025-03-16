@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Award.cpp" />
     <ClCompile Include="Baccarat.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />

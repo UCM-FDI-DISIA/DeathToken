@@ -82,6 +82,7 @@ enum TextureName {
 	BLUEMARBLESM,
 	YELLOWMARBLE,
 	YELLOWMARBLESM,
+	BLACKFOND,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
