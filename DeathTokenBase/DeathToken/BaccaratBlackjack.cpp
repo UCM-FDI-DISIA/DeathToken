@@ -7,11 +7,37 @@ BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game) {
 
 void BaccaratBlackjack::handCards() {
 	Baccarat::handCards();
+	if (totalCards(mat.player) == 21) {
+		cout << "BlackJack!" << endl;
+		banker1->frame = mat.banker[0];
+		win = true;
+	}
 }
 
+void BaccaratBlackjack::update() {
+	if (totalCards(mat.player) > 21) {
+		cout << "pierdes" << endl;
+		banker1->frame = mat.banker[0];
+		win = true;
+	}
+}
+
+void BaccaratBlackjack::victory() {
+	if (totalCards(mat.player) > totalCards(mat.banker) && totalCards(mat.player) <= 21 || totalCards(mat.banker) > 21) {
+		cout << "gana player" << endl;
+	}
+	else if (totalCards(mat.banker) > totalCards(mat.player) && totalCards(mat.banker) <= 21) {
+		cout << "gana banker" << endl;
+	}
+	else if (totalCards(mat.banker) == totalCards(mat.player) && totalCards(mat.banker) <= 21 && totalCards(mat.player) <= 21 && !win) {
+		cout << "empate" << endl;
+	}
+
+}
 void BaccaratBlackjack::startRound() {
 	clearDeck();
 	canAsk = true;
+	win = false;
 	handCards();
 	//eleccion frame cartas
 	player1->frame = mat.player[0];
@@ -39,21 +65,24 @@ void BaccaratBlackjack::handOneCard() {
 		rndNum = generateRnd();
 		mat.player.push_back(rndNum);
 		playerCardVec.push_back(createCard(playerXpos, playerYpos, 0, mat.player[mat.player.size() - 1]));
-		playerXpos -= Game::WIN_WIDTH / 40;
+		playerXpos -= Game::WIN_WIDTH / 30;
 		cardsVec.push_back(rndNum);
 	}
 }
 
 void BaccaratBlackjack::bancaAI() {
-	canAsk = false;
-	banker1->frame = mat.banker[0];
-	while (totalCards(mat.banker) < 17) {
-		rndNum = generateRnd();
-		mat.banker.push_back(rndNum);
-		bankerCardVec.push_back(createCard(bankerXpos, bankerYpos, 0, mat.banker[mat.banker.size() - 1]));
-		bankerXpos += Game::WIN_WIDTH / 40;
-		cardsVec.push_back(rndNum);
+	if (!win) {
+		canAsk = false;
+		banker1->frame = mat.banker[0];
+		while (totalCards(mat.banker) < 17) {
+			rndNum = generateRnd();
+			mat.banker.push_back(rndNum);
+			bankerCardVec.push_back(createCard(bankerXpos, bankerYpos, 0, mat.banker[mat.banker.size() - 1]));
+			bankerXpos += Game::WIN_WIDTH / 30;
+			cardsVec.push_back(rndNum);
+		}
 	}
+	victory();
 }
 
 int BaccaratBlackjack::totalCards(vector<int> askedCards) {
@@ -61,6 +90,7 @@ int BaccaratBlackjack::totalCards(vector<int> askedCards) {
 	int marker = 0;
 	for (int i : askedCards)
 	{
+		if (i > 10) i = 10;
 		if (i == 1) {
 			marker++;
 			i = 11;
@@ -74,8 +104,8 @@ int BaccaratBlackjack::totalCards(vector<int> askedCards) {
 void BaccaratBlackjack::clearDeck() {
 	banker1->frame = 0;
 	Baccarat::clearDeck();
-	playerXpos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 40);
-	bankerXpos = (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 + Game::WIN_WIDTH / 40);
+	playerXpos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 30);
+	bankerXpos = (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 + Game::WIN_WIDTH / 30);
 
 	for (int i = bankerCardVec.size(); i > 0; i--) {
 		bankerCardVec.pop_back();
