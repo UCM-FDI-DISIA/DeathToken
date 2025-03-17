@@ -14,10 +14,11 @@ private:
 	std::vector<int> resultante;
 	int indice;
 	std::vector<int> vectorAleatorio();
-
+	bool checkBoard() const;
 public:
 	SlotsLocura(Game*);
 	~SlotsLocura(){}
 	void update() override;
+	void render() const override;
 	int getNext();
 };
