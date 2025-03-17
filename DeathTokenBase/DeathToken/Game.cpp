@@ -100,6 +100,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 
 std::array<std::string, NUM_TYPO> typoList{
 	"../assets/typo/Grand_Casino.otf",
+	"../assets/typo/Magnificent Serif.ttf",
 };
 
 Game::Game() {

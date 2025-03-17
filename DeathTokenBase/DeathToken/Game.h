@@ -87,6 +87,7 @@ enum TextureName {
 };
 enum TypoName {
 	GRAND_CASINO,
+	AWARD,
 	NUM_TYPO,
 };
 class Game : private GameStateMachine {
