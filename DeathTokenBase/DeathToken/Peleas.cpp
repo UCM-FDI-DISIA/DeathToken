@@ -7,10 +7,10 @@
 #include <iomanip>
 #include <sstream>
 
-const int APUESTA1X = 325;
-const int APUESTA2X = 865;
-const int NOMBRESY = 160;
-const int CUOTAY = 500;
+const int APUESTA1X = 330 + 250;
+const int APUESTA2X = 870 + 250;
+const int NOMBRESY = 140;
+const int CUOTAY = 445;
 const int ESPACIO = 60;
 
 std::string formatOdds(float odds) {
@@ -25,7 +25,7 @@ std::string formatOdds(float odds) {
     return stream.str();
 }
 
-Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", 24), true)) {
+Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", 24), 800, 200, true, false)) {
 
     if (_battleM->loadFightersFromJSON("peleadores.json") && _battleM->loadMatchupsFromJSON("../DeathToken/matchups.json"))
     {
@@ -33,14 +33,14 @@ Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dia
         //std::thread BattleThread([this]() {_battleM->StartBattle();});
         //BattleThread.detach();
 
-        nombre1 = new DialogueBox(game->getRenderer(), Game::font);
-        nombre2 = new DialogueBox(game->getRenderer(), Game::font);
-        Cuota1 = new DialogueBox(game->getRenderer(), Game::font);
-        Cuota2 = new DialogueBox(game->getRenderer(), Game::font);
-        Animo1 = new DialogueBox(game->getRenderer(), Game::font);
-        Animo2 = new DialogueBox(game->getRenderer(), Game::font);
-        Apuesta1 = new DialogueBox(game->getRenderer(), Game::font);
-        Apuesta2 = new DialogueBox(game->getRenderer(), Game::font);
+        nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, NOMBRESY);
+        nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, NOMBRESY);
+        Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, CUOTAY);
+        Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, CUOTAY);
+        Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, CUOTAY + ESPACIO);
+        Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, CUOTAY + ESPACIO);
+        Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, CUOTAY + ESPACIO * 2);
+        Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, CUOTAY + ESPACIO * 2);
 
         nombre1->showMessage(_battleM->getFigther1().getName());
         nombre2->showMessage(_battleM->getFigther2().getName());
@@ -81,16 +81,16 @@ Peleas::render() const {
     tarjetas.w = Game::WIN_WIDTH;
     game->getTexture(PELEASTARJETAS)->render(tarjetas);
 
-    nombre1->render(APUESTA1X, NOMBRESY);
-    nombre2->render(APUESTA2X, NOMBRESY);
-    Cuota1->render(APUESTA1X, CUOTAY);
-    Cuota2->render(APUESTA2X, CUOTAY);
-    Animo1->render(APUESTA1X, CUOTAY + ESPACIO);
-    Animo2->render(APUESTA2X, CUOTAY + ESPACIO);
-    Apuesta1->render(APUESTA1X, CUOTAY + ESPACIO * 2);
-    Apuesta2->render(APUESTA2X, CUOTAY + ESPACIO * 2);
+    nombre1->render();
+    nombre2->render();
+    Cuota1->render();
+    Cuota2->render();
+    Animo1->render();
+    Animo2->render();
+    Apuesta1->render();
+    Apuesta2->render();
 
-    dialog->render(Game::WIN_WIDTH/2,0);
+    dialog->render();
     GameState::render();
 }
 
@@ -103,15 +103,7 @@ Peleas::update() {
     dialog->handleEvent(event);
 
     uint currentTime = SDL_GetTicks();
-    nombre1->updateDialog(currentTime - lastUpdate);
-    nombre2->updateDialog(currentTime - lastUpdate);
-    Cuota1->updateDialog(currentTime - lastUpdate);
-    Cuota2->updateDialog(currentTime - lastUpdate);
-    Animo1->updateDialog(currentTime - lastUpdate);
-    Animo2->updateDialog(currentTime - lastUpdate);
-    Apuesta1->updateDialog(currentTime - lastUpdate);
-    Apuesta2->updateDialog(currentTime - lastUpdate);
-    dialog->updateDialog(currentTime - lastUpdate);
+    dialog->update(currentTime - lastUpdate);
     lastUpdate = currentTime;
     GameState::update();
     

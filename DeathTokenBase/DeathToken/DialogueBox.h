@@ -21,8 +21,11 @@ public:
         , fast(false)
         , instantDisplay(false)
         , needsUpdate(false) 
+        , x(800)
+        , y(200)
     {}
-    DialogueBox(SDL_Renderer* renderer, TTF_Font* font, bool update = false, bool transparente = true)
+
+    DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200, bool update = false, bool transparente = true)
         : renderer(renderer)
         , font(font)
         , visible(false)
@@ -34,22 +37,41 @@ public:
         , fast(false)
         , transparente(transparente)
         , needsUpdate(update)
-    {}
+        , x(posx)
+        , y(posy)
+    {
+    }
 
     virtual ~DialogueBox() { renderer = nullptr; font = nullptr; };
     void showMessage(const std::string& message);
     void hideMessage();
     void ResetHistory();
     virtual void render() const;
-    virtual void render(int x, int y) const;
-    void updateDialog(float deltaTime);
+    void update(float deltaTime);
     void handleEvent(const SDL_Event& event);
+
+    inline void SetPosition(int posx, int posy) {
+        x = posx;
+        y = posy;
+    }
+
+    inline void SetX(int posx) {
+        x = posx;
+    }
+
+    inline void SetY(int posy) {
+        y = posy;
+    }
 
 protected:
     SDL_Renderer* renderer;
     TTF_Font* font;
     std::deque<std::string> history;
     std::string message;
+    
+    int x;
+    int y;
+
     bool visible;
     bool transparente;
     bool fast;
