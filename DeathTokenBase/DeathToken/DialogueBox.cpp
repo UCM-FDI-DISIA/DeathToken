@@ -7,30 +7,80 @@
 const int BOXWIDTH = 500;
 const int BOXHEIGHT = 250;
 const int MARGIN = 100;
+const int NEXTDIALOG = 3000;
 
-DialogueBox::DialogueBox(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), visible(false) {
-}
+void DialogueBox::showMessage(const std::string& in) {
+    if (!in.empty()) {
+        history.push_back(in);
+        if (!needsUpdate) {
+            message = history[currentDialogIndex];
+            displayedText = message;
+        }
+    }
 
-void DialogueBox::showMessage(const std::string& message) {
-    this->message = message;
     visible = true;
-}
-void DialogueBox::addMessage(const std::string& message) {
-    this->message += message;
-    visible = true;
-}
-void DialogueBox::ResetMessage() {
+} 
+
+void DialogueBox::ResetHistory() {
     this->message = "";
+    history.clear();
     visible = true;
 }
+
 void DialogueBox::hideMessage() {
     visible = false;
 }
 
-void DialogueBox::render(bool transparente) const {
+
+void DialogueBox::updateDialog(float deltaTime) {
+    if (!visible || !needsUpdate) return;
+
+    message = history[currentDialogIndex];
+    
+    // Animación letra por letra
+    if (!instantDisplay && charIndex < message.size()) {
+        if (fast) {
+            for (int i = 0; i < letterdelay / fastLetter && charIndex < message.size(); i++)
+            { 
+                displayedText += message[charIndex++];
+            }
+        }
+        else { 
+            displayedText += message[charIndex++]; 
+        }
+    }
+
+    // Mostrar todo si instantDisplay está activado
+    else if (instantDisplay) {
+        displayedText = message;
+        charIndex = message.size();
+    }
+
+    if (charIndex == message.size()) {
+
+        if (completedTextTime >= NEXTDIALOG) {
+            completedTextTime = 0;
+            if (currentDialogIndex + 1 < history.size()) {
+                currentDialogIndex++;
+                displayedText = "";
+                charIndex = 0;
+                instantDisplay = false;
+            }
+            else {
+                visible = false; // Ocultar diálogo al terminar
+            }
+        }
+        else {
+            completedTextTime += deltaTime;
+        }
+        
+    }
+}
+
+void DialogueBox::render() const {
     if (!visible) return;
     int transparent;
+    std::string text;
     if (transparente) {
         transparent = SDL_ALPHA_TRANSPARENT;
     }
@@ -41,7 +91,7 @@ void DialogueBox::render(bool transparente) const {
     SDL_Color textColor = { 255, 255, 255, 255 };  // Blanco para el texto
 
     // Crear la superficie del texto (con ajuste de ancho de 400px)
-    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, message.c_str(), textColor, 400);
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, displayedText.c_str(), textColor, 400);
     if (!textSurface) {
         std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
         return;
@@ -79,7 +129,7 @@ void DialogueBox::render(bool transparente) const {
     SDL_FreeSurface(textSurface);
 }
 
-void DialogueBox::render(int x, int y, bool transparente) const {
+void DialogueBox::render(int x, int y) const {
     if (!visible) return;
     int transparent;
     if (transparente) {
@@ -92,7 +142,7 @@ void DialogueBox::render(int x, int y, bool transparente) const {
     SDL_Color textColor = { 0, 0, 0, 255 };  // Blanco para el texto
 
     // Crear la superficie del texto (con ajuste de ancho de 400px)
-    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, message.c_str(), textColor, 400);
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, displayedText.c_str(), textColor, 400);
     if (!textSurface) {
         std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
         return;
@@ -128,4 +178,33 @@ void DialogueBox::render(int x, int y, bool transparente) const {
     // Liberar los recursos
     SDL_DestroyTexture(textTexture);
     SDL_FreeSurface(textSurface);
+}
+
+void DialogueBox::handleEvent(const SDL_Event& event) {
+    if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.sym == SDLK_SPACE) {
+            fast = true;
+        }
+        if (event.key.keysym.sym == SDLK_RETURN) {
+            if (charIndex < message.size()) {
+                instantDisplay = true;
+            }
+            else {
+                if (currentDialogIndex + 1 < history.size()) {
+                    currentDialogIndex++;
+                    displayedText = "";
+                    charIndex = 0;
+                    instantDisplay = false;
+                }
+                else {
+                    visible = false; // Ocultar diálogo al terminar
+                }
+            }
+        }
+    }
+    if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_SPACE) {
+            fast = false;
+        }
+    }
 }

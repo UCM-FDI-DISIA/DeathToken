@@ -278,8 +278,7 @@ void BattleManager::ExecuteTurns(Matchup currentMatch)
 
   auto lastTime = chrono::high_resolution_clock::now();
 
-  while (currentState !=
-         BattleState::END) {  // Continuar hasta que la batalla termine
+  while (currentState != BattleState::END) {  // Continuar hasta que la batalla termine
     auto currentTime = chrono::high_resolution_clock::now();
     float deltaTime = chrono::duration<float>(currentTime - lastTime).count();
     lastTime = currentTime;

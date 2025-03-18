@@ -66,7 +66,7 @@ Fighter::getStringMindset() const {
             return "Desanimado";
         }
         else if (mindset >= 22 && mindset < 40) {
-            return "Levemente Distraido"; 
+            return "Distraido"; 
         }
         else if (mindset >= 40 && mindset < 66) {
             return "Preparado";  // Cuota 1:2.5
