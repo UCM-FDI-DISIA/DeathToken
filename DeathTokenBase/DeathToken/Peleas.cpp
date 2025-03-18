@@ -53,7 +53,7 @@ Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dia
         Apuesta1->showMessage("Apuesta: ");
         Apuesta2->showMessage("Apuesta: ");
 
-        dialog->showMessage("¿Qué Mejoramos ? \n ✅ Separación clara entre lógica(updateDialog()) y renderizado(renderDialog()) \n ✅ Sistema más modular y fácil de mantener \n✅ Posibilidad de agregar más mejoras fácilmente Este sistema es mucho más eficiente y escalable.🚀");
+        dialog->showMessage("¿Qué Mejoramos ? ✅ Separación clara entre lógica(updateDialog()) y renderizado(renderDialog()) ✅ Sistema más modular y fácil de mantener ✅ Posibilidad de agregar más mejoras fácilmente Este sistema es mucho más eficiente y escalable.🚀 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         dialog->showMessage("Segundo mensaje");
         std::thread battlethread([this]() {_battleM->ExecuteTurns(_battleM->getCurrentMatchUp());});
         battlethread.detach();

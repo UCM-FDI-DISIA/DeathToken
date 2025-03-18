@@ -8,6 +8,10 @@
 #include "gameObject.h"
 
 class DialogueBox {
+
+    const int BOXWIDTH = 500;
+    const int BOXHEIGHT = 250;
+
 public:
     DialogueBox()
         : renderer(nullptr)
@@ -23,9 +27,11 @@ public:
         , needsUpdate(false) 
         , x(800)
         , y(200)
+        , h(BOXHEIGHT)
+        , w(BOXWIDTH)
     {}
 
-    DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200, bool update = false, bool transparente = true)
+    DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200, bool update = false, bool transparente = true, int wi = 500, int he = 250)
         : renderer(renderer)
         , font(font)
         , visible(false)
@@ -39,6 +45,8 @@ public:
         , needsUpdate(update)
         , x(posx)
         , y(posy)
+        , h(he)
+        , w(wi)
     {
     }
 
@@ -62,6 +70,13 @@ public:
     inline void SetY(int posy) {
         y = posy;
     }
+    inline void SetW(int wi) {
+        w = wi;
+    }
+
+    inline void SetH(int he) {
+        h = he;
+    }
 
 protected:
     SDL_Renderer* renderer;
@@ -71,6 +86,8 @@ protected:
     
     int x;
     int y;
+    int h;
+    int w;
 
     bool visible;
     bool transparente;
@@ -83,6 +100,8 @@ protected:
     int completedTextTime = 0;
     const int letterdelay = 30; // en milisegundos
     const int fastLetter = 5; // en milisegundos
+
+    int scrollOffset;
 };
 #endif // DIALOGUEBOX_H
 
