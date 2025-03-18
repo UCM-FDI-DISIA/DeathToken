@@ -11,6 +11,8 @@ class DialogueBox {
 
     const int BOXWIDTH = 500;
     const int BOXHEIGHT = 250;
+    const int letterdelay = 30; // en milisegundos
+    const int fastLetter = 5; // en milisegundos
 
 public:
     DialogueBox()
@@ -98,9 +100,6 @@ protected:
     int currentDialogIndex;
     int charIndex;
     int completedTextTime = 0;
-    const int letterdelay = 30; // en milisegundos
-    const int fastLetter = 5; // en milisegundos
-
     int scrollOffset;
 };
 #endif // DIALOGUEBOX_H

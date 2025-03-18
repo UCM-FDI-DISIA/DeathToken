@@ -5,7 +5,8 @@
 const int MARGIN = 100;
 const int NEXTDIALOG = 3000;
 const int SCROLL_SPEED = 20;
-const int AUTO_SCROLL_SPEED = 2;
+const float AUTO_SCROLL_SPEED = 1.2;
+const float AUTO_SCROLL_FAST = 5 + 1.0f / 3.0f;
 
 void DialogueBox::showMessage(const std::string& in) {
     if (!in.empty()) {
@@ -34,6 +35,19 @@ void DialogueBox::update(float deltaTime) {
 
     message = history[currentDialogIndex];
 
+    // Definir la altura de línea según la fuente (puede variar)
+    int lineHeight = 32;  // Se recomienda usar 1.3 * tamaño de la fuente
+    int textWidth = w - MARGIN / 5;  // Ancho disponible para el texto
+
+    // Estimar el ancho promedio de un carácter
+    float charWidth = 24 * 0.6;  // Aproximadamente 14.4 px para fuente de 24px
+
+    // Calcular cuántos caracteres caben en una línea
+    int charsPerLine = textWidth / charWidth;
+
+    // Calcular el número de líneas necesarias
+    int numLines = (displayedText.size() / charsPerLine) + 1;
+
     if (!instantDisplay && charIndex < message.size()) {
         if (fast) {
             for (int i = 0; i < letterdelay / fastLetter && charIndex < message.size(); i++)
@@ -47,19 +61,16 @@ void DialogueBox::update(float deltaTime) {
     }
     else if (instantDisplay) {
         displayedText = message;
+        scrollOffset = (numLines * lineHeight) - h;
         charIndex = message.size();
     }
 
-    // Calculamos el número de líneas de texto
-    int lineHeight = 24;  // Altura de cada línea en píxeles
-    int textWidth = w - MARGIN / 5;  // Ancho disponible para el texto
-    int numLines = (displayedText.size() * lineHeight / textWidth) + 1;  // Número de líneas de texto necesarias
 
-    // Si la altura total del texto excede la altura de la caja
+    // Si la altura total del texto excede la caja de diálogo
     if (numLines * lineHeight > h) {
-        // Desplazamos hacia abajo si el texto excede la caja de diálogo
-        if (scrollOffset < numLines * lineHeight - h) {
-            scrollOffset += AUTO_SCROLL_SPEED;  // Sumamos para mover hacia abajo
+        // Desplazamos hacia abajo si el texto excede la caja
+        if (scrollOffset < (numLines * lineHeight) - h) {
+            scrollOffset += AUTO_SCROLL_SPEED * fast * AUTO_SCROLL_FAST;
         }
     }
 
