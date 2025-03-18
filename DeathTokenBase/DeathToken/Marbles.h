@@ -27,6 +27,7 @@ protected:
 	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
 	int moneyBet;
+	int turnMoneyBet ;
 	int clave = 0;
 
 	

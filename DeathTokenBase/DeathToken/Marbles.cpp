@@ -46,6 +46,8 @@ void  Marbles::generateMarbles() {
 }
 int  Marbles::checkBets() {
 	int moneyWin = 0;
+	turnMoneyBet = 0;
+
 	//Cuando se hagan los botones cada apuesta hecha se metera en un map indicando que apuesta 
 	//hecha en un vector y el multi que da si gana
 
@@ -77,6 +79,7 @@ int  Marbles::checkBets() {
 		else {
 			moneyWin -= typeBet.moneyBet;
 		}
+		turnMoneyBet += typeBet.moneyBet;
 	}
 
 	return moneyWin;
@@ -87,18 +90,10 @@ void Marbles::startRound() {
 	int moneyWin = checkBets();//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
-	  #if _DEBUG
 	if (moneyWin > 0) {
-		game->push(new Award( game,  (GameState*)this, moneyBet,moneyWin));
-		std::cout << "HAS GANDADO" << moneyWin<< "\n";
-		
+		game->push(new Award( game,  (GameState*)this, turnMoneyBet,moneyWin));
 	}
-	else {
-		std::cout << "HAS PERDIDO\n";
-
-	}
-	  #endif
-
+	
 	clearBets();
 }
 void Marbles::update() {

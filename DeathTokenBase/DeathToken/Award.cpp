@@ -4,56 +4,34 @@
 #include "SDL.h"
 
 Award::Award(Game* game, GameState* lastState, int bet, int mWin) 
-	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(nullptr) {
-	background = game->getTexture(BLACKFOND);
+	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)) , currentWin(0) {
+	
 	background->modAlfa(140);
-	this->addObjects(background);
 
 	//Crear calse intermedia PLAystate que herede todos los juegos y hacer un puntero que puedas pillar de cada juego
 	//Mirar el virtualTimer
-	text = new Text(state, game->getTypo(AWARD), Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2, 200);
 
+	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f),relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize));
 	int multi = mWinG / betG;
-	if (multi >= 2 && multi <= 3) {
-		//AWESOME
-		text->setMessage("PRUEBA");
-	}
-	else if (multi >= 3 && multi <= 5) {
-		//AMAZING
-		text->setMessage("PRUEBA");
-
-	}
-	else if (multi >= 5 && multi <= 10) {
-		//BIG BIG WIN
-		text->setMessage("PRUEBA");
-
-	}
-	else if (multi >= 10 && multi <= 20) {
-		//MEGA WIN
-		text->setMessage("PRUEBA");
-
-	}
-	else if (multi > 20) {
-		//LO ROMPISTE
-		text->setMessage("PRUEBA");
-
-	}
-	else
-	{
-		text->setMessage("PRUEBA");
-	}
+	text->setMessage(getWinMessage(multi));
 	this->addObjects(text);
 
+	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f)-relativeX(nSize)/2, relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize));
+	winText->setMessage("0");
+	this->addObjects(winText);
 }
 
 
 void Award::update() {
 	//Tendra que contar el tiempo para que despues de 5 segundos de mostrar el mensaje vuelva a la escena anterior
-	Uint32 elapsedTime = SDL_GetTicks() - startTime;
-	if (elapsedTime >= 5000) {
-		
+	if (currentWin < mWinG) {
+		currentWin += std::min(10, mWinG - currentWin); 
+		winText->setMessage(std::to_string(currentWin));
+	}else if (SDL_GetTicks() - startTime >= 3000) {
+
 		game->pop(); // Regresar al estado anterior
 	}
+	
 }
 
 void Award::render() const  {
@@ -67,4 +45,21 @@ void Award::render() const  {
 
 void Award::showMessage() {
 	
+}
+std::string Award::getWinMessage(int multiplier) {
+	if (multiplier <= 3) return "WIN";
+	if (multiplier <= 5) return "BIG WIN";
+	if (multiplier <= 10) return "MEGA WIN";
+	if (multiplier <= 20) return "EPIC WIN";
+	return "ESTAS LOCOOO";
+}
+inline int Award::relativeX(const float& n)
+{
+	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
+}
+
+inline int
+Award::relativeY(const float& n)
+{
+	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
 }
