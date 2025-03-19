@@ -41,5 +41,7 @@ private:
     DialogueBox* Animo2;
     DialogueBox* Apuesta1;
     DialogueBox* Apuesta2;
+
+    Button* autoEnable;
 };
 

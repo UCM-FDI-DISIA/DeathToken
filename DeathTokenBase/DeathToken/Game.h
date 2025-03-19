@@ -80,6 +80,8 @@ public:
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
+	static constexpr uint FONTSMALLSIZE = 24;
+	static constexpr uint FONTBIGSIZE = 32;
 	static TTF_Font* font;
 private:
 	// Ventana de la SDL (se destruir� en el destructor)

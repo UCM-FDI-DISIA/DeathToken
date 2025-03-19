@@ -107,7 +107,7 @@ Game::Game() {
 			textureSpec[i].numColumns);
 
 	TTF_Init();
-	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", 32);
+	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
 	Menu* menu = new Menu(this);
 	pushState(menu);
 
