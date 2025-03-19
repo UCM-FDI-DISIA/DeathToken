@@ -2,38 +2,44 @@
 #include <iostream>
 #include "Game.h"
 
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, bool alignedRight)
+Text::Text(GameState* gS, const char* typo, int x, int y, int size, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-      x(x), y(y), size(size), outlineSize(0), alignedRight(alignedRight), boxWidth(0)
+      x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
 }
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color textColor, bool alignedRight)
+Text::Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
-      x(x), y(y), size(size), outlineSize(0), alignedRight(alignedRight), boxWidth(0)
+      x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
 }
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize, bool alignedRight)
+Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-    x(x), y(y), size(size), outlineSize(outlineSize), alignedRight(alignedRight), boxWidth(0)
+    x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
 }
 Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize,
-           SDL_Color textColor, SDL_Color outlineColor, bool alignedRight)
+           SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor(outlineColor),
-      x(x), y(y), size(size), outlineSize(outlineSize), alignedRight(alignedRight), boxWidth(0)
+      x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
+}
+void
+Text::setPos(int x, int y)
+{
+    this->x = x;
+    this->y = y;
 }
 void
 Text::setMessage(const std::string& message)
@@ -92,7 +98,7 @@ Text::render() const
 void
 Text::createTextSurfaces(SDL_Surface*& textSurface, SDL_Surface*& outlineSurface) const
 {
-    if (alignedRight || boxWidth == 0)
+    if (alignment > 0 || boxWidth == 0)
     {
         TTF_SetFontOutline(font, 0);
         textSurface = TTF_RenderText_Blended(font, message.c_str(), textColor);
@@ -126,10 +132,21 @@ Text::createTextTextures(SDL_Texture*& textTexture, SDL_Texture*& outlineTexture
 void
 Text::createTextRects(SDL_Rect& textRect, SDL_Rect& outlineRect, SDL_Surface*& textSurface, SDL_Surface*& outlineSurface) const
 {
-    if (!alignedRight)
+    if (alignment == IZQUIERDA)
     {
         textRect = { x, y, textSurface->w, textSurface->h };
         int auxX = x - ((outlineSurface->w - textSurface->w) / 2);
+        int auxY = y - ((outlineSurface->h - textSurface->h) / 2);
+        outlineRect = { auxX, auxY, outlineSurface->w, outlineSurface->h };
+    }
+    if (alignment == DERECHA)
+    {
+        int text_width, text_height;
+        TTF_SizeText(font, message.c_str(), &text_width, &text_height);
+
+        int auxX = x - text_width;
+        textRect = { auxX, y, textSurface->w, textSurface->h };
+        auxX = auxX - ((outlineSurface->w - textSurface->w) / 2);
         int auxY = y - ((outlineSurface->h - textSurface->h) / 2);
         outlineRect = { auxX, auxY, outlineSurface->w, outlineSurface->h };
     }
@@ -138,7 +155,7 @@ Text::createTextRects(SDL_Rect& textRect, SDL_Rect& outlineRect, SDL_Surface*& t
         int text_width, text_height;
         TTF_SizeText(font, message.c_str(), &text_width, &text_height);
 
-        int auxX = x - text_width;
+        int auxX = x - (text_width / 2);
         textRect = { auxX, y, textSurface->w, textSurface->h };
         auxX = auxX - ((outlineSurface->w - textSurface->w) / 2);
         int auxY = y - ((outlineSurface->h - textSurface->h) / 2);

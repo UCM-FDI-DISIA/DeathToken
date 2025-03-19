@@ -11,12 +11,12 @@ Award::Award(Game* game, GameState* lastState, int bet, int mWin)
 	//Crear calse intermedia PLAystate que herede todos los juegos y hacer un puntero que puedas pillar de cada juego
 	//Mirar el virtualTimer
 
-	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f) - relativeX(wSize / 2) ,relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize));
+	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f), relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize), Text::CENTRO);
 	int multi = mWinG / betG;
 	text->setMessage(getWinMessage(multi));
 	this->addObjects(text);
 
-	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f)-relativeX(nSize / 2), relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize));
+	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f), relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize), Text::CENTRO);
 	winText->setMessage("0");
 	this->addObjects(winText);
 }
