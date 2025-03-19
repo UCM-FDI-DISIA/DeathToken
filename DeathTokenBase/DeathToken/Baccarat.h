@@ -72,6 +72,6 @@ public:
 	void createBaccaratButton(int x, int y, int width, int height, int multiplier);
 	void newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat);
 	void clearBets();
-	void repeat();
+	virtual void repeat();
 	virtual void startRound();
 };

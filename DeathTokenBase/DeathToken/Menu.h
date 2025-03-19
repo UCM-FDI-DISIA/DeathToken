@@ -4,7 +4,7 @@
 #include "Button.h"
 #include "Baccarat.h"
 #include "BaccaratBlackjack.h"
-#include "BaccaratFlip.h"
+#include "BaccaratBet.h"
 #include "Slots.h"
 #include "Marbles.h"
 #include "Collision.h"

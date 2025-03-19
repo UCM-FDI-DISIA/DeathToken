@@ -1,8 +1,9 @@
 #pragma once
 #include "Baccarat.h"
-class BaccaratBet: public Baccarat
+class BaccaratBet : public Baccarat
 {
 public:
-	BaccaratBet();
+	BaccaratBet(Game* game) : Baccarat(game) {};
+	void repeat() override;
 };
 
