@@ -5,11 +5,9 @@
 class Menu;
 class Player : public sceneObject, public EventHandler {
 private:
-	static constexpr int SPEED_MAG = 8;
+	static constexpr int SPEED_MAG = 15;
 	Menu* menu;
 	Texture* texture;
-	bool colisionando;
-	bool isColliding;
 
 public:
 	Player(GameState* g, Point2D<> pos, Texture* texture,Menu*);

@@ -5,7 +5,7 @@
 
 // Se crea el jugador leyendo de archivo su posición y vidas
 Player::Player(GameState* g, Point2D<> pos, Texture* texture, Menu* men)
-	:sceneObject(g, pos, texture), texture(texture), menu(men),colisionando(false), isColliding(false)
+	:sceneObject(g, pos, texture), texture(texture), menu(men)
 {
 	w = (125.0f / 1980.f) * Game::WIN_WIDTH;
 	h = (125.0f / 1080.0f) * Game::WIN_HEIGHT;
@@ -24,40 +24,37 @@ void Player::render() const {
 
 // Actualización y colisiones del personaje
 void Player::update() {
+
 	SDL_Rect collision;
-	SDL_Rect playerRect = getCollisionRect();
 	vector<SDL_Rect> limite = menu->getLimits();
+
+	int fixY = 0;
+	int fixX = 0;
+	SDL_Rect playerRect = getCollisionRect();
+	// Recorre cada uno de los limites y comprueba las colisiones
 	for (int i = 0; i < limite.size(); ++i) {
-		SDL_IntersectRect(&playerRect, &limite[i], &collision);
+		// Si la velocidad en Y es distinta de 0, mueve el rect provisional del jugador (playerRect) y comprueba si está colisionando. Luego restaura la posición
 		if (speed.getY() != 0) {
+			playerRect.y += speed.getY();
 			int fix = 0;
-			colisionando = collision.h > 0 && collision.h < playerRect.h;
-			if (colisionando) {
-				fix = collision.h * (speed.getY() > 0 ? 1 : -1);				
-			}
-			if (fix != 0) {
-				fix *= -1;
-				pos += {0, speed.getY() + fix};
-			} 
-			else {
-				pos += {0, speed.getY()};
-			}
+			if (SDL_IntersectRect(&playerRect, &limite[i], &collision))
+				fix = collision.h * (speed.getY() > 0 ? 1 : -1);
+			fixY += fix;
+			playerRect.y -= speed.getY();
 		}
+		// hacemos lo mismo con la velocidad en x
 		if (speed.getX() != 0) {
+			playerRect.x += speed.getX();
 			int fix = 0;
-			colisionando = collision.w > 0 && collision.w < playerRect.w;
-			if (colisionando) {
+			if (SDL_IntersectRect(&playerRect, &limite[i], &collision))
 				fix = collision.w * (speed.getX() > 0 ? 1 : -1);
-			}
-			if (fix != 0) {
-				fix *= -1;
-				pos += {speed.getX() + fix, 0};
-			} 
-			else {
-				pos += {speed.getX(), 0};
-			} 
+			fixX += fix;
+			playerRect.x -= speed.getX();
 		}
-	}	
+	}
+	// Cálculo final de la posición según la velocidad y ajuste del fix total
+	pos += {speed.getX() - fixX, speed.getY() - fixY};
+	if (pos.getY() > Game::WIN_HEIGHT) pos.setY(Game::WIN_HEIGHT);
 }
 
 Collision Player::hit(const SDL_Rect& rect, Collision::Target target) {
@@ -88,7 +85,7 @@ void Player::handleEvent(const SDL_Event& evento) {
 			break;
 		}
 	}
-	else if (evento.type == SDL_KEYUP && evento.key.keysym.sym != SDLK_SPACE) { speed.setX(0); speed.setY(0);}
+	else if (evento.type == SDL_KEYUP && evento.key.keysym.sym != SDLK_SPACE) { speed.setX(0); speed.setY(0); }
 }
 
 //cojo el rect del player para hacer colisiones con botones

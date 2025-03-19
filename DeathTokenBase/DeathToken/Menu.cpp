@@ -32,7 +32,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
 	if (ghost == nullptr) {
-		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST),this);
+		ghost = new Player(this, { Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST),this);
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
