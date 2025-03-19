@@ -25,7 +25,20 @@ std::string formatOdds(float odds) {
     return stream.str();
 }
 
-Peleas::Peleas(Game* game) : GameState(game), _battleM(new BattleManager()), dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTBIGSIZE), 800, 200, true, false)) {
+Peleas::Peleas(Game* game) 
+    : GameState(game)
+    , _battleM(new BattleManager())
+    , dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTBIGSIZE), 800, 200, true, false)) 
+    , nombre1(nullptr)
+    , nombre2(nullptr)
+    , Cuota1(nullptr)
+    , Cuota2(nullptr)
+    , Animo1(nullptr)
+    , Animo2(nullptr)
+    , Apuesta1(nullptr)
+    , Apuesta2(nullptr)
+    , autoEnable(nullptr)
+{
 
     if (_battleM->loadFightersFromJSON("peleadores.json") && _battleM->loadMatchupsFromJSON("../DeathToken/matchups.json"))
     {

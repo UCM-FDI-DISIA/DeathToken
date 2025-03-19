@@ -8,6 +8,7 @@ class Peleas : public GameState
 public:
     Peleas(Game* game);
    ~Peleas() { 
+       delete _battleM;
        _battleM = nullptr;
        delete dialog;
        dialog = nullptr;
@@ -27,6 +28,7 @@ public:
        Apuesta1 = nullptr;
        delete Apuesta2;
        Apuesta2 = nullptr;
+       delete autoEnable;
    }
     void render() const override;
     void update() override;

@@ -30,10 +30,13 @@ uniform_real_distribution<float> mindsetRange(5, 20);
 uniform_real_distribution<float> inicialMindSet(MINMINDSET, MAXMINDSET);
 
 BattleManager::BattleManager()
-  : fighters()
-  , battleQueue()
-  , currentMatch()
-  , currentState(BattleState::START)
+    : fighters()
+    , battleQueue()
+    , currentMatch()
+    , currentState(BattleState::START)
+    , lastTurn(BattleState::START)
+    , actionTimer(0)
+    , endMatch(false)
 {
 }
 
@@ -139,7 +142,7 @@ void BattleManager::Update(float deltaTime)
 {
   actionTimer += deltaTime;
 
-  if (actionTimer >= actionDelay) {
+  if (actionTimer >= ACTIONDELAY) {
     actionTimer = 0.0f;  // Reiniciamos el temporizador
 
     switch (currentState) {
@@ -278,11 +281,10 @@ void BattleManager::ExecuteTurns(Matchup currentMatch)
 
   auto lastTime = chrono::high_resolution_clock::now();
 
-  while (currentState != BattleState::END) {  // Continuar hasta que la batalla termine
+  while (currentState != BattleState::END && !endMatch) {  // Continuar hasta que la batalla termine
     auto currentTime = chrono::high_resolution_clock::now();
     float deltaTime = chrono::duration<float>(currentTime - lastTime).count();
     lastTime = currentTime;
-
     Update(deltaTime);  // Pasamos el delta time a Update
   }
 

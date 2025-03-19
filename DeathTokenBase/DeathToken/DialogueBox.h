@@ -16,7 +16,7 @@ class DialogueBox {
     // Definir la altura de línea según la fuente (puede variar)
     const int lineHeight = Game::FONTBIGSIZE * 1.3f;  // Se recomienda usar 1.3 * tamaño de la fuente
     // Estimar el ancho promedio de un carácter
-    const float charWidth = Game::FONTBIGSIZE * 0.6;  // Aproximadamente 14.4 px para fuente de 24px
+    const float charWidth = Game::FONTBIGSIZE * 0.6f;  // Aproximadamente 14.4 px para fuente de 24px
     const int letterdelay = 30; // en milisegundos
     const int fastLetter = 5; // en milisegundos
 
@@ -40,6 +40,8 @@ public:
         , y(200)
         , h(BOXHEIGHT)
         , w(BOXWIDTH)
+        , textWidth(w - 2 * MARGIN)
+        , charsPerLine (textWidth / charWidth)
     {}
 
     DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200, bool update = false, bool transparente = true, int wi = 500, int he = 250)
@@ -64,16 +66,15 @@ public:
     {
         textWidth = w - 2 * MARGIN;
         charsPerLine = textWidth / charWidth;
-        if (needsUpdate) {
-            autoEnable = nullptr;
-           /* autoEnable = new Button(0,0,100,100,InvertAuto);*/
-        }
-        else {
-            autoEnable = nullptr;
-        }
     }
 
-    virtual ~DialogueBox() { renderer = nullptr; font = nullptr; };
+    virtual ~DialogueBox() { 
+        renderer = nullptr; 
+        font = nullptr;
+        history.clear();
+        displayedText.clear();
+        message.clear();
+    };
     void showMessage(const std::string& message);
     void hideMessage();
     void ResetHistory();
