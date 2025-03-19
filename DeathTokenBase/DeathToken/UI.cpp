@@ -1,5 +1,9 @@
 #include "UI.h"
 #include "Game.h"
+#include "Marbles.h"
+#include "Slots.h"
+#include "Baccarat.h"
+#include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
 {
@@ -52,12 +56,12 @@ UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(
 inline int
 UI::relativeX(const float& n)
 {
-	return (n / 1920.0f) * Game::WIN_WIDTH;
+	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
 }
 inline int
 UI::relativeY(const float& n)
 {
-	return (n / 1080.0f) * Game::WIN_HEIGHT;
+	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
 }
 void
 UI::OnExit()
@@ -91,7 +95,6 @@ UI::OnArrow(const bool& left)
 		}
 	}
 }
-
 UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
@@ -110,7 +113,8 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 	repeat->connect([this]() { OnRepeat(); });
 }
 
-UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
+
+UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot)
 {
 	for (ButtonChip* i : chips)
 	{
@@ -136,6 +140,10 @@ UISlots::UISlots(GameState* gS, Game* game) : UI(gS, game)
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 }
+void 
+UISlots::OnGo() {
+	slots->iniciarGiro();
+}
 void
 UISlots::Onx2()
 {
@@ -155,4 +163,34 @@ void
 UISlots::OnInfo()
 {
 
+}
+
+UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
+void UIMarbles::OnGo() {
+	marbles->startRound();
+}
+
+void UIMarbles::OnErase() {
+	marbles->clearBets();
+}
+
+void UIMarbles::OnRepeat()
+{
+	marbles->repeat();
+}
+
+//BACCARAT UI
+UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
+
+void UIBaccarat::OnGo() {
+	baccarat->startRound();
+}
+
+void UIBaccarat::OnErase() {
+	baccarat->clearBets();
+}
+
+void UIBaccarat::OnRepeat()
+{
+	baccarat->repeat();
 }

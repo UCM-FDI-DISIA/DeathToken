@@ -4,10 +4,12 @@
 #include "Menu.h"
 #include <iostream>
 
+
+
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
 
-// Formato de la especificación de una textura
+// Formato de la especificaciï¿½n de una textura
 struct TextureSpec
 {
 	const char* name;	// Ruta del archivo
@@ -20,10 +22,14 @@ const std::string textureRoot = "../assets/images/";
 
 // EspecificaciÃ³n de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
+	TextureSpec{"celdaSlots.png",1,1},
+	TextureSpec{"iconosSlots.png",7,1},
 	TextureSpec{"map/Casino_bg.png", 1, 1},
+	TextureSpec{"baccarat/Baccarat_bg2.png", 1, 1},
+	TextureSpec{"baccarat/barajaBaccarat.png", 14, 1},
+	TextureSpec{"map/Casino_baccarat_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
+	TextureSpec{"map/Casino_marbles_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"ui/Exit.png", 1, 1},
 	TextureSpec{"ui/Exit_HV.png", 1, 1},
@@ -68,10 +74,33 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/chips/chip_2K.png", 1, 1},
 	TextureSpec{"ui/chips/chip_5K.png", 1, 1},
 	TextureSpec{"player.png", 1, 1},
+	TextureSpec{"marbles/Marbles_bg.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon_sm.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
+	TextureSpec{"blackFont.png",1,1},
+
+
+
+
 };
 
 std::array<std::string, NUM_TYPO> typoList{
 	"../assets/typo/Grand_Casino.otf",
+	"../assets/typo/Magnificent Serif.ttf",
 };
 
 Game::Game() {
@@ -79,8 +108,8 @@ Game::Game() {
 	window = SDL_CreateWindow("Death Token 1x01",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		WIN_WIDTH * TILE_SIDE,
-		WIN_HEIGHT * TILE_SIDE,
+		WIN_WIDTH,
+		WIN_HEIGHT,
 		SDL_WINDOW_SHOWN);
 	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -101,7 +130,12 @@ Game::Game() {
 
 	Menu* menu = new Menu(this);
 	pushState(menu);
+
+	//SEMILLA DE NUMEROS ALEATORIOS
+	random_device rd;
+	gen = std::mt19937(rd()); // Inicializar con una semilla aleatoria
 }
+
 Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -126,7 +160,7 @@ void Game::run() {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT)
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				stop();
 			else
 				handleEvent(event);
@@ -137,7 +171,7 @@ void Game::run() {
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - inicio;
 
-		// Duerme el resto de la duración del frame
+		// Duerme el resto de la duraciï¿½n del frame
 		if (elapsed < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - elapsed);
 	}

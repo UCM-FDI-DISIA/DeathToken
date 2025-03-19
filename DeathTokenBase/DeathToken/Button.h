@@ -14,14 +14,19 @@ class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
 	SDL_Rect box;
-	bool hover;
 	Callback cb;
+	bool hover;
 public:
 	Button(GameState*, int x, int y, int w, int h, Texture*);
+	virtual ~Button(){}
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event&) override;
 	void connect(Callback);
+	bool playerHovered(const SDL_Rect& playerRect);
+	//getters para mantener private los atributos pero poder acceder desde menu
+	Callback getCallback() { return cb; };
+	bool& getHover() { return hover; };
 };
 
 class ButtonUI : public Button
@@ -32,6 +37,7 @@ protected:
 	Texture* textC;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
+	~ButtonUI(){}
 	void update() override;
 	void render() const override;
 };
@@ -55,6 +61,7 @@ protected:
 	};
 public:
 	ButtonBet(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*);
+	~ButtonBet(){}
 	TextureName showChip();
 	void clear();
 	void repeat();
@@ -80,10 +87,37 @@ protected:
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
 		int v0, int v1, int v2, Texture*, Texture*, Texture*);
+	~ButtonChip(){}
 	void setOnUse(const bool& val);
 	void changePage(const int& n);
 	void update() override;
 	void render() const override;
 	void setSlot();
 	int getValue();
+};
+
+class ButtonMarbles : public ButtonBet
+{
+protected:
+	int stop;
+	int type;
+	std::vector<Texture*> CMarbles;
+	std::vector<int> NCMarbles;
+public:
+	ButtonMarbles(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*, int type, std::vector<int>);
+	~ButtonMarbles(){}
+	void render() const override;
+	void handleEvent( const SDL_Event& event) override;
+};
+//BACCARAT
+class ButtonBaccarat : public ButtonBet
+{
+protected:
+	int type;
+	std::vector<int> NCBaccarat;
+public:
+	ButtonBaccarat(GameState*, Game* game, UI* ui, int x, int y, int w, int h);
+	~ButtonBaccarat(){}
+	void render() const override;
+	void handleEvent( const SDL_Event& event) override;
 };

@@ -1,0 +1,52 @@
+{
+  "peleadores": [
+    {
+      "name": "Skeletor",
+      "health": 110,
+      "attack": 15,
+      "desc": "Esqueleto débil con guantes de boxeo"
+    },
+    {
+      "name": "Romelario",
+      "health": 190,
+      "attack": 11,
+      "desc": "Payaso vejestorio mutante con una capa con capucha"
+    },
+    {
+      "name": "Alfredo",
+      "health": 150,
+      "attack": 13,
+      "desc": "Mostruo de pasta Boloñesa."
+    },
+    {
+      "name": "Boodoo",
+      "health": 135,
+      "attack": 15,
+      "desc": "Muñeco vudú con botones en vez de ojos que sujeta dos agujas"
+    },
+    {
+      "name": "Corneo",
+      "health": 110,
+      "attack": 17,
+      "desc": "Un solo ojo muy grande con pupilas verdes"
+    },
+    {
+      "name": "McDougald",
+      "health": 170,
+      "attack": 11,
+      "desc": "Bolsa de Patatas fritas con malas pintas"
+    },
+    {
+      "name": "Paulter Geist",
+      "health": 122,
+      "attack": 17,
+      "desc": "Pequeño fantasma que habita en un espejo"
+    },
+    {
+      "name": "Potapé",
+      "health": 100,
+      "attack": 10,
+      "desc": "Pequeño monstruo de vómito que habita en los trenes de las ciudades donde se organizan los mundiales."
+    }
+  ]
+}

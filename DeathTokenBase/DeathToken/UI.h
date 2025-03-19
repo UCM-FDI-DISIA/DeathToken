@@ -5,7 +5,6 @@
 #include "Text.h"
 #include <vector>
 class Player;
-
 class UI
 {
 protected:
@@ -31,7 +30,7 @@ public:
 	int currentChipValue();
 	
 	void OnExit();
-	virtual void OnGo() {};
+	virtual void OnGo() = 0;
 };
 
 class UIChips : public UI
@@ -49,21 +48,43 @@ protected:
 public:
 	UIChips(GameState* gS, Game* game);
 };
-
+class Slots;
 class UISlots : public UI
 {
 protected:
+	Slots* slots;
 	ButtonUI* x2;
 	ButtonUI* x3;
 	ButtonUI* x5;
 	ButtonUI* info;
-
+public:
+	UISlots(GameState*, Game*, Slots*);
+	void OnGo() override;
 	void Onx2();
 	void Onx3();
 	void Onx5();
 	void OnInfo();
-
+};
+class Marbles;
+class UIMarbles :public   UIChips{
+	Marbles* marbles;
+	std::vector<ButtonBet*> bets;
 public:
-	UISlots(GameState* gS, Game* game);
+	UIMarbles(GameState* gS, Game* game, Marbles* marbles);
+
+	void OnGo() override;
+	void OnErase() override;
+	void OnRepeat() override;
 };
 
+class Baccarat;
+class UIBaccarat :public   UIChips {
+	Baccarat* baccarat;
+	std::vector<ButtonBet*> bets;
+public:
+	UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat);
+
+	void OnGo() override;
+	void OnErase() override;
+	void OnRepeat() override;
+};

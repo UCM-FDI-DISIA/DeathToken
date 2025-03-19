@@ -1,16 +1,23 @@
 #pragma once
+#include "gameStateMachine.h"
+
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <array>
 #include "Texture.h"
-#include "gameStateMachine.h";
+#include <random>
 
 class Player;
+
 
 using uint = unsigned int;
 
 enum TextureName {
+	CELDA,
+	ICONOS,
 	BACKGROUND,
+	BACMAT,
+	CARDS,
 	BACCARATBUT,
 	SLOTSBUT,
 	CANICASBUT,
@@ -57,11 +64,30 @@ enum TextureName {
 	UICHIP1000,
 	UICHIP2000,
 	UICHIP5000,
-	MARIO,
-	NUM_TEXTURES,  // Truco C++: número de texturas definidas
+	GHOST,
+	MARBLESBACK,
+	BUTTONMARBLES1,
+	BUTTONMARBLES1CLCK,
+	BUTTONMARBLES2,
+	BUTTONMARBLES2CLCK,
+	BUTTONMARBLES3,
+	BUTTONMARBLES3CLCK,
+	BUTTONMARBLES4,
+	BUTTONMARBLES4CLCK,
+	REDMARBLE,
+	REDMARBLESM,
+	GREENMARBLE,
+	GREENMARBLESM,
+	BLUEMARBLE,
+	BLUEMARBLESM,
+	YELLOWMARBLE,
+	YELLOWMARBLESM,
+	BLACKFOND,
+	NUM_TEXTURES,  // Truco C++: nï¿½mero de texturas definidas
 };
 enum TypoName {
 	GRAND_CASINO,
+	AWARD,
 	NUM_TYPO,
 };
 class Game : private GameStateMachine {
@@ -72,7 +98,7 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
 private:
-	// Ventana de la SDL (se destruirá en el destructor)
+	// Ventana de la SDL (se destruirï¿½ en el destructor)
 	SDL_Window* window = nullptr;
 	// Renderizador de la SDL (para dibujar)
 	SDL_Renderer* renderer = nullptr;
@@ -91,4 +117,7 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+
+	std::mt19937 gen;
+	std::mt19937& getGen() { return gen; }; // Devolver referencia
 };

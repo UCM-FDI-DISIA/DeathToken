@@ -109,3 +109,9 @@ Texture::render(const SDL_Rect& rect, SDL_Color color) const
 	render(rect);
 	SDL_SetTextureColorMod(texture, original.r, original.g, original.b);
 }
+
+
+void Texture::modAlfa(int alfa)
+{
+	SDL_SetTextureAlphaMod(texture, alfa);
+}
