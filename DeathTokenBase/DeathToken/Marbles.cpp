@@ -9,8 +9,9 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 	game->getTexture(BLUEMARBLE),
 	game->getTexture(YELLOWMARBLE) })
 {
-	Marbles::marblesButtonCreation();
 	ui = new UIMarbles(this, game, this);
+
+	Marbles::marblesButtonCreation();
 
 }
 Marbles::~Marbles() {
