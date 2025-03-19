@@ -8,6 +8,7 @@ class Game;
 class GameState {
 protected:
 	std::list<GameObject*> gameObjects;
+	std::list<GameObject*> gameObjectsUI;
 	std::list<EventHandler*> eventHandlers;
 	Game* game;
 public:
@@ -19,5 +20,6 @@ public:
 	void handleEvent(const SDL_Event&);
 	void addEventListener(EventHandler* obj);
 	void addObjects(GameObject* obj);
+	void addObjectsUI(GameObject* obj);
 };
 
