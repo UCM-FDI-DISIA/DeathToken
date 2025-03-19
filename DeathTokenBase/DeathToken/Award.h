@@ -24,7 +24,6 @@ public:
 	Award(Game* game, GameState* lastState, int bet, int mWin);
 	void render()const  override;
 	void update() override;
-	void showMessage() ;
 	std::string getWinMessage(int multiplier);
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);

@@ -11,12 +11,12 @@ Award::Award(Game* game, GameState* lastState, int bet, int mWin)
 	//Crear calse intermedia PLAystate que herede todos los juegos y hacer un puntero que puedas pillar de cada juego
 	//Mirar el virtualTimer
 
-	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f),relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize));
+	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f) - relativeX(wSize / 2) ,relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize));
 	int multi = mWinG / betG;
 	text->setMessage(getWinMessage(multi));
 	this->addObjects(text);
 
-	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f)-relativeX(nSize)/2, relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize));
+	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f)-relativeX(nSize / 2), relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize));
 	winText->setMessage("0");
 	this->addObjects(winText);
 }
@@ -27,7 +27,8 @@ void Award::update() {
 	if (currentWin < mWinG) {
 		currentWin += std::min(10, mWinG - currentWin); 
 		winText->setMessage(std::to_string(currentWin));
-	}else if (SDL_GetTicks() - startTime >= 3000) {
+		startTime = SDL_GetTicks();
+	}else if (SDL_GetTicks() - startTime >= 5000) {
 
 		game->pop(); // Regresar al estado anterior
 	}
@@ -36,16 +37,13 @@ void Award::update() {
 
 void Award::render() const  {
 	state->render();
-	background->render();
+	//background->render();
 	GameState::render();
 	//Una vez entrado tiene que ir a show Message y renderizar la cantidad del premio con un mensaje
 	//
 	
 }
 
-void Award::showMessage() {
-	
-}
 std::string Award::getWinMessage(int multiplier) {
 	if (multiplier <= 3) return "WIN";
 	if (multiplier <= 5) return "BIG WIN";

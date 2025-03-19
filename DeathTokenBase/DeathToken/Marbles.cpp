@@ -77,7 +77,7 @@ int  Marbles::checkBets() {
 			moneyWin += typeBet.moneyBet * typeBet.multiplier;
 		}
 		else {
-			moneyWin -= typeBet.moneyBet;
+			//moneyWin -= typeBet.moneyBet;
 		}
 		turnMoneyBet += typeBet.moneyBet;
 	}
