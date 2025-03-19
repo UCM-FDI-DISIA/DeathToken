@@ -19,6 +19,11 @@ class Menu : public GameState
 	Button* marbles;
 	Button* fights;
 	Button* slots;
+	SDL_Rect boundry1;
+	SDL_Rect boundry2;
+	SDL_Rect boundry3;
+	vector<SDL_Rect> limites;
+
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);
@@ -26,5 +31,6 @@ public:
 	Collision checkCollision(const SDL_Rect& rect, Collision::Target target);
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button
+	vector<SDL_Rect> getLimits() const { return limites; };
 };
 

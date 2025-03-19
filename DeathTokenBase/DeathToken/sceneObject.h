@@ -30,7 +30,6 @@ public:
 	virtual Collision hit(const SDL_Rect&, Collision::Target) = 0;
 	virtual void update();
 	Vector2D<> position() const { return pos; };
-	Collision tryToMove(const Vector2D<>&, Collision::Target);
 	SDL_Rect getCollisionRect() const;
 	SDL_Rect getRenderRect() const;
 };

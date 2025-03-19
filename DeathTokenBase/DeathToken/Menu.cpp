@@ -32,10 +32,30 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
 	if (ghost == nullptr) {
-		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
+		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST),this);
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
+
+	//Boundries
+	boundry1.h = Game::WIN_HEIGHT;
+	boundry1.w = (85.0f /1920.0f) * Game::WIN_WIDTH;
+	boundry1.x = 0;
+	boundry1.y = 0;
+	limites.push_back(boundry1);
+
+	boundry2.h = (180.0f/1080.0f) * Game::WIN_HEIGHT;
+	boundry2.w = Game::WIN_WIDTH;
+	boundry2.x = 0;
+	boundry2.y = 0;
+	limites.push_back(boundry2);
+
+	boundry3.h = Game::WIN_HEIGHT;
+	boundry3.w = (85.0f / 1920.0f) * Game::WIN_WIDTH;
+	boundry3.x = Game::WIN_WIDTH - boundry3.w;
+	boundry3.y = 0;
+	limites.push_back(boundry3);
+	
 }
 
 void Menu::gameChanger(GameState* juego) {
@@ -66,9 +86,8 @@ Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 
 void Menu::update() {//detecto interseciones player/button
 	GameState::update();
-
+	
 	SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
-
 	baccarat->Button::getHover() = baccarat->playerHovered(playerRect);
 	slots->Button::getHover() = slots->playerHovered(playerRect);
 	marbles->Button::getHover() = marbles->playerHovered(playerRect);
