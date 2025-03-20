@@ -64,7 +64,7 @@ int SlotsLocura::getNext() {
 bool SlotsLocura::checkBoard() const {
 	// Revisión filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
-		for (int j = 0; j < N_COLUM - 2; j++) {
+		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
 				mat[i][j]->getElem() == mat[i][j + 1]->getElem() && mat[i][j]->getElem() == mat[i][j + 2]->getElem()) {
 				cout << "col " << i << " " << j;
@@ -77,5 +77,24 @@ bool SlotsLocura::checkBoard() const {
 			}
 		}
 	}
+	// Revisión diagonales principales
+	for (int i = 0; i < N_COLUM - 2; ++i) {
+		for (int j = 0; j < N_COLUM - 2; ++j) {
+			if (mat[i][j]->getElem() != -1 &&
+				mat[i][j]->getElem() == mat[i + 1][j + 1]->getElem() && mat[i][j]->getElem() == mat[i + 2][j + 2]->getElem()) {
+				return true;
+			}
+		}
+	}
+	// Revisión diagonales secundarias
+	for (int i = N_COLUM - 1; i > 1; --i) {
+		for (int j = 0; j < N_COLUM - 2; ++j) {
+			if (mat[i][j]->getElem() != -1 &&
+				mat[i][j]->getElem() == mat[i - 1][j + 1]->getElem() && mat[i][j]->getElem() == mat[i - 2][j + 2]->getElem()) {
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
