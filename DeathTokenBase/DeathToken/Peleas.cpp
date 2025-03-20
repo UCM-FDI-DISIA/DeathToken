@@ -87,7 +87,9 @@ Peleas::render() const {
     r.h = Game::WIN_HEIGHT;
     r.w = Game::WIN_WIDTH;
     game->getTexture(PELEASTARJETAFONDO)->render(r);
-
+    
+    //Aqui falta el sprite de los personajes
+    
     SDL_Rect tarjetas;
     tarjetas.x = tarjetas.y = 0;
     tarjetas.h = Game::WIN_HEIGHT;

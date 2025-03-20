@@ -6,7 +6,8 @@
 #include <deque>
 #include <string>
 #include "gameObject.h"
-#include "Button.h"
+#include "Game.h"
+
 
 class DialogueBox {
 
@@ -68,17 +69,18 @@ public:
         charsPerLine = textWidth / charWidth;
     }
 
-    virtual ~DialogueBox() { 
+    ~DialogueBox() { 
         renderer = nullptr; 
         font = nullptr;
         history.clear();
         displayedText.clear();
         message.clear();
     };
+
     void showMessage(const std::string& message);
     void hideMessage();
     void ResetHistory();
-    virtual void render() const;
+    void render() const;
     void update(float deltaTime);
     void handleEvent(const SDL_Event& event);
 
