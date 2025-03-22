@@ -42,6 +42,8 @@ long long HUD::getNumberY(long long n)
 }
 HUD::HUD(GameState* gS) : GameObject(gS)
 {
+	gS->addObjectsUI(this);
+
 	typo = gS->getGame()->getTypo(GRAND_CASINO);
 	balanceDescText = new Text(gS, typo, relativeX(1600), relativeY(70),
 							   relativeX(50), relativeX(3), Text::DERECHA);
@@ -71,6 +73,8 @@ HUDLobby::HUDLobby(GameState* gS) : HUD(gS)
 							relativeX(getNumberSize(redSouls)), relativeX(3), Text::DERECHA);
 	redSoulsText->setMessage(std::to_string(redSouls));
 	gS->addObjectsUI(redSoulsText);
+
+	HUDManager::setHudLobby(this);
 }
 void
 HUDLobby::refresh()
@@ -92,6 +96,8 @@ HUDBet::HUDBet(GameState* gS) : HUD(gS)
 		relativeX(getNumberSize(bet)), relativeX(3), Text::DERECHA);
 	betText->setMessage(std::to_string(bet));
 	gS->addObjectsUI(betText);
+
+	HUDManager::setHudBet(this);
 }
 void
 HUDBet::refresh()
@@ -119,8 +125,15 @@ void HUDManager::resetBet()
 	currentHudBet->refresh();
 }
 void
-HUDManager::spinWheel()
+HUDManager::applyWinBet(long long win)
 {
-	PlayerEconomy::subtractBlueSouls(2000);
+	PlayerEconomy::addBlueSouls(win);
+	PlayerEconomy::setBet(0);
+	currentHudBet->refresh();
+}
+
+void HUDManager::popGame()
+{
+	HUDManager::resetBet();
 	currentHudLobby->refresh();
 }

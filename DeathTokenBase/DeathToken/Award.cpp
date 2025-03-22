@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "SDL.h"
 
-Award::Award(Game* game, GameState* lastState, int bet, int mWin) 
+Award::Award(Game* game, GameState* lastState, long long bet, long long mWin) 
 	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)) , currentWin(0) {
 	
 	background->modAlfa(140);
@@ -25,11 +25,11 @@ Award::Award(Game* game, GameState* lastState, int bet, int mWin)
 void Award::update() {
 	//Tendra que contar el tiempo para que despues de 5 segundos de mostrar el mensaje vuelva a la escena anterior
 	if (currentWin < mWinG) {
-		currentWin += std::min(10, mWinG - currentWin); 
+		currentWin += std::min((long long)10, mWinG - currentWin); 
 		winText->setMessage(std::to_string(currentWin));
 		startTime = SDL_GetTicks();
 	}else if (SDL_GetTicks() - startTime >= 5000) {
-
+		HUDManager::applyWinBet(currentWin);
 		game->pop(); // Regresar al estado anterior
 	}
 	

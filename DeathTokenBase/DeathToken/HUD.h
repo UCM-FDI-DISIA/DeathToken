@@ -55,5 +55,6 @@ public:
 	static void setHudLobby(HUDLobby* hudLobby) { currentHudLobby = hudLobby; };
 	static void applyBet(int bet);
 	static void resetBet();
-	static void spinWheel();
+	static void applyWinBet(long long win);
+	static void popGame();
 };

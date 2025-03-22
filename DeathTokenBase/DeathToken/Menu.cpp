@@ -39,8 +39,6 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	}
 
 	hud = new HUDLobby(this);
-	addObjectsUI(hud);
-	HUDManager::setHudLobby(hud);
 }
 
 void Menu::gameChanger(GameState* juego) {

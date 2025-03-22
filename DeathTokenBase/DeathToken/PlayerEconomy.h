@@ -9,27 +9,27 @@ private:
 	static int insanity;
 	static long long bet;
 public:
-	static void EconomyInitialize(bool savedFile = false);
+	static void EconomyInitialize(bool savedGame = false);
 	//Getters
 	static int getBlueSouls();
 	static int getRedSouls();
 	static int getInsanity();
 	static int getBet();
 	//Setters
-	static void setBlueSouls(int blueSouls);
-	static void setRedSouls(int redSouls);
+	static void setBlueSouls(long long blueSouls);
+	static void setRedSouls(long long redSouls);
 	static void setInsanity(int insanity);
-	static void setBet(int bet);
+	static void setBet(long long bet);
 	//Sumar
-	static void addBlueSouls(int blueSouls);
-	static void addRedSouls(int redSouls);
+	static void addBlueSouls(long long blueSouls);
+	static void addRedSouls(long long redSouls);
 	static void addInsanity(int insanity);
-	static void addBet(int bet);
+	static void addBet(long long bet);
 	//Restar
-	static void subtractBlueSouls(int blueSouls);
-	static void subtractRedSouls(int redSouls);
+	static void subtractBlueSouls(long long blueSouls);
+	static void subtractRedSouls(long long redSouls);
 	static void subtractInsanity(int insanity);
-	static void subtractBet(int bet);
+	static void subtractBet(long long bet);
 
 	friend HUD;
 };

@@ -9,6 +9,7 @@ Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMA
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8);//x8 apuesta
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2);//x2 apuesta
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2);//x2 apuesta
+	hud = new HUDBet(this);
 }
 
 Cards* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas

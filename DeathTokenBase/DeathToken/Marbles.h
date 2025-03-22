@@ -27,8 +27,8 @@ protected:
 	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
 	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
-	int moneyBet;
-	int turnMoneyBet ;
+	long long moneyBet;
+	long long turnMoneyBet;
 	int clave = 0;
 
 	

@@ -7,16 +7,9 @@ int PlayerEconomy::insanity = 0;
 long long PlayerEconomy::bet = 0;
 //Inicialización funcional
 void
-PlayerEconomy::EconomyInitialize(bool savedFile)
+PlayerEconomy::EconomyInitialize(bool savedGame)
 {
-	if (!savedFile)
-	{
-		blueSouls = 2000;
-		redSouls = 0;
-		insanity = 0;
-		bet = 0;
-	}
-	else
+	if (!savedGame)
 	{
 		blueSouls = 2000;
 		redSouls = 0;
@@ -45,12 +38,12 @@ PlayerEconomy::getBet()
 	return bet;
 }
 void
-PlayerEconomy::setBlueSouls(int blueSouls)
+PlayerEconomy::setBlueSouls(long long blueSouls)
 {
 	PlayerEconomy::blueSouls = blueSouls;
 }
 void
-PlayerEconomy::setRedSouls(int redSouls)
+PlayerEconomy::setRedSouls(long long redSouls)
 {
 	PlayerEconomy::redSouls = redSouls;
 }
@@ -58,17 +51,17 @@ void PlayerEconomy::setInsanity(int insanity)
 {
 	PlayerEconomy::insanity = insanity;
 }
-void PlayerEconomy::setBet(int bet)
+void PlayerEconomy::setBet(long long bet)
 {
 	PlayerEconomy::bet = bet;
 }
 void
-PlayerEconomy::addBlueSouls(int blueSouls)
+PlayerEconomy::addBlueSouls(long long blueSouls)
 {
 	PlayerEconomy::blueSouls += blueSouls;
 }
 void
-PlayerEconomy::addRedSouls(int redSouls)
+PlayerEconomy::addRedSouls(long long redSouls)
 {
 	PlayerEconomy::redSouls += redSouls;
 }
@@ -78,17 +71,17 @@ PlayerEconomy::addInsanity(int insanity)
 	PlayerEconomy::insanity += insanity;
 }
 void
-PlayerEconomy::addBet(int bet)
+PlayerEconomy::addBet(long long bet)
 {
 	PlayerEconomy::bet += bet;
 }
 void
-PlayerEconomy::subtractBlueSouls(int blueSouls)
+PlayerEconomy::subtractBlueSouls(long long blueSouls)
 {
 	PlayerEconomy::blueSouls -= blueSouls;
 }
 void
-PlayerEconomy::subtractRedSouls(int redSouls)
+PlayerEconomy::subtractRedSouls(long long redSouls)
 {
 	PlayerEconomy::redSouls -= redSouls;
 }
@@ -98,7 +91,7 @@ PlayerEconomy::subtractInsanity(int insanity)
 	PlayerEconomy::insanity -= insanity;
 }
 void
-PlayerEconomy::subtractBet(int bet)
+PlayerEconomy::subtractBet(long long bet)
 {
 	PlayerEconomy::bet -= bet;
 }

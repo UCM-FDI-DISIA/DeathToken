@@ -12,13 +12,11 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 	{
 	Marbles::marblesButtonCreation();
 	hud = new HUDBet(this);
-	HUDManager::setHudBet(hud);
 }
 Marbles::~Marbles() {
 	
+	HUDManager::popGame();
 	delete ui;
-
-
 }
 
 void  Marbles::generateMarbles() {
@@ -86,11 +84,11 @@ int  Marbles::checkBets() {
 
 void Marbles::startRound() {
 	generateMarbles();//Se generar las canicas aleatorias
-	int moneyWin = checkBets();//Comparar canicas con apuesta
+	long long moneyWin = checkBets();//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
 	if (moneyWin > 0) {
-		game->push(new Award( game,  (GameState*)this, turnMoneyBet,moneyWin));
+		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
 	}
 	
 	clearBets();
