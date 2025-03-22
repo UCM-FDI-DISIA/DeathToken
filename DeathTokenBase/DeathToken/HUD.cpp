@@ -104,3 +104,23 @@ HUDBet::refresh()
 }
 
 HUDBet* HUDManager::currentHudBet = nullptr;
+HUDLobby* HUDManager::currentHudLobby = nullptr;
+void
+HUDManager::applyBet(int bet)
+{
+	PlayerEconomy::addBet(bet);
+	PlayerEconomy::subtractBlueSouls(bet);
+	currentHudBet->refresh();
+}
+void HUDManager::resetBet()
+{
+	PlayerEconomy::addBlueSouls(PlayerEconomy::getBet());
+	PlayerEconomy::setBet(0);
+	currentHudBet->refresh();
+}
+void
+HUDManager::spinWheel()
+{
+	PlayerEconomy::subtractBlueSouls(2000);
+	currentHudLobby->refresh();
+}

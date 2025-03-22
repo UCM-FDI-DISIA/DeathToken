@@ -172,9 +172,7 @@ void UIMarbles::OnGo() {
 
 void UIMarbles::OnErase() {
 	marbles->clearBets();
-	PlayerEconomy::addBlueSouls(PlayerEconomy::getBet());
-	PlayerEconomy::setBet(0);
-	HUDManager::getHudBet()->refresh();
+	HUDManager::resetBet();
 }
 
 void UIMarbles::OnRepeat()
@@ -191,6 +189,7 @@ void UIBaccarat::OnGo() {
 
 void UIBaccarat::OnErase() {
 	baccarat->clearBets();
+	HUDManager::resetBet();
 }
 
 void UIBaccarat::OnRepeat()

@@ -144,9 +144,7 @@ ButtonBet::handleEvent(const SDL_Event& event)
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
-			PlayerEconomy::addBet(chip);
-			PlayerEconomy::subtractBlueSouls(chip);
-			HUDManager::getHudBet()->refresh();
+			HUDManager::applyBet(chip);
 		}
 	}
 }
@@ -441,9 +439,7 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
-			PlayerEconomy::addBet(chip);
-			PlayerEconomy::subtractBlueSouls(chip);
-			HUDManager::getHudBet()->refresh();
+			HUDManager::applyBet(chip);
 		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
@@ -479,9 +475,7 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
-			PlayerEconomy::addBet(chip);
-			PlayerEconomy::subtractBlueSouls(chip);
-			HUDManager::getHudBet()->refresh();
+			HUDManager::applyBet(chip);
 		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)

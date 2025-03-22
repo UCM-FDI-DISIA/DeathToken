@@ -47,7 +47,13 @@ class HUDManager
 {
 private:
 	static HUDBet* currentHudBet;
+	static HUDLobby* currentHudLobby;
 public:
 	static HUDBet* getHudBet() { return currentHudBet; };
 	static void setHudBet(HUDBet* hudBet) { currentHudBet = hudBet; };
+	static HUDLobby* getHudLobby() { return currentHudLobby; };
+	static void setHudLobby(HUDLobby* hudLobby) { currentHudLobby = hudLobby; };
+	static void applyBet(int bet);
+	static void resetBet();
+	static void spinWheel();
 };
