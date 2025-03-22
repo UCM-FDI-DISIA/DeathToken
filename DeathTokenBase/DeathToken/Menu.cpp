@@ -6,6 +6,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
+	PlayerEconomy::EconomyInitialize();
 	//Baccarat button
 	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
@@ -36,6 +37,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
+
+	hud = new HUDLobby(this);
+	addObjectsUI(hud);
 }
 
 void Menu::gameChanger(GameState* juego) {

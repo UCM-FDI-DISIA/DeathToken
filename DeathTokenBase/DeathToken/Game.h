@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <array>
+#include "HUD.h"
 #include "Texture.h"
 #include <random>
 

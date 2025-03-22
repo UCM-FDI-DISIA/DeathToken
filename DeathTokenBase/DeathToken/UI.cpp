@@ -172,6 +172,9 @@ void UIMarbles::OnGo() {
 
 void UIMarbles::OnErase() {
 	marbles->clearBets();
+	PlayerEconomy::addBlueSouls(PlayerEconomy::getBet());
+	PlayerEconomy::setBet(0);
+	HUDManager::getHudBet()->refresh();
 }
 
 void UIMarbles::OnRepeat()

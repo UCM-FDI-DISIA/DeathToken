@@ -138,6 +138,8 @@
     <ClInclude Include="Carrete.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
@@ -163,6 +165,8 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Carrete.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="PlayerEconomy.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />

@@ -19,10 +19,12 @@ public:
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
     virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
     void setPos(int x, int y);
+    std::string getMessage();
     void setMessage(const std::string& message);
     void addMessage(const std::string& message);
     void eraseMessage();
     void setColor(int red, int green, int blue, int alpha);
+    void setSize(int size);
     void setOutlineColor(int red, int green, int blue, int alpha);
     //Para cajas de texto, por defecto el ancho es infinito (no habrá saltos de línea automáticos)
     void setWidth(int width);

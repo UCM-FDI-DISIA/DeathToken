@@ -17,6 +17,7 @@ protected:
 		int moneyBet= 0;
 	};
 	UIMarbles* ui;
+	HUDBet* hud;
 
 	Texture* texture;
 	std::vector<int> marbles;

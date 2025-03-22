@@ -9,6 +9,7 @@ Text::Text(GameState* gS, const char* typo, int x, int y, int size, Alignment al
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
+    message = "";
 }
 Text::Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
@@ -17,6 +18,7 @@ Text::Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color te
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
+    message = "";
 }
 Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
@@ -25,6 +27,7 @@ Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineS
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
+    message = "";
 }
 Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize,
            SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
@@ -34,12 +37,18 @@ Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineS
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = TTF_OpenFont(typo, size);
+    message = "";
 }
 void
 Text::setPos(int x, int y)
 {
     this->x = x;
     this->y = y;
+}
+std::string
+Text::getMessage()
+{
+    return message;
 }
 void
 Text::setMessage(const std::string& message)
@@ -60,6 +69,11 @@ void
 Text::setColor(int red, int green, int blue, int alpha)
 {
     textColor = SDL_Color(red, green, blue, alpha);
+}
+void
+Text::setSize(int size)
+{
+    TTF_SetFontSize(font, size);
 }
 void
 Text::setOutlineColor(int red, int green, int blue, int alpha)
