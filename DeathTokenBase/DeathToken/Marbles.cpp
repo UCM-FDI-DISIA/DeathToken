@@ -1,6 +1,7 @@
 #include "Marbles.h"
 #include "Game.h"	
 #include <iostream>
+#include <random>
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
 	marbles( { 0,0,0,0 }),
@@ -15,13 +16,12 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 
 }
 Marbles::~Marbles() {
-	delete ui; 
-	for (auto b : marbleButtons) {
+	/*for (auto b : marbleButtons) {
 		delete b;
-	}
-	// cuando lleguéis aquí, la instancia se borrará y con ella "marblebuttons"
-	marbleButtons.clear();
-	
+	}*/
+	delete ui;
+
+
 }
 
 void  Marbles::generateMarbles() {
@@ -31,7 +31,10 @@ void  Marbles::generateMarbles() {
 	int pos = 1;
 	SDL_Rect auxBox;
 	for (int i = 0; i < 3; i++) {
-		int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
+		std::uniform_int_distribution<> distrib(0, 3);
+		int color = distrib(game->getGen());
+
+		//int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
 		marbles[color]++;
 		auxBox.x = Game::WIN_WIDTH / 4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
@@ -48,23 +51,33 @@ int  Marbles::checkBets(int moneyBet) {
 	//Cuando se hagan los botones cada apuesta hecha se metera en un map indicando que apuesta 
 	//hecha en un vector y el multi que da si gana
 
-	for (const auto& betkey : bets) {//Recorre el map
-		const Bet& typeBet = betkey.second;//Pillo la apuesta
-
+	for (const auto& [key, typeBet] : bets) { //Recorremos el mapa
 		bool won = true;
+		bool wonTriple = false;
 
-		// cleon no sabe qué es esto, pero sospecha
-		for (int i = 0; i < 4; i++) {
-			if (marbles[i] < typeBet.typeOfBet[i]) { //Si algun numero del vector es mayor a las canicas, se da esa apuesta como perdida
-				won = false;
+		if (typeBet.typeOfBet == std::vector<int>{3, 3, 3, 3}) {// Si apuesta a cualquier triple
+			for (int i = 0; i < typeBet.typeOfBet.size(); i++) { //recorremos el vector de la apuesta hecha
+				if (marbles[i] == 3) {// si has salido 3 canicas del mismo color entra en true
+					wonTriple = true;
+					break;
+				}
 			}
 		}
 
-		if (won) {//Si ha ganado esa apuesta se calcula lo ganado
+
+		for (int i = 0; i < typeBet.typeOfBet.size(); i++) {
+			if (marbles[i] < typeBet.typeOfBet[i]) {//Si hay  mas canicas apostadas que canicas sacadas, le jugador pierde
+				won = false;
+				break;
+			}
+		}
+		
+
+		if (won|| wonTriple) {
 			moneyWin += typeBet.moneyBet * typeBet.multiplier;
-			
 		}
 	}
+
 	return moneyWin;
 }
 
@@ -73,17 +86,17 @@ void Marbles::startRound() {
 	int moneyWin = checkBets(moneyBet);//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
-	//  #if _DEBUG
+	  #if _DEBUG
 	if (moneyWin > 0) {
 
-		std::cout << "HAS GANDADO" << moneyWin;
+		std::cout << "HAS GANDADO" << moneyWin<< "\n";
 		
 	}
 	else {
-		std::cout << "HAS PERDIDO";
+		std::cout << "HAS PERDIDO\n";
 
 	}
-	//  #endif
+	  #endif
 
 	clearBets();
 }

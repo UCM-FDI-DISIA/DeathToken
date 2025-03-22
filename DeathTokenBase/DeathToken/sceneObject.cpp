@@ -45,9 +45,6 @@ sceneObject::getRenderRect() const
 		h
 	};
 }
-void sceneObject::setListAnchor(GameList<sceneObject>::anchor&& anchor) {
-	this->anchor = std::move(anchor);
-}
 
 // Comprueba que os objetos se eliminen cuando caen al vacío
 void sceneObject::update() {

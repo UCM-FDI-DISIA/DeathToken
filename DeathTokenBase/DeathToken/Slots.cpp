@@ -4,6 +4,7 @@
 
 Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this, g, this))
 {
+
 	int offset = 20;
 	int y = 50;
 	int x = (game->WIN_WIDTH / 2) - (TAM_CELDA + TAM_CELDA / 2) - offset;
@@ -20,7 +21,7 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this,
 				if(c->getParada())++comprobanteIndice;
 				c->pararGiro();
 				
-			});
+		});
 		x += TAM_CELDA + offset;
 	}
 
@@ -34,6 +35,7 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this,
 }
 Slots:: ~Slots() {
 	for (Carrete* i : carretes) i = nullptr;
+	delete ui;
 }
 void Slots::update() {
 	GameState::update();
@@ -47,9 +49,9 @@ void Slots::update() {
 		int multiplicador = 0;
 		for (int i = 0; i < N_COLUM; ++i) {
 
-			bool telarañas1_2 = vectorCarrete1[i] == vectorCarrete2[i] && puntuaciones.find(vectorCarrete1[i])->first == 0;
-			bool telarañas1_3 = vectorCarrete1[i] == vectorCarrete3[i] && puntuaciones.find(vectorCarrete1[i])->first == 0;
-			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && puntuaciones.find(vectorCarrete2[i])->first == 0;
+			bool telarañas1_2 = vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete1[i] == 0;
+			bool telarañas1_3 = vectorCarrete1[i] == vectorCarrete3[i] && vectorCarrete1[i] == 0;
+			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
 
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
 				auto it = puntuaciones.find(vectorCarrete1[i]);
@@ -61,10 +63,10 @@ void Slots::update() {
 			}
 		}
 		for (Carrete* c : carretes) c->deleteCarrete();
-		vectorCarrete1.erase(vectorCarrete1.begin(), vectorCarrete1.end());
-		vectorCarrete2.erase(vectorCarrete2.begin(), vectorCarrete2.end());
-		vectorCarrete3.erase(vectorCarrete3.begin(), vectorCarrete3.end());
+		#if _DEBUG
+
 		std :: cout << multiplicador << "\n";
+		#endif
 	}
 }
 void Slots::render() const {
@@ -77,5 +79,10 @@ void Slots::render() const {
 	GameState::render();
 }
 void Slots::iniciarGiro() {
-	{for (Carrete* c : carretes) c->iniciarGiro(); }
+	bool girar = false;
+	for (Carrete* c : carretes)
+		girar = girar || c->getParada();
+	if (!girar) {
+		for (Carrete* c : carretes) c->iniciarGiro();
+	}
 }

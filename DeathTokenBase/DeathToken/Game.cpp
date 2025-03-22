@@ -1,13 +1,12 @@
 #include <string>
 #include "checkML.h"
 #include "Game.h"
-#include "Slots.h"
 #include "Menu.h"
 
 
 
-int Game::WIN_WIDTH = 1920;
-int Game::WIN_HEIGHT = 1080;
+int Game::WIN_WIDTH = 0;
+int Game::WIN_HEIGHT = 0;
 
 // Formato de la especificaci�n de una textura
 struct TextureSpec
@@ -134,7 +133,7 @@ void Game::run() {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT)
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				stop();
 			else
 				handleEvent(event);

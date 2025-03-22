@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <SDL.h>
 #include <list>
-#include "gameList.h"
 #include "gameObject.h"
 #include "EventHandler.h"
 class Game;
