@@ -37,7 +37,7 @@ Peleas::Peleas(Game* game)
     , Animo2(nullptr)
     , Apuesta1(nullptr)
     , Apuesta2(nullptr)
-    , ui(new UIPeleas(this, game, this))
+    , ui(new UIPeleas(game, this))
 {
 
     if (_battleM->loadFightersFromJSON("peleadores.json") && _battleM->loadMatchupsFromJSON("../DeathToken/matchups.json"))
@@ -66,7 +66,6 @@ Peleas::Peleas(Game* game)
 
         dialog->showMessage(_battleM->getBattleDescription());
     }
-   /* addObjectsUI((GameObject*) ui);*/
 }
 
 void

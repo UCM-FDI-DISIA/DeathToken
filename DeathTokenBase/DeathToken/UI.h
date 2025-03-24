@@ -92,7 +92,7 @@ public:
 class Peleas;
 class UIPeleas : public UIChips {
 public:
-	UIPeleas(GameState* gS, Game* game, Peleas* peleas) : UIChips(gS, game), _peleas(peleas)
+	UIPeleas(Game* game, Peleas* peleas) : UIChips((GameState*)peleas, game), _peleas(peleas)
 	{
 	};
 
