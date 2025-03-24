@@ -187,7 +187,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 
 void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles) {
 	
-	moneyBet = btnMarbles->getBet();
+	moneyBet = ui->currentChipValue();
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
