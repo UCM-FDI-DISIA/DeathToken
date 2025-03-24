@@ -93,6 +93,9 @@
     <ClInclude Include="DialogueBox.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="PeleasPelea.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -156,6 +159,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="DialogueBox.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="PeleasPelea.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

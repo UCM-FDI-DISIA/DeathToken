@@ -15,9 +15,9 @@ class DialogueBox {
     const int BOXHEIGHT = 250;
     const int MARGIN = 10;
     // Definir la altura de línea según la fuente (puede variar)
-    const int lineHeight = Game::FONTBIGSIZE * 1.3f;  // Se recomienda usar 1.3 * tamaño de la fuente
+    const int lineHeight = Game::FONTSMALLSIZE * 1.3f;  // Se recomienda usar 1.3 * tamaño de la fuente
     // Estimar el ancho promedio de un carácter
-    const float charWidth = Game::FONTBIGSIZE * 0.6f;  // Aproximadamente 14.4 px para fuente de 24px
+    const float charWidth = Game::FONTSMALLSIZE * 0.6f;  // Aproximadamente 14.4 px para fuente de 24px
     const int letterdelay = 30; // en milisegundos
     const int fastLetter = 5; // en milisegundos
 

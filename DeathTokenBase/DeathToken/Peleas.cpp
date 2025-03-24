@@ -7,11 +7,11 @@
 #include <iomanip>
 #include <sstream>
 
-const int APUESTA1X = 330 + 250;
-const int APUESTA2X = 870 + 250;
-const int NOMBRESY = 140;
-const int CUOTAY = 445;
-const int ESPACIO = 60;
+const float APUESTA1X = (330.0f + 250.0f) / 1920.0f ;
+const float APUESTA2X = (870.0f + 250.0f) / 1920.0f;
+const float NOMBRESY = 140.0f / 1080.0f;
+const float CUOTAY = 445.0f / 1080.0f;
+const float ESPACIO = 60.0f / 1080.0f;
 
 std::string formatOdds(float odds) {
     std::ostringstream stream;
@@ -43,17 +43,15 @@ Peleas::Peleas(Game* game)
     if (_battleM->loadFightersFromJSON("peleadores.json") && _battleM->loadMatchupsFromJSON("../DeathToken/matchups.json"))
     {
         _battleM->StartBattle();
-        //std::thread BattleThread([this]() {_battleM->StartBattle();});
-        //BattleThread.detach();
-
-        nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, NOMBRESY);
-        nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, NOMBRESY);
-        Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, CUOTAY);
-        Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, CUOTAY);
-        Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, CUOTAY + ESPACIO);
-        Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, CUOTAY + ESPACIO);
-        Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X, CUOTAY + ESPACIO * 2);
-        Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X, CUOTAY + ESPACIO * 2);
+       
+        nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
+        nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
+        Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
+        Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
+        Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
+        Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
+        Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
+        Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
 
         nombre1->showMessage(_battleM->getFigther1().getName());
         nombre2->showMessage(_battleM->getFigther2().getName());
@@ -68,8 +66,6 @@ Peleas::Peleas(Game* game)
 
         dialog->showMessage("¿Qué Mejoramos ? ✅ Separación clara entre lógica(updateDialog()) y renderizado(renderDialog()) ✅ Sistema más modular y fácil de mantener ✅ Posibilidad de agregar más mejoras fácilmente Este sistema es mucho más eficiente y escalable.🚀 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         dialog->showMessage("Segundo mensaje");
-        std::thread battlethread([this]() {_battleM->ExecuteTurns(_battleM->getCurrentMatchUp());});
-        battlethread.detach();
     }
 }
 
