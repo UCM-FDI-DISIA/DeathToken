@@ -8,6 +8,7 @@
 #include "EventHandler.h"
 #include "Button.h"
 #include "Cards.h"
+#include "Award.h"
 using namespace std;
 
 struct Mat {
@@ -21,6 +22,7 @@ protected:
 	struct Bet {
 		int multiplier = 0;
 		int moneyBet = 0;
+		int betType = 0;
 	};
 	UIBaccarat* ui;
 
@@ -45,6 +47,7 @@ protected:
 	const int xTwo = 2;
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
+	bool bankerBet = false, playerBet = false, tieBet = false;
 	//bool locura; global?
 public:
 	Baccarat(Game* game);
@@ -56,7 +59,7 @@ public:
 		//for (auto& b : bacButtons) {
 		//	delete b;  // Libera cada botón
 		//}
-		
+
 	};
 	void handleEvent(const SDL_Event& event) override;
 	virtual void clearDeck();
@@ -71,8 +74,8 @@ public:
 	void win();
 
 	//metodos apuestas
-	void createBaccaratButton(int x, int y, int width, int height, int multiplier);
-	void newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat);
+	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
+	void newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat);
 	void clearBets();
 	virtual void repeat();
 	virtual void startRound();
