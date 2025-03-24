@@ -28,7 +28,7 @@ std::string formatOdds(float odds) {
 Peleas::Peleas(Game* game) 
     : GameState(game)
     , _battleM(new BattleManager())
-    , dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTSMALLSIZE), 800, 200, true, false)) 
+    , dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTSMALLSIZE), ((400.0f - (750/2))/1920.0f) * Game::WIN_WIDTH, (870.0f / 1080.0f) * Game::WIN_HEIGHT, true, false, 400, 170))
     , nombre1(nullptr)
     , nombre2(nullptr)
     , Cuota1(nullptr)
@@ -37,7 +37,7 @@ Peleas::Peleas(Game* game)
     , Animo2(nullptr)
     , Apuesta1(nullptr)
     , Apuesta2(nullptr)
-    , autoEnable(nullptr)
+    , ui(new UIPeleas(game, this))
 {
 
     if (_battleM->loadFightersFromJSON("peleadores.json") && _battleM->loadMatchupsFromJSON("../DeathToken/matchups.json"))
@@ -64,9 +64,9 @@ Peleas::Peleas(Game* game)
         Apuesta1->showMessage("Apuesta: ");
         Apuesta2->showMessage("Apuesta: ");
 
-        dialog->showMessage("¿Qué Mejoramos ? ✅ Separación clara entre lógica(updateDialog()) y renderizado(renderDialog()) ✅ Sistema más modular y fácil de mantener ✅ Posibilidad de agregar más mejoras fácilmente Este sistema es mucho más eficiente y escalable.🚀 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        dialog->showMessage("Segundo mensaje");
+        dialog->showMessage(_battleM->getBattleDescription());
     }
+    
 }
 
 void

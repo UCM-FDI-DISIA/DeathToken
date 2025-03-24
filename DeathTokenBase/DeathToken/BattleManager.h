@@ -39,6 +39,7 @@ public:
     inline const Fighter& getFigther1() const { return currentMatch.fighter1; }
     inline const Fighter& getFigther2() const { return currentMatch.fighter2; }
     inline const BattleState& getBattleState() const { return currentState; }
+    inline const string& getBattleDescription() const { return currentMatch.battleDescription; }
 
   private:
     float actionTimer;  // Temporizador para controlar retrasos

@@ -3,6 +3,7 @@
 #include <SDL_ttf.h>
 #include "DialogueBox.h"
 #include "BattleManager.h"
+#include "UI.h"
 class Peleas : public GameState
 {
 public:
@@ -28,7 +29,6 @@ public:
        Apuesta1 = nullptr;
        delete Apuesta2;
        Apuesta2 = nullptr;
-       delete autoEnable;
    }
     void render() const override;
     void update() override;
@@ -43,7 +43,7 @@ private:
     DialogueBox* Animo2;
     DialogueBox* Apuesta1;
     DialogueBox* Apuesta2;
+    UIPeleas* ui;
 
-    Button* autoEnable;
 };
 
