@@ -7,10 +7,10 @@
 #include <iomanip>
 #include <sstream>
 
-const float APUESTA1X = (330.0f + 250.0f) / 1920.0f ;
-const float APUESTA2X = (870.0f + 250.0f) / 1920.0f;
-const float NOMBRESY = 140.0f / 1080.0f;
-const float CUOTAY = 445.0f / 1080.0f;
+const float APUESTA1X = (400.0f + 250.0f) / 1920.0f ;
+const float APUESTA2X = (1080.0f + 250.0f) / 1920.0f;
+const float NOMBRESY = 160.0f / 1080.0f;
+const float CUOTAY = 545.0f / 1080.0f;
 const float ESPACIO = 60.0f / 1080.0f;
 
 std::string formatOdds(float odds) {
