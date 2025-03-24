@@ -120,7 +120,7 @@ void DialogueBox::render() const {
         return;
     }
 
-    SDL_Rect dialogBox = { x - w / 2, y, w, h };
+    SDL_Rect dialogBox = { x, y, w, h };
     SDL_Rect textRect = { dialogBox.x + MARGIN, dialogBox.y + MARGIN - scrollOffset, textSurface->w, textSurface->h };
 
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);

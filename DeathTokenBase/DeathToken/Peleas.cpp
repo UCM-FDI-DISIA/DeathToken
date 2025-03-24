@@ -7,8 +7,8 @@
 #include <iomanip>
 #include <sstream>
 
-const float APUESTA1X = 650.0f / 1920.0f ;
-const float APUESTA2X = 1330.0f / 1920.0f;
+const float APUESTA1X = 400.0f / 1920.0f ;
+const float APUESTA2X = 1080.0f / 1920.0f;
 const float NOMBRESY = 160.0f / 1080.0f;
 const float CUOTAY = 545.0f / 1080.0f;
 const float ESPACIO = 60.0f / 1080.0f;
