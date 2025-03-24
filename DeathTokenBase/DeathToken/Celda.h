@@ -9,6 +9,7 @@ public:
 	inline ~Celda() {};
 	void render() const override;
 	inline int getElem() { return elem; }
+	inline void setElem(int n) { elem = n; }
 	inline void resetElem() { elem = -1; }
 private:
 	int elem;

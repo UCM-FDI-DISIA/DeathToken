@@ -13,8 +13,11 @@ private:
 	const std::vector<int> frecuencias = { 4,3,3,3,2,2,1 };
 	std::vector<int> resultante;
 	int indice;
+	bool turnoPlayer;
+
 	std::vector<int> vectorAleatorio();
 	bool checkBoard() const;
+	void IA();
 public:
 	SlotsLocura(Game*);
 	~SlotsLocura(){}

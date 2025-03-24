@@ -1,5 +1,6 @@
 #include "SlotsLocura.h"
 #include <chrono>
+#include <random>
 #include "Celda.h"
 using namespace std;
 
@@ -17,7 +18,7 @@ vector<int> SlotsLocura::vectorAleatorio() {
 
 	return vector;
 }
-SlotsLocura::SlotsLocura(Game* g) : GameState(g), indice(0), mat(N_COLUM)
+SlotsLocura::SlotsLocura(Game* g) : GameState(g), indice(0), mat(N_COLUM), turnoPlayer(true)
 {
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM; ++j) {
@@ -46,19 +47,26 @@ void SlotsLocura::update() {
 			for (int j = 0; j < N_COLUM; ++j)
 				mat[i][j]->resetElem();
 	}
+
+	if (!turnoPlayer) IA();
+
 	GameState::update();
 }
 void SlotsLocura::render() const {
-	SDL_Rect box(Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2, TAM_CELDA,TAM_CELDA);
+	SDL_Rect box(Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2, TAM_CELDA, TAM_CELDA);
 	game->getTexture(CELDA)->render(box);
 	game->getTexture(ICONOS)->renderFrame(box, 0, resultante[indice]);
 	GameState::render();
 }
 
 int SlotsLocura::getNext() {
-	int n = resultante[indice];
-	indice = (indice + 1) % resultante.size();
-	return n;
+	if (turnoPlayer) {
+		int n = resultante[indice];
+		indice = (indice + 1) % resultante.size();
+		turnoPlayer = false;
+		return n;
+	}
+	else return -1;
 }
 
 bool SlotsLocura::checkBoard() const {
@@ -67,12 +75,10 @@ bool SlotsLocura::checkBoard() const {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
 				mat[i][j]->getElem() == mat[i][j + 1]->getElem() && mat[i][j]->getElem() == mat[i][j + 2]->getElem()) {
-				cout << "col " << i << " " << j;
 				return true;
 			}
 			else if (mat[j][i]->getElem() != -1 &&
 				mat[j][i]->getElem() == mat[j + 1][i]->getElem() && mat[j][i]->getElem() == mat[j + 2][i]->getElem()) {
-				cout << "fil " << i << " " << j;
 				return true;
 			}
 		}
@@ -97,4 +103,18 @@ bool SlotsLocura::checkBoard() const {
 	}
 
 	return false;
+}
+
+void SlotsLocura::IA() {
+	bool placed = false;
+	while (!placed) {
+		int x = rand() % N_COLUM;
+		int y = rand() % N_COLUM;
+		if (mat[x][y]->getElem() == -1) {
+			mat[x][y]->setElem(resultante[indice]);
+			indice = (indice + 1) % resultante.size();
+			placed = true;
+		}
+	}
+	turnoPlayer = true;
 }
