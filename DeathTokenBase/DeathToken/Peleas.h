@@ -29,6 +29,8 @@ public:
        Apuesta1 = nullptr;
        delete Apuesta2;
        Apuesta2 = nullptr;
+       delete ui;
+       ui = nullptr;
    }
     void render() const override;
     void update() override;
