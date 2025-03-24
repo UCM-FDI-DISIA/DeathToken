@@ -6,16 +6,15 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)) , currentWin(0) {
 	
 	background->modAlfa(140);
-
 	//Crear calse intermedia PLAystate que herede todos los juegos y hacer un puntero que puedas pillar de cada juego
 	//Mirar el virtualTimer
 
-	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f), relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize), Text::CENTRO);
+	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH  /2.0f), relativeY( Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize), Text::CENTRO);
 	int multi = mWinG / betG;
 	text->setMessage(getWinMessage(multi));
 	this->addObjects(text);
 
-	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f), relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize), Text::CENTRO);
+	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH  /2.0f), relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize), Text::CENTRO);
 	winText->setMessage("0");
 	this->addObjects(winText);
 }
@@ -36,7 +35,7 @@ void Award::update() {
 
 void Award::render() const  {
 	state->render();
-	//background->render();
+	background->render();
 	GameState::render();
 	//Una vez entrado tiene que ir a show Message y renderizar la cantidad del premio con un mensaje
 	//

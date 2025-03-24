@@ -30,9 +30,8 @@ void  Marbles::generateMarbles() {
 		std::uniform_int_distribution<> distrib(0, 3);
 		int color = distrib(game->getGen());
 
-		//int color = rand() % 4; // us�is "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
 		marbles[color]++;
-		auxBox.x = Game::WIN_WIDTH / 4 * pos;
+		auxBox.x = Game::WIN_WIDTH /4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
 		auxBox.w = (int)(124.0 / 1920.0 * Game::WIN_WIDTH);
 		auxBox.h = (int)(124.0 / 1080.0 * Game::WIN_HEIGHT);
@@ -90,6 +89,10 @@ void Marbles::startRound() {
 
 	if (moneyWin > 0) {
 		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
+	}
+	else {
+		PlayerEconomy::setBet(0);
+		hud->refresh();
 	}
 	
 	clearBets();
