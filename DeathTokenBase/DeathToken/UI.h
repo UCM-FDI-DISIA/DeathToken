@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "GameState.h"
 #include "Button.h"
+#include "Text.h"
 #include <vector>
 class Player;
 class UI

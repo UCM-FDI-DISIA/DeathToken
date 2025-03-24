@@ -75,7 +75,7 @@ ButtonUI::render() const
 }
 
 ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: ButtonUI(gS, x, y, w, h, t, tC), game(game), currentBet(0), betHistory(0), ui(ui)
+	: ButtonUI(gS, x, y, w, h, t, tC), game(game), gS(gS), currentBet(0), betHistory(0), ui(ui)
 {
 	connect([this]() {});
 
@@ -139,9 +139,13 @@ ButtonBet::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
-		currentBet += chip;
-		lastChipSprite = "UICHIP" + std::to_string(chip);
-		currentText = game->getTexture(showChip());
+		if (chip <= PlayerEconomy::getBlueSouls())
+		{
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			HUDManager::applyBet(chip);
+		}
 	}
 }
 
@@ -225,10 +229,20 @@ ButtonMarbles::ButtonMarbles(GameState* gS, Game* game, UI* ui, int x, int y, in
 	: ButtonBet(gS, game, ui, x, y, w, h, t, tC), NCMarbles(NCMarbles), type(type)
 {
 	stop = type;
-	CMarbles.push_back(gS->getGame()->getTexture(REDMARBLE));
-	CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLE));
-	CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLE));
-	CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLE));
+	if (type == 1 || type == 3)
+	{
+		CMarbles.push_back(gS->getGame()->getTexture(REDMARBLE));
+		CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLE));
+		CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLE));
+		CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLE));
+	}
+	else
+	{
+		CMarbles.push_back(gS->getGame()->getTexture(REDMARBLESM));
+		CMarbles.push_back(gS->getGame()->getTexture(GREENMARBLESM));
+		CMarbles.push_back(gS->getGame()->getTexture(BLUEMARBLESM));
+		CMarbles.push_back(gS->getGame()->getTexture(YELLOWMARBLESM));
+	}
 }
 void
 ButtonMarbles::render() const
@@ -420,9 +434,13 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
-		currentBet += chip;
-		lastChipSprite = "UICHIP" + std::to_string(chip);
-		currentText = game->getTexture(showChip());
+		if (chip <= PlayerEconomy::getBlueSouls())
+		{
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			HUDManager::applyBet(chip);
+		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
@@ -452,9 +470,13 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
-		currentBet += chip;
-		lastChipSprite = "UICHIP" + std::to_string(chip);
-		currentText = game->getTexture(showChip());
+		if (chip <= PlayerEconomy::getBlueSouls())
+		{
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			HUDManager::applyBet(chip);
+		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{

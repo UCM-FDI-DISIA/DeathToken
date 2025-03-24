@@ -27,9 +27,6 @@
     <ClInclude Include="Game.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="gameList.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="gameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -84,16 +81,19 @@
     <ClInclude Include="Cards.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="CrazyBaccaratManager.h">
+    <ClInclude Include="Text.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="BaccaratBlackjack.h">
+    <ClInclude Include="EndState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="BaccaratFlip.h">
+    <ClInclude Include="Award.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="BaccaratBet.h">
+    <ClInclude Include="PlayerEconomy.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,16 +149,16 @@
     <ClCompile Include="Cards.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="CrazyBaccaratManager.cpp">
+    <ClCompile Include="Text.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="BaccaratBlackjack.cpp">
+    <ClCompile Include="Award.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="BaccaratFlip.cpp">
+    <ClCompile Include="PlayerEconomy.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="BaccaratBet.cpp">
+    <ClCompile Include="HUD.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
