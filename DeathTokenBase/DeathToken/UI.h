@@ -92,13 +92,13 @@ public:
 class Peleas;
 class UIPeleas : public UIChips {
 public:
-	UIPeleas(Game* game, Peleas* peleas) : UIChips((GameState*) peleas, game), _peleas(peleas)
+	UIPeleas(GameState* gS, Game* game, Peleas* peleas) : UIChips(gS, game), _peleas(peleas)
 	{
 	};
 
-	void OnGo() override;
-	void OnErase() override;
-	void OnRepeat() override;
+	void OnGo() override {};
+	void OnErase() override {};
+	void OnRepeat() override {};
 
 protected:
 	Peleas* _peleas;
