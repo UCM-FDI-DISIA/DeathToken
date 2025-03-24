@@ -5,11 +5,12 @@
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
 	marbles( { 0,0,0,0 }),
-	ui( new UIMarbles(this, game, this)),
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
 	game->getTexture(BLUEMARBLE),
 	game->getTexture(YELLOWMARBLE) })
-	{
+{
+	ui = new UIMarbles(this, game, this);
+
 	Marbles::marblesButtonCreation();
 	hud = new HUDBet(this);
 }
@@ -29,7 +30,7 @@ void  Marbles::generateMarbles() {
 		std::uniform_int_distribution<> distrib(0, 3);
 		int color = distrib(game->getGen());
 
-		//int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
+		//int color = rand() % 4; // usï¿½is "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
 		marbles[color]++;
 		auxBox.x = Game::WIN_WIDTH / 4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
