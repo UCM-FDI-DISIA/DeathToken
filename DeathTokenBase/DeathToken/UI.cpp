@@ -172,6 +172,7 @@ void UIMarbles::OnGo() {
 
 void UIMarbles::OnErase() {
 	marbles->clearBets();
+	HUDManager::resetBet();
 }
 
 void UIMarbles::OnRepeat()
@@ -188,6 +189,7 @@ void UIBaccarat::OnGo() {
 
 void UIBaccarat::OnErase() {
 	baccarat->clearBets();
+	HUDManager::resetBet();
 }
 
 void UIBaccarat::OnRepeat()

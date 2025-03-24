@@ -3,6 +3,7 @@
 #include "gameState.h"
 #include "EventHandler.h"
 #include "Texture.h"
+#include "PlayerEconomy.h"
 #include <functional>
 #include <string>
 
@@ -46,6 +47,7 @@ class ButtonBet : public ButtonUI
 {
 protected:
 	Game* game;
+	GameState* gS;
 	int currentBet;
 	int betHistory;
 	SDL_Rect chipSpace;

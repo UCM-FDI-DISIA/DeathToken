@@ -17,6 +17,7 @@ protected:
 		int moneyBet= 0;
 	};
 	UIMarbles* ui;
+	HUDBet* hud;
 
 	Texture* texture;
 	std::vector<int> marbles;
@@ -26,8 +27,8 @@ protected:
 	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
 	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
-	int moneyBet;
-	int turnMoneyBet ;
+	long long moneyBet;
+	long long turnMoneyBet;
 	int clave = 0;
 
 	

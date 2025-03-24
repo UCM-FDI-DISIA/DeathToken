@@ -38,6 +38,7 @@ protected:
 	Texture* texture;
 	Mat mat;
 	vector<int> cardsVec;
+	HUDBet* hud;
 	int rndNum;
 	int playerComb = 0;
 	int bankerComb = 0;
@@ -48,6 +49,7 @@ protected:
 public:
 	Baccarat(Game* game);
 	virtual ~Baccarat() {
+		HUDManager::popGame();
 		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
 		ui = nullptr;  // Evita accesos a memoria liberada
 

@@ -12,13 +12,12 @@ Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLES
 	ui = new UIMarbles(this, game, this);
 
 	Marbles::marblesButtonCreation();
-
+	hud = new HUDBet(this);
 }
 Marbles::~Marbles() {
 	
+	HUDManager::popGame();
 	delete ui;
-
-
 }
 
 void  Marbles::generateMarbles() {
@@ -31,7 +30,7 @@ void  Marbles::generateMarbles() {
 		std::uniform_int_distribution<> distrib(0, 3);
 		int color = distrib(game->getGen());
 
-		//int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
+		//int color = rand() % 4; // usï¿½is "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
 		marbles[color]++;
 		auxBox.x = Game::WIN_WIDTH / 4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
@@ -86,11 +85,11 @@ int  Marbles::checkBets() {
 
 void Marbles::startRound() {
 	generateMarbles();//Se generar las canicas aleatorias
-	int moneyWin = checkBets();//Comparar canicas con apuesta
+	long long moneyWin = checkBets();//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
 	if (moneyWin > 0) {
-		game->push(new Award( game,  (GameState*)this, turnMoneyBet,moneyWin));
+		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
 	}
 	
 	clearBets();

@@ -3,6 +3,7 @@
 #include <list>
 #include "gameObject.h"
 #include "EventHandler.h"
+
 class Game;
 
 class GameState {
