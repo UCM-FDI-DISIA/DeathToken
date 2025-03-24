@@ -7,8 +7,8 @@
 #include <iomanip>
 #include <sstream>
 
-const float APUESTA1X = (400.0f + 250.0f) / 1920.0f ;
-const float APUESTA2X = (1080.0f + 250.0f) / 1920.0f;
+const float APUESTA1X = 650.0f / 1920.0f ;
+const float APUESTA2X = 1330.0f / 1920.0f;
 const float NOMBRESY = 160.0f / 1080.0f;
 const float CUOTAY = 545.0f / 1080.0f;
 const float ESPACIO = 60.0f / 1080.0f;
@@ -28,7 +28,7 @@ std::string formatOdds(float odds) {
 Peleas::Peleas(Game* game) 
     : GameState(game)
     , _battleM(new BattleManager())
-    , dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTBIGSIZE), 800, 200, true, false)) 
+    , dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTSMALLSIZE), 800, 200, true, false)) 
     , nombre1(nullptr)
     , nombre2(nullptr)
     , Cuota1(nullptr)
