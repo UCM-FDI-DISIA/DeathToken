@@ -31,7 +31,8 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this,
 		aux.second = multiplicadores[i];
 		puntuaciones.insert(aux);
 	}
-
+	hud = new HUDBet(this);
+	HUDManager::getHudBet()->refresh();
 }
 Slots:: ~Slots() {
 	for (Carrete* i : carretes) i = nullptr;

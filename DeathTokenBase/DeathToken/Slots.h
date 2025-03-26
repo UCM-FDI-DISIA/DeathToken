@@ -26,7 +26,10 @@ protected:
 	unordered_map<int, int> puntuaciones;
 	UISlots* ui;
 
+	HUDBet* hud;
+
 public:
+
 	Slots(Game*);
 	~Slots();
 	void update() override;

@@ -142,6 +142,7 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 }
 void 
 UISlots::OnGo() {
+
 	slots->iniciarGiro();
 }
 void

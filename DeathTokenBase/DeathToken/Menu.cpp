@@ -21,7 +21,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new SlotsLocura(getGame())); });
+	slots->connect([this]() { gameChanger(new Slots(getGame())); });
 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
