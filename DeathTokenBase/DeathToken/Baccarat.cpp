@@ -140,42 +140,40 @@ void Baccarat::win() {
 	playerComb = playerComb % 10;
 	bankerComb = bankerComb % 10;
 
-	if (playerComb > bankerComb && playerBet) {
-		game->push(new Award(game, (GameState*)this, bets[bets.size() - 1].moneyBet, bets[bets.size() - 1].moneyBet * bets[bets.size() - 1].multiplier));
+	if (playerComb > bankerComb) {
+		playerBet = true;
 	}
-	else if (playerComb < bankerComb && bankerBet) {
-		game->push(new Award(game, (GameState*)this, bets[bets.size() - 1].moneyBet, bets[bets.size() - 1].moneyBet * bets[bets.size() - 1].multiplier));
+	else if (playerComb < bankerComb) {
+		bankerBet = true;
 	}
-	else if (playerComb == bankerComb && tieBet) {
-		game->push(new Award(game, (GameState*)this, bets[bets.size() - 1].moneyBet, bets[bets.size() - 1].moneyBet * bets[bets.size() - 1].multiplier));
+	else if (playerComb == bankerComb) {
+		tieBet = true;
 	}
-	else {
-		PlayerEconomy::setBet(0);
-		hud->refresh();
+	for (int i = 0; i < bets.size(); i++) {
+		if (bets[i].moneyBet > 0) {
+			if (bets[i].betType == 0 && tieBet) {
+				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
+			}
+			else if (bets[i].betType == 1 && bankerBet) {
+				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
+			}
+			else if (bets[i].betType == 2 && playerBet) {
+				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
+			}
+		}
 	}
 
 	playerBet = false;
 	bankerBet = false;
 	tieBet = false;
+	PlayerEconomy::setBet(0);
+	hud->refresh();
 	clearBets();
 }
 
 //APUESTAS
 void Baccarat::newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat) {
-	moneyBet = btnBaccarat->getBet();
-
-	if (betType == 0)
-	{
-		tieBet = true;
-	}
-	if (betType == 1)
-	{
-		bankerBet = true;
-	}
-	if (betType == 2)
-	{
-		playerBet = true;
-	}
+	moneyBet = ui->currentChipValue();
 	// así es más chuli (cleon)
 	bets[clave++] = { multiplier, moneyBet, betType };
 	//clave++;
@@ -202,23 +200,15 @@ void Baccarat::clearBets() {
 void Baccarat::repeat()
 {
 	bets = betsHistory;
+	int currentBet = 0;
 	for (int i = 0; i < bets.size(); i++) {
-		if (bets[i].moneyBet > 0) {
-			if (bets[i].betType == 0) {
-				tieBet = true;
-			}
-			if (bets[i].betType == 1) {
-				bankerBet = true;
-			}
-			if (bets[i].betType == 2) {
-				playerBet = true;
-			}
-		}
+		currentBet += bets[i].moneyBet;
 	}
 	for (auto i : bacButtons)
 	{
 		i->repeat();
 	}
+	HUDManager::applyBet(currentBet);
 }
 
 void Baccarat::startRound() {
