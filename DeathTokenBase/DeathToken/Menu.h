@@ -17,6 +17,7 @@ class Menu : public GameState
 	Button* marbles;
 	Button* fights;
 	Button* slots;
+	HUDLobby* hud;
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);

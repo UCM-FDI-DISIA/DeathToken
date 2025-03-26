@@ -5,23 +5,19 @@
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
 	marbles( { 0,0,0,0 }),
-	ui( new UIMarbles(this, game, this)),
-
-
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
 	game->getTexture(BLUEMARBLE),
 	game->getTexture(YELLOWMARBLE) })
-	{
-	Marbles::marblesButtonCreation();
+{
+	ui = new UIMarbles(this, game, this);
 
+	Marbles::marblesButtonCreation();
+	hud = new HUDBet(this);
 }
 Marbles::~Marbles() {
-	/*for (auto b : marbleButtons) {
-		delete b;
-	}*/
+	
+	HUDManager::popGame();
 	delete ui;
-
-
 }
 
 void  Marbles::generateMarbles() {
@@ -34,9 +30,8 @@ void  Marbles::generateMarbles() {
 		std::uniform_int_distribution<> distrib(0, 3);
 		int color = distrib(game->getGen());
 
-		//int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
 		marbles[color]++;
-		auxBox.x = Game::WIN_WIDTH / 4 * pos;
+		auxBox.x = Game::WIN_WIDTH /4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
 		auxBox.w = (int)(124.0 / 1920.0 * Game::WIN_WIDTH);
 		auxBox.h = (int)(124.0 / 1080.0 * Game::WIN_HEIGHT);
@@ -46,8 +41,10 @@ void  Marbles::generateMarbles() {
 	}
 	pos = 0;
 }
-int  Marbles::checkBets(int moneyBet) {
+int  Marbles::checkBets() {
 	int moneyWin = 0;
+	turnMoneyBet = 0;
+
 	//Cuando se hagan los botones cada apuesta hecha se metera en un map indicando que apuesta 
 	//hecha en un vector y el multi que da si gana
 
@@ -76,6 +73,10 @@ int  Marbles::checkBets(int moneyBet) {
 		if (won|| wonTriple) {
 			moneyWin += typeBet.moneyBet * typeBet.multiplier;
 		}
+		else {
+			//moneyWin -= typeBet.moneyBet;
+		}
+		turnMoneyBet += typeBet.moneyBet;
 	}
 
 	return moneyWin;
@@ -83,21 +84,17 @@ int  Marbles::checkBets(int moneyBet) {
 
 void Marbles::startRound() {
 	generateMarbles();//Se generar las canicas aleatorias
-	int moneyWin = checkBets(moneyBet);//Comparar canicas con apuesta
+	long long moneyWin = checkBets();//Comparar canicas con apuesta
 	//Segun la apuesta porX al dinero metido
 
-	  #if _DEBUG
 	if (moneyWin > 0) {
-
-		std::cout << "HAS GANDADO" << moneyWin<< "\n";
-		
+		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
 	}
 	else {
-		std::cout << "HAS PERDIDO\n";
-
+		PlayerEconomy::setBet(0);
+		hud->refresh();
 	}
-	  #endif
-
+	
 	clearBets();
 }
 void Marbles::update() {
@@ -168,19 +165,18 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 	
 	int multiplier = 0;
 
-	if(type == 1) {
+
+	switch (type) {
+	case 1:
 		multiplier = 2;
-	}
-	else if (type == 2) {
+		break;
+	case 2:
+	case 4:
 		multiplier = 5;
-
-	}
-	else if (type == 3) {
+		break;
+	case 3:
 		multiplier = 20;
-
-	}
-	else if (type == 4) {
-		multiplier = 5;
+		break;
 	}
 	ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
 	marbleButtons.push_back(btnMarbles);
@@ -191,7 +187,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 
 void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles) {
 	
-	moneyBet = btnMarbles->getBet();
+	moneyBet = ui->currentChipValue();
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
