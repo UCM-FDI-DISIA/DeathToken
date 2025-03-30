@@ -1,6 +1,6 @@
-#include "fighter.h"
+
+#include "Fighter.h"
 #include "json.hpp"
-#include "Game.h"
 using json = nlohmann::json;
 
 bool Fighter::loadFromJSON(const std::string& jsonString)
@@ -18,22 +18,20 @@ bool Fighter::loadFromJSON(const std::string& jsonString)
 
 	return true;
 }
-
-const int ABILITYGAP = 2;
 float
 Fighter::getOdds(float Ability2) const {
 	float difference = getAbility() - Ability2;
 	if (difference >= 0) {
-		if (difference < ABILITYGAP) {
+		if (difference < 14) {
 			return 5.0f;  // Cuota 1:5
 		}
-		else if (difference < 1.5f * ABILITYGAP) {
+		else if (difference >= 14 && difference < 28) {
 			return 2.75f;  // Cuota 1:2.75
 		}
-		else if (difference < 2.0f * ABILITYGAP) {
+		else if (difference >= 28 && difference < 56) {
 			return 2.5f;  // Cuota 1:2.5
 		}
-		else if (difference < 2.5f * ABILITYGAP) {
+		else if (difference >= 56 && difference < 72) {
 			return 2.0f;  // Cuota 1:2
 		}
 		else {
@@ -43,16 +41,16 @@ Fighter::getOdds(float Ability2) const {
 
 	else {
 
-		if (difference > -ABILITYGAP) {
+		if (difference > -14) {
 			return 5.0f;  // Cuota 1:5
 		}
-		else if (difference < -1.5f * ABILITYGAP) {
+		else if (difference <= -14 && difference > -28) {
 			return 3.0f;  // Cuota 1:2.75
 		}
-		else if (difference < -2.0f * ABILITYGAP) {
+		else if (difference <= -28 && difference > -56) {
 			return 3.5f;  // Cuota 1:2.5
 		}
-		else if (difference < -2.5f * ABILITYGAP) {
+		else if (difference <= -56 && difference > -72) {
 			return 4.0f;  // Cuota 1:2
 		}
 		else {
@@ -79,27 +77,5 @@ Fighter::getStringMindset() const {
 	else {
 		return "Invencible";  // Cuota 1:1.5
 	}
-}
-
-TextureName Fighter::getTextureName() const
-{
-  if (name == "Skeletor")
-    return TEXTURE_SKELETOR;
-  else if (name == "Romelario")
-    return TEXTURE_ROMELARIO;
-  else if (name == "Alfredo")
-    return TEXTURE_ALFREDO;
-  else if (name == "Boodoo")
-    return TEXTURE_BOODOO;
-  else if (name == "Corneo")
-    return TEXTURE_CORNEO;
-  else if (name == "McDougald")
-    return TEXTURE_MCDOUGALD;
-  else if (name == "Paulter Geist")
-    return TEXTURE_PAULTER_GEIST;
-  else if (name == "Potapé")
-    return TEXTURE_POTAPE;
-  // Default por si hay algún error
-  return TEXTURE_SKELETOR;
 }
 
