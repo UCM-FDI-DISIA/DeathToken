@@ -5,7 +5,7 @@
 
 // Se crea el jugador leyendo de archivo su posición y vidas
 Player::Player(GameState* g, Point2D<> pos, Texture* texture, Menu* men)
-	:sceneObject(g, pos, texture), texture(texture), menu(men)
+	:sceneObject(g, pos, texture), texture(texture), menu(men),locura(false)
 {
 	w = (125.0f / 1980.f) * Game::WIN_WIDTH;
 	h = (125.0f / 1080.0f) * Game::WIN_HEIGHT;
@@ -35,7 +35,7 @@ void Player::update() {
 	for (int i = 0; i < limite.size(); ++i) {
 		// Si la velocidad en Y es distinta de 0, mueve el rect provisional del jugador (playerRect) y comprueba si está colisionando. Luego restaura la posición
 		if (speed.getY() != 0) {
-			playerRect.y += speed.getY();
+			playerRect.y += speed.getY(); //* multiplicarlo por delta time;
 			int fix = 0;
 			if (SDL_IntersectRect(&playerRect, &limite[i], &collision))
 				fix = collision.h * (speed.getY() > 0 ? 1 : -1);

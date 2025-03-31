@@ -20,7 +20,14 @@ void Mesa::render() const {
 		texture->render(rect, SDL_Color(255, 255, 0));
 	}
  }
-void Mesa:: update(){}
+
+
+void Mesa::update() {
+	//SDL_Rect mesaCol = getCollisionRect();
+	//SDL_Rect playerCol = player->Player::getCollisionRect();
+	//hover = SDL_HasIntersection(&playerCol, &mesaCol);
+}
+
 
 void Mesa::handleEvent(SDL_Event const& evento) {
 	if (evento.key.keysym.sym == SDLK_e && hover) {
