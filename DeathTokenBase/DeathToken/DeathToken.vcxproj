@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="BarraVida.h" />
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="Award.cpp" />
     <ClCompile Include="Baccarat.cpp" />
+    <ClCompile Include="BarraVida.cpp" />
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />
