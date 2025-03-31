@@ -26,6 +26,7 @@ public:
 
 private:
     SDL_Renderer* renderizador;
+     SDL_Rect rect; 
     int ancho, alto;
     int valorActual;
     int valorMaximo;
