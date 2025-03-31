@@ -67,8 +67,9 @@ void DialogueBox::update(float deltaTime) {
 			completedTextTime = 0;
 			if (currentDialogIndex + 1 < history.size()) {
 				currentDialogIndex++;
-				displayedText = "";
 				charIndex = 0;
+				displayedText = history[currentDialogIndex][charIndex];
+				charIndex++;
 				instantDisplay = false;
 				scrollOffset = 0;
 			}
@@ -112,17 +113,27 @@ void DialogueBox::render() const {
 
 	SDL_Color textColor = { 0, 0, 0, 255 };
 	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, displayedText.c_str(), textColor, textWidth);
-	if (!textSurface) {
+	
+#ifdef DEBUG
+	if (!textSurface)
+	{
 		std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
 		return;
 	}
+#endif // DEBUG
+
 
 	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+#ifdef DEBUG
 	if (!textTexture) {
 		SDL_FreeSurface(textSurface);
 		std::cerr << "Error al crear la textura del texto: " << SDL_GetError() << std::endl;
 		return;
 	}
+#endif // DEBUG
+
+	
 
 	SDL_Rect dialogBox = { x, y, w, h };
 	SDL_Rect textRect = { dialogBox.x + MARGIN, dialogBox.y + MARGIN - scrollOffset, textSurface->w, textSurface->h };

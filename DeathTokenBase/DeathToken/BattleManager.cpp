@@ -211,64 +211,58 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 	float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
 	float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
 
-	cout << "¡" << active.getName()
-		<< " se dispone a atacar ferozmente a su enemigo!\n";
+	dialog->showMessage("¡" + active.getName() + " se dispone a atacar ferozmente a su enemigo!");
 	float prob = dist(gen);
 
 	// Golpearse a sí mismo
 	if (prob < hitBackProb) {
 		active.takeDamage(active.getAttack());
-		cout << "¡Pero se ha golpeado a sí mismo, " << active.getName()
-			<< " se ha vuelto loco!\n";
+		dialog->showMessage("¡Pero se ha golpeado a sí mismo, " + active.getName() + " se ha vuelto loco!");
+
 		if (active.isAlive()) {
 			active.reduceMindset(mindsetRange(gen));
-			cout << "Esto seguro que mina su concentración en el combate\n";
-			cout << "¡Ahora es más probable que pierda!\n";
+			dialog->showMessage("Esto seguro que mina su concentración en el combate");
+			dialog->showMessage("¡Ahora es más probable que pierda!");
 		}
 		else {
-			cout << "¡LA CATASTROFE SE HIZO REALIDAD!\n";
-			cout << "¡" << active.getName() << " ha caído por su propia mano!\n";
+			dialog->showMessage("¡LA CATASTROFE SE HIZO REALIDAD!");
+			dialog->showMessage("¡" + active.getName() + " ha caído por su propia mano!");
 		}
 	}
 
 	// Fallo
 	else if (prob < hitBackProb + failProb) {
-		cout << active.getName()
-			<< " lamentablemente su golpe ha fallado a su objetivo.\n";
+		dialog->showMessage(active.getName() + " lamentablemente su golpe ha fallado a su objetivo.");
 		active.reduceMindset(mindsetRange(gen));
-		cout << "Esto seguro que mina su concentración en el combate.\n";
-		cout << "¡Ahora es más probable que pierda!\n";
+		dialog->showMessage("Esto seguro que mina su concentración en el combate.");
+		dialog->showMessage("¡Ahora es más probable que pierda!");
 	}
 
 	// Crítico
 	else if (prob < hitBackProb + failProb + criticalProb) {
 		objetive.takeDamage(active.getAttack() * 3);
-		cout << "¡MADRE MÍA, CRÍTICO! " << active.getName()
-			<< " acaba de destrozar a su oponente.\n";
-		cout
-			<< " Tras semejante golpe tal vez deban replantearse el resultado del combate.\n";
+		dialog->showMessage("¡MADRE MÍA, CRÍTICO! " + active.getName() + " acaba de destrozar a su oponente.");
+		dialog->showMessage(" Tras semejante golpe tal vez deban replantearse el resultado del combate.");
 		if (objetive.isAlive()) {
 			active.boostMindset(mindsetRange(gen));
 			objetive.reduceMindset(mindsetRange(gen));
-			cout << "Esto seguro que mejora su concentración en el combate.\n";
-			cout << "¡Ahora es más probable que gane!\n";
-			cout << "¡Y " << objetive.getName() << " es más probable que pierda!\n";
+			dialog->showMessage("Esto seguro que mejora su concentración en el combate.");
+			dialog->showMessage("¡Ahora es más probable que gane!");
+			dialog->showMessage("¡Y " + objetive.getName() + " es más probable que pierda!");
 		}
 		else {
-			cout << active.getName() << " gana este brutal encuentro.\n";
-			cout
-				<< "Enhorabuena a todos los que confiaron en nuestro increíble ganador.\n";
+			dialog->showMessage(active.getName() + " gana este brutal encuentro.");
+			dialog->showMessage("Enhorabuena a todos los que confiaron en nuestro increíble ganador.");
 		}
 	}
 
 	// Ataque normal
 	else {
 		objetive.takeDamage(active.getAttack());
-		cout << active.getName() << " golpea duramente a su oponente.\n";
+		dialog->showMessage(active.getName() + " golpea duramente a su oponente.");
 		if (!objetive.isAlive()) {
-			cout << active.getName() << " gana este brutal encuentro.\n";
-			cout
-				<< "Enhorabuena a todos los que confiaron en nuestro increíble ganador.\n";
+			dialog->showMessage(active.getName() + " gana este brutal encuentro.");
+			dialog->showMessage("Enhorabuena a todos los que confiaron en nuestro increíble ganador.");
 		}
 	}
 }

@@ -99,6 +99,7 @@ public:
 	}
 	inline void SetW(int wi) {
 		w = wi;
+		textWidth = w - 2 * MARGIN;
 	}
 
 	inline void SetH(int he) {
