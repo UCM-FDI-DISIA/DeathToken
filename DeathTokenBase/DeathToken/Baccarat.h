@@ -7,7 +7,7 @@
 #include "Texture.h"
 #include "EventHandler.h"
 #include "Button.h"
-#include "Cards.h"
+#include "card.h"
 #include "Award.h"
 using namespace std;
 
@@ -31,12 +31,12 @@ protected:
 	std::vector<ButtonBaccarat*> bacButtons;
 	int moneyBet;
 
-	Cards* player1;
-	Cards* player2;
-	Cards* player3;
-	Cards* banker1;
-	Cards* banker2;
-	Cards* banker3;
+	Card* player1;
+	Card* player2;
+	Card* player3;
+	Card* banker1;
+	Card* banker2;
+	Card* banker3;
 	Texture* texture;
 	Mat mat;
 	vector<int> cardsVec;
@@ -69,7 +69,7 @@ public:
 	void handThird();
 	void bankThird();
 	int generateRnd();
-	Cards* createCard(int a, int b, int rot, int frame);
+	Card* createCard(int a, int b, int rot, int frame);
 	void addCards();
 	void win();
 

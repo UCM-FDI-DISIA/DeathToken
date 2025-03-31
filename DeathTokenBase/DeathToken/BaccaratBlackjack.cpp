@@ -9,7 +9,7 @@ void BaccaratBlackjack::handCards() {
 	Baccarat::handCards();
 	if (totalCards(mat.player) == 21) {
 		cout << "BlackJack!" << endl;
-		banker1->frame = mat.banker[0];
+		game->push(new Award(game, (GameState*)this, 100, 400));
 		win = true;
 	}
 }
@@ -24,13 +24,13 @@ void BaccaratBlackjack::update() {
 
 void BaccaratBlackjack::victory() {
 	if (totalCards(mat.player) > totalCards(mat.banker) && totalCards(mat.player) <= 21 || totalCards(mat.banker) > 21) {
-		cout << "gana player" << endl;
+		game->push(new Award(game, (GameState*)this, 100, 400));
 	}
 	else if (totalCards(mat.banker) > totalCards(mat.player) && totalCards(mat.banker) <= 21) {
 		cout << "gana banker" << endl;
 	}
 	else if (totalCards(mat.banker) == totalCards(mat.player) && totalCards(mat.banker) <= 21 && totalCards(mat.player) <= 21 && !win) {
-		cout << "empate" << endl;
+		game->push(new Award(game, (GameState*)this, 100, 100));
 	}
 
 }
@@ -120,4 +120,8 @@ void BaccaratBlackjack::clearDeck() {
 	eventHandlers.pop_back();
 	gameObjects.pop_back();
 	gameObjects.pop_back();
+}
+
+void BaccaratBlackjack::repeat() {
+
 }

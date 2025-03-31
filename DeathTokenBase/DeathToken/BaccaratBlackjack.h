@@ -10,8 +10,8 @@ class BaccaratBlackjack : public Baccarat
 	Button* more;
 	Button* stand;
 	bool canAsk = true; //se pone en false cuando player planta
-	vector<Cards*> playerCardVec;
-	vector<Cards*> bankerCardVec;
+	vector<Card*> playerCardVec;
+	vector<Card*> bankerCardVec;
 	bool win = false;
 
 public:
@@ -22,6 +22,7 @@ public:
 	void handOneCard();
 	void askCards();
 	void bancaAI();
+	void repeat() override;
 	void startRound() override;
 	int totalCards(vector<int>);
 	void clearDeck() override;

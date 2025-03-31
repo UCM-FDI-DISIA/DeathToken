@@ -12,8 +12,8 @@ Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMA
 	hud = new HUDBet(this);
 }
 
-Cards* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
-	Cards* carta = new Cards(this, frame, { a, b }, rot);
+Card* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
+	Card* carta = new Card(this, frame, { a, b }, rot);
 	addObjects(carta);
 	return carta;
 }
