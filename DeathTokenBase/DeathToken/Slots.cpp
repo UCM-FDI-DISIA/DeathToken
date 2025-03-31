@@ -4,25 +4,27 @@
 
 Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this, g, this))
 {
+	float x = Game::WIN_WIDTH * (0.5 - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
+	float y = Game::WIN_HEIGHT * (40 / 1080.0f);
+	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
+	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
+	float botonX = Game::WIN_WIDTH * (TAM_BOTON / 1920.0f);
+	float botonY = Game::WIN_HEIGHT * (TAM_BOTON / 1080.0f);
 
-	int offset = (int)(20 / 1920.0) * Game::WIN_WIDTH;
-	int y = (int)((50/1080.0) * Game::WIN_HEIGHT);
-	int x = (int)(((1 / 2.0) - (X_CELDA + X_CELDA / 2))* Game::WIN_WIDTH) - offset;
 
 	for (int i = 0; i < N_COLUM; ++i) {
-		carretes.push_back(new Carrete(this, { x , y },(int) (X_CELDA * Game::WIN_WIDTH), (int)(Y_CELDA * Game::WIN_HEIGHT), game->getTexture(CELDA), game->getTexture(ICONOS)));
+		carretes.push_back(new Carrete(this, { (int)(x + i * celdaX), (int)y }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS)));
 		addObjects(carretes[i]);
-		Button* button = new Button(this, x + (int)(((X_CELDA - X_BOTON) / 2) * Game::WIN_WIDTH), y + (int)(DISTANCIA_BOTON * Game::WIN_HEIGHT), (int)(X_BOTON*Game::WIN_WIDTH), (int)(Y_BOTON * Game::WIN_HEIGHT), game->getTexture(CELDA));
+		Button* button = new Button(this, (int)(x + i * celdaX + (celdaX - botonX) / 2), (int)(y * 2 + celdaY * N_COLUM), (int)botonX, (int)botonY, game->getTexture(CELDA));
 		addObjects(button);
 		addEventListener(button);
 
 		Carrete* c = carretes[i];
-		button->connect([this, c]{  
-				if(c->getParada())++comprobanteIndice;
-				c->pararGiro();
-				
-		});
-		x += (int)((X_CELDA *Game::WIN_WIDTH)+ offset);
+		button->connect([this, c] {
+			if (c->getParada())++comprobanteIndice;
+			c->pararGiro();
+
+			});
 	}
 
 	for (int i = 0; i < 7; ++i) {
@@ -64,10 +66,10 @@ void Slots::update() {
 			}
 		}
 		for (Carrete* c : carretes) c->deleteCarrete();
-		#if _DEBUG
+#if _DEBUG
 
-		std :: cout << multiplicador << "\n";
-		#endif
+		std::cout << multiplicador << "\n";
+#endif
 	}
 }
 void Slots::render() const {
@@ -76,7 +78,7 @@ void Slots::render() const {
 	r.h = Game::WIN_HEIGHT;
 	r.w = Game::WIN_WIDTH;
 	game->getTexture(MARBLESBACK)->render(r);
-	
+
 	GameState::render();
 }
 void Slots::iniciarGiro() {

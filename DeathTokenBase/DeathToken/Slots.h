@@ -14,11 +14,8 @@
 class Slots : public GameState {
 protected:
 	constexpr static int N_COLUM = 3;
-	constexpr static float X_CELDA = (200 / 1920.0);
-	constexpr static float Y_CELDA = (200 / 1080.0);
-	constexpr static float DISTANCIA_BOTON = (200 * 3 + 50)/1080.0;
-	constexpr static float X_BOTON = (150/1920.0);
-	constexpr static float Y_BOTON = (150 / 1080.0);
+	constexpr static float TAM_CELDA = 210;
+	constexpr static float TAM_BOTON = 150;
 
 	vector<Carrete*> carretes;
 	int comprobanteIndice;
