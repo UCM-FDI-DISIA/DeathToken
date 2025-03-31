@@ -27,7 +27,7 @@ std::string formatOdds(float odds) {
 
 Peleas::Peleas(Game* game)
 	: GameState(game)
-	, dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", Game::FONTSMALLSIZE), (25.0f / 1920.0f)* Game::WIN_WIDTH, (870.0f / 1080.0f)* Game::WIN_HEIGHT, true, false, 400, 180))
+	, dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/typo/Ravishing Free.ttf", Game::FONTSMALLSIZE), (25.0f / 1920.0f)* Game::WIN_WIDTH, (870.0f / 1080.0f)* Game::WIN_HEIGHT, true, false, 400, 180))
 	, _battleM(nullptr)
 	, nombre1(nullptr)
 	, nombre2(nullptr)

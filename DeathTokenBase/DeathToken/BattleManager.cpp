@@ -43,9 +43,9 @@ bool BattleManager::loadFightersFromJSON(const string& filename)
 {
 	ifstream file(filename);
 	if (!file.is_open()) {
-#ifdef DEBUG
+		#ifdef DEBUG
 		std::cout << "No se pudo abrir el archivo de peleadores." << endl;
-#endif // DEBUG
+		#endif // DEBUG
 
 		return false;
 	}
@@ -68,9 +68,9 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 {
 	ifstream file(filename);
 	if (!file.is_open()) {
-#ifdef DEBUG
+		#ifdef DEBUG
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
-#endif
+		#endif
 		return false;
 	}
 
@@ -80,9 +80,9 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 
 		// Verificar si "matchups" existe en el JSON
 		if (j.find("matchups") == j.end()) {
-#ifdef DEBUG
+			#ifdef DEBUG
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
-#endif
+			#endif
 			return false;
 		}
 
@@ -95,7 +95,9 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 
 			if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
 				id2 >= fighters.size()) {
+				#ifdef DEBUG
 				cout << "Índice de peleador inválido." << endl;
+				#endif
 				continue;
 			}
 
@@ -156,7 +158,7 @@ void BattleManager::Update(float deltaTime)
 		switch (currentState) {
 		case BattleState::START:
 			dialog->showMessage("Descripción de la batalla: " + currentMatch.battleDescription);
-			dialog->showMessage("Peleadores: " + currentMatch.fighter1.getName() + " vs " + currentMatch.fighter2.getName());
+			dialog->showMessage("La pelea será un clasicazo en esta arena " + currentMatch.fighter1.getName() + " vs " + currentMatch.fighter2.getName());
 			dialog->showMessage("Comenzará la pelea " + currentMatch.fighter1.getName());
 			currentState = BattleState::PLAYER1_TURN;  // Cambiamos al turno del jugador 1
 			lastTurn = BattleState::PLAYER1_TURN;  // Inicializamos el último turno
