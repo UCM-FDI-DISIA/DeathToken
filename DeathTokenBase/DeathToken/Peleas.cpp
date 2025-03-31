@@ -54,6 +54,7 @@ Peleas::Peleas(Game* game)
 		Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
 		Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
 
+
 		nombre1->showMessage(_battleM->getFigther1().getName());
 		nombre2->showMessage(_battleM->getFigther2().getName());
 
@@ -79,6 +80,36 @@ void Peleas::StartBattle()
 	dialog->SetY(Game::WIN_HEIGHT / 2);
 	dialog->SetW(Game::WIN_HEIGHT / 2);
 	dialog->ResetHistory();
+          // Configuración de las barras de vida
+    SDL_Renderer* renderer = game->getRenderer();
+    
+    
+    // Barra de vida del luchador 1 (izquierda)
+    int barWidth = Game::WIN_WIDTH / 3;
+    int barHeight = 20;
+    int margin = 20;
+    
+fighter1bar = new BarraVida(this,
+                           renderer,
+                           margin,
+                           margin,
+                           barWidth,
+                           barHeight,
+                           _battleM->getFigther1().getMaxHealth(),  // Usar vida máxima real
+                           { 0, 255, 0, 255 },
+                            { 70, 70, 70, 255 },
+                           false);
+
+fighter2bar = new BarraVida(this,
+                           renderer,
+                           Game::WIN_WIDTH - barWidth - margin,
+                           margin,
+                           barWidth,
+                           barHeight,
+                            _battleM->getFigther1().getMaxHealth(),
+                            { 0, 255, 0, 255 },  // Usar vida máxima real
+                            { 70, 70, 70, 255 },
+                           true);
 }
 
 void
@@ -106,6 +137,7 @@ Peleas::render() const {
 		tarjetas.w = Game::WIN_WIDTH;
 		game->getTexture(PELEASTARJETAS)->render(tarjetas);
 
+
 		nombre1->render();
 		nombre2->render();
 		Cuota1->render();
@@ -119,6 +151,8 @@ Peleas::render() const {
 		break;
 	case FSState::FIGHT:
 		dialog->render();
+        fighter1bar->render();
+    fighter2bar->render();
 		break;
 	default:
 		break;
@@ -144,6 +178,10 @@ Peleas::update() {
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
 			_battleM->Update(currentTime - lastUpdate);
+                fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
+                fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
+                 fighter1bar->updateColorBasedOnHealth(_battleM->getFigther1().getHealth(), _battleM->getFigther1().getMaxHealth());
+                 fighter2bar->updateColorBasedOnHealth(_battleM->getFigther2().getHealth(), _battleM->getFigther2().getMaxHealth());
 		}
 		break;
 	default:

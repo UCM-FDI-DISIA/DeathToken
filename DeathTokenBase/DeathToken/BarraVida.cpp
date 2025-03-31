@@ -2,17 +2,19 @@
 #include <SDL.h>
 
 BarraVida::BarraVida(GameState* estadoJuego, SDL_Renderer* renderizador, int x, int y,
-    int ancho, int alto, int valorMaximo,
-    SDL_Color colorRelleno, SDL_Color colorFondo)
+                     int ancho, int alto, int valorMaximo,
+                     SDL_Color colorRelleno, SDL_Color colorFondo,
+                     bool esEspejo)
     : GameObject(estadoJuego),
-    renderizador(renderizador),
-    ancho(ancho),
-    alto(alto),
-    valorActual(valorMaximo),
-    valorMaximo(valorMaximo),
-    colorRelleno(colorRelleno),
-    colorFondo(colorFondo),
-    visible(true) {
+      renderizador(renderizador),
+      ancho(ancho),
+      alto(alto),
+      valorActual(valorMaximo),
+      valorMaximo(valorMaximo),
+      colorRelleno(colorRelleno),
+      colorFondo(colorFondo),
+      visible(true),
+      esEspejo(esEspejo) {
     rect.x = x;
     rect.y = y;
     rect.w = ancho;
@@ -22,21 +24,30 @@ void BarraVida::render() const
 {
   if (!visible || !renderizador)
     return;
+
   SDL_SetRenderDrawColor(
     renderizador, colorFondo.r, colorFondo.g, colorFondo.b, colorFondo.a);
   SDL_RenderFillRect(renderizador, &rect);
 
-  if (valorMaximo > 0) {
-    int anchoRelleno = (valorActual * ancho) / valorMaximo;
-    if (anchoRelleno > 0) {
-      SDL_Rect relleno = { rect.x, rect.y, anchoRelleno, rect.h };
-      SDL_SetRenderDrawColor(renderizador,
-                             colorRelleno.r,
-                             colorRelleno.g,
-                             colorRelleno.b,
-                             colorRelleno.a);
-      SDL_RenderFillRect(renderizador, &relleno);
+  if (valorMaximo > 0 && valorActual > 0) {
+    int anchoRelleno = (valorActual * rect.w) / valorMaximo;
+    SDL_Rect relleno;
+
+    if (esEspejo) {
+      relleno = {
+        rect.x + (rect.w - anchoRelleno), rect.y, anchoRelleno, rect.h
+      };
     }
+    else {
+      relleno = { rect.x, rect.y, anchoRelleno, rect.h };
+    }
+
+    SDL_SetRenderDrawColor(renderizador,
+                           colorRelleno.r,
+                           colorRelleno.g,
+                           colorRelleno.b,
+                           colorRelleno.a);
+    SDL_RenderFillRect(renderizador, &relleno);
   }
 
   SDL_SetRenderDrawColor(renderizador, 0, 0, 0, 255);
@@ -72,4 +83,19 @@ int BarraVida::obtenerValor() const
 bool BarraVida::estaVisible() const
 {
   return visible;
+}
+
+void BarraVida::updateColorBasedOnHealth(float currentHealth, float maxHealth)
+{
+  float ratio = currentHealth / maxHealth;
+
+  if (ratio > 0.6f) {
+    colorRelleno = COLOR_VIDA_ALTA;  // Verde (>60%)
+  }
+  else if (ratio > 0.3f) {
+    colorRelleno = COLOR_VIDA_MEDIA;  // Amarillo (30%-60%)
+  }
+  else {
+    colorRelleno = COLOR_VIDA_BAJA;  // Rojo (<30%)
+  }
 }

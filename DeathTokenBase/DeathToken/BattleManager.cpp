@@ -1,4 +1,5 @@
 #include "BattleManager.h"
+#include "Peleas.h"
 #include "json.hpp"
 #include <algorithm>
 #include <chrono>

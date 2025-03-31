@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Peleas.h"
+#include "PeleasPelea.h"
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
