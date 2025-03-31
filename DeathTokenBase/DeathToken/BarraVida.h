@@ -1,43 +1,35 @@
 #pragma once
-#include "gameObject.h"
+#include "GameObject.h"
 #include <SDL.h>
 
 class BarraVida : public GameObject {
 public:
-	BarraVida(GameState* estadoJuego,
-		SDL_Renderer* renderizador,
-		int x,
-		int y,
-		int ancho,
-		int alto,
-		int valorMaximo,
-		SDL_Color colorRelleno = { 0, 255, 0, 255 },
-		SDL_Color colorFondo = { 70, 70, 70, 255 },
-		bool esEspejo = false);
+    BarraVida(GameState* estadoJuego, SDL_Renderer* renderizador, int x, int y,
+        int ancho, int alto, int valorMaximo,
+        SDL_Color colorRelleno, SDL_Color colorFondo);
 
-	virtual void render() const override;
-	virtual void update() override {}
+    BarraVida() : GameObject(), renderizador(nullptr), ancho(0), alto(0),
+        valorActual(0), valorMaximo(0),
+        colorRelleno({ 255, 0, 0, 255 }), colorFondo({ 50, 50, 50, 255 }),
+        visible(false) {}
 
-	void establecerValor(int nuevoValor);
-	void establecerPosicion(int x, int y);
-	void establecerVisible(bool esVisible);
-	void updateColorBasedOnHealth(float currentHealth, int maxHealth);
-	int obtenerValor() const;
-	bool estaVisible() const;
 
-	const SDL_Color COLOR_VIDA_ALTA = { 0, 255, 0, 255 };     // Verde
-	const SDL_Color COLOR_VIDA_MEDIA = { 255, 255, 0, 255 };     // Amarillo
-	const SDL_Color COLOR_VIDA_BAJA = { 255, 0, 0, 255 };;      // Rojo
-	const SDL_Color COLOR_FONDO = { 70, 70, 70, 255 };           // Fondo
+    virtual void render() const override;
+    virtual void update() override {}  
+
+    void establecerValor(int nuevoValor);
+    void establecerPosicion(int x, int y);
+    void establecerVisible(bool esVisible);
+
+    int obtenerValor() const;
+    bool estaVisible() const;
 
 private:
-	SDL_Renderer* renderizador;
-	SDL_Rect rect;
-	int ancho, alto;
-	int valorActual;
-	int valorMaximo;
-	SDL_Color colorRelleno;
-	SDL_Color colorFondo;
-	bool visible;
-	bool esEspejo;
+    SDL_Renderer* renderizador;
+    int ancho, alto;
+    int valorActual;
+    int valorMaximo;
+    SDL_Color colorRelleno;
+    SDL_Color colorFondo;
+    bool visible;
 };
