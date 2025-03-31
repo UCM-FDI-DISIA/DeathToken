@@ -4,9 +4,11 @@
 #include "Button.h"
 #include "Baccarat.h"
 #include "Slots.h"
+#include "SlotsLocura.h"
 #include "Marbles.h"
 #include "Collision.h"
 #include "SceneObject.h"
+#include "Mesa.h"
 #include <list>
 
 class Player;
@@ -20,6 +22,8 @@ class Menu : public GameState
 	Button* marbles;
 	Button* fights;
 	Button* slots;
+	//Mesa<Slots,SlotsLocura>* slots;
+	Mesa* _slots;
 	SDL_Rect boundry1;
 	SDL_Rect boundry2;
 	SDL_Rect boundry3;
@@ -29,7 +33,6 @@ public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);
 	void render() const override;
-	Collision checkCollision(const SDL_Rect& rect, Collision::Target target);
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button
 	vector<SDL_Rect> getLimits() const { return limites; };

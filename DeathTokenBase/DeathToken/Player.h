@@ -8,6 +8,7 @@ private:
 	static constexpr int SPEED_MAG = 15;
 	Menu* menu;
 	Texture* texture;
+	bool locura;
 
 public:
 	Player(GameState* g, Point2D<> pos, Texture* texture,Menu*);
@@ -17,5 +18,5 @@ public:
 	Collision hit(const SDL_Rect&, Collision::Target) override;
 	void handleEvent(const SDL_Event& evento) override;
 	SDL_Rect getRect() const;//rect player
-	Collision tryToMove(const Vector2D<>&, Collision::Target);
+	bool getLocura() const { return locura; }
 };
