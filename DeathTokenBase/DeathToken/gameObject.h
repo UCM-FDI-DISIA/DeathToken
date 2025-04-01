@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 class GameState;
 
@@ -7,7 +7,7 @@ protected:
 	GameState* state;
 public:
 	GameObject(GameState* g) : state(g){}
-	virtual ~GameObject() { state = nullptr; }
+	virtual ~GameObject() {}
 	virtual void render() const = 0;
 	virtual void update() = 0;
 };
