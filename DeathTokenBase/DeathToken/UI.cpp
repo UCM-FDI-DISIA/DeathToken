@@ -3,7 +3,6 @@
 #include "Marbles.h"
 #include "Slots.h"
 #include "Baccarat.h"
-#include "Peleas.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -197,9 +196,4 @@ void UIBaccarat::OnErase() {
 void UIBaccarat::OnRepeat()
 {
 	baccarat->repeat();
-}
-
-// UI PELEAS
-void UIPeleas::OnGo() {
-	_peleas->StartBattle();
 }
