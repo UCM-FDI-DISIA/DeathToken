@@ -45,15 +45,4 @@ sceneObject::getRenderRect() const
 		h
 	};
 }
-void sceneObject::setListAnchor(GameList<sceneObject>::anchor&& anchor) {
-	this->anchor = std::move(anchor);
-}
 
-// Comprueba que os objetos se eliminen cuando caen al vacío
-void sceneObject::update() {
-	int side = Game::TILE_SIDE;
-	SDL_Rect rect = getCollisionRect();
-	if (rect.y + rect.h >= Game::WIN_HEIGHT * side - side / 2
-		|| pos.getX() < 0)
-		delete this;
-}
