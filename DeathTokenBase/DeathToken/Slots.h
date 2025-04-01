@@ -13,9 +13,8 @@
 class Slots : public GameState {
 protected:
 	constexpr static int N_COLUM = 3;
-	constexpr static int TAM_CELDA = 150;
-	constexpr static int DISTANCIA_BOTON = TAM_CELDA * 3 + 50;
-	constexpr static int TAM_BOTON = 100;
+	constexpr static float TAM_CELDA = 210;
+	constexpr static float TAM_BOTON = 150;
 
 	vector<Carrete*> carretes;
 	int comprobanteIndice;
@@ -23,7 +22,10 @@ protected:
 	unordered_map<int, int> puntuaciones;
 	UISlots* ui;
 
+	HUDBet* hud;
+
 public:
+
 	Slots(Game*);
 	~Slots();
 	void update() override;

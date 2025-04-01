@@ -29,6 +29,7 @@ class Menu : public GameState
 	SDL_Rect boundry3;
 	vector<SDL_Rect> limites;
 
+	HUDLobby* hud;
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);

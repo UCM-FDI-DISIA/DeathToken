@@ -2,11 +2,17 @@
 #include "Game.h"
 #include "Player.h"
 
+#include "Baccarat.h"
+#include "Slots.h"
+#include "SlotsLocura.h"
+#include "Marbles.h"
+
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
+	PlayerEconomy::EconomyInitialize();
 	//Baccarat button
 	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
@@ -61,6 +67,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 
 	limites.push_back(_slots->getCollisionRect());
 
+	hud = new HUDLobby(this);
 }
 
 void Menu::gameChanger(GameState* juego) {

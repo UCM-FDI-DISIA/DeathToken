@@ -131,13 +131,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
     <ClInclude Include="Carrete.h" />
+    <ClInclude Include="Celda.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="PlayerEconomy.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -145,7 +151,6 @@
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="Marbles.h" />
-    <ClInclude Include="MatrizSlots.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Mesa.h" />
     <ClInclude Include="Player.h" />
@@ -157,16 +162,20 @@
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Award.cpp" />
     <ClCompile Include="Baccarat.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Carrete.cpp" />
+    <ClCompile Include="Celda.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="PlayerEconomy.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Marbles.cpp" />
-    <ClCompile Include="MatrizSlots.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mesa.cpp" />
     <ClCompile Include="Player.cpp" />

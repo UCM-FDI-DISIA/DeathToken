@@ -54,3 +54,42 @@ void sceneObject::update() {
 		|| pos.getX() < 0)
 		delete this;
 }
+// Intenta mover el objeto segun su velocidad comprobando las colisiones
+Collision
+sceneObject::tryToMove(const Vector2D<>& speed, Collision::Target target)
+{
+	Collision collision;
+	SDL_Rect rect = getCollisionRect();
+
+	// Intenta moverse en vertical
+	if (speed.getY() != 0) {
+		rect.y += speed.getY();
+
+		//collision = state->checkCollision(rect, target);
+
+		// Cantidad que se ha entrado en el obstáculo (lo que hay que deshacer)
+		int fix = collision.vertical * (speed.getY() > 0 ? 1 : -1);
+		pos += {0, speed.getY() - fix};
+
+		rect.y -= fix; // recoloca la caja para la siguiente colisión
+	}
+
+	collision.horizontal = 0; // la horizontal del choque vertical da igual
+
+	// Intenta moverse en horizontal
+	if (speed.getX() != 0) {
+		rect.x += speed.getX();
+
+		//Collision partial = state->checkCollision(rect, target);
+
+		// Copia la información de esta colisión a la que se devolverá
+		//collision.horizontal = partial.horizontal;
+
+		/*if (partial.result == Collision::DAMAGE)
+			collision.result = Collision::DAMAGE;*/
+
+		pos += {speed.getX() - collision.horizontal * (speed.getX() > 0 ? 1 : -1), 0};
+	}
+
+	return collision;
+}

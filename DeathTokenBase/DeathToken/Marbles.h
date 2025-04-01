@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "Game.h"
 #include "UI.h"
+#include "Award.h"
 #include <map>
 class Marbles : public GameState
 {
@@ -16,6 +17,7 @@ protected:
 		int moneyBet= 0;
 	};
 	UIMarbles* ui;
+	HUDBet* hud;
 
 	Texture* texture;
 	std::vector<int> marbles;
@@ -25,7 +27,8 @@ protected:
 	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
 	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
-	int moneyBet;
+	long long moneyBet;
+	long long turnMoneyBet;
 	int clave = 0;
 
 	
@@ -37,8 +40,8 @@ protected:
 	double PosPH2 = (83.0 / 1080.0) * Game::WIN_HEIGHT;
 	double PosPW4 = (239.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH4 = (180.0 / 1080.0) * Game::WIN_HEIGHT;
-	double marginW = (5.0 / 1920.0) * Game::WIN_WIDTH;
-	double marginH = (5.0 / 1080.0) * Game::WIN_WIDTH;
+	double marginW = (10.0 / 1920.0) * Game::WIN_WIDTH;
+	double marginH = (10.0 / 1080.0) * Game::WIN_WIDTH;
 public:
 	Marbles(Game* game);
 	virtual ~Marbles();
@@ -46,7 +49,7 @@ public:
 	void update() override;
 
 	void  generateMarbles();
-	int checkBets(int moneyBet);
+	int checkBets();
 	void startRound();
 	void createMarbleButton(int x, int y, int width, int height, Texture*, Texture*, int type, std::vector<int> NCMarbles);
 	void marblesButtonCreation();
