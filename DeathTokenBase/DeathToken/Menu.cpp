@@ -1,6 +1,8 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Player.h"
+#include "Peleas.h"
+#include "PeleasPelea.h"
 
 #include "Baccarat.h"
 #include "Slots.h"
