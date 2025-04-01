@@ -32,6 +32,10 @@ void MarblesInsanity::render() const
 	}
 	else {
 		//render del trilero
+		for (auto btn : trileroButtons) {
+			btn->render();
+		}
+		
 	}
 }
 
@@ -62,6 +66,7 @@ void MarblesInsanity::StartRoundTrickster()
 
 void MarblesInsanity::discardMarble(int color)
 {
+	//mostar posicion de la canica
 }
 
 void MarblesInsanity::createTricksterButtons()
@@ -80,10 +85,11 @@ void MarblesInsanity::createTricksterButtons()
 		
 			ButtonMarblesInsanity*  btnTrickster =  new ButtonMarblesInsanity(this,
 			Game::WIN_WIDTH / 4 * i, Game::WIN_HEIGHT / 6, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
-			game->getTexture(RMarbles[1]), tC, true, marbleColor);
+				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), true, marbleColor);
+			trileroButtons.push_back(btnTrickster);
 			addObjects(btnTrickster);
 			addEventListener(btnTrickster);
-			btnTrickster->connect[]() { discardMarble() };
+			//btnTrickster->connect([]() { discardMarble() };
 	}
 }
 

@@ -7,12 +7,10 @@ class MarblesInsanity : public Marbles
 private:
 	Texture* texture;
 	bool mInsanity;
-	std::vector<ButtonMarbles*> trileroButtons;
+	std::vector<ButtonMarblesInsanity*> trileroButtons;
 	std::vector<int> dColor;
 	int posColor;
-	Button* tButton1;
-	Button* tButton2;
-	Button* tButton3;
+	
 
 
 
