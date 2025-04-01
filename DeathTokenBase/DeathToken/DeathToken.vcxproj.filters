@@ -105,6 +105,10 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="BaccaratFlip.h">
+    <ClInclude Include="sdlutils.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="marblesInsanity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -178,6 +182,10 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="BaccaratBet.cpp">
+    <ClCompile Include="sdlUtils.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="marblesInsanity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

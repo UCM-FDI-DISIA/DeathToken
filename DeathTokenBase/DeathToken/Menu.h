@@ -8,6 +8,7 @@
 #include "Slots.h"
 #include "SlotsLocura.h"
 #include "Marbles.h"
+#include "marblesInsanity.h"
 #include "Collision.h"
 #include "SceneObject.h"
 #include "Mesa.h"

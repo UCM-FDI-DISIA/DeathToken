@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Menu.h"
 #include <iostream>
+#include "sdlutils.h"
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
@@ -148,7 +149,10 @@ void Game::run() {
 	// Bucle principal del juego. Sigue mientras Mario este vivo o no haya llegado al final
 	while (!empty()) {
 		// Marca de tiempo del inicio de la iteración
-		uint32_t inicio = SDL_GetTicks();
+		uint32_t frameStart = SDL_GetTicks();
+		SDLUtils::updateDeltaTime();
+		float dt = SDLUtils::getDeltaTime();
+
 
 		update();       // Actualiza el estado de los objetos del juego
 
@@ -164,14 +168,13 @@ void Game::run() {
 				handleEvent(event);
 		}
 
-		//state.handleEvent(); // Maneja los eventos de la SDL
 
 		// Tiempo que se ha tardado en ejecutar lo anterior
-		uint32_t elapsed = SDL_GetTicks() - inicio;
-
-		// Duerme el resto de la duraci�n del frame
-		if (elapsed < Game::FRAME_RATE)
-			SDL_Delay(Game::FRAME_RATE - elapsed);
+		uint32_t frameTime = SDL_GetTicks() - frameStart;
+		if (frameTime < Game::FRAME_RATE)
+			SDL_Delay(Game::FRAME_RATE - frameTime);
+	
+	
 	}
 }
 Texture* Game::getTexture(TextureName name) const {

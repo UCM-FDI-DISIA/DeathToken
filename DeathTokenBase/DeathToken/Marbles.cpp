@@ -69,12 +69,8 @@ int  Marbles::checkBets() {
 			}
 		}
 		
-
 		if (won|| wonTriple) {
 			moneyWin += typeBet.moneyBet * typeBet.multiplier;
-		}
-		else {
-			//moneyWin -= typeBet.moneyBet;
 		}
 		turnMoneyBet += typeBet.moneyBet;
 	}
