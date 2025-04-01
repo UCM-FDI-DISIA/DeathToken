@@ -2,9 +2,9 @@
 #include "Game.h"
 #include "SDL.h"
 
-Award::Award(Game* game, GameState* lastState, long long bet, long long mWin) 
-	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)) , currentWin(0) {
-	
+Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
+	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)), currentWin(0) {
+
 	background->modAlfa(140);
 	//Crear calse intermedia PLAystate que herede todos los juegos y hacer un puntero que puedas pillar de cada juego
 	//Mirar el virtualTimer
@@ -23,23 +23,24 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 void Award::update() {
 	//Tendra que contar el tiempo para que despues de 5 segundos de mostrar el mensaje vuelva a la escena anterior
 	if (currentWin < mWinG) {
-		currentWin += std::min((long long)10, mWinG - currentWin); 
+		currentWin += std::min((long long)10, mWinG - currentWin);
 		winText->setMessage(std::to_string(currentWin));
 		startTime = SDL_GetTicks();
-	}else if (SDL_GetTicks() - startTime >= 5000) {
+	}
+	else if (SDL_GetTicks() - startTime >= 1000) {
 		HUDManager::applyWinBet(currentWin);
 		game->pop(); // Regresar al estado anterior
 	}
-	
+
 }
 
-void Award::render() const  {
+void Award::render() const {
 	state->render();
 	background->render();
 	GameState::render();
 	//Una vez entrado tiene que ir a show Message y renderizar la cantidad del premio con un mensaje
 	//
-	
+
 }
 
 std::string Award::getWinMessage(int multiplier) {

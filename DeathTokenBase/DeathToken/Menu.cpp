@@ -17,7 +17,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	baccarat->connect([this]() { gameChanger(new BaccaratBlackjack(getGame())); });
 
 	wBut = (125.0f / 1980.f) * Game::WIN_WIDTH; hBut = 125.0f / 1080.0f * Game::WIN_HEIGHT;
 	xBut = (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2; yBut = Game::WIN_HEIGHT * 3 / 4;
@@ -77,6 +77,7 @@ void Menu::gameChanger(GameState* juego) {
 void Menu::render() const {
 	texture->render();
 	GameState::render();
+
 }
 void Menu::update() {//detecto interseciones player/button
 	GameState::update();

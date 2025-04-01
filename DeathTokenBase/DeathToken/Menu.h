@@ -3,6 +3,8 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Baccarat.h"
+#include "BaccaratBlackjack.h"
+#include "BaccaratBet.h"
 #include "Slots.h"
 #include "SlotsLocura.h"
 #include "Marbles.h"
