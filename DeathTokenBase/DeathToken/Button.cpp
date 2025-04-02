@@ -447,11 +447,28 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 		cb();
 	}
 }
+//MARBLESINSANITY
+ButtonMarblesInsanity::ButtonMarblesInsanity(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC,bool acertado, std::vector<int> discardMarble) :  ButtonUI(g, x, y, w, h, t, tC)
+{
+
+}
+
+void ButtonMarblesInsanity::render() const
+{
+	ButtonUI::render();
+}
+
+void ButtonMarblesInsanity::handleEvent(const SDL_Event& event)
+{
+	if (event.button.button == SDL_BUTTON_LEFT && hover) {
+		cb();
+	}
+}
+
 //BACCARAT
 ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h)
 	: ButtonBet(gS, game, ui, x, y, w, h, NULL, NULL)
-{
-
+{	
 }
 
 void
@@ -488,3 +505,4 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 bool Button::playerHovered(const SDL_Rect& playerRect) {
 	return SDL_HasIntersection(&playerRect, &box);//rect player y rect button
 }
+

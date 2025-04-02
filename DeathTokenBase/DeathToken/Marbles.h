@@ -31,6 +31,7 @@ protected:
 	long long turnMoneyBet;
 	int clave = 0;
 
+	std::vector<int> blockedMarble = { 0, 0, 0, 0 };
 	
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH1 = (118.0 / 1080.0) * Game::WIN_HEIGHT;
@@ -56,5 +57,7 @@ public:
 	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles);
 	void clearBets();
 	void repeat();
+
+	void setBlockedMarble(std::vector<int> blocked);
 };
 

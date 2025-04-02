@@ -140,8 +140,10 @@
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="Slots.h" />
+    <ClInclude Include="sdlutils.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
@@ -168,7 +170,9 @@
     <ClCompile Include="Carrete.cpp" />
     <ClCompile Include="Celda.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="PlayerEconomy.cpp" />
+    <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
