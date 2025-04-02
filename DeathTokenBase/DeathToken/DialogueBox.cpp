@@ -58,7 +58,9 @@ void DialogueBox::update(float deltaTime) {
 	}
 	else if (instantDisplay) {
 		displayedText = message;
-		scrollOffset = (numLines * lineHeight) - h;
+		if (numLines * lineHeight > h) {
+			scrollOffset = (numLines * lineHeight) - h;
+		}
 		charIndex = message.size();
 	}
 
@@ -72,6 +74,7 @@ void DialogueBox::update(float deltaTime) {
 				charIndex++;
 				instantDisplay = false;
 				scrollOffset = 0;
+				//aviso al battle
 			}
 			else {
 				visible = false;
@@ -167,6 +170,7 @@ void DialogueBox::handleEvent(const SDL_Event& event) {
 					instantDisplay = false;
 					scrollOffset = 0;
 					completedTextTime = 0;
+					//aviso al battle
 				}
 				else {
 					visible = false;
