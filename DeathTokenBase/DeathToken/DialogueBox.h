@@ -45,6 +45,7 @@ namespace DialogueBoxConstants {
 /*****************************************************************/
 class DialogueBox : public EventHandler {
 public:
+<<<<<<< HEAD
 #pragma region CONSTRUCTORS_DESTRUCTOR
 	/// Constructor por defecto
 	DialogueBox();
@@ -62,6 +63,57 @@ public:
 	 */
 	DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200,
 		bool update = false, bool transparente = true, int wi = 500, int he = 250);
+=======
+	DialogueBox()
+		: renderer(nullptr)
+		, font(nullptr)
+		, history()
+		, message("")
+		, visible(false)
+		, transparente(true)
+		, charIndex(0)
+		, currentDialogIndex(0)
+		, scrollOffset(0)
+		, fast(false)
+		, instantDisplay(false)
+		, needsUpdate(false)
+		, isScrolling(false)
+		, nextState(false)
+		, scrollingTime(0)
+		, x(800)
+		, y(200)
+		, h(BOXHEIGHT)
+		, w(BOXWIDTH)
+		, textWidth(w - 2 * MARGIN)
+		, charsPerLine(textWidth / charWidth)
+	{
+	}
+
+	DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200, bool update = false, bool transparente = true, int wi = 500, int he = 250)
+		: renderer(renderer)
+		, font(font)
+		, visible(false)
+		, displayedText("")
+		, message("")
+		, charIndex(0)
+		, currentDialogIndex(0)
+		, scrollOffset(0)
+		, instantDisplay(false)
+		, fast(false)
+		, isScrolling(false)
+		, nextState(false)
+		, scrollingTime(0)
+		, transparente(transparente)
+		, needsUpdate(update)
+		, x(posx)
+		, y(posy)
+		, h(he)
+		, w(wi)
+	{
+		textWidth = w - 2 * MARGIN;
+		charsPerLine = textWidth / charWidth;
+	}
+>>>>>>> b3e294d (Ajuste del battlemanager para que vaya a la misma velocidad que el texto)
 
 	/// Destructor
 	~DialogueBox();
@@ -94,6 +146,7 @@ public:
 	void handleEvent(const SDL_Event& event) override;
 #pragma endregion
 
+<<<<<<< HEAD
 #pragma region GETTERS_SETTERS
 	// Indica si debe avanzar al siguiente estado
 	inline bool shouldAdvanceState() const { return nextState; }
@@ -112,6 +165,15 @@ public:
 			return history.back(); 
 		} // Si el √≠ndice es inv√°lido, devuelve el √∫ltimo mensaje
 		return history[index];
+=======
+	inline bool passNextState() {
+		return nextState;
+	}
+
+	inline void SetPosition(int posx, int posy) {
+		x = posx;
+		y = posy;
+>>>>>>> b3e294d (Ajuste del battlemanager para que vaya a la misma velocidad que el texto)
 	}
 
 	// Establece posici√≥n (x,y)
@@ -138,6 +200,10 @@ public:
 	// Resetea flag de estado (para nuevo texto)
 	inline void resetDialogStateFlag() { nextState = false; }
 #pragma endregion
+
+	inline void BattleStatePass() {
+		nextState = false;
+	}
 
 protected:
 #pragma region PROTECTED_METHODS
@@ -179,6 +245,7 @@ protected:
 	bool nextState;      // Fin de di√°logos
 	bool autoDialog;     // Avance autom√°tico
 
+<<<<<<< HEAD
 	// Temporizadores y contadores
 	int scrollingTime;       // Tiempo scroll
 	int scrollOffset;        // Desplazamiento
@@ -188,6 +255,57 @@ protected:
 	int textWidth;         // Ancho texto disponible
 	int charsPerLine;     // Caracteres por l√≠nea
 #pragma endregion
+=======
+	// Si tiene un fondo
+	bool transparente;
+
+	// True si el jugador esta desplazando el texto visible para leer otra parte
+	bool isScrolling;
+
+	// Acumulador que cuenta cuanto tiempo a transcurrido desde la ultima vez que se
+	// ha movido el texto. En caso de no haberse movido por 3000 ms (3 segundos) 
+	// establece isScrolling a false.
+	int scrollingTime;
+
+	// Espacio extra sobre el que se renderiza con respecto a la altura inicial del texto.
+	// Es decir si el texto es muy grande y no cabe en pantalla para verlo se incrementa 
+	// esta variable y recortara el texto extra por arriba para poder leer lo de abajo.
+	int scrollOffset;
+
+	// Indice del ultimo dialgo renderizado dentro del historial
+	int currentDialogIndex;
+
+	int textWidth;  // Ancho disponible para el texto
+
+	// Calcular cu·ntos caracteres caben en una lÌnea
+	int charsPerLine;
+
+
+	// Escritura
+		// Si true debe de actualizar con m·s caracteres el displayedText
+	bool fast;
+	// Si true muestra todo el texto inmediatamente
+	bool instantDisplay;
+
+	// Si true realizara la "animacion" de escritura y si correspondera calcular· el momento del paso automatico entre dialogos.
+	bool needsUpdate;
+
+	// Indice del ultimo caracter escrito dentro de un message
+	int charIndex;
+
+	// Salto Automatico de dialogos
+		// Acumulador que cuenta cuantos milisegundos pasan desde que el texto se ha terminado de leer.
+		// Una vez llega a los 6000 ms salta al siguiente texto si esta activo el auto.
+		// En caso de que el texto sea muy grande y no se haya cortado en varios mensajes se aÒaden 2000 ms
+		// por linea extra.
+	int completedTextTime = 0;
+
+	bool nextState;
+
+	// Si true salta al siguiente dialogo automatico cuando llega el momento. 
+	// La condicion de salto es controlada por completedTextTime.
+	bool autoDialog = true;
+>>>>>>> b3e294d (Ajuste del battlemanager para que vaya a la misma velocidad que el texto)
 };
 #pragma endregion
 
