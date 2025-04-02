@@ -40,7 +40,7 @@ protected:
 	ButtonUI* repeat;
 
 	virtual void OnErase() {};
-	virtual void OnInfo() {};
+	virtual void OnInfo();
 	virtual void OnRepeat() {};
 	
 
