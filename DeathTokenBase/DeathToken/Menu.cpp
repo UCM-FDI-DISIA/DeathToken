@@ -3,7 +3,7 @@
 #include "Player.h"
 
 #include "Baccarat.h"
-#include "Slots.h"
+#include "SlotsNormal.h"
 #include "SlotsLocura.h"
 #include "Marbles.h"
 

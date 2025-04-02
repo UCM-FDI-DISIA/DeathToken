@@ -1,18 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Award.cpp" />
+    <ClCompile Include="Baccarat.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Cards.cpp" />
+    <ClCompile Include="Carrete.cpp" />
+    <ClCompile Include="Celda.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="PlayerEconomy.cpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="gameState.cpp" />
+    <ClCompile Include="gameStateMachine.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Marbles.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="sceneObject.cpp" />
+    <ClCompile Include="SlotsNormal.cpp" />
+    <ClCompile Include="SlotsLocura.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h">
@@ -188,5 +197,33 @@
     <ClCompile Include="marblesInsanity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClInclude Include="Award.h" />
+    <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Cards.h" />
+    <ClInclude Include="Carrete.h" />
+    <ClInclude Include="Celda.h" />
+    <ClInclude Include="checkML.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="PlayerEconomy.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="EndState.h" />
+    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="gameState.h" />
+    <ClInclude Include="gameStateMachine.h" />
+    <ClInclude Include="Marbles.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="sceneObject.h" />
+    <ClInclude Include="SlotsNormal.h" />
+    <ClInclude Include="SlotsLocura.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Slots.h" />
   </ItemGroup>
 </Project>

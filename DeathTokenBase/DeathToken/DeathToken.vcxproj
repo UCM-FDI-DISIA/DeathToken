@@ -147,6 +147,7 @@
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="sdlutils.h" />
+    <ClInclude Include="Slots.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
@@ -160,7 +161,7 @@
     <ClInclude Include="Mesa.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sceneObject.h" />
-    <ClInclude Include="Slots.h" />
+    <ClInclude Include="SlotsNormal.h" />
     <ClInclude Include="SlotsLocura.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="UI.h" />
@@ -190,7 +191,7 @@
     <ClCompile Include="Mesa.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sceneObject.cpp" />
-    <ClCompile Include="Slots.cpp" />
+    <ClCompile Include="SlotsNormal.cpp" />
     <ClCompile Include="SlotsLocura.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UI.cpp" />
