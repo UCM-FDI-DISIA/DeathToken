@@ -9,7 +9,7 @@
 #include <string>
 
 
-class DialogueBox {
+class DialogueBox : EventHandler {
 
 	const int BOXWIDTH = 500;
 	const int BOXHEIGHT = 250;
@@ -83,7 +83,7 @@ public:
 	void ResetHistory();
 	void render() const;
 	void update(float deltaTime);
-	void handleEvent(const SDL_Event& event);
+	void handleEvent(const SDL_Event& event) override;
 
 	inline void SetPosition(int posx, int posy) {
 		x = posx;
@@ -100,6 +100,7 @@ public:
 	inline void SetW(int wi) {
 		w = wi;
 		textWidth = w - 2 * MARGIN;
+		charsPerLine = textWidth / charWidth;
 	}
 
 	inline void SetH(int he) {
