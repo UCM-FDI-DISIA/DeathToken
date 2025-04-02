@@ -28,6 +28,7 @@ void  Marbles::generateMarbles() {
 	SDL_Rect auxBox;
 	for (int i = 0; i < 3; i++) {
 		std::uniform_int_distribution<> distrib(0, 3);
+		int color;
 		int color = distrib(game->getGen());
 
 		marbles[color]++;
@@ -205,4 +206,9 @@ void Marbles::repeat()
 	{
 		i->repeat();
 	}
+}
+
+void Marbles::setBlockedMarble(std::vector<int> blocked)
+{
+	blockedMarble = blocked;
 }

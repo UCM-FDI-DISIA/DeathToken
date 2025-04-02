@@ -12,6 +12,11 @@ private:
 	std::vector<int> dColor;
 	int posColor;
 	std::vector<Texture*> CMarbles;
+
+	SDL_Rect wMarble;
+	int wMarbleI;
+	bool wMarbleShow;
+
 public:
 	MarblesInsanity(Game* game);
 	~MarblesInsanity();
