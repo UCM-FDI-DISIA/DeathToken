@@ -21,16 +21,15 @@ class Menu : public GameState
 	list<sceneObject*> objetos;
 	Player* ghost = nullptr;
 	Texture* texture;
-	Button* baccarat;
-	Button* marbles;
-	Button* fights;
-	Button* slots;
-	//Mesa<Slots,SlotsLocura>* slots;
+	Mesa* _baccarat;
+	Mesa* _marbles;
+	Mesa* _fights;
 	Mesa* _slots;
 	SDL_Rect boundry1;
 	SDL_Rect boundry2;
 	SDL_Rect boundry3;
 	vector<SDL_Rect> limites;
+	vector<Mesa*> games;
 
 	HUDLobby* hud;
 public:

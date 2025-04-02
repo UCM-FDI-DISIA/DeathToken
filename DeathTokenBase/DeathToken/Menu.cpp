@@ -13,11 +13,11 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
 	PlayerEconomy::EconomyInitialize();
-	//Baccarat button
-	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
-	addObjects(baccarat);
-	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new BaccaratBlackjack(getGame())); });
+	//Baccarat button 
+	_baccarat = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(BACCARATBUT), 1, (int)wBut, (int)hBut, game);
+	addObjects(_baccarat);
+	addEventListener(_baccarat);
+	
 
 	wBut = (125.0f / 1980.f) * Game::WIN_WIDTH; hBut = 125.0f / 1080.0f * Game::WIN_HEIGHT;
 	xBut = (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2; yBut = Game::WIN_HEIGHT * 3 / 4;
@@ -28,16 +28,18 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
 	xBut = Game::WIN_WIDTH * 3.0 / 4.0 - Game::WIN_WIDTH / 25.0; yBut = Game::WIN_HEIGHT / 4.0 + Game::WIN_HEIGHT / 25.0;
-	//Marbles button
-	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
-	addObjects(marbles);
-	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new MarblesInsanity(getGame())); });
+	//Marbles button new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
+	_marbles = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(CANICASBUT), 2, (int)wBut, (int)hBut, game);
+	addObjects(_marbles);
+	addEventListener(_marbles);
 
-	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
-	addObjects(fights);
-	addEventListener(fights);
-	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	//Widht, height, position marbles button
+	wBut = Game::WIN_WIDTH / 9; hBut = Game::WIN_HEIGHT / 9;
+	xBut = (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2; yBut = (Game::WIN_HEIGHT * 3 / 4);
+	//Peleas butto new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT))
+	_fights = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(SLOTSBUT), 3, (int)wBut, (int)hBut, game);
+	addObjects(_fights);
+	addEventListener(_fights);
 	
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
@@ -68,6 +70,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	limites.push_back(_slots->getCollisionRect());
 
 	hud = new HUDLobby(this);
+	games.push_back(_slots);
+	games.push_back(_marbles);
+	games.push_back(_fights);
+	games.push_back(_baccarat);
 }
 
 void Menu::gameChanger(GameState* juego) {
@@ -85,25 +91,26 @@ void Menu::update() {//detecto interseciones player/button
 	SDL_Rect playerRect = ghost->getCollisionRect(); //cojo el rect del player
 	playerRect.h += 5;
 	playerRect.w += 5;
-	SDL_Rect _slotsRect = _slots->getCollisionRect();
-	bool intersect = SDL_HasIntersection(&_slotsRect, &playerRect);
-	if (intersect) {
-		_slots->inGame(true);
+	vector<SDL_Rect> juegos;
+	juegos.push_back(_slots->getCollisionRect());
+	juegos.push_back(_marbles->getCollisionRect());
+	juegos.push_back(_baccarat->getCollisionRect());
+	juegos.push_back(_fights->getCollisionRect());
+	
+	for (int i = 0; i < juegos.size(); ++i) {
+		if (SDL_HasIntersection(&juegos[i], &playerRect)) {
+			games[i]->inGame(true);
+		}
+		else {
+			games[i]->inGame(false);
+		}
 	}
-	else{
-		_slots->inGame(false);
-	}
-	baccarat->Button::getHover() = baccarat->playerHovered(playerRect);
-	//slots->Button::getHover() = slots->playerHovered(playerRect);
-	marbles->Button::getHover() = marbles->playerHovered(playerRect);
-	fights->Button::getHover() = fights->playerHovered(playerRect);
 }
 
 //para que cuando intersecten player y button de a entre y entre en el boton
 void Menu::handleEvent(const SDL_Event& event) {
-	//GameState::handleEvent(event); //en principio evita repeticiones de codigo pero funciona igual sin esto
-	if (baccarat->Button::getHover()) baccarat->Button::getCallback();
+	if (_baccarat->getHover()) _baccarat->Mesa::handleEvent(event);
 	else if (_slots->getHover()) _slots->Mesa::handleEvent(event);
-	else if (marbles->Button::getHover()) marbles->Button::getCallback();
-	else if (fights->Button::getHover()) fights->Button::getCallback();
+	else if (_marbles->getHover()) _marbles->Mesa::handleEvent(event);
+	else if (_fights->getHover()) _fights->Mesa::handleEvent(event);
 }
