@@ -66,6 +66,7 @@ Peleas::Peleas(Game* game)
 		Apuesta1->showMessage("Apuesta: ");
 		Apuesta2->showMessage("Apuesta: ");
 
+		addEventListener((EventHandler*) dialog);
 	}
 }
 
@@ -76,9 +77,9 @@ void Peleas::StartBattle()
 	}
 	state = FSState::FIGHT;
 	SDL_RenderClear(game->getRenderer());
-	dialog->SetX(Game::WIN_WIDTH / 2);
-	dialog->SetY(Game::WIN_HEIGHT / 2);
-	dialog->SetW(Game::WIN_HEIGHT / 2);
+	dialog->SetX(Game::WIN_WIDTH / 3);
+	dialog->SetY(3 * Game::WIN_HEIGHT / 4);
+	dialog->SetW(Game::WIN_WIDTH / 3);
 	dialog->ResetHistory();
           // Configuración de las barras de vida
     SDL_Renderer* renderer = game->getRenderer();

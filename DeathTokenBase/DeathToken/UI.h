@@ -90,15 +90,13 @@ public:
 };
 
 class Peleas;
-class UIPeleas : public UIChips {
+class UIPeleas : public UI {
 public:
-	UIPeleas(Game* game, Peleas* peleas) : UIChips((GameState*)peleas, game), _peleas(peleas)
+	UIPeleas(Game* game, Peleas* peleas) : UI((GameState*)peleas, game), _peleas(peleas)
 	{
 	};
 
 	void OnGo() override;
-	void OnErase() override {};
-	void OnRepeat() override {};
 
 protected:
 	Peleas* _peleas;
