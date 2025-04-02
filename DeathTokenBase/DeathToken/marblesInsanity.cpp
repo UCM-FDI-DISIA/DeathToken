@@ -27,7 +27,6 @@ void MarblesInsanity::render() const
 
 	//texture->render();
 	if (!mInsanity) {
-		//GameState::render();
 		Marbles::render();
 		
 	}
@@ -74,6 +73,7 @@ void MarblesInsanity::update()
 
 void MarblesInsanity::StartRoundTrickster()
 {
+	Marbles::setbInsanity(true);
 	wMarbleI = -1;
 	wMarble = {0,0,0,0};
 	wMarbleShow = false;
@@ -98,11 +98,11 @@ void MarblesInsanity::createTricksterButtons()
 		std::vector<int> marbleColor = { 0, 0, 0, 0 };
 		if (i ==posColor) {
 			marbleColor = dColor;
-			createButtonT(Game::WIN_WIDTH / 4 * i, Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
+			createButtonT((Game::WIN_WIDTH / 4 * i)+ (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
 				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), true, marbleColor);
 		}
 		else {
-			createButtonT(Game::WIN_WIDTH / 4 * i, Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
+			createButtonT((Game::WIN_WIDTH / 4 * i) + (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
 				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), false, marbleColor);
 			
 
@@ -132,9 +132,9 @@ void MarblesInsanity::discardMarble(int x,int y,int widht,int height, bool marbl
 		for (int i= 0; i < color.size(); i++) {
 			if (color[i] == 1) {
 				wMarbleI = i;
-
 			}
 		}
+		Marbles::setBlockedMarble(color);
 		gameFinish = true;
 	}
 	else {

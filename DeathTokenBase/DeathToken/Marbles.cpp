@@ -4,10 +4,11 @@
 #include <random>
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
-	marbles( { 0,0,0,0 }),
+	marbles({ 0,0,0,0 }),
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
 	game->getTexture(BLUEMARBLE),
-	game->getTexture(YELLOWMARBLE) })
+	game->getTexture(YELLOWMARBLE) }),
+	bInsanity (false)
 {
 	ui = new UIMarbles(this, game, this);
 
@@ -28,7 +29,7 @@ void  Marbles::generateMarbles() {
 	SDL_Rect auxBox;
 	for (int i = 0; i < 3; i++) {
 		std::uniform_int_distribution<> distrib(0, 3);
-		int color;
+		//int color;
 		int color = distrib(game->getGen());
 
 		marbles[color]++;
@@ -188,9 +189,11 @@ void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, B
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
+
 }
 
 void Marbles::clearBets() {
+	setbInsanity(false);
 	betsHistory = bets;
 	bets.clear();
 	for (auto i : marbleButtons)
@@ -211,4 +214,14 @@ void Marbles::repeat()
 void Marbles::setBlockedMarble(std::vector<int> blocked)
 {
 	blockedMarble = blocked;
+}
+
+bool Marbles::getbInsanity()
+{
+	return bInsanity;
+}
+
+void Marbles::setbInsanity(bool insanity)
+{
+	bInsanity = insanity;
 }
