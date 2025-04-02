@@ -7,14 +7,15 @@ class MarblesInsanity : public Marbles
 private:
 	Texture* texture;
 	bool mInsanity;
-	std::vector<ButtonMarbles*> trileroButtons;
+	bool gameFinish;
+	std::vector<ButtonMarblesInsanity*> trileroButtons;
 	std::vector<int> dColor;
 	int posColor;
-	Button* tButton1;
-	Button* tButton2;
-	Button* tButton3;
+	std::vector<Texture*> CMarbles;
 
-
+	SDL_Rect wMarble;
+	int wMarbleI;
+	bool wMarbleShow;
 
 public:
 	MarblesInsanity(Game* game);
@@ -22,8 +23,9 @@ public:
 	void render() const override;
 	void update() override;
 	void StartRoundTrickster();
-	void discardMarble(int color);
+	void discardMarble(int x, int y, int widht, int height,bool marble,std::vector<int> color);
 	void createTricksterButtons();
+	void createButtonT(int x, int y, int widht, int height, Texture* texture, Texture* textureC, bool marble, std::vector<int> marbleColor);
 
 
 };
