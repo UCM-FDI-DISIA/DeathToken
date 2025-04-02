@@ -86,6 +86,7 @@ public:
 	void OnGo() override;
 	void OnErase() override;
 	void OnRepeat() override;
+	void OnInfo() override;
 };
 
 
@@ -95,11 +96,14 @@ protected:
 	GameState* gS;
 	Game* game;
 	ButtonUI* exit;
+	ButtonUI* arrowNext;
+	ButtonUI* arrowBack;
+	size_t totalPages;//pags totales tuto
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
 
-	UITutorial(GameState* gS, Game* game);
+	UITutorial(GameState* gS, Game* game, size_t tam);
 
 	void OnExit();
 	

@@ -30,26 +30,26 @@ UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(
 
 	chips = std::vector<ButtonChip*>(4);
 	chips[0] = new ButtonChip(gS, this, relativeX(367.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 0,
-							  1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
+		1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
 	chips[0]->setOnUse(true);
 	gS->addObjects(chips[0]);
 	gS->addEventListener(chips[0]);
 	chips[0]->connect([this]() {});
 
 	chips[1] = new ButtonChip(gS, this, relativeX(497.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 1,
-							  2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1000));
+		2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1000));
 	gS->addObjects(chips[1]);
 	gS->addEventListener(chips[1]);
 	chips[1]->connect([this]() {});
 
 	chips[2] = new ButtonChip(gS, this, relativeX(627.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 2,
-							  5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2000));
+		5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2000));
 	gS->addObjects(chips[2]);
 	gS->addEventListener(chips[2]);
 	chips[2]->connect([this]() {});
 
 	chips[3] = new ButtonChip(gS, this, relativeX(757.0f), relativeY(918.0f), relativeX(100.0f), relativeY(100.0f), 3,
-							  10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5000));
+		10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5000));
 	gS->addObjects(chips[3]);
 	gS->addEventListener(chips[3]);
 	chips[3]->connect([this]() {});
@@ -96,10 +96,12 @@ UI::OnArrow(const bool& left)
 		}
 	}
 }
-void UIChips::OnInfo()
+//TUTORIALES
+void UIChips::OnInfo()//TEMPORAL
 {
-	game->push(new Tutorial(game, gS));
+	//game->push(new Tutorial(game, gS));
 }
+
 UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
 
@@ -146,7 +148,7 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 }
-void 
+void
 UISlots::OnGo() {
 	slots->iniciarGiro();
 }
@@ -168,10 +170,16 @@ UISlots::Onx5()
 void
 UISlots::OnInfo()
 {
-
+	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
+	/*std::vector<Texture*> slotsTutorial = {
+	game->getTexture(imagen1),
+	game->getTexture(imagen2),
+	game->getTexture(imagen3)
+	};
+	game->push(new Tutorial(game, gS, slotsTutorial));*/
 }
 
-UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
+UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
 void UIMarbles::OnGo() {
 	marbles->startRound();
 }
@@ -201,14 +209,47 @@ void UIBaccarat::OnRepeat()
 	baccarat->repeat();
 }
 
+void
+UIBaccarat::OnInfo()
+{
+	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
+	std::vector<Texture*> baccaratTutorial = {
+	game->getTexture(TUTORIAL)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratTutorial));
+}
 
 //Tutorial
 
-UITutorial::UITutorial(GameState* gS, Game* game) : gS(gS), game(game) {
+UITutorial::UITutorial(GameState* gS, Game* game, size_t tam) : gS(gS), game(game), totalPages(tam) {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
 	gS->addObjects(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
+
+	//falta la flecha de volver atras
+	if (totalPages > 0) {
+		arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
+		gS->addObjects(arrowNext);
+		gS->addEventListener(arrowNext);
+		arrowNext->connect([this, gS]() {
+			Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+			if (tutorial) {
+				tutorial->nextPage();
+			}
+			});
+		//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
+		arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
+		gS->addObjects(arrowBack);
+		gS->addEventListener(arrowBack);
+		arrowBack->connect([this, gS]() {
+			Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+			if (tutorial) {
+				tutorial->previousPage();
+			}
+			});
+	}
 }
 
 inline int
