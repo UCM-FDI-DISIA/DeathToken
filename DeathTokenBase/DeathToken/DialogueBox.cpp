@@ -74,10 +74,10 @@ void DialogueBox::update(float deltaTime) {
 				charIndex++;
 				instantDisplay = false;
 				scrollOffset = 0;
-				//aviso al battle
 			}
 			else {
-				visible = false;
+				//aviso al battle
+				nextState = true;
 			}
 		}
 		else {
@@ -170,10 +170,10 @@ void DialogueBox::handleEvent(const SDL_Event& event) {
 					instantDisplay = false;
 					scrollOffset = 0;
 					completedTextTime = 0;
-					//aviso al battle
 				}
 				else {
-					visible = false;
+					//aviso al battle
+					nextState = true;
 				}
 			}
 		}

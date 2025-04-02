@@ -36,6 +36,7 @@ public:
 		, instantDisplay(false)
 		, needsUpdate(false)
 		, isScrolling(false)
+		, nextState(false)
 		, scrollingTime(0)
 		, x(800)
 		, y(200)
@@ -58,6 +59,7 @@ public:
 		, instantDisplay(false)
 		, fast(false)
 		, isScrolling(false)
+		, nextState(false)
 		, scrollingTime(0)
 		, transparente(transparente)
 		, needsUpdate(update)
@@ -84,6 +86,10 @@ public:
 	void render() const;
 	void update(float deltaTime);
 	void handleEvent(const SDL_Event& event) override;
+
+	inline bool passNextState() {
+		return nextState;
+	}
 
 	inline void SetPosition(int posx, int posy) {
 		x = posx;
@@ -112,6 +118,10 @@ public:
 	}
 	inline void InvertAuto() {
 		autoDialog = !autoDialog;
+	}
+
+	inline void BattleStatePass() {
+		nextState = false;
 	}
 
 protected:
@@ -188,6 +198,8 @@ protected:
 		// En caso de que el texto sea muy grande y no se haya cortado en varios mensajes se añaden 2000 ms
 		// por linea extra.
 	int completedTextTime = 0;
+
+	bool nextState;
 
 	// Si true salta al siguiente dialogo automatico cuando llega el momento. 
 	// La condicion de salto es controlada por completedTextTime.

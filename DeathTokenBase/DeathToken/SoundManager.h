@@ -1,5 +1,3 @@
-
-
 #include <map>
 #include <SDL_mixer.h>
 #include <string>

@@ -1,6 +1,6 @@
 #include "BattleManager.h"
-#include "Peleas.h"
 #include "json.hpp"
+#include "Peleas.h"
 #include <algorithm>
 #include <chrono>
 #include <cstdlib>
@@ -44,9 +44,9 @@ bool BattleManager::loadFightersFromJSON(const string& filename)
 {
 	ifstream file(filename);
 	if (!file.is_open()) {
-		#ifdef DEBUG
+#ifdef DEBUG
 		std::cout << "No se pudo abrir el archivo de peleadores." << endl;
-		#endif // DEBUG
+#endif // DEBUG
 
 		return false;
 	}
@@ -69,9 +69,9 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 {
 	ifstream file(filename);
 	if (!file.is_open()) {
-		#ifdef DEBUG
+#ifdef DEBUG
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
-		#endif
+#endif
 		return false;
 	}
 
@@ -81,9 +81,9 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 
 		// Verificar si "matchups" existe en el JSON
 		if (j.find("matchups") == j.end()) {
-			#ifdef DEBUG
+#ifdef DEBUG
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
-			#endif
+#endif
 			return false;
 		}
 
@@ -96,9 +96,9 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
 
 			if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
 				id2 >= fighters.size()) {
-				#ifdef DEBUG
+#ifdef DEBUG
 				cout << "Índice de peleador inválido." << endl;
-				#endif
+#endif
 				continue;
 			}
 
@@ -151,28 +151,24 @@ void BattleManager::StartBattle()
 
 void BattleManager::Update(float deltaTime)
 {
-	actionTimer += deltaTime;
-
-	if (actionTimer >= ACTIONDELAY) {
-		actionTimer = 0.0f;  // Reiniciamos el temporizador
+	if (dialog->passNextState() || currentState == BattleState::START) {
+		dialog->BattleStatePass(); // Reiniciamos el temporizador
 
 		switch (currentState) {
 		case BattleState::START:
-			dialog->showMessage("Descripción de la batalla: " + currentMatch.battleDescription);
 			dialog->showMessage("La pelea será un clasicazo en esta arena " + currentMatch.fighter1.getName() + " vs " + currentMatch.fighter2.getName());
-			dialog->showMessage("Comenzará la pelea " + currentMatch.fighter1.getName());
+			dialog->showMessage(currentMatch.battleDescription);
+			dialog->showMessage("Acorde a las normas empieza " + currentMatch.fighter1.getName());
 			currentState = BattleState::PLAYER1_TURN;  // Cambiamos al turno del jugador 1
 			lastTurn = BattleState::PLAYER1_TURN;  // Inicializamos el último turno
 			break;
 
 		case BattleState::PLAYER1_TURN:
-			dialog->showMessage("Turno de " + currentMatch.fighter1.getName());
 			ActionTurn(currentMatch.fighter1, currentMatch.fighter2);
 			currentState = BattleState::EVALUATE;  // Cambiamos a evaluación
 			break;
 
 		case BattleState::PLAYER2_TURN:
-			dialog->showMessage("Turno de " + currentMatch.fighter2.getName());
 			ActionTurn(currentMatch.fighter2, currentMatch.fighter1);
 			currentState = BattleState::EVALUATE;  // Cambiamos a evaluación
 			break;
@@ -186,11 +182,15 @@ void BattleManager::Update(float deltaTime)
 				// Cambiar al siguiente turno
 				if (lastTurn == BattleState::PLAYER1_TURN) {
 					currentState = BattleState::PLAYER2_TURN;
+					dialog->showMessage("Turno de " + currentMatch.fighter2.getName());
+					dialog->showMessage("¡" + currentMatch.fighter2.getName() + " se dispone a atacar ferozmente a su enemigo!");
 					lastTurn =
 						BattleState::PLAYER2_TURN;  // Actualizamos el último turno
 				}
 				else {
 					currentState = BattleState::PLAYER1_TURN;
+					dialog->showMessage("Turno de " + currentMatch.fighter1.getName());
+					dialog->showMessage("¡" + currentMatch.fighter1.getName() + " se dispone a atacar ferozmente a su enemigo!");
 					lastTurn =
 						BattleState::PLAYER1_TURN;  // Actualizamos el último turno
 				}
@@ -213,8 +213,6 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 	float hitBackProb = 2.5f + 15.0f * (50.0f - active.getMindset()) / 200.0f;
 	float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
 	float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
-
-	dialog->showMessage("¡" + active.getName() + " se dispone a atacar ferozmente a su enemigo!");
 	float prob = dist(gen);
 
 	// Golpearse a sí mismo
