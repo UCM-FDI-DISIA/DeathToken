@@ -141,6 +141,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="PlayerEconomy.h" />
+    <ClInclude Include="Slots.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
@@ -153,7 +154,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sceneObject.h" />
-    <ClInclude Include="Slots.h" />
+    <ClInclude Include="SlotsNormal.h" />
     <ClInclude Include="SlotsLocura.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="UI.h" />
@@ -177,7 +178,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sceneObject.cpp" />
-    <ClCompile Include="Slots.cpp" />
+    <ClCompile Include="SlotsNormal.cpp" />
     <ClCompile Include="SlotsLocura.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UI.cpp" />

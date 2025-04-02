@@ -1,8 +1,11 @@
-#include "Slots.h"
+#include "SlotsNormal.h"
+#include "Carrete.h"
+#include "Button.h"
+#include "Texture.h"
 #include "Game.h"
+using namespace std;
 
-
-Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this, g, this))
+SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 {
 	float x = Game::WIN_WIDTH * (0.5 - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
 	float y = Game::WIN_HEIGHT * (40 / 1080.0f);
@@ -33,14 +36,12 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this,
 		aux.second = multiplicadores[i];
 		puntuaciones.insert(aux);
 	}
-	hud = new HUDBet(this);
-	HUDManager::getHudBet()->refresh();
 }
-Slots:: ~Slots() {
+SlotsNormal:: ~SlotsNormal() {
 	for (Carrete* i : carretes) i = nullptr;
 	delete ui;
 }
-void Slots::update() {
+void SlotsNormal::update() {
 	GameState::update();
 	if (comprobanteIndice == 3) {
 		comprobanteIndice = 0;
@@ -72,7 +73,7 @@ void Slots::update() {
 #endif
 	}
 }
-void Slots::render() const {
+void SlotsNormal::render() const {
 	SDL_Rect r;
 	r.x = r.y = 0;
 	r.h = Game::WIN_HEIGHT;
@@ -81,7 +82,7 @@ void Slots::render() const {
 
 	GameState::render();
 }
-void Slots::iniciarGiro() {
+void SlotsNormal::iniciarGiro() {
 	bool girar = false;
 	for (Carrete* c : carretes)
 		girar = girar || c->getParada();

@@ -4,6 +4,21 @@
 #include "Celda.h"
 using namespace std;
 
+SlotsLocura::SlotsLocura(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
+{
+	float x = Game::WIN_WIDTH * (0.5 - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
+	float y = Game::WIN_HEIGHT * (50 / 1080.0f);
+	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
+	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
+	for (int i = 0; i < N_COLUM; ++i) {
+		for (int j = 0; j < N_COLUM; ++j) {
+			Celda* c = new Celda(this, { (int)(x + j * celdaX), (int)(y + i * celdaY) }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS));
+			mat[i].push_back(c);
+			addObjects(c);
+		}
+	}
+	resultante = vectorAleatorio();
+}
 vector<int> SlotsLocura::vectorAleatorio() {
 	vector<int> vector;
 
@@ -18,43 +33,29 @@ vector<int> SlotsLocura::vectorAleatorio() {
 
 	return vector;
 }
-SlotsLocura::SlotsLocura(Game* g) : GameState(g), indice(0), mat(N_COLUM), ui(new UISlots(this, g, this)), turnoPlayer(true)
-{
-	float x = Game::WIN_WIDTH * (0.5 - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
-	float y = Game::WIN_HEIGHT * (50 / 1080.0f);
-	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
-	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
-	for (int i = 0; i < N_COLUM; ++i) {
-		for (int j = 0; j < N_COLUM; ++j) {
-			Celda* c = new Celda(this, { (int)(x + j * celdaX), (int)(y + i * celdaY)}, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS));
-			mat[i].push_back(c);
-			addObjects(c);
-		}
-	}
-	resultante = vectorAleatorio();
-}
 
 void SlotsLocura::update() {
-	bool line = checkBoard();
-	bool full = true;
-	for (int i = 0; i < N_COLUM; ++i) {
-		for (int j = 0; j < N_COLUM; ++j) {
-			if (mat[i][j]->getElem() == -1) {
-				full = false;
-				break;
+	if (jugando) {
+		bool line = checkBoard();
+		bool full = true;
+		for (int i = 0; i < N_COLUM; ++i) {
+			for (int j = 0; j < N_COLUM; ++j) {
+				if (mat[i][j]->getElem() == -1) {
+					full = false;
+					break;
+				}
 			}
+			if (!full) break;
 		}
-		if (!full) break;
-	}
-	if (full || line) {
-		for (int i = 0; i < N_COLUM; ++i)
-			for (int j = 0; j < N_COLUM; ++j)
-				mat[i][j]->resetElem();
-	}
+		if (full || line) {
+			ClearBoard();
+			if (line) jugando = false;
+		}
 
-	if (!turnoPlayer) IA();
-
-	GameState::update();
+		if (!turnoPlayer) IA();
+	}
+		GameState::update();
+	
 }
 void SlotsLocura::render() const {
 	SDL_Rect r;
@@ -65,17 +66,19 @@ void SlotsLocura::render() const {
 
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
-	SDL_Rect box((int)(Game::WIN_WIDTH / 2 + celdaX * (N_COLUM / 2.0f) + (20/1920.0f)*Game::WIN_WIDTH), (int)(Game::WIN_HEIGHT / 2 - celdaY), (int)celdaX, (int)celdaY);
+	SDL_Rect box((int)(Game::WIN_WIDTH / 2 + celdaX * (N_COLUM / 2.0f) + (20 / 1920.0f) * Game::WIN_WIDTH), (int)(Game::WIN_HEIGHT / 2 - celdaY), (int)celdaX, (int)celdaY);
 	game->getTexture(CELDA)->render(box);
-	game->getTexture(ICONOS)->renderFrame(box, 0, resultante[indice]);
+	if (jugando) { game->getTexture(ICONOS)->renderFrame(box, 0, resultante[indice]); }
 	GameState::render();
 }
 
 int SlotsLocura::getNext() {
 	if (turnoPlayer) {
 		int n = resultante[indice];
+		if (indice == resultante.size() - 1) resultante = vectorAleatorio();
 		indice = (indice + 1) % resultante.size();
 		turnoPlayer = false;
+		IAstartTime = SDL_GetTicks();
 		return n;
 	}
 	else return -1;
@@ -118,15 +121,29 @@ bool SlotsLocura::checkBoard() const {
 }
 
 void SlotsLocura::IA() {
-	bool placed = false;
-	while (!placed) {
-		int x = rand() % N_COLUM;
-		int y = rand() % N_COLUM;
-		if (mat[x][y]->getElem() == -1) {
-			mat[x][y]->setElem(resultante[indice]);
-			indice = (indice + 1) % resultante.size();
-			placed = true;
+	if (SDL_GetTicks() - IAstartTime >= 1000) {
+		bool placed = false;
+		while (!placed) {
+			int x = rand() % N_COLUM;
+			int y = rand() % N_COLUM;
+			if (mat[x][y]->getElem() == -1) {
+				mat[x][y]->setElem(resultante[indice]);
+				if (indice == resultante.size() - 1) resultante = vectorAleatorio();
+				indice = (indice + 1) % resultante.size();
+				placed = true;
+			}
+		}
+		turnoPlayer = true;
+	}
+}
+void SlotsLocura::ClearBoard() {
+	for (int i = 0; i < N_COLUM; ++i) {
+		for (int j = 0; j < N_COLUM; ++j) {
+			mat[i][j]->resetElem();
 		}
 	}
+}
+void SlotsLocura::iniciarGiro() {
+	jugando = true;
 	turnoPlayer = true;
 }
