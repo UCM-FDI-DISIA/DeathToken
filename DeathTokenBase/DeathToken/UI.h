@@ -88,3 +88,18 @@ public:
 	void OnErase() override;
 	void OnRepeat() override;
 };
+
+class Peleas;
+class UIPeleas : public UI {
+public:
+	UIPeleas(Game* game, Peleas* peleas) : UI((GameState*)peleas, game), _peleas(peleas)
+	{
+	};
+
+	void OnGo() override;
+
+protected:
+	Peleas* _peleas;
+	ButtonUI* autoText;
+	ButtonUI* historial;
+};
