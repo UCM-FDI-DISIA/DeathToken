@@ -1,8 +1,6 @@
 #include "BattleManager.h"
-#include "json.hpp"
-#include "Peleas.h"
-#include <algorithm>
-#include <chrono>
+#include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
 #include <random>
@@ -16,11 +14,11 @@ BattleManager::BattleManager() {
 
 bool BattleManager::loadFightersFromJSON(const string& filename)
 {
-	ifstream file(filename);
-	if (!file.is_open()) {
-#ifdef DEBUG
-		std::cout << "No se pudo abrir el archivo de peleadores." << endl;
-#endif // DEBUG
+  ifstream file(filename);
+  if (!file.is_open()) {
+    std::cout << "No se pudo abrir el archivo de peleadores." << endl;
+    return false;
+  }
 
   json j;
   file >> j;
@@ -38,25 +36,21 @@ bool BattleManager::loadFightersFromJSON(const string& filename)
 
 bool BattleManager::loadMatchupsFromJSON(const string& filename)
 {
-	ifstream file(filename);
-	if (!file.is_open()) {
-#ifdef DEBUG
-		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
-#endif
-		return false;
-	}
+  ifstream file(filename);
+  if (!file.is_open()) {
+    cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
+    return false;
+  }
 
   try {
     json j;
     file >> j;
 
-		// Verificar si "matchups" existe en el JSON
-		if (j.find("matchups") == j.end()) {
-#ifdef DEBUG
-			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
-#endif
-			return false;
-		}
+    // Verificar si "matchups" existe en el JSON
+    if (j.find("matchups") == j.end()) {
+      cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
+      return false;
+    }
 
     // Procesar el JSON y cargar los enfrentamientos
     for (auto& item : j["matchups"]) {
@@ -65,13 +59,11 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
       int advantageFighterIndex = item["advantageFighterIndex"];
       string battleDescription = item["battleDescription"];
 
-			if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
-				id2 >= fighters.size()) {
-#ifdef DEBUG
-				cout << "ï¿½ndice de peleador invï¿½lido." << endl;
-#endif
-				continue;
-			}
+      if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
+          id2 >= fighters.size()) {
+        cout << "Índice de peleador inválido." << endl;
+        continue;
+      }
 
       Matchup matchup;
       matchup.fighter1 = fighters[id1];
@@ -102,8 +94,8 @@ void BattleManager::StartBattle() {
     Matchup currentMatch = battleQueue.front();
     battleQueue.erase(battleQueue.begin());
 
-    // Mostrar la descripciï¿½n de la batalla
-    cout << "Descripciï¿½n de la batalla: " << currentMatch.battleDescription << endl;
+    // Mostrar la descripción de la batalla
+    cout << "Descripción de la batalla: " << currentMatch.battleDescription << endl;
     cout << "Peleadores: " << currentMatch.fighter1.getName() << " vs " << currentMatch.fighter2.getName() << endl;
 
     // Asignar un "mindset" aleatorio a los luchadores
@@ -124,139 +116,3 @@ void BattleManager::StartBattle() {
         currentMatch.fighter2.setMindset(rndMindset2 - MOD);
     }
 }
-
-void BattleManager::Update(float deltaTime)
-{
-	if (dialog->passNextState() || currentState == BattleState::START) {
-		dialog->BattleStatePass(); // Reiniciamos el temporizador
-
-		switch (currentState) {
-		case BattleState::START:
-			dialog->showMessage("La pelea serï¿½ un clasicazo en esta arena " + currentMatch.fighter1.getName() + " vs " + currentMatch.fighter2.getName());
-			dialog->showMessage(currentMatch.battleDescription);
-			dialog->showMessage("Acorde a las normas empieza " + currentMatch.fighter1.getName());
-			currentState = BattleState::PLAYER1_TURN;  // Cambiamos al turno del jugador 1
-			lastTurn = BattleState::PLAYER1_TURN;  // Inicializamos el ï¿½ltimo turno
-			break;
-
-		case BattleState::PLAYER1_TURN:
-			ActionTurn(currentMatch.fighter1, currentMatch.fighter2);
-			currentState = BattleState::EVALUATE;  // Cambiamos a evaluaciï¿½n
-			break;
-
-		case BattleState::PLAYER2_TURN:
-			ActionTurn(currentMatch.fighter2, currentMatch.fighter1);
-			currentState = BattleState::EVALUATE;  // Cambiamos a evaluaciï¿½n
-			break;
-
-		case BattleState::EVALUATE:
-			if (!currentMatch.fighter1.isAlive() ||
-				!currentMatch.fighter2.isAlive()) {
-				currentState = BattleState::END;  // Si alguien muriï¿½, terminamos
-			}
-			else {
-				// Cambiar al siguiente turno
-				if (lastTurn == BattleState::PLAYER1_TURN) {
-					currentState = BattleState::PLAYER2_TURN;
-					dialog->showMessage("Turno de " + currentMatch.fighter2.getName());
-					dialog->showMessage("ï¿½" + currentMatch.fighter2.getName() + " se dispone a atacar ferozmente a su enemigo!");
-					lastTurn =
-						BattleState::PLAYER2_TURN;  // Actualizamos el ï¿½ltimo turno
-				}
-				else {
-					currentState = BattleState::PLAYER1_TURN;
-					dialog->showMessage("Turno de " + currentMatch.fighter1.getName());
-					dialog->showMessage("ï¿½" + currentMatch.fighter1.getName() + " se dispone a atacar ferozmente a su enemigo!");
-					lastTurn =
-						BattleState::PLAYER1_TURN;  // Actualizamos el ï¿½ltimo turno
-				}
-			}
-			break;
-
-		case BattleState::END:
-			Fighter* winner = currentMatch.fighter1.isAlive() ?
-				&currentMatch.fighter1 :
-				&currentMatch.fighter2;
-			dialog->showMessage("ï¿½La batalla ha terminado! El ganador es: " + winner->getName());
-			break;
-		}
-	}
-}
-
-
-void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
-{
-	float hitBackProb = 2.5f + 15.0f * (50.0f - active.getMindset()) / 200.0f;
-	float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
-	float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
-	float prob = dist(gen);
-
-	// Golpearse a sï¿½ mismo
-	if (prob < hitBackProb) {
-		active.takeDamage(active.getAttack());
-		dialog->showMessage("ï¿½Pero se ha golpeado a sï¿½ mismo, " + active.getName() + " se ha vuelto loco!");
-
-		if (active.isAlive()) {
-			active.reduceMindset(mindsetRange(gen));
-			dialog->showMessage("Esto seguro que mina su concentraciï¿½n en el combate");
-			dialog->showMessage("ï¿½Ahora es mï¿½s probable que pierda!");
-		}
-		else {
-			dialog->showMessage("ï¿½LA CATASTROFE SE HIZO REALIDAD!");
-			dialog->showMessage("ï¿½" + active.getName() + " ha caï¿½do por su propia mano!");
-		}
-	}
-
-	// Fallo
-	else if (prob < hitBackProb + failProb) {
-		dialog->showMessage(active.getName() + " lamentablemente su golpe ha fallado a su objetivo.");
-		active.reduceMindset(mindsetRange(gen));
-		dialog->showMessage("Esto seguro que mina su concentraciï¿½n en el combate.");
-		dialog->showMessage("ï¿½Ahora es mï¿½s probable que pierda!");
-	}
-
-	// Crï¿½tico
-	else if (prob < hitBackProb + failProb + criticalProb) {
-		objetive.takeDamage(active.getAttack() * 3);
-		dialog->showMessage("ï¿½MADRE Mï¿½A, CRï¿½TICO! " + active.getName() + " acaba de destrozar a su oponente.");
-		dialog->showMessage(" Tras semejante golpe tal vez deban replantearse el resultado del combate.");
-		if (objetive.isAlive()) {
-			active.boostMindset(mindsetRange(gen));
-			objetive.reduceMindset(mindsetRange(gen));
-			dialog->showMessage("Esto seguro que mejora su concentraciï¿½n en el combate.");
-			dialog->showMessage("ï¿½Ahora es mï¿½s probable que gane!");
-			dialog->showMessage("ï¿½Y " + objetive.getName() + " es mï¿½s probable que pierda!");
-		}
-		else {
-			dialog->showMessage(active.getName() + " gana este brutal encuentro.");
-			dialog->showMessage("Enhorabuena a todos los que confiaron en nuestro increï¿½ble ganador.");
-		}
-	}
-
-	// Ataque normal
-	else {
-		objetive.takeDamage(active.getAttack());
-		dialog->showMessage(active.getName() + " golpea duramente a su oponente.");
-		if (!objetive.isAlive()) {
-			dialog->showMessage(active.getName() + " gana este brutal encuentro.");
-			dialog->showMessage("Enhorabuena a todos los que confiaron en nuestro increï¿½ble ganador.");
-		}
-	}
-}
-
-//void BattleManager::ExecuteTurns(Matchup currentMatch)
-//{
-//
-//
-//	cout << "Comenzarï¿½ la pelea " << currentMatch.fighter1.getName() << ".\n";
-//	cout << "Mucha suerte a todos los jugadores.\n";
-//	cout << "\n";
-//
-//	auto lastTime = chrono::high_resolution_clock::now();
-//
-//	auto currentTime = chrono::high_resolution_clock::now();
-//	float deltaTime = chrono::duration<float>(currentTime - lastTime).count();
-//	lastTime = currentTime;
-//	Update(deltaTime);  // Pasamos el delta time a Update
-//
-//}
