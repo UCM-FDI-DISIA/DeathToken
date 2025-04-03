@@ -1,66 +1,10 @@
-#include "baccaratBet.h"
+#include "BaccaratBet.h"
 
-void BaccaratBet::repeatBet() {
-
+void BaccaratBet::repeat() {
 	for (int i = 0; i < betsHistory.size(); i++)
-		bets[i] = { betsHistory[i].multiplier * 2, betsHistory[i].moneyBet * betsHistory[i].multiplier, betsHistory[i].betType };
-	int currentBet = 0;
-	for (int i = 0; i < bets.size(); i++) {
-		currentBet += bets[i].moneyBet;
-	}
+		bets[i] = { betsHistory[i].moneyBet * 2, betsHistory[i].moneyBet * 2 };
 	for (auto i : bacButtons)
 	{
-		i->repeatDoubleBet();
-	}
-	HUDManager::applyBet(currentBet);
-
-	startRound();
-
-	if (!hasWon) {
-		didntWin();
-	}
-}
-
-void BaccaratBet::didntWin() {
-	buttonsOn = false;
-	for (int i = 0; i < betsHistory.size(); i++) {
-		if (betsHistory[i].betType == 0) {
-			betsHistory[i].multiplier = 8;
-		}
-		else {
-			betsHistory[i].multiplier = 2;
-		}
-	}
-}
-
-void BaccaratBet::acumulate() {
-	if (!buttonsOn) {
-		int xBut = (int)(Game::WIN_WIDTH * 7.07 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut =(int) Game::WIN_WIDTH / 18, hBut =(int) Game::WIN_WIDTH / 18;
-		bet = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
-		addObjects(bet);
-		addEventListener(bet);
-		bet->connect([this]() { repeatBet(); });
-		yBut = (int)(Game::WIN_HEIGHT * 4.5 / 9);
-		stop = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
-		addObjects(stop);
-		addEventListener(stop);
-		stop->connect([this]() { didntWin(); });
-	}
-}
-
-void BaccaratBet::update() {
-	Baccarat::update();
-	if (bet != nullptr && stop != nullptr && !buttonsOn) {
-		bet = nullptr;
-		stop = nullptr;
-		eventHandlers.pop_back();
-		eventHandlers.pop_back();
-		gameObjects.pop_back();
-		gameObjects.pop_back();
-	}
-	if (hasWon) {
-		acumulate();
-		buttonsOn = true;
-		hasWon = false;
+		i->repeat();
 	}
 }

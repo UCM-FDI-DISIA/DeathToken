@@ -3,12 +3,12 @@
 #include <vector>
 #include <map>
 #include "gameState.h"
-#include "ui.h"
-#include "texture.h"
-#include "eventHandler.h"
-#include "button.h"
+#include "UI.h"
+#include "Texture.h"
+#include "EventHandler.h"
+#include "Button.h"
 #include "card.h"
-#include "award.h"
+#include "Award.h"
 using namespace std;
 
 struct Mat {
@@ -50,8 +50,7 @@ protected:
 	bool bankerBet = false, playerBet = false, tieBet = false;
 	//bool locura; global?
 public:
-	bool hasWon = false;
-	Baccarat(Game* game, bool bJ = false);
+	Baccarat(Game* game);
 	virtual ~Baccarat() {
 		HUDManager::popGame();
 		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
@@ -71,14 +70,13 @@ public:
 	void bankThird();
 	int generateRnd();
 	Card* createCard(int a, int b, int rot, int frame);
-	virtual void addCards();
+	void addCards();
 	void win();
-	void showTutorial() override { ui->OnInfo(); };
 
 	//metodos apuestas
 	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
 	void newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat);
 	void clearBets();
-	void repeat();
+	virtual void repeat();
 	virtual void startRound();
 };

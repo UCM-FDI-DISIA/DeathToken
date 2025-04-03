@@ -24,6 +24,7 @@ public:
 	void handOneCard();
 	void askCards();
 	void bancaAI();
+	void repeat() override;
 	void startRound() override;
 	int totalCards(vector<int>);
 	void clearDeck() override;
