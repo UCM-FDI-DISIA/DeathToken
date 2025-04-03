@@ -50,6 +50,7 @@ protected:
 	bool bankerBet = false, playerBet = false, tieBet = false;
 	//bool locura; global?
 public:
+	bool hasWon = false;
 	Baccarat(Game* game);
 	virtual ~Baccarat() {
 		HUDManager::popGame();
@@ -77,6 +78,6 @@ public:
 	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
 	void newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat);
 	void clearBets();
-	virtual void repeat();
+	void repeat();
 	virtual void startRound();
 };

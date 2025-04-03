@@ -153,12 +153,15 @@ void Baccarat::win() {
 		if (bets[i].moneyBet > 0) {
 			if (bets[i].betType == 0 && tieBet) {
 				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
+				hasWon = true;
 			}
 			else if (bets[i].betType == 1 && bankerBet) {
 				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
+				hasWon = true;
 			}
 			else if (bets[i].betType == 2 && playerBet) {
 				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
+				hasWon = true;
 			}
 		}
 	}
@@ -212,6 +215,7 @@ void Baccarat::repeat()
 }
 
 void Baccarat::startRound() {
+	hasWon = false;
 	player3->frame = 14;//inicializamos invisible
 	banker3->frame = 14;
 	handCards();
