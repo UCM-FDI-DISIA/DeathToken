@@ -34,7 +34,6 @@ void BaccaratBlackjack::victory() {
 	}
 
 }
-
 void BaccaratBlackjack::startRound() {
 	clearDeck();
 	canAsk = true;
@@ -123,3 +122,6 @@ void BaccaratBlackjack::clearDeck() {
 	gameObjects.pop_back();
 }
 
+void BaccaratBlackjack::repeat() {
+
+}

@@ -14,17 +14,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
-	PlayerEconomy::EconomyInitialize();
-	//Baccarat button
-	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
-	addObjects(baccarat);
-	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new BaccaratBet(getGame())); });
-
-	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
-	addObjects(slots);
-	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new Slots(getGame())); });
+	//Baccarat button 
+	_baccarat = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(BACCARATBUT), 1, (int)wBut, (int)hBut, game);
+	addObjects(_baccarat);
+	addEventListener(_baccarat);	
 
 	wBut = (125.0f / 1980.f) * Game::WIN_WIDTH; hBut = 125.0f / 1080.0f * Game::WIN_HEIGHT;
 	xBut = (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2; yBut = Game::WIN_HEIGHT * 3 / 4;
