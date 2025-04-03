@@ -20,6 +20,7 @@ void Mesa::render() const {
 		texture->render(rect, SDL_Color(255, 255, 0));
 	}
  }
+void Mesa:: update(){}
 
 void Mesa::handleEvent(SDL_Event const& evento) {
 	if (evento.key.keysym.sym == SDLK_e && hover) {

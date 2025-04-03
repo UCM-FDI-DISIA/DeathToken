@@ -25,36 +25,7 @@ void Player::render() const {
 // Actualización y colisiones del personaje
 void Player::update() {
 
-	SDL_Rect collision;
-	vector<SDL_Rect> limite = menu->getLimits();
-
-	int fixY = 0;
-	int fixX = 0;
-	SDL_Rect playerRect = getCollisionRect();
-	// Recorre cada uno de los limites y comprueba las colisiones
-	for (int i = 0; i < limite.size(); ++i) {
-		// Si la velocidad en Y es distinta de 0, mueve el rect provisional del jugador (playerRect) y comprueba si está colisionando. Luego restaura la posición
-		if (speed.getY() != 0) {
-			playerRect.y += speed.getY(); //* multiplicarlo por delta time;
-			int fix = 0;
-			if (SDL_IntersectRect(&playerRect, &limite[i], &collision))
-				fix = collision.h * (speed.getY() > 0 ? 1 : -1);
-			fixY += fix;
-			playerRect.y -= speed.getY();
-		}
-		// hacemos lo mismo con la velocidad en x
-		if (speed.getX() != 0) {
-			playerRect.x += speed.getX();
-			int fix = 0;
-			if (SDL_IntersectRect(&playerRect, &limite[i], &collision))
-				fix = collision.w * (speed.getX() > 0 ? 1 : -1);
-			fixX += fix;
-			playerRect.x -= speed.getX();
-		}
-	}
-	// Cálculo final de la posición según la velocidad y ajuste del fix total
-	pos += {speed.getX() - fixX, speed.getY() - fixY};
-	if (pos.getY() > Game::WIN_HEIGHT) pos.setY(Game::WIN_HEIGHT);
+	collision(menu->getLimits());
 }
 
 Collision Player::hit(const SDL_Rect& rect, Collision::Target target) {
@@ -96,4 +67,36 @@ SDL_Rect Player::getRect() const {
 	rect.w = w;//ancho
 	rect.h = h;//alto
 	return rect;
+}
+void Player::collision(vector<SDL_Rect> obstaculos) {
+	
+	SDL_Rect collision;
+
+	int fixY = 0;
+	int fixX = 0;
+	SDL_Rect playerRect = getCollisionRect();
+	// Recorre cada uno de los limites y comprueba las colisiones
+	for (int i = 0; i < obstaculos.size(); ++i) {
+		// Si la velocidad en Y es distinta de 0, mueve el rect provisional del jugador (playerRect) y comprueba si está colisionando. Luego restaura la posición
+		if (speed.getY() != 0) {
+			playerRect.y += speed.getY(); //* multiplicarlo por delta time;
+			int fix = 0;
+			if (SDL_IntersectRect(&playerRect, &obstaculos[i], &collision))
+				fix = collision.h * (speed.getY() > 0 ? 1 : -1);
+			fixY += fix;
+			playerRect.y -= speed.getY();
+		}
+		// hacemos lo mismo con la velocidad en x
+		if (speed.getX() != 0) {
+			playerRect.x += speed.getX();
+			int fix = 0;
+			if (SDL_IntersectRect(&playerRect, &obstaculos[i], &collision))
+				fix = collision.w * (speed.getX() > 0 ? 1 : -1);
+			fixX += fix;
+			playerRect.x -= speed.getX();
+		}
+	}
+	// Cálculo final de la posición según la velocidad y ajuste del fix total
+	pos += {speed.getX() - fixX, speed.getY() - fixY};
+	if (pos.getY() > Game::WIN_HEIGHT) pos.setY(Game::WIN_HEIGHT);
 }
