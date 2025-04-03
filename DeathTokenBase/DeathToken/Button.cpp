@@ -180,8 +180,13 @@ ButtonChip::update()
 	{
 		hover = SDL_PointInRect(&point, &box);
 	}
-	if (hover && !onUse)
+	if (hover && !onUse) {
 		ui->changeChip(id);
+		if (slot){
+			 PlayerEconomy::setBet(ui->currentChipValue());
+			 HUDManager::getHudBet()->refresh();
+		}
+	}
 	else if (!clicked && hover && !slot && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)))
 		clicked = true;
 	else if (clicked && (!mouseState))

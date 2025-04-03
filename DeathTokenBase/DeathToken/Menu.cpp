@@ -6,6 +6,7 @@
 #include "SlotsNormal.h"
 #include "SlotsLocura.h"
 #include "Marbles.h"
+#include "marblesInsanity.h"
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 

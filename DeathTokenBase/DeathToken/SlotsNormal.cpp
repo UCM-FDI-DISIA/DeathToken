@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "Texture.h"
 #include "Game.h"
+#include "Award.h"
 using namespace std;
 
 SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
@@ -71,6 +72,7 @@ void SlotsNormal::update() {
 
 		std::cout << multiplicador << "\n";
 #endif
+		if (multiplicador != 0) game->push(new Award(game, (GameState*)this, bet, bet * multiplicador));
 	}
 }
 void SlotsNormal::render() const {

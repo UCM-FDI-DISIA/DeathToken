@@ -48,9 +48,9 @@ void Award::render() const {
 
 std::string Award::getWinMessage(int multiplier) {
 	if (multiplier <= 3) return "WIN";
-	if (multiplier <= 5) return "BIG WIN";
-	if (multiplier <= 10) return "MEGA WIN";
-	if (multiplier <= 20) return "EPIC WIN";
+	else if (multiplier <= 5) return "BIG WIN";
+	else if (multiplier <= 10) return "MEGA WIN";
+	else if (multiplier <= 20) return "EPIC WIN";
 	return "ESTAS LOCOOO";
 }
 inline int Award::relativeX(const float& n)
