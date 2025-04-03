@@ -25,7 +25,7 @@ void Player::render() const {
 // Actualización y colisiones del personaje
 void Player::update() {
 
-	collision(menu->getLimits());
+	//collision(menu->getLimits());
 }
 
 Collision Player::hit(const SDL_Rect& rect, Collision::Target target) {
@@ -96,7 +96,6 @@ void Player::collision(vector<SDL_Rect> obstaculos) {
 			playerRect.x -= speed.getX();
 		}
 	}
-	// Cálculo final de la posición según la velocidad y ajuste del fix total
 	pos += {speed.getX() - fixX, speed.getY() - fixY};
-	if (pos.getY() > Game::WIN_HEIGHT) pos.setY(Game::WIN_HEIGHT);
+	
 }

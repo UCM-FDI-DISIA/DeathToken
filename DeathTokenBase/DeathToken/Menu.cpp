@@ -48,28 +48,26 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	}
 
 	//Boundries
+	SDL_Rect boundry1;
 	boundry1.h = Game::WIN_HEIGHT;
 	boundry1.w = (85.0f /1920.0f) * Game::WIN_WIDTH;
 	boundry1.x = 0;
 	boundry1.y = 0;
-	limites.push_back(boundry1);
+	obstaculos.push_back(boundry1);
 
+	SDL_Rect boundry2;
 	boundry2.h = (180.0f/1080.0f) * Game::WIN_HEIGHT;
 	boundry2.w = Game::WIN_WIDTH;
 	boundry2.x = 0;
 	boundry2.y = 0;
-	limites.push_back(boundry2);
+	obstaculos.push_back(boundry2);
 
+	SDL_Rect boundry3;
 	boundry3.h = Game::WIN_HEIGHT;
 	boundry3.w = (85.0f / 1920.0f) * Game::WIN_WIDTH;
 	boundry3.x = Game::WIN_WIDTH - boundry3.w;
 	boundry3.y = 0;
-	limites.push_back(boundry3);
-
-	limites.push_back(_slots->getCollisionRect());
-	limites.push_back(_fights->getCollisionRect());
-	limites.push_back(_marbles->getCollisionRect());
-	limites.push_back(_baccarat->getCollisionRect());
+	obstaculos.push_back(boundry3);
 
 	hud = new HUDLobby(this);
 
@@ -77,6 +75,12 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	games.push_back(_marbles);
 	games.push_back(_fights);
 	games.push_back(_baccarat);
+
+
+	obstaculos.push_back(cambiarColisiones(_slots->getCollisionRect()));
+	obstaculos.push_back(cambiarColisiones(_marbles->getCollisionRect()));
+	obstaculos.push_back(cambiarColisiones(_fights->getCollisionRect()));
+	obstaculos.push_back(cambiarColisiones(_baccarat->getCollisionRect()));
 
 	juegos.push_back(_slots->getCollisionRect());
 	juegos.push_back(_marbles->getCollisionRect());
@@ -92,19 +96,16 @@ void Menu::render() const {
 void Menu::update() {//detecto interseciones player/button
 	GameState::update();
 
+	ghost->collision(obstaculos);
 	SDL_Rect playerRect = ghost->getCollisionRect(); //cojo el rect del player
-	playerRect.w += 5;
-	playerRect.h += 5;
 
-	
-	
-	for (int i = 0; i < juegos.size(); ++i) {
+	for (int i = 0; i < juegos.size(); ++i) {		
 		if (SDL_HasIntersection(&playerRect, &juegos[i])) {
 			games[i]->inGame(true);
 		}
 		else {
 			games[i]->inGame(false);
-		}		
+		}
 	}
 }
 
@@ -118,4 +119,13 @@ void Menu::handleEvent(const SDL_Event& event) {
 		_marbles->Mesa::handleEvent(event);
 	else if (_fights->getHover()) 
 		_fights->Mesa::handleEvent(event);
+}
+SDL_Rect Menu::cambiarColisiones(SDL_Rect colJuego) {
+	SDL_Rect aux = colJuego;
+	int fix = 70;
+	aux.w -= fix;
+	aux.h -= fix;
+	aux.x += fix / 2;
+	aux.y += fix / 2;
+	return aux;
 }

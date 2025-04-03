@@ -25,19 +25,17 @@ class Menu : public GameState
 	Mesa* _marbles;
 	Mesa* _fights;
 	Mesa* _slots;
-	SDL_Rect boundry1;
-	SDL_Rect boundry2;
-	SDL_Rect boundry3;
-	vector<SDL_Rect> limites;
+	vector<SDL_Rect> obstaculos;
 	vector<SDL_Rect> juegos;
 	vector<Mesa*> games;
 
 	HUDLobby* hud;
+	SDL_Rect cambiarColisiones(SDL_Rect);
 public:
 	Menu(Game* game);
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button
-	vector<SDL_Rect> getLimits() const { return limites; };
+	vector<SDL_Rect> getLimits() const { return obstaculos; };
 };
 
