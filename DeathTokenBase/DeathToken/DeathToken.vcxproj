@@ -144,6 +144,7 @@
     <ClInclude Include="Celda.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Fighter.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="PlayerEconomy.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="card.cpp" />
     <ClCompile Include="Carrete.cpp" />
     <ClCompile Include="Celda.cpp" />
+    <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="Peleas.cpp" />

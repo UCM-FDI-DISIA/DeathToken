@@ -29,12 +29,12 @@ class Menu : public GameState
 	SDL_Rect boundry2;
 	SDL_Rect boundry3;
 	vector<SDL_Rect> limites;
+	vector<SDL_Rect> juegos;
 	vector<Mesa*> games;
 
 	HUDLobby* hud;
 public:
 	Menu(Game* game);
-	void gameChanger(GameState* juego);
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button

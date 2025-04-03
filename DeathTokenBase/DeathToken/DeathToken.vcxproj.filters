@@ -3,12 +3,19 @@
   <ItemGroup>
     <ClCompile Include="Award.cpp" />
     <ClCompile Include="Baccarat.cpp" />
+    <ClCompile Include="BaccaratBet.cpp" />
+    <ClCompile Include="BaccaratBlackjack.cpp" />
+    <ClCompile Include="BaccaratFlip.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Cards.cpp" />
+    <ClCompile Include="card.cpp" />
     <ClCompile Include="Carrete.cpp" />
     <ClCompile Include="Celda.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="marblesInsanity.cpp" />
+    <ClCompile Include="Peleas.cpp" />
     <ClCompile Include="PlayerEconomy.cpp" />
+    <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
@@ -16,197 +23,34 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Marbles.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Mesa.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sceneObject.cpp" />
     <ClCompile Include="SlotsNormal.cpp" />
     <ClCompile Include="SlotsLocura.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Fighter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="checkML.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="EventHandler.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="gameState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="gameStateMachine.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="sceneObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Baccarat.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Carrete.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Slots.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="SlotsLocura.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Marbles.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="card.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesa.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Behaviour.h">
-    <ClInclude Include="Celda.h">
-    <ClInclude Include="Text.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="EndState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Award.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerEconomy.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="BaccaratBet.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="BaccaratBlackjack.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="BaccaratFlip.h">
-    <ClInclude Include="sdlutils.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="marblesInsanity.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Button.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="gameState.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="gameStateMachine.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="sceneObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Baccarat.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Carrete.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Slots.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="SlotsLocura.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Marbles.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="card.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesa.cpp">
-    <ClCompile Include="Celda.cpp">
-    <ClCompile Include="Text.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Award.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerEconomy.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="BaccaratFlip.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="BaccaratBlackjack.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="BaccaratBet.cpp">
-    <ClCompile Include="sdlUtils.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="marblesInsanity.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="BattleManager.h" />
+    <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="BaccaratBet.h" />
+    <ClInclude Include="BaccaratBlackjack.h" />
+    <ClInclude Include="BaccaratFlip.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="Cards.h" />
+    <ClInclude Include="card.h" />
     <ClInclude Include="Carrete.h" />
     <ClInclude Include="Celda.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="PlayerEconomy.h" />
+    <ClInclude Include="sdlutils.h" />
+    <ClInclude Include="Slots.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
@@ -217,6 +61,7 @@
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="Marbles.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Mesa.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sceneObject.h" />
     <ClInclude Include="SlotsNormal.h" />
@@ -224,6 +69,6 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="Slots.h" />
+    <ClInclude Include="Fighter.h" />
   </ItemGroup>
 </Project>
