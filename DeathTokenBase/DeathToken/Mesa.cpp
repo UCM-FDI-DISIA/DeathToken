@@ -21,14 +21,6 @@ void Mesa::render() const {
 	}
  }
 
-
-void Mesa::update() {
-	//SDL_Rect mesaCol = getCollisionRect();
-	//SDL_Rect playerCol = player->Player::getCollisionRect();
-	//hover = SDL_HasIntersection(&playerCol, &mesaCol);
-}
-
-
 void Mesa::handleEvent(SDL_Event const& evento) {
 	if (evento.key.keysym.sym == SDLK_e && hover) {
 		_game->push(comportamiento.loadMadness(indexGame, _game));
