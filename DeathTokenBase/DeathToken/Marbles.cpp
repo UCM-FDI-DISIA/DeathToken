@@ -25,12 +25,22 @@ void  Marbles::generateMarbles() {
 	//En un vector voy metiendo aleatoriamente +1, representando ROJO/VERDE/AZUL/AMARILLO
 	marbles = { 0,0,0,0 };
 	drawnMarbles.clear();
+
+	std::vector<int> validColors;
+
+	for (int i = 0; i < blockedMarble.size(); i++) {
+		if (blockedMarble[i] == 0) {
+			validColors.push_back(i);
+		}
+	}
+
 	int pos = 1;
 	SDL_Rect auxBox;
+	std::uniform_int_distribution<> distrib(0, validColors.size() - 1);
+
 	for (int i = 0; i < 3; i++) {
-		std::uniform_int_distribution<> distrib(0, 3);
 		//int color;
-		int color = distrib(game->getGen());
+		int color = validColors[distrib(game->getGen())];
 
 		marbles[color]++;
 		auxBox.x = Game::WIN_WIDTH /4 * pos;
@@ -194,6 +204,7 @@ void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, B
 
 void Marbles::clearBets() {
 	setbInsanity(false);
+	blockedMarble = { 0,0,0,0 };
 	betsHistory = bets;
 	bets.clear();
 	for (auto i : marbleButtons)
