@@ -76,12 +76,16 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"marbles/Marbles_bg.png",1,1},
 	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1},//hover 1 (en cada hover falta poner el sprite correspondiente)
 	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1},//hover2 (en cada hover falta poner el sprite correspondiente)
 	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1},//hover3 (en cada hover falta poner el sprite correspondiente)
 	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},
+	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},// hover 4 (en cada hover falta poner el sprite correspondiente)
 	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
