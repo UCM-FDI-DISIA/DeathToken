@@ -8,7 +8,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
 	PlayerEconomy::EconomyInitialize();
 	//Baccarat button
-	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
+	baccarat = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
 	baccarat->connect([this]() { gameChanger(new BaccaratBet(getGame())); });

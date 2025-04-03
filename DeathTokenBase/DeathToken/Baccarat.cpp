@@ -140,6 +140,7 @@ void Baccarat::win() {
 	playerComb = playerComb % 10;
 	bankerComb = bankerComb % 10;
 
+	int multi = 0;
 	if (playerComb > bankerComb) {
 		playerBet = true;
 	}
@@ -149,21 +150,34 @@ void Baccarat::win() {
 	else if (playerComb == bankerComb) {
 		tieBet = true;
 	}
+	int totalBet = 0;
 	for (int i = 0; i < bets.size(); i++) {
-		if (bets[i].moneyBet > 0) {
-			if (bets[i].betType == 0 && tieBet) {
-				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
-				hasWon = true;
-			}
-			else if (bets[i].betType == 1 && bankerBet) {
-				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
-				hasWon = true;
-			}
-			else if (bets[i].betType == 2 && playerBet) {
-				game->push(new Award(game, (GameState*)this, bets[i].moneyBet, bets[i].moneyBet * bets[i].multiplier));
-				hasWon = true;
+		if (bets[i].betType == 0 && tieBet) {
+			totalBet += bets[i].moneyBet;
+			if (multi == 0)
+			{
+				multi = bets[i].multiplier;
 			}
 		}
+		else if (bets[i].betType == 1 && bankerBet) {
+			totalBet += bets[i].moneyBet;
+			if (multi == 0)
+			{
+				multi = bets[i].multiplier;
+			}
+		}
+		else if (bets[i].betType == 2 && playerBet) {
+			totalBet += bets[i].moneyBet;
+			if (multi == 0)
+			{
+				multi = bets[i].multiplier;
+			}
+		}
+	}
+
+	if (totalBet > 0) {
+		game->push(new Award(game, (GameState*)this, totalBet, totalBet * multi));
+		hasWon = true;
 	}
 
 	playerBet = false;
