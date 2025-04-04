@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
@@ -140,9 +141,11 @@
     <ClInclude Include="Celda.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Fighter.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="Mesa.h" />
+    <ClInclude Include="Peleas.h" />
     <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="sdlutils.h" />
@@ -167,13 +170,16 @@
   <ItemGroup>
     <ClCompile Include="Award.cpp" />
     <ClCompile Include="Baccarat.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Carrete.cpp" />
     <ClCompile Include="Celda.cpp" />
+    <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="Mesa.cpp" />
+    <ClCompile Include="Peleas.cpp" />
     <ClCompile Include="PlayerEconomy.cpp" />
     <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="Text.cpp" />

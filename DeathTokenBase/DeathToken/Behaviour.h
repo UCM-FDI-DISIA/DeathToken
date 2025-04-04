@@ -25,7 +25,7 @@ public:
 			juego = new Marbles(g);
 			break;
 		case 3:
-			//juego = new Peleas(g);
+			juego = new Peleas(g);
 			break;
 		default:
 			juego = new GameState(g);
