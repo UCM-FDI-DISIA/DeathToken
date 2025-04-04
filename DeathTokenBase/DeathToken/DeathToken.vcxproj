@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
     <ClInclude Include="Carrete.h" />
@@ -146,7 +147,9 @@
     <ClInclude Include="sdlutils.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
+    <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Fighter.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="gameObject.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="Marbles.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Peleas.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sceneObject.h" />
     <ClInclude Include="SlotsNormal.h" />
@@ -165,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="Award.cpp" />
     <ClCompile Include="Baccarat.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Carrete.cpp" />
@@ -174,18 +179,25 @@
     <ClCompile Include="PlayerEconomy.cpp" />
     <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="DialogueBox.cpp" />
+    <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Marbles.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Peleas.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sceneObject.cpp" />
     <ClCompile Include="SlotsNormal.cpp" />
     <ClCompile Include="SlotsLocura.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="matchups.json" />
+    <None Include="peleadores.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
