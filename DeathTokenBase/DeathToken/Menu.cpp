@@ -122,7 +122,7 @@ void Menu::handleEvent(const SDL_Event& event) {
 }
 SDL_Rect Menu::cambiarColisiones(SDL_Rect colJuego) {
 	SDL_Rect aux = colJuego;
-	int fix = 70;
+	int fix = 50;
 	aux.w -= fix;
 	aux.h -= fix;
 	aux.x += fix / 2;

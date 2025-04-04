@@ -19,7 +19,5 @@ public:
 	void handleEvent(const SDL_Event& evento) override;
 	SDL_Rect getRect() const;//rect player
 	bool getLocura() const { return locura; }
-	Vector2D<> getDirection() { return pos; }
-	Vector2D<> getSpeed() { return speed; }
 	void collision(vector<SDL_Rect>);
 };
