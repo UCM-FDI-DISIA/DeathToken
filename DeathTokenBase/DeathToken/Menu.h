@@ -19,6 +19,8 @@ class Menu : public GameState
 	Button* marbles;
 	Button* fights;
 	Button* slots;
+
+	GameState* baccaratState;
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);

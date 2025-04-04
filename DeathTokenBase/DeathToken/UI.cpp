@@ -96,11 +96,7 @@ UI::OnArrow(const bool& left)
 		}
 	}
 }
-//TUTORIALES
-void UIChips::OnInfo()//TEMPORAL
-{
-	//game->push(new Tutorial(game, gS));
-}
+
 
 UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
@@ -214,7 +210,9 @@ UIBaccarat::OnInfo()
 {
 	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
 	std::vector<Texture*> baccaratTutorial = {
-	game->getTexture(TUTORIAL)
+	game->getTexture(TUTORIAL1),
+	game->getTexture(TUTORIAL2),
+	game->getTexture(TUTORIAL3)
 
 	};
 	game->push(new Tutorial(game, gS, baccaratTutorial));

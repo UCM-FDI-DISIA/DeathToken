@@ -18,8 +18,6 @@ public:
 	Tutorial(Game* game, GameState* gameState, std::vector<Texture*> imagesTutorial);//cuando instancies la clase desde otro lado, le metes tu imagen de tutorial como textura
 	virtual ~Tutorial() { delete ui; };//CUIDADO DEJA BASURA PERO NOSE SI SON LA UI O QUE ,,,,, era eso!!
 
-	//int getTutorialSize() { return images.size(); };
-
 	void update() override {}
 	void render() const override;
 	void nextPage(); //avanza a la siguiente pag

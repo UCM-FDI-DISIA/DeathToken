@@ -80,7 +80,9 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
-	TextureSpec{"tutorial/Tutorial_bg1.png",1,1},
+	TextureSpec{"tutorial/Tutorial_bg1_baccarat.png",1,1},
+	TextureSpec{"tutorial/Tutorial_bg2_baccarat.png",1,1},
+	TextureSpec{"tutorial/Tutorial_bg3_baccarat.png",1,1},
 
 
 

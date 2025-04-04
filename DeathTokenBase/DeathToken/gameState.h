@@ -20,5 +20,6 @@ public:
 	void handleEvent(const SDL_Event&);
 	void addEventListener(EventHandler* obj);
 	void addObjects(GameObject* obj);
+	virtual void showTutorial() {};
 };
 
