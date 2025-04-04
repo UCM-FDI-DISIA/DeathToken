@@ -28,106 +28,22 @@ uniform_int_distribution<int> range(0, 27);  // 28 es el numero de enfrentamient
 uniform_real_distribution<float> mindsetRange(5, 20);
 uniform_real_distribution<float> inicialMindSet(MINMINDSET, MAXMINDSET);
 
-BattleManager::BattleManager(DialogueBox* dialog)
-	: fighters()
-	, battleQueue()
-	, currentMatch()
+BattleManager::BattleManager(DialogueBox* dialog, Game* g)
+	: currentMatch()
 	, currentState(BattleState::START)
 	, lastTurn(BattleState::START)
 	, actionTimer(0)
 	, endMatch(false)
 	, dialog(dialog)
+	, game(g)
 {
-}
-
-bool BattleManager::loadFightersFromJSON(const string& filename)
-{
-	ifstream file(filename);
-	if (!file.is_open()) {
-#ifdef DEBUG
-		std::cout << "No se pudo abrir el archivo de peleadores." << endl;
-#endif // DEBUG
-
-		return false;
-	}
-
-	json j;
-	file >> j;
-
-	for (auto& item : j["peleadores"]) {
-		Fighter fighter;
-		// Convertir el JSON a string antes de pasarlo
-		fighter.loadFromJSON(item.dump());
-		fighters.push_back(fighter);
-	}
-
-	file.close();
-	return true;
-}
-
-bool BattleManager::loadMatchupsFromJSON(const string& filename)
-{
-	ifstream file(filename);
-	if (!file.is_open()) {
-#ifdef DEBUG
-		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
-#endif
-		return false;
-	}
-
-	try {
-		json j;
-		file >> j;
-
-		// Verificar si "matchups" existe en el JSON
-		if (j.find("matchups") == j.end()) {
-#ifdef DEBUG
-			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
-#endif
-			return false;
-		}
-
-		// Procesar el JSON y cargar los enfrentamientos
-		for (auto& item : j["matchups"]) {
-			int id1 = item["F1"];
-			int id2 = item["F2"];
-			int advantageFighterIndex = item["advantageFighterIndex"];
-			string battleDescription = item["battleDescription"];
-
-			if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
-				id2 >= fighters.size()) {
-#ifdef DEBUG
-				cout << "Índice de peleador inválido." << endl;
-#endif
-				continue;
-			}
-
-			Matchup matchup;
-			matchup.fighter1 = fighters[id1];
-			matchup.fighter2 = fighters[id2];
-			matchup.advantageFighterIndex = advantageFighterIndex;
-			matchup.battleDescription = battleDescription;
-
-			battleQueue.push_back(matchup);
-		}
-	}
-	catch (const json::parse_error& e) {
-#ifdef DEBUG
-		cout << "Error al procesar el JSON: " << e.what() << endl;
-#endif
-		return false;
-	}
-
-	file.close();
-	return true;
 }
 
 void BattleManager::StartBattle()
 {
-	assert(!battleQueue.empty());
 
 	int i = range(gen);
-	currentMatch = battleQueue[i];
+	currentMatch = game->GetMatchUp(i);
 
 	float rndMindset1 = inicialMindSet(gen);
 	float rndMindset2 = inicialMindSet(gen);

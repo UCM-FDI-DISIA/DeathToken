@@ -40,34 +40,32 @@ Peleas::Peleas(Game* game)
 	, ui(new UIPeleas(game, this))
 	, state(FSState::CARDS)
 {
-	_battleM = new BattleManager(dialog);
-	if (_battleM->loadFightersFromJSON("peleadores.json") && _battleM->loadMatchupsFromJSON("../DeathToken/matchups.json"))
-	{
-		_battleM->StartBattle();
+	_battleM = new BattleManager(dialog, game);
 
-		nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
-		nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
-		Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
-		Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
-		Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
-		Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
-		Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
-		Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
+	_battleM->StartBattle();
+
+	nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
+	nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
+	Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
+	Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
+	Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
+	Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
+	Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
+	Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
 
 
-		nombre1->showMessage(_battleM->getFigther1().getName());
-		nombre2->showMessage(_battleM->getFigther2().getName());
+	nombre1->showMessage(_battleM->getFigther1().getName());
+	nombre2->showMessage(_battleM->getFigther2().getName());
 
-		// Mostrar los valores formateados
-		Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())));
-		Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())));
-		Animo1->showMessage("Animo: " + _battleM->getFigther1().getStringMindset());
-		Animo2->showMessage("Animo: " + _battleM->getFigther2().getStringMindset());
-		Apuesta1->showMessage("Apuesta: ");
-		Apuesta2->showMessage("Apuesta: ");
+	// Mostrar los valores formateados
+	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())));
+	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())));
+	Animo1->showMessage("Animo: " + _battleM->getFigther1().getStringMindset());
+	Animo2->showMessage("Animo: " + _battleM->getFigther2().getStringMindset());
+	Apuesta1->showMessage("Apuesta: ");
+	Apuesta2->showMessage("Apuesta: ");
 
-		addEventListener((EventHandler*) dialog);
-	}
+	addEventListener((EventHandler*)dialog);
 }
 
 void Peleas::StartBattle()
@@ -81,36 +79,36 @@ void Peleas::StartBattle()
 	dialog->SetY(3 * Game::WIN_HEIGHT / 4);
 	dialog->SetW(Game::WIN_WIDTH / 3);
 	dialog->ResetHistory();
-          // Configuración de las barras de vida
-    SDL_Renderer* renderer = game->getRenderer();
-    
-    
-    // Barra de vida del luchador 1 (izquierda)
-    int barWidth = Game::WIN_WIDTH / 3;
-    int barHeight = 20;
-    int margin = 20;
-    
-fighter1bar = new BarraVida(this,
-                           renderer,
-                           margin,
-                           margin,
-                           barWidth,
-                           barHeight,
-                           _battleM->getFigther1().getMaxHealth(),  // Usar vida máxima real
-                           { 0, 255, 0, 255 },
-                            { 70, 70, 70, 255 },
-                           false);
+	// Configuración de las barras de vida
+	SDL_Renderer* renderer = game->getRenderer();
 
-fighter2bar = new BarraVida(this,
-                           renderer,
-                           Game::WIN_WIDTH - barWidth - margin,
-                           margin,
-                           barWidth,
-                           barHeight,
-                            _battleM->getFigther1().getMaxHealth(),
-                            { 0, 255, 0, 255 },  // Usar vida máxima real
-                            { 70, 70, 70, 255 },
-                           true);
+
+	// Barra de vida del luchador 1 (izquierda)
+	int barWidth = Game::WIN_WIDTH / 3;
+	int barHeight = 20;
+	int margin = 20;
+
+	fighter1bar = new BarraVida(this,
+		renderer,
+		margin,
+		margin,
+		barWidth,
+		barHeight,
+		_battleM->getFigther1().getMaxHealth(),  // Usar vida máxima real
+		{ 0, 255, 0, 255 },
+		{ 70, 70, 70, 255 },
+		false);
+
+	fighter2bar = new BarraVida(this,
+		renderer,
+		Game::WIN_WIDTH - barWidth - margin,
+		margin,
+		barWidth,
+		barHeight,
+		_battleM->getFigther1().getMaxHealth(),
+		{ 0, 255, 0, 255 },  // Usar vida máxima real
+		{ 70, 70, 70, 255 },
+		true);
 }
 
 void
@@ -152,8 +150,8 @@ Peleas::render() const {
 		break;
 	case FSState::FIGHT:
 		dialog->render();
-        fighter1bar->render();
-    fighter2bar->render();
+		fighter1bar->render();
+		fighter2bar->render();
 		break;
 	default:
 		break;
@@ -179,10 +177,10 @@ Peleas::update() {
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
 			_battleM->Update(currentTime - lastUpdate);
-                fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
-                fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
-                 fighter1bar->updateColorBasedOnHealth(_battleM->getFigther1().getHealth(), _battleM->getFigther1().getMaxHealth());
-                 fighter2bar->updateColorBasedOnHealth(_battleM->getFigther2().getHealth(), _battleM->getFigther2().getMaxHealth());
+			fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
+			fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
+			fighter1bar->updateColorBasedOnHealth(_battleM->getFigther1().getHealth(), _battleM->getFigther1().getMaxHealth());
+			fighter2bar->updateColorBasedOnHealth(_battleM->getFigther2().getHealth(), _battleM->getFigther2().getMaxHealth());
 		}
 		break;
 	default:
