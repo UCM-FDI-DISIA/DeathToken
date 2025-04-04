@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Award.h" />
     <ClInclude Include="Baccarat.h" />
+    <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
     <ClInclude Include="Carrete.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="marblesInsanity.h" />
+    <ClInclude Include="Mesa.h" />
     <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="sdlutils.h" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Celda.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
+    <ClCompile Include="Mesa.cpp" />
     <ClCompile Include="PlayerEconomy.cpp" />
     <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="Text.cpp" />
