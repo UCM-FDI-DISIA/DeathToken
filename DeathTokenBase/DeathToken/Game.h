@@ -1,12 +1,14 @@
 #pragma once
 #include "gameStateMachine.h"
 
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <array>
+#include "Fighter.h"
 #include "HUD.h"
 #include "Texture.h"
+#include <array>
+#include <cassert>
 #include <random>
+#include <SDL.h>
+#include <SDL_ttf.h>
 
 class Player;
 
@@ -95,6 +97,14 @@ enum TypoName {
 	AWARD,
 	NUM_TYPO,
 };
+
+struct Matchup {
+	Fighter fighter1;
+	Fighter fighter2;
+	int advantageFighterIndex = 0;
+	string battleDescription;
+};
+
 class Game : private GameStateMachine {
 public:
 	static int WIN_WIDTH;
@@ -111,6 +121,13 @@ private:
 	std::array<Texture*, NUM_TEXTURES> textures;
 	std::array<const char*, NUM_TYPO> typo;
 
+	vector<Fighter> fighters;
+	vector<Matchup> battleQueue;  // Cola de enfrentamientos
+
+	// Carga de objetos del json
+	bool loadFightersFromJSON(const string& filename);
+	bool loadMatchupsFromJSON(const string& filename);
+
 public:
 	Game();
 	~Game();
@@ -122,6 +139,8 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+
+	inline const Matchup& GetMatchUp(int i) const { assert(i < battleQueue.size()); return battleQueue[i]; }
 
 	std::mt19937 gen;
 	std::mt19937& getGen() { return gen; }; // Devolver referencia

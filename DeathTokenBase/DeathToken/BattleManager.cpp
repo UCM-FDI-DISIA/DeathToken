@@ -8,94 +8,36 @@
 #include <algorithm>
 using json = nlohmann::json;
 
-BattleManager::BattleManager() {
-    srand(static_cast<unsigned int>(time(0)));  // Inicializar aleatorio
-}
+// Tiempo entre turnos (milisegundos)
+constexpr int MSEG = 1500;
 
-bool BattleManager::loadFightersFromJSON(const string& filename)
+// Para random
+random_device rd;
+mt19937 gen(rd());
+uniform_real_distribution<float> dist(0.0f, 100.0f);
+uniform_int_distribution<int> range(0, 27);  // 28 es el numero de enfrentamientos (nï¿½peleadores * (nï¿½peleadores - 1) /2) y hay 8 peleadores. Incluyendo el 0 lo hace que llegue hasta el 27
+uniform_real_distribution<float> mindsetRange(5, 20);
+uniform_real_distribution<float> inicialMindSet(MINMINDSET, MAXMINDSET);
+
+BattleManager::BattleManager(DialogueBox* dialog, Game* g)
+	: currentMatch()
+	, currentState(BattleState::START)
+	, lastTurn(BattleState::START)
+	, actionTimer(0)
+	, endMatch(false)
+	, dialog(dialog)
+	, game(g)
 {
-  ifstream file(filename);
-  if (!file.is_open()) {
-    std::cout << "No se pudo abrir el archivo de peleadores." << endl;
-    return false;
-  }
-
-  json j;
-  file >> j;
-
-  for (auto& item : j["peleadores"]) {
-    Fighter fighter;
-    // Convertir el JSON a string antes de pasarlo
-    fighter.loadFromJSON(item.dump());
-    fighters.push_back(fighter);
-  }
-
-  file.close();
-  return true;
 }
 
-bool BattleManager::loadMatchupsFromJSON(const string& filename)
+void BattleManager::StartBattle()
 {
-  ifstream file(filename);
-  if (!file.is_open()) {
-    cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
-    return false;
-  }
 
-  try {
-    json j;
-    file >> j;
+	int i = range(gen);
+	currentMatch = game->GetMatchUp(i);
 
-    // Verificar si "matchups" existe en el JSON
-    if (j.find("matchups") == j.end()) {
-      cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
-      return false;
-    }
-
-    // Procesar el JSON y cargar los enfrentamientos
-    for (auto& item : j["matchups"]) {
-      int id1 = item["F1"];
-      int id2 = item["F2"];
-      int advantageFighterIndex = item["advantageFighterIndex"];
-      string battleDescription = item["battleDescription"];
-
-      if (id1 < 0 || id1 >= fighters.size() || id2 < 0 ||
-          id2 >= fighters.size()) {
-        cout << "Índice de peleador inválido." << endl;
-        continue;
-      }
-
-      Matchup matchup;
-      matchup.fighter1 = fighters[id1];
-      matchup.fighter2 = fighters[id2];
-      matchup.advantageFighterIndex = advantageFighterIndex;
-      matchup.battleDescription = battleDescription;
-
-      battleQueue.push_back(matchup);
-    }
-  }
-  catch (const json::parse_error& e) {
-    cout << "Error al procesar el JSON: " << e.what() << endl;
-    return false;
-  }
-
-  file.close();
-  return true;
-}
-
-void BattleManager::StartBattle() {
-    /*if (battleQueue.empty()) {
-        cout << "No hay enfrentamientos en la cola." << endl;
-        return;
-    }*/
-    assert(!battleQueue.empty());
-
-    // Obtener el primer enfrentamiento en la cola
-    Matchup currentMatch = battleQueue.front();
-    battleQueue.erase(battleQueue.begin());
-
-    // Mostrar la descripción de la batalla
-    cout << "Descripción de la batalla: " << currentMatch.battleDescription << endl;
+    // Mostrar la descripciï¿½n de la batalla
+    cout << "Descripciï¿½n de la batalla: " << currentMatch.battleDescription << endl;
     cout << "Peleadores: " << currentMatch.fighter1.getName() << " vs " << currentMatch.fighter2.getName() << endl;
 
     // Asignar un "mindset" aleatorio a los luchadores
