@@ -11,26 +11,11 @@
 
 using namespace std;
 enum class BattleState { START, PLAYER1_TURN, PLAYER2_TURN, EVALUATE, END };
-struct Matchup {
-	Fighter fighter1;
-	Fighter fighter2;
-	int advantageFighterIndex = 0;
-	string battleDescription;
-};
+
 
 class BattleManager {
 public:
-	BattleManager(DialogueBox* dialog);
-
-	~BattleManager() {
-		EndMatch();
-		fighters.clear();
-		battleQueue.clear();
-	}
-
-	// Carga de objetos del json
-	bool loadFightersFromJSON(const string& filename);
-	bool loadMatchupsFromJSON(const string& filename);
+	BattleManager(DialogueBox* dialog, Game* g);
 
 	void StartBattle();
 	void ExecuteTurns(Matchup currentMatch);
@@ -47,9 +32,8 @@ private:
 	float actionTimer;  // Temporizador para controlar retrasos
 	const float ACTIONDELAY = 2000;
 	bool endMatch;
+	Game* game;
 	DialogueBox* dialog;
-	vector<Fighter> fighters;
-	vector<Matchup> battleQueue;  // Cola de enfrentamientos
 	Matchup currentMatch;
 	BattleState currentState;
 	BattleState lastTurn;
