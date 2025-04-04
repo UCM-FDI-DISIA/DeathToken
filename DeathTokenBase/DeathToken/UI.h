@@ -88,20 +88,3 @@ public:
 	void OnErase() override;
 	void OnRepeat() override;
 };
-
-class Peleas;
-class UIPeleas : public UIChips {
-public:
-	UIPeleas(Game* game, Peleas* peleas) : UIChips(peleas,game) 
-	{
-		
-	};
-
-	void OnGo() override;
-	void OnErase() override;
-	void OnRepeat() override;
-
-protected:
-	ButtonUI* autoText;
-	ButtonUI* historial;
-};

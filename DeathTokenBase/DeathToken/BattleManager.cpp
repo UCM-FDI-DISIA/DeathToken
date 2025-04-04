@@ -1,43 +1,15 @@
 #include "BattleManager.h"
-#include "json.hpp"
-#include <algorithm>
-#include <chrono>
+#include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
-#include <fstream>
-#include <iostream>
 #include <random>
-#include <SDL_ttf.h>
-#include <thread>
-
+#include "json.hpp" 
+#include <algorithm>
 using json = nlohmann::json;
-// Valores para el animo
-const int MINMINDSET = 20;
-const int MAXMINDSET = 80;
-const int MOD = 20;
 
-// Tiempo entre turnos (milisegundos)
-constexpr int MSEG = 1500;
-
-// Para random
-random_device rd;
-mt19937 gen(rd());
-uniform_real_distribution<float> dist(0.0f, 100.0f);
-uniform_int_distribution<int> range(
-  0,
-  27);  // 28 es el numero de enfrentamientos (nºpeleadores * (nºpeleadores - 1) /2) y hay 8 peleadores. Incluyendo el 0 lo hace que llegue hasta el 27
-uniform_real_distribution<float> mindsetRange(5, 20);
-uniform_real_distribution<float> inicialMindSet(MINMINDSET, MAXMINDSET);
-
-BattleManager::BattleManager()
-    : fighters()
-    , battleQueue()
-    , currentMatch()
-    , currentState(BattleState::START)
-    , lastTurn(BattleState::START)
-    , actionTimer(0)
-    , endMatch(false)
-{
+BattleManager::BattleManager() {
+    srand(static_cast<unsigned int>(time(0)));  // Inicializar aleatorio
 }
 
 bool BattleManager::loadFightersFromJSON(const string& filename)
@@ -111,188 +83,36 @@ bool BattleManager::loadMatchupsFromJSON(const string& filename)
   return true;
 }
 
-void BattleManager::StartBattle()
-{
-  assert(!battleQueue.empty());
+void BattleManager::StartBattle() {
+    /*if (battleQueue.empty()) {
+        cout << "No hay enfrentamientos en la cola." << endl;
+        return;
+    }*/
+    assert(!battleQueue.empty());
 
-  int i = range(gen);
-  currentMatch = battleQueue[i];
+    // Obtener el primer enfrentamiento en la cola
+    Matchup currentMatch = battleQueue.front();
+    battleQueue.erase(battleQueue.begin());
 
-  cout << "Descripción de la batalla: " << currentMatch.battleDescription
-       << endl;
-  cout << "Peleadores: " << currentMatch.fighter1.getName() << " vs "
-       << currentMatch.fighter2.getName() << endl;
+    // Mostrar la descripción de la batalla
+    cout << "Descripción de la batalla: " << currentMatch.battleDescription << endl;
+    cout << "Peleadores: " << currentMatch.fighter1.getName() << " vs " << currentMatch.fighter2.getName() << endl;
 
-  float rndMindset1 = inicialMindSet(gen);
-  float rndMindset2 = inicialMindSet(gen);
+    // Asignar un "mindset" aleatorio a los luchadores
+    int rndMindset1 = (rand() % MAXMINDSET) + MINMINDSET;
+    int rndMindset2 = (rand() % MAXMINDSET) + MINMINDSET;
 
-  if (currentMatch.advantageFighterIndex == 1) {
-    currentMatch.fighter1.setMindset(rndMindset1 + MOD);
-    currentMatch.fighter2.setMindset(rndMindset2 - MOD);
-  }
-  else {
-    currentMatch.fighter1.setMindset(rndMindset1 + MOD);
-    currentMatch.fighter2.setMindset(rndMindset2 - MOD);
-  }
+   
+    currentMatch.fighter2.setMindset(rndMindset2);
 
-  currentState = BattleState::START;
-}
-
-void BattleManager::Update(float deltaTime)
-{
-  actionTimer += deltaTime;
-
-  if (actionTimer >= ACTIONDELAY) {
-    actionTimer = 0.0f;  // Reiniciamos el temporizador
-
-    switch (currentState) {
-      case BattleState::START:
-        cout << "Iniciando batalla..." << endl;
-        currentState =
-          BattleState::PLAYER1_TURN;  // Cambiamos al turno del jugador 1
-        lastTurn = BattleState::PLAYER1_TURN;  // Inicializamos el último turno
-        break;
-
-      case BattleState::PLAYER1_TURN:
-        cout << "Turno de " << currentMatch.fighter1.getName() << endl;
-        ActionTurn(currentMatch.fighter1, currentMatch.fighter2);
-        currentState = BattleState::EVALUATE;  // Cambiamos a evaluación
-        break;
-
-      case BattleState::PLAYER2_TURN:
-        cout << "Turno de " << currentMatch.fighter2.getName() << endl;
-        ActionTurn(currentMatch.fighter2, currentMatch.fighter1);
-        currentState = BattleState::EVALUATE;  // Cambiamos a evaluación
-        break;
-
-      case BattleState::EVALUATE:
-        cout << "Evaluando resultado..." << endl;
-        if (!currentMatch.fighter1.isAlive() ||
-            !currentMatch.fighter2.isAlive()) {
-          currentState = BattleState::END;  // Si alguien murió, terminamos
-        }
-        else {
-          // Cambiar al siguiente turno
-          if (lastTurn == BattleState::PLAYER1_TURN) {
-            currentState = BattleState::PLAYER2_TURN;
-            lastTurn =
-              BattleState::PLAYER2_TURN;  // Actualizamos el último turno
-          }
-          else {
-            currentState = BattleState::PLAYER1_TURN;
-            lastTurn =
-              BattleState::PLAYER1_TURN;  // Actualizamos el último turno
-          }
-        }
-        break;
-
-      case BattleState::END:
-        Fighter* winner = currentMatch.fighter1.isAlive() ?
-                            &currentMatch.fighter1 :
-                            &currentMatch.fighter2;
-        cout << "¡La batalla ha terminado! El ganador es: " << winner->getName()
-             << endl;
-        break;
+    if (currentMatch.advantageFighterIndex == 1)
+    {
+        currentMatch.fighter1.setMindset(rndMindset1 + MOD);
+        currentMatch.fighter2.setMindset(rndMindset2 - MOD);
     }
-  }
-}
-
-
-void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
-{
-  float hitBackProb = 2.5f + 15.0f * (50.0f - active.getMindset()) / 200.0f;
-  float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
-  float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
-
-  cout << "¡" << active.getName()
-       << " se dispone a atacar ferozmente a su enemigo!\n";
-  float prob = dist(gen);
-
-  // Golpearse a sí mismo
-  if (prob < hitBackProb) {
-    active.takeDamage(active.getAttack());
-    cout << "¡Pero se ha golpeado a sí mismo, " << active.getName()
-         << " se ha vuelto loco!\n";
-    if (active.isAlive()) {
-      active.reduceMindset(mindsetRange(gen));
-      cout << "Esto seguro que mina su concentración en el combate\n";
-      cout << "¡Ahora es más probable que pierda!\n";
+    else
+    {
+        currentMatch.fighter1.setMindset(rndMindset1 + MOD);
+        currentMatch.fighter2.setMindset(rndMindset2 - MOD);
     }
-    else {
-      cout << "¡LA CATASTROFE SE HIZO REALIDAD!\n";
-      cout << "¡" << active.getName() << " ha caído por su propia mano!\n";
-    }
-  }
-
-  // Fallo
-  else if (prob < hitBackProb + failProb) {
-    cout << active.getName()
-         << " lamentablemente su golpe ha fallado a su objetivo.\n";
-    active.reduceMindset(mindsetRange(gen));
-    cout << "Esto seguro que mina su concentración en el combate.\n";
-    cout << "¡Ahora es más probable que pierda!\n";
-  }
-
-  // Crítico
-  else if (prob < hitBackProb + failProb + criticalProb) {
-    objetive.takeDamage(active.getAttack() * 3);
-    cout << "¡MADRE MÍA, CRÍTICO! " << active.getName()
-         << " acaba de destrozar a su oponente.\n";
-    cout
-      << " Tras semejante golpe tal vez deban replantearse el resultado del combate.\n";
-    if (objetive.isAlive()) {
-      active.boostMindset(mindsetRange(gen));
-      objetive.reduceMindset(mindsetRange(gen));
-      cout << "Esto seguro que mejora su concentración en el combate.\n";
-      cout << "¡Ahora es más probable que gane!\n";
-      cout << "¡Y " << objetive.getName() << " es más probable que pierda!\n";
-    }
-    else {
-      cout << active.getName() << " gana este brutal encuentro.\n";
-      cout
-        << "Enhorabuena a todos los que confiaron en nuestro increíble ganador.\n";
-    }
-  }
-
-  // Ataque normal
-  else {
-    objetive.takeDamage(active.getAttack());
-    cout << active.getName() << " golpea duramente a su oponente.\n";
-    if (!objetive.isAlive()) {
-      cout << active.getName() << " gana este brutal encuentro.\n";
-      cout
-        << "Enhorabuena a todos los que confiaron en nuestro increíble ganador.\n";
-    }
-  }
-}
-
-void BattleManager::ExecuteTurns(Matchup currentMatch)
-{
-  // Empieza el que tiene menos habilidad
-  if (currentMatch.fighter1.getAbility() > currentMatch.fighter2.getAbility()) {
-    Fighter temp = currentMatch.fighter1;
-    currentMatch.fighter1 = currentMatch.fighter2;
-    currentMatch.fighter2 = temp;
-  }
-
-  cout << "Comenzará la pelea " << currentMatch.fighter1.getName() << ".\n";
-  cout << "Mucha suerte a todos los jugadores.\n";
-  cout << "\n";
-
-  auto lastTime = chrono::high_resolution_clock::now();
-
-  while (currentState != BattleState::END && !endMatch) {  // Continuar hasta que la batalla termine
-    auto currentTime = chrono::high_resolution_clock::now();
-    float deltaTime = chrono::duration<float>(currentTime - lastTime).count();
-    lastTime = currentTime;
-    Update(deltaTime);  // Pasamos el delta time a Update
-  }
-
-  // Mostrar el resultado final
-  if (!currentMatch.fighter1.isAlive()) {
-    cout << currentMatch.fighter2.getName() << " gana la pelea.\n";
-  }
-  else {
-    cout << currentMatch.fighter1.getName() << " gana la pelea.\n";
-  }
 }

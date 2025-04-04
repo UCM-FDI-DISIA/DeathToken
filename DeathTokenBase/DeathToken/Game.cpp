@@ -91,9 +91,6 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
 	TextureSpec{"blackFont.png",1,1},
-	TextureSpec{"FondoTarjetasConReglas.png", 1, 1},
-	TextureSpec{"FondoDeFotoDeTarjeta.png", 1, 1},
-	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
 
 
 
@@ -104,8 +101,6 @@ std::array<std::string, NUM_TYPO> typoList{
 	"../assets/typo/Grand_Casino.otf",
 	"../assets/typo/Magnificent Serif.ttf",
 };
-
-TTF_Font* Game::font = nullptr;
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -126,9 +121,12 @@ Game::Game() {
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
-
 	TTF_Init();
-	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
+	for (int i = 0; i < NUM_TYPO; i++)
+	{
+		typo[i] = typoList[i].c_str();
+	}
+
 	Menu* menu = new Menu(this);
 	pushState(menu);
 
