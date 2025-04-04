@@ -132,5 +132,6 @@ public:
 	~ButtonBaccarat(){}
 	void render() const override;
 	void handleEvent( const SDL_Event& event) override;
+	void repeatDoubleBet() { currentBet = betHistory * 2; };
 };
 

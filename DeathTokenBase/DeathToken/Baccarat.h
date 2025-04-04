@@ -48,6 +48,7 @@ protected:
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
 	bool bankerBet = false, playerBet = false, tieBet = false;
+	bool hasWon = false;
 	//bool locura; global?
 public:
 	Baccarat(Game* game);
