@@ -2,8 +2,15 @@
 #include "Baccarat.h"
 class BaccaratBet : public Baccarat
 {
+private:
+	Button* bet = nullptr;
+	Button* stop = nullptr;
+	bool buttonsOn = false;
 public:
 	BaccaratBet(Game* game) : Baccarat(game) {};
-	void repeat() override;
+	void acumulate();
+	void repeatBet();
+	void update() override;
+	void didntWin();
 };
 
