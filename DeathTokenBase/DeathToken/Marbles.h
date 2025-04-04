@@ -16,7 +16,7 @@ protected:
 		int multiplier= 0;
 		int moneyBet= 0;
 	};
-	UIMarbles* ui;
+	UIMarbles*  ui;
 	HUDBet* hud;
 
 	Texture* texture;

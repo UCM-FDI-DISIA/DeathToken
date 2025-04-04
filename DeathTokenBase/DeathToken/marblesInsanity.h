@@ -5,6 +5,8 @@
 class MarblesInsanity : public Marbles
 {
 private:
+	UIMarblesInsanity* uiI;
+
 	Texture* texture;
 	bool mInsanity;
 	bool gameFinish;

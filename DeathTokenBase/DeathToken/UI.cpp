@@ -3,6 +3,7 @@
 #include "Marbles.h"
 #include "Slots.h"
 #include "Baccarat.h"
+#include "marblesInsanity.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -167,7 +168,13 @@ UISlots::OnInfo()
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
 void UIMarbles::OnGo() {
-	marbles->startRound();
+	if (&Marbles::getbInsanity) {
+
+	}
+	else {
+		marbles->startRound();
+
+	}
 }
 
 void UIMarbles::OnErase() {
@@ -178,6 +185,23 @@ void UIMarbles::OnErase() {
 void UIMarbles::OnRepeat()
 {
 	marbles->repeat();
+}
+
+//MarblesInsanityUI
+UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
+void UIMarblesInsanity::OnGo() {
+	if (&Marbles::getbInsanity) {
+
+		marblesI->StartRoundTrickster();
+	}
+}
+
+void UIMarblesInsanity::render() const
+{
+	go->render();
+}
+void UIMarblesInsanity::update() {
+	go->update();
 }
 
 //BACCARAT UI

@@ -1,12 +1,16 @@
 #include "marblesInsanity.h"
 #include "sdlUtils.h"
+#include "UI.h"
+
 
 MarblesInsanity::MarblesInsanity(Game* game) : Marbles(game), texture(game->getTexture(MARBLESBACK)), mInsanity(true), gameFinish(false), dColor({ 0,0,0,0 }) {
 	CMarbles.push_back(game->getTexture(REDMARBLE));
 	CMarbles.push_back(game->getTexture(GREENMARBLE));
 	CMarbles.push_back(game->getTexture(BLUEMARBLE));
 	CMarbles.push_back(game->getTexture(YELLOWMARBLE));
-	StartRoundTrickster();
+	uiI = new UIMarblesInsanity(this, game, this);
+
+	//StartRoundTrickster();
 }
 
 MarblesInsanity::~MarblesInsanity()
@@ -14,6 +18,7 @@ MarblesInsanity::~MarblesInsanity()
 	for (auto btn : trileroButtons) {
 		delete btn;
 	}
+	delete uiI;
 }
 
 void MarblesInsanity::render() const
@@ -31,9 +36,10 @@ void MarblesInsanity::render() const
 			btn->render();
 			
 		}
-		
+		uiI->render();
 	}
 	else {
+
 	texture->render();
 	if (wMarbleShow) {
 		CMarbles[wMarbleI]->render(wMarble);
@@ -61,6 +67,7 @@ void MarblesInsanity::update()
 			btn->update();
 
 		}
+		uiI->update();
 	}
 	
 }
