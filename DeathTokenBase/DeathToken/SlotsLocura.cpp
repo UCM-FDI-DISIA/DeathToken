@@ -2,6 +2,7 @@
 #include <chrono>
 #include <random>
 #include "Celda.h"
+#include "Award.h"
 using namespace std;
 
 SlotsLocura::SlotsLocura(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
@@ -36,7 +37,7 @@ vector<int> SlotsLocura::vectorAleatorio() {
 
 void SlotsLocura::update() {
 	if (jugando) {
-		bool line = checkBoard();
+		int line = checkBoard();
 		bool full = true;
 		for (int i = 0; i < N_COLUM; ++i) {
 			for (int j = 0; j < N_COLUM; ++j) {
@@ -47,15 +48,19 @@ void SlotsLocura::update() {
 			}
 			if (!full) break;
 		}
-		if (full || line) {
+		if (full || line != -1) {
+			if (line != -1) {
+				if (!turnoPlayer) { game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line])); }
+				jugando = false;
+				turnoPlayer = true;
+			}
 			ClearBoard();
-			if (line) jugando = false;
 		}
 
 		if (!turnoPlayer) IA();
 	}
-		GameState::update();
-	
+	GameState::update();
+
 }
 void SlotsLocura::render() const {
 	SDL_Rect r;
@@ -67,7 +72,9 @@ void SlotsLocura::render() const {
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
 	SDL_Rect box((int)(Game::WIN_WIDTH / 2 + celdaX * (N_COLUM / 2.0f) + (20 / 1920.0f) * Game::WIN_WIDTH), (int)(Game::WIN_HEIGHT / 2 - celdaY), (int)celdaX, (int)celdaY);
-	game->getTexture(CELDA)->render(box);
+	if (turnoPlayer) { game->getTexture(CELDA)->render(box); }
+	else { game->getTexture(CELDA)->render(box, {170,230,255}); }
+
 	if (jugando) { game->getTexture(ICONOS)->renderFrame(box, 0, resultante[indice]); }
 	GameState::render();
 }
@@ -84,17 +91,17 @@ int SlotsLocura::getNext() {
 	else return -1;
 }
 
-bool SlotsLocura::checkBoard() const {
+int SlotsLocura::checkBoard() const {
 	// Revisión filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
 				mat[i][j]->getElem() == mat[i][j + 1]->getElem() && mat[i][j]->getElem() == mat[i][j + 2]->getElem()) {
-				return true;
+				return mat[i][j]->getElem();
 			}
 			else if (mat[j][i]->getElem() != -1 &&
 				mat[j][i]->getElem() == mat[j + 1][i]->getElem() && mat[j][i]->getElem() == mat[j + 2][i]->getElem()) {
-				return true;
+				return mat[j][i]->getElem();
 			}
 		}
 	}
@@ -103,7 +110,7 @@ bool SlotsLocura::checkBoard() const {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
 				mat[i][j]->getElem() == mat[i + 1][j + 1]->getElem() && mat[i][j]->getElem() == mat[i + 2][j + 2]->getElem()) {
-				return true;
+				return mat[i][j]->getElem();
 			}
 		}
 	}
@@ -112,16 +119,17 @@ bool SlotsLocura::checkBoard() const {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
 				mat[i][j]->getElem() == mat[i - 1][j + 1]->getElem() && mat[i][j]->getElem() == mat[i - 2][j + 2]->getElem()) {
-				return true;
+				return mat[i][j]->getElem();
 			}
 		}
 	}
 
-	return false;
+	return -1;
 }
 
 void SlotsLocura::IA() {
 	if (SDL_GetTicks() - IAstartTime >= 1000) {
+		turnoPlayer = true;
 		bool placed = false;
 		while (!placed) {
 			int x = rand() % N_COLUM;
@@ -133,7 +141,6 @@ void SlotsLocura::IA() {
 				placed = true;
 			}
 		}
-		turnoPlayer = true;
 	}
 }
 void SlotsLocura::ClearBoard() {
@@ -144,6 +151,8 @@ void SlotsLocura::ClearBoard() {
 	}
 }
 void SlotsLocura::iniciarGiro() {
+	if (!jugando) {
+		turnoPlayer = true;
+	}
 	jugando = true;
-	turnoPlayer = true;
 }

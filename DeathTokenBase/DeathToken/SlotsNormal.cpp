@@ -27,15 +27,7 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		button->connect([this, c] {
 			if (c->getParada())++comprobanteIndice;
 			c->pararGiro();
-
 			});
-	}
-
-	for (int i = 0; i < 7; ++i) {
-		pair<int, int> aux;
-		aux.first = i;
-		aux.second = multiplicadores[i];
-		puntuaciones.insert(aux);
 	}
 }
 SlotsNormal:: ~SlotsNormal() {
@@ -59,12 +51,11 @@ void SlotsNormal::update() {
 			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
 
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
-				auto it = puntuaciones.find(vectorCarrete1[i]);
-				multiplicador += it->second;
+				
+				multiplicador += multiplicadores[i];
 			}
 			else if (telarañas1_2 || telarañas1_3 || telarañas2_3) {
-				auto it = puntuaciones.find(0);
-				multiplicador += it->second;
+				multiplicador += multiplicadores[0];
 			}
 		}
 		for (Carrete* c : carretes) c->deleteCarrete();

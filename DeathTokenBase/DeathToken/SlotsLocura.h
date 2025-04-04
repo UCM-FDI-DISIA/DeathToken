@@ -19,7 +19,7 @@ private:
 	Uint32 IAstartTime;
 
 	std::vector<int> vectorAleatorio();
-	bool checkBoard() const;
+	int checkBoard() const;
 	void IA();
 	void ClearBoard();
 	int getResult() override { return 0; }

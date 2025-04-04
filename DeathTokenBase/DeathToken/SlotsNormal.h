@@ -15,8 +15,6 @@ protected:
 
 	std::vector<Carrete*> carretes;
 	int comprobanteIndice;
-	std::vector<int> multiplicadores = { 2,3,10,30,90,150,3000 };
-	std::unordered_map<int, int> puntuaciones;
 	
 	int getResult() override { return 0; }
 
