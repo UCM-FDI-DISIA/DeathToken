@@ -52,7 +52,7 @@ void SlotsNormal::update() {
 
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
 				
-				multiplicador += multiplicadores[i];
+				multiplicador += multiplicadores[vectorCarrete1[i]];
 			}
 			else if (telarañas1_2 || telarañas1_3 || telarañas2_3) {
 				multiplicador += multiplicadores[0];
