@@ -2,15 +2,16 @@
 #include "Game.h"	
 #include <iostream>
 #include <random>
+std::vector<int> Marbles::blockedMarble = { 0, 0,0,0};
 
 Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
-	marbles( { 0,0,0,0 }),
+	marbles({ 0,0,0,0 }),
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
 	game->getTexture(BLUEMARBLE),
-	game->getTexture(YELLOWMARBLE) })
+	game->getTexture(YELLOWMARBLE) }),
+	bInsanity (false)
 {
 	ui = new UIMarbles(this, game, this);
-
 	Marbles::marblesButtonCreation();
 	hud = new HUDBet(this);
 }
@@ -24,11 +25,22 @@ void  Marbles::generateMarbles() {
 	//En un vector voy metiendo aleatoriamente +1, representando ROJO/VERDE/AZUL/AMARILLO
 	marbles = { 0,0,0,0 };
 	drawnMarbles.clear();
+
+	std::vector<int> validColors;
+
+	for (int i = 0; i < blockedMarble.size(); i++) {
+		if (blockedMarble[i] == 0) {
+			validColors.push_back(i);
+		}
+	}
+
 	int pos = 1;
 	SDL_Rect auxBox;
+	std::uniform_int_distribution<> distrib(0, validColors.size() - 1);
+
 	for (int i = 0; i < 3; i++) {
-		std::uniform_int_distribution<> distrib(0, 3);
-		int color = distrib(game->getGen());
+		//int color;
+		int color = validColors[distrib(game->getGen())];
 
 		marbles[color]++;
 		auxBox.x = Game::WIN_WIDTH /4 * pos;
@@ -96,6 +108,7 @@ void Marbles::startRound() {
 void Marbles::update() {
 	
 	GameState::update();
+	
 }
 
 void Marbles::render() const {
@@ -104,6 +117,8 @@ void Marbles::render() const {
 	for (const auto& marble : drawnMarbles) {
 		marble.first->render(marble.second); 
 	}
+	
+
 }
 void  Marbles::marblesButtonCreation() {
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1
@@ -176,6 +191,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 	}
 	ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
 	marbleButtons.push_back(btnMarbles);
+	//if (!(NCMarbles[i] >= blockedMarble[i] && blockedMarble[i] != 0)) {
 	addObjects(marbleButtons.back());
 	addEventListener(marbleButtons.back());
 	btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() { newBet(NCMarbles, multiplier, moneyBet, btnMarbles); });
@@ -187,9 +203,12 @@ void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, B
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
+
 }
 
 void Marbles::clearBets() {
+	setbInsanity(false);
+	blockedMarble = { 0,0,0,0 };
 	betsHistory = bets;
 	bets.clear();
 	for (auto i : marbleButtons)
@@ -210,4 +229,17 @@ void Marbles::repeat()
 void Marbles::setBlockedMarble(std::vector<int> blocked)
 {
 	blockedMarble = blocked;
+}
+ std::vector<int> Marbles::getBlockedMarble() {
+	return blockedMarble;
+}
+
+bool Marbles::getbInsanity()
+{
+	return bInsanity;
+}
+
+void Marbles::setbInsanity(bool insanity)
+{
+	bInsanity = insanity;
 }

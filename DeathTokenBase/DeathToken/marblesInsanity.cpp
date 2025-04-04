@@ -7,12 +7,6 @@ MarblesInsanity::MarblesInsanity(Game* game) : Marbles(game), texture(game->getT
 	CMarbles.push_back(game->getTexture(BLUEMARBLE));
 	CMarbles.push_back(game->getTexture(YELLOWMARBLE));
 	StartRoundTrickster();
-	
-	//Desctivar el render de Marbles y solo habilitar el del trilero hasta que se haga el juego del trilero y se le pase el color
-	//Crear 3 botones en ellos solo habra uno con win el cual se le pasara el color a  --
-	// llega el color y tengo que marbles::marbles render cambiarlo y desactivar los botones con ese color
-
-	//OBS->> creo que lo suyo es que el color se guarde como {",",","} dependiendo de como toque
 }
 
 MarblesInsanity::~MarblesInsanity()
@@ -27,7 +21,6 @@ void MarblesInsanity::render() const
 
 	//texture->render();
 	if (!mInsanity) {
-		//GameState::render();
 		Marbles::render();
 		
 	}
@@ -74,6 +67,7 @@ void MarblesInsanity::update()
 
 void MarblesInsanity::StartRoundTrickster()
 {
+	Marbles::setbInsanity(true);
 	wMarbleI = -1;
 	wMarble = {0,0,0,0};
 	wMarbleShow = false;
@@ -98,11 +92,12 @@ void MarblesInsanity::createTricksterButtons()
 		std::vector<int> marbleColor = { 0, 0, 0, 0 };
 		if (i ==posColor) {
 			marbleColor = dColor;
-			createButtonT(Game::WIN_WIDTH / 4 * i, Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
+			createButtonT((Game::WIN_WIDTH / 4 * i)+ (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
 				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), true, marbleColor);
 		}
 		else {
-			createButtonT(Game::WIN_WIDTH / 4 * i, Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
+			
+			createButtonT((Game::WIN_WIDTH / 4 * i) + (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
 				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), false, marbleColor);
 			
 
@@ -132,9 +127,9 @@ void MarblesInsanity::discardMarble(int x,int y,int widht,int height, bool marbl
 		for (int i= 0; i < color.size(); i++) {
 			if (color[i] == 1) {
 				wMarbleI = i;
-
 			}
 		}
+		Marbles::setBlockedMarble(color);
 		gameFinish = true;
 	}
 	else {
