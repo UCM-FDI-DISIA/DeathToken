@@ -21,7 +21,7 @@ BarraVida::BarraVida(GameState* estadoJuego, SDL_Renderer* renderizador, int x, 
     rect.h = alto;
 }
 
-void BarraVida::updateColorBasedOnHealth(float currentHealth, float maxHealth) const
+void BarraVida::updateColorBasedOnHealth(float currentHealth, float maxHealth) 
 {
     float ratio = currentHealth / maxHealth;
 
@@ -39,12 +39,8 @@ void BarraVida::render() const
 {
     if (!visible || !renderizador)
         return;
-
-    // Llenar el fondo
     SDL_SetRenderDrawColor(renderizador, colorFondo.r, colorFondo.g, colorFondo.b, colorFondo.a);
     SDL_RenderFillRect(renderizador, &rect);
-
-    // Calcular ancho de la barra de vida
     if (valorMaximo > 0 && valorActual > 0) {
         int anchoRelleno = (valorActual * rect.w) / valorMaximo;
         SDL_Rect relleno;
@@ -55,31 +51,22 @@ void BarraVida::render() const
         else {
             relleno = { rect.x, rect.y, anchoRelleno, rect.h };
         }
-
-        // Actualizar el color de la barra según la salud
-        updateColorBasedOnHealth(valorActual, valorMaximo);
-
         SDL_SetRenderDrawColor(renderizador, colorRelleno.r, colorRelleno.g, colorRelleno.b, colorRelleno.a);
         SDL_RenderFillRect(renderizador, &relleno);
     }
 
-    // Dibujar el borde de la barra
+    // Dibujar borde
     SDL_SetRenderDrawColor(renderizador, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderizador, &rect);
 }
-
 void BarraVida::establecerValor(int nuevoValor)
 {
     valorActual = nuevoValor;
-    if (valorActual < 0)
-        valorActual = 0;
-    if (valorActual > valorMaximo)
-        valorActual = valorMaximo;
+    if (valorActual < 0) valorActual = 0;
+    if (valorActual > valorMaximo) valorActual = valorMaximo;
 
-    // Actualiza el color al cambiar el valor
     updateColorBasedOnHealth(valorActual, valorMaximo);
 }
-
 void BarraVida::establecerPosicion(int x, int y)
 {
   rect.x = x;

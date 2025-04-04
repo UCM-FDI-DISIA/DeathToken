@@ -21,14 +21,14 @@ public:
     void establecerValor(int nuevoValor);
     void establecerPosicion(int x, int y);
     void establecerVisible(bool esVisible);
-    void updateColorBasedOnHealth(float currentHealth, float maxHealth) const;
+    void updateColorBasedOnHealth(float currentHealth, float maxHealth);
     int obtenerValor() const;
     bool estaVisible() const;
 
-    static const SDL_Color COLOR_VIDA_ALTA;     // Verde
-    static const SDL_Color COLOR_VIDA_MEDIA;     // Amarillo
-    static const SDL_Color COLOR_VIDA_BAJA;      // Rojo
-    static const SDL_Color COLOR_FONDO;           // Fondo
+     const SDL_Color COLOR_VIDA_ALTA = { 0, 255, 0, 255 };     // Verde
+     const SDL_Color COLOR_VIDA_MEDIA = { 255, 255, 0, 255 };     // Amarillo
+     const SDL_Color COLOR_VIDA_BAJA = { 255, 0, 0, 255 };;      // Rojo
+     const SDL_Color COLOR_FONDO = { 70, 70, 70, 255 };           // Fondo
 
 private:
     SDL_Renderer* renderizador;
@@ -41,9 +41,3 @@ private:
     bool visible;
     bool esEspejo;
 };
-
-// Definición de los colores fuera de la clase
-const SDL_Color BarraVida::COLOR_VIDA_ALTA = { 0, 255, 0, 255 };
-const SDL_Color BarraVida::COLOR_VIDA_MEDIA = { 255, 255, 0, 255 };
-const SDL_Color BarraVida::COLOR_VIDA_BAJA = { 255, 0, 0, 255 };
-const SDL_Color BarraVida::COLOR_FONDO = { 70, 70, 70, 255 };
