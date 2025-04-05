@@ -11,7 +11,7 @@ private:
 	bool locura;
 
 public:
-	Player(GameState* g, Point2D<> pos, Texture* texture,Menu*);
+	Player(GameState* g, Point2D<> pos, Texture* texture, Menu*);
 	~Player() { texture = nullptr; }
 	void render() const override;
 	void update() override;
