@@ -3,6 +3,7 @@
 #include <vector>
 class BaccaratBlackjack : public Baccarat
 {
+	Texture* tex;
 	float playerXpos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 30);
 	float playerYpos = (int)(Game::WIN_HEIGHT / 5.33);
 	float bankerXpos = (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 + Game::WIN_WIDTH / 30);
@@ -17,6 +18,7 @@ class BaccaratBlackjack : public Baccarat
 public:
 	BaccaratBlackjack(Game* game);
 	void update() override;
+	void render() const override;
 	void victory();
 	void handCards() override;
 	void handOneCard();

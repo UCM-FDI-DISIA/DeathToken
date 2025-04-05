@@ -51,7 +51,7 @@ protected:
 	//bool locura; global?
 public:
 	bool hasWon = false;
-	Baccarat(Game* game);
+	Baccarat(Game* game, bool bJ = false);
 	virtual ~Baccarat() {
 		HUDManager::popGame();
 		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente

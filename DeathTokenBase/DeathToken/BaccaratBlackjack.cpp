@@ -1,8 +1,9 @@
 #include "BaccaratBlackjack.h"
 
-BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game) {
+BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)) {
 	player3->frame = 14;
 	banker3->frame = 14;
+	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);
 }
 
 void BaccaratBlackjack::handCards() {
@@ -14,7 +15,13 @@ void BaccaratBlackjack::handCards() {
 	}
 }
 
+void BaccaratBlackjack::render() const {
+	tex->render();
+	GameState::render();
+}
+
 void BaccaratBlackjack::update() {
+	Baccarat::update();
 	if (totalCards(mat.player) > 21) {
 		cout << "pierdes" << endl;
 		banker1->frame = mat.banker[0];
