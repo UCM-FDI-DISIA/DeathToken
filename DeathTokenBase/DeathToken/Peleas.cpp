@@ -37,6 +37,8 @@ Peleas::Peleas(Game* game)
 	, Animo2(nullptr)
 	, Apuesta1(nullptr)
 	, Apuesta2(nullptr)
+	, fighter1bar(nullptr)
+	, fighter2bar(nullptr)
 	, ui(new UIPeleas(game, this))
 	, state(FSState::CARDS)
 {
