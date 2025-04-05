@@ -2,7 +2,9 @@
 #include "gameStateMachine.h"
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <array>
+#include "HUD.h"
 #include "Texture.h"
 #include <random>
 
@@ -21,26 +23,35 @@ enum TextureName {
 	SLOTSBUT,
 	CANICASBUT,
 	PELEASBUT,
-	ROULETTEBUT,
 	UIEXIT,
+	UIEXITHV,
 	UIEXITCLCK,
 	UIERASE,
+	UIERASEHV,
 	UIERASECLCK,
 	UIARROWL,
+	UIARROWLHV,
 	UIARROWLCLCK,
 	UIARROWR,
+	UIARROWRHV,
 	UIARROWRCLCK,
 	UIINFO,
+	UIINFOHV,
 	UIINFOCLCK,
 	UIREPEAT,
+	UIREPEATHV,
 	UIREPEATCLCK,
 	UIGO,
+	UIGOHV,
 	UIGOCLCK,
 	UIX2,
+	UIX2HV,
 	UIX2CLCK,
 	UIX3,
+	UIX3HV,
 	UIX3CLCK,
 	UIX5,
+	UIX5HV,
 	UIX5CLCK,
 	UICHIP1,
 	UICHIP2,
@@ -65,13 +76,20 @@ enum TextureName {
 	BUTTONMARBLES4,
 	BUTTONMARBLES4CLCK,
 	REDMARBLE,
+	REDMARBLESM,
 	GREENMARBLE,
+	GREENMARBLESM,
 	BLUEMARBLE,
+	BLUEMARBLESM,
 	YELLOWMARBLE,
-	ROULETTEBG,
-	ROULETTEPLAY,
-	ROULETTE,
+	YELLOWMARBLESM,
+	BLACKFOND,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
+};
+enum TypoName {
+	GRAND_CASINO,
+	AWARD,
+	NUM_TYPO,
 };
 class Game : private GameStateMachine {
 public:
@@ -87,12 +105,14 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
+	std::array<const char*, NUM_TYPO> typo;
 
 public:
 	Game();
 	~Game();
 	void run();
 	Texture* getTexture(TextureName name) const;
+	const char* getTypo(TypoName name) const;
 	SDL_Renderer* getRenderer() const;
 	void push(GameState*);
 	void replace(GameState*);

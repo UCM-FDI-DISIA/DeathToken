@@ -2,6 +2,7 @@
 #include "checkML.h"
 #include "Game.h"
 #include "Menu.h"
+#include <iostream>
 
 
 
@@ -30,39 +31,48 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"map/Casino_marbles_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
 	TextureSpec{"ui/Exit.png", 1, 1},
+	TextureSpec{"ui/Exit_HV.png", 1, 1},
 	TextureSpec{"ui/Exit_Clicked.png", 1, 1},
 	TextureSpec{"ui/Erase.png", 1, 1},
+	TextureSpec{"ui/Erase_HV.png", 1, 1},
 	TextureSpec{"ui/Erase_Clicked.png", 1, 1},
 	TextureSpec{"ui/ArrowL.png", 1, 1},
+	TextureSpec{"ui/ArrowL_HV.png", 1, 1},
 	TextureSpec{"ui/ArrowL_Clicked.png", 1, 1},
 	TextureSpec{"ui/ArrowR.png", 1, 1},
+	TextureSpec{"ui/ArrowR_HV.png", 1, 1},
 	TextureSpec{"ui/ArrowR_Clicked.png", 1, 1},
 	TextureSpec{"ui/Info.png", 1, 1},
+	TextureSpec{"ui/Info_HV.png", 1, 1},
 	TextureSpec{"ui/Info_Clicked.png", 1, 1},
 	TextureSpec{"ui/Repeat.png", 1, 1},
+	TextureSpec{"ui/Repeat_HV.png", 1, 1},
 	TextureSpec{"ui/Repeat_Clicked.png", 1, 1},
 	TextureSpec{"ui/Go.png", 1, 1},
+	TextureSpec{"ui/Go_HV.png", 1, 1},
 	TextureSpec{"ui/Go_Clicked.png", 1, 1},
 	TextureSpec{"ui/slots/x2.png", 1, 1},
+	TextureSpec{"ui/slots/x2_HV.png", 1, 1},
 	TextureSpec{"ui/slots/x2_Clicked.png", 1, 1},
 	TextureSpec{"ui/slots/x3.png", 1, 1},
+	TextureSpec{"ui/slots/x3_HV.png", 1, 1},
 	TextureSpec{"ui/slots/x3_Clicked.png", 1, 1},
 	TextureSpec{"ui/slots/x5.png", 1, 1},
+	TextureSpec{"ui/slots/x5_HV.png", 1, 1},
 	TextureSpec{"ui/slots/x5_Clicked.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_1.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_2.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_5.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_10.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_25.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_50.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_100.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_200.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_500.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_1K.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_2K.png", 1, 1},
-	TextureSpec{"ui/chips/chipRef_5K.png", 1, 1},
+	TextureSpec{"ui/chips/chip_1.png", 1, 1},
+	TextureSpec{"ui/chips/chip_2.png", 1, 1},
+	TextureSpec{"ui/chips/chip_5.png", 1, 1},
+	TextureSpec{"ui/chips/chip_10.png", 1, 1},
+	TextureSpec{"ui/chips/chip_25.png", 1, 1},
+	TextureSpec{"ui/chips/chip_50.png", 1, 1},
+	TextureSpec{"ui/chips/chip_100.png", 1, 1},
+	TextureSpec{"ui/chips/chip_200.png", 1, 1},
+	TextureSpec{"ui/chips/chip_500.png", 1, 1},
+	TextureSpec{"ui/chips/chip_1K.png", 1, 1},
+	TextureSpec{"ui/chips/chip_2K.png", 1, 1},
+	TextureSpec{"ui/chips/chip_5K.png", 1, 1},
 	TextureSpec{"player.png", 1, 1},
 	TextureSpec{"marbles/Marbles_bg.png",1,1},
 	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
@@ -74,12 +84,23 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
 	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon_sm.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
-	TextureSpec{"roulette/rouletteBG.jpeg",1,1},
-	TextureSpec{"roulette/rouletteButton.png",1,1},
-	TextureSpec{"roulette/roulette.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
+	TextureSpec{"blackFont.png",1,1},
+
+
+
+
+};
+
+std::array<std::string, NUM_TYPO> typoList{
+	"../assets/typo/Grand_Casino.otf",
+	"../assets/typo/Magnificent Serif.ttf",
 };
 
 Game::Game() {
@@ -101,7 +122,11 @@ Game::Game() {
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
-
+	TTF_Init();
+	for (int i = 0; i < NUM_TYPO; i++)
+	{
+		typo[i] = typoList[i].c_str();
+	}
 
 	Menu* menu = new Menu(this);
 	pushState(menu);
@@ -117,6 +142,7 @@ Game::~Game() {
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+	TTF_Quit();
 	// Desactiva la SDL
 	SDL_Quit();
 }
@@ -134,7 +160,7 @@ void Game::run() {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT)
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				stop();
 			else
 				handleEvent(event);
@@ -152,6 +178,9 @@ void Game::run() {
 }
 Texture* Game::getTexture(TextureName name) const {
 	return textures[name];
+}
+const char* Game::getTypo(TypoName name) const {
+	return typo[name];
 }
 SDL_Renderer* Game::getRenderer() const { return renderer; }
 

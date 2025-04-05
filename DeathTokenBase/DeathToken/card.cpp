@@ -1,7 +1,7 @@
-#include "Cards.h"
+#include "card.h"
 #include "Game.h"
 
-Cards::Cards(GameState* game, int frame, Point2D<> pos, double angle) :
+Card::Card(GameState* game, int frame, Point2D<> pos, double angle) :
 	sceneObject(game, pos, game->getGame()->getTexture(CARDS)),
 	texture(game->getGame()->getTexture(CARDS)),
 	frame(frame),
@@ -11,16 +11,15 @@ Cards::Cards(GameState* game, int frame, Point2D<> pos, double angle) :
 	h = Game::WIN_HEIGHT / 8;
 }
 
-void Cards::render() const {
+void Card::render() const {
 	SDL_Rect render = getRenderRect();
 	texture->renderFrame(render, 0, frame, angle);
 }
 
 
-void Cards::update() {
+void Card::update() {
 
 }
-
-Collision Cards::hit(const SDL_Rect&, Collision::Target) {
+Collision Card::hit(const SDL_Rect&, Collision::Target) {
 	return NO_COLLISION;
 }

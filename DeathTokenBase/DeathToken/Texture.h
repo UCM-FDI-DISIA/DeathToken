@@ -59,6 +59,8 @@ public:
 
 	/// Render the whole picture to the given rectangle with modified color
 	void render(const SDL_Rect& target, SDL_Color color) const;
+	void modAlfa(int alfa);
+
 };
 
 inline int

@@ -4,13 +4,14 @@
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
-	int wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
+	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
+	PlayerEconomy::EconomyInitialize();
 	//Baccarat button
-	baccarat = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(BACCARATBUT));
+	baccarat = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	baccarat->connect([this]() { gameChanger(new BaccaratBet(getGame())); });
 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
@@ -18,10 +19,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots->connect([this]() { gameChanger(new Slots(getGame())); });
 
 	//Widht, height, position marbles button
-	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4;
-	xBut = Game::WIN_WIDTH * 3 / 4 - Game::WIN_WIDTH / 25; yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 25;
+	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
+	xBut = Game::WIN_WIDTH * 3.0 / 4.0 - Game::WIN_WIDTH / 25.0; yBut = Game::WIN_HEIGHT / 4.0 + Game::WIN_HEIGHT / 25.0;
 	//Marbles button
-	marbles = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CANICASBUT));
+	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
 	addObjects(marbles);
 	addEventListener(marbles);
 	marbles->connect([this]() { gameChanger(new Marbles(getGame())); });
@@ -31,17 +32,13 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
-	//Baccarat button
-	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 4, wBut, hBut, game->getTexture(ROULETTEBUT));
-	addObjects(roulette);
-	addEventListener(roulette);
-	roulette->connect([this]() { gameChanger(new RouletteScene(getGame())); });
-
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
+
+	hud = new HUDLobby(this);
 }
 
 void Menu::gameChanger(GameState* juego) {
@@ -51,6 +48,7 @@ void Menu::gameChanger(GameState* juego) {
 void Menu::render() const {
 	texture->render();
 	GameState::render();
+
 }
 Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 	Collision col;
@@ -61,7 +59,7 @@ Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
 			col = obj->hit(rect, target);
 			hit = col.result != col.NONE;
 			if (target == Collision::PLAYER && col.result == col.OBSTACLE) {
-				hit == true;
+				hit = true;
 			}
 		}
 	}
