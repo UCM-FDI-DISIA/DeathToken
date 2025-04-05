@@ -279,7 +279,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			battleQueue.push_back(matchup);
 		}
 	}
-	catch (const json::parse_error& e) {
+	catch (const json::parse_error& err) {
 #ifdef DEBUG
 		cout << "Error al procesar el JSON: " << e.what() << endl;
 #endif

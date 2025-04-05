@@ -164,11 +164,6 @@ SDL_Event event;
 
 void
 Peleas::update() {
-	// Hay que ver como sacarlo de aqui para que las cajas de dialogo puedan 
-	// recibir inputs sin dañar la ejecucíon de otras parte del codigo como la ui
-	/*SDL_PollEvent(&event);*/
-	/*dialog->handleEvent(event);*/
-
 	uint currentTime = SDL_GetTicks();
 	switch (state)
 	{
@@ -182,11 +177,11 @@ Peleas::update() {
 			fighter1bar->updateColorBasedOnHealth(_battleM->getFigther1().getHealth(), _battleM->getFigther1().getMaxHealth());
 			fighter2bar->updateColorBasedOnHealth(_battleM->getFigther2().getHealth(), _battleM->getFigther2().getMaxHealth());
 		}
+		dialog->update(currentTime - lastUpdate);
 		break;
 	default:
 		break;
 	}
-	dialog->update(currentTime - lastUpdate);
 	lastUpdate = currentTime;
 	GameState::update();
 

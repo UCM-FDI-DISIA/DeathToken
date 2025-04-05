@@ -18,7 +18,6 @@ public:
 	BattleManager(DialogueBox* dialog, Game* g);
 
 	void StartBattle();
-	void ExecuteTurns(Matchup currentMatch);
 
 	inline const Matchup& getCurrentMatchUp() const { return currentMatch; }
 	inline const Fighter& getFigther1() const { return currentMatch.fighter1; }

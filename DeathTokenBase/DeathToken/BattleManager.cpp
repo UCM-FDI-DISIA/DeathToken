@@ -183,20 +183,3 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 		}
 	}
 }
-
-//void BattleManager::ExecuteTurns(Matchup currentMatch)
-//{
-//
-//
-//	cout << "Comenzará la pelea " << currentMatch.fighter1.getName() << ".\n";
-//	cout << "Mucha suerte a todos los jugadores.\n";
-//	cout << "\n";
-//
-//	auto lastTime = chrono::high_resolution_clock::now();
-//
-//	auto currentTime = chrono::high_resolution_clock::now();
-//	float deltaTime = chrono::duration<float>(currentTime - lastTime).count();
-//	lastTime = currentTime;
-//	Update(deltaTime);  // Pasamos el delta time a Update
-//
-//}

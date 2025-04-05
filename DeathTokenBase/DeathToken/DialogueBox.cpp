@@ -65,7 +65,7 @@ void DialogueBox::update(float deltaTime) {
 	}
 
 	if (charIndex == message.size() && autoDialog) {
-		if (completedTextTime >= NEXTDIALOG + (((numLines * lineHeight) - h) > 0? (numLines * lineHeight) - h : 0) * NEXTDIALOGSPARETIME) {
+		if (completedTextTime >= NEXTDIALOG + (((numLines * lineHeight) - h) > 0 ? (numLines * lineHeight) - h : 0) * NEXTDIALOGSPARETIME) {
 			completedTextTime = 0;
 			if (currentDialogIndex + 1 < history.size()) {
 				currentDialogIndex++;
@@ -116,7 +116,7 @@ void DialogueBox::render() const {
 
 	SDL_Color textColor = { 0, 0, 0, 255 };
 	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, displayedText.c_str(), textColor, textWidth);
-	
+
 #ifdef DEBUG
 	if (!textSurface)
 	{
@@ -136,7 +136,7 @@ void DialogueBox::render() const {
 	}
 #endif // DEBUG
 
-	
+
 
 	SDL_Rect dialogBox = { x, y, w, h };
 	SDL_Rect textRect = { dialogBox.x + MARGIN, dialogBox.y + MARGIN - scrollOffset, textSurface->w, textSurface->h };
