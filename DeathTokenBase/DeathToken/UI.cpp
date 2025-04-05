@@ -3,6 +3,7 @@
 #include "Marbles.h"
 #include "Slots.h"
 #include "Baccarat.h"
+#include "RouletteScene.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -29,26 +30,26 @@ UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(
 
 	chips = std::vector<ButtonChip*>(4);
 	chips[0] = new ButtonChip(gS, this, relativeX(367.0f), relativeY(918.0f), relativeX(100.0f), relativeY(104.0f), 0,
-							  1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
+		1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
 	chips[0]->setOnUse(true);
 	gS->addObjectsUI(chips[0]);
 	gS->addEventListener(chips[0]);
 	chips[0]->connect([this]() {});
 
 	chips[1] = new ButtonChip(gS, this, relativeX(497.0f), relativeY(918.0f), relativeX(100.0f), relativeY(104.0f), 1,
-							  2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1000));
+		2, 50, 1000, game->getTexture(UICHIP2), game->getTexture(UICHIP50), game->getTexture(UICHIP1000));
 	gS->addObjectsUI(chips[1]);
 	gS->addEventListener(chips[1]);
 	chips[1]->connect([this]() {});
 
 	chips[2] = new ButtonChip(gS, this, relativeX(627.0f), relativeY(918.0f), relativeX(100.0f), relativeY(104.0f), 2,
-							  5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2000));
+		5, 100, 2000, game->getTexture(UICHIP5), game->getTexture(UICHIP100), game->getTexture(UICHIP2000));
 	gS->addObjectsUI(chips[2]);
 	gS->addEventListener(chips[2]);
 	chips[2]->connect([this]() {});
 
 	chips[3] = new ButtonChip(gS, this, relativeX(757.0f), relativeY(918.0f), relativeX(100.0f), relativeY(104.0f), 3,
-							  10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5000));
+		10, 200, 5000, game->getTexture(UICHIP10), game->getTexture(UICHIP200), game->getTexture(UICHIP5000));
 	gS->addObjectsUI(chips[3]);
 	gS->addEventListener(chips[3]);
 	chips[3]->connect([this]() {});
@@ -140,7 +141,7 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 }
-void 
+void
 UISlots::OnGo() {
 	slots->iniciarGiro();
 }
@@ -165,7 +166,7 @@ UISlots::OnInfo()
 
 }
 
-UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
+UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
 void UIMarbles::OnGo() {
 	marbles->startRound();
 }
@@ -195,4 +196,10 @@ void UIBaccarat::OnErase() {
 void UIBaccarat::OnRepeat()
 {
 	baccarat->repeat();
+}
+
+UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : UI(gS, game), rouletteS(rouletteS) {}
+
+void UIRoulette::OnGo() {
+	rouletteS->throwRoulette();
 }

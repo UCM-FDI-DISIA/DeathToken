@@ -1,15 +1,11 @@
 #include "RouletteScene.h"
 
-RouletteScene::RouletteScene(Game* game) : GameState(game), rouletteBG(game->getTexture(ROULETTEBG)) {
+RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRoulette(this, game, this)), eco(eco), rouletteBG(game->getTexture(ROULETTEBG)) {
 	addEventListener(this);
-	int wBut = Game::WIN_WIDTH / 6, hBut = Game::WIN_HEIGHT / 4.5,
-		xBut = Game::WIN_WIDTH * 4 / 5, yBut = Game::WIN_HEIGHT * 3 / 4;
-	rouletteThrow = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(ROULETTEPLAY));
-	addObjects(rouletteThrow);
-	addEventListener(rouletteThrow);
-	rouletteThrow->connect([this]() { throwRoulette(); });
-	roul = new Roulette(this, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT * 14 / 15 }, game->getTexture(ROULETTE));
+	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE), eco);
 	addObjects(roul);
+	hud = new HUDBet(this);
+	arrowTex = game->getTexture(ROULETTEARROW);
 }
 
 void RouletteScene::handleEvent(const SDL_Event& event) {
@@ -25,14 +21,20 @@ void RouletteScene::update() {
 		int num = distrib(game->getGen());
 		roul->addSpeed(num);
 	}
+	hud->refresh();
 }
 
 void RouletteScene::render() const {
 	rouletteBG->render();
 	GameState::render();
+	SDL_Rect arrow = { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 30, Game::WIN_HEIGHT / 2 - Game::WIN_WIDTH / 30,
+		Game::WIN_WIDTH / 15, Game::WIN_WIDTH / 15 };
+	arrowTex->render(arrow);
 }
 
 void RouletteScene::throwRoulette() {
-	/*if (totalMoney >= costPerThrow)*/
-	canThrow = true;
+	if (eco->getBlueSouls() >= costPerThrow) {
+		canThrow = true;
+		eco->addBlueSouls(-500);
+	}
 }

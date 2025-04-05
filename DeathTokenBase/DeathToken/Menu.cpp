@@ -6,12 +6,13 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
-	PlayerEconomy::EconomyInitialize();
+	eco = new PlayerEconomy();
+	eco->EconomyInitialize();
 	//Baccarat button
 	baccarat = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new BaccaratBet(getGame())); });
+	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
@@ -32,6 +33,11 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
+	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 100, wBut, wBut, game->getTexture(ROULETTE));
+	addObjects(roulette);
+	addEventListener(roulette);
+	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
+
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
 		addObjects(ghost);
@@ -42,6 +48,21 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 }
 
 void Menu::gameChanger(GameState* juego) {
+	if (eco->getInsanity() > 0)
+	{
+		if (typeid(*juego) == typeid(Baccarat)) {
+			juego = new CrazyBaccaratManager(getGame());
+		}
+		else if (typeid(*juego) == typeid(Marbles)) {
+
+		}
+		else if (typeid(*juego) == typeid(Slots)) {
+
+		}
+		/*else if (typeid(*juego) == typeid(PeleasReanimadas)) {
+
+		}*/
+	}
 	game->push(juego);
 }
 

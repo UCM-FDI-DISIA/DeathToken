@@ -1,18 +1,22 @@
 #pragma once
 #include "GameState.h"
-#include "Button.h"
 #include "Roulette.h"
 #include "EventHandler.h"
+#include "UI.h"
 
 class RouletteScene : public GameState, public EventHandler
 {
 	Roulette* roul;
 	Texture* rouletteBG;
-	Button* rouletteThrow;
-	int costPerThrow = 10000;
+	Texture* arrowTex;
+	int costPerThrow = 500;
 	int canThrow = false;
+	PlayerEconomy* eco;
+	HUDBet* hud;
+	UIRoulette* ui;
+	sceneObject* arrow;
 public:
-	RouletteScene(Game* g);
+	RouletteScene(Game* g, PlayerEconomy* eco);
 	virtual ~RouletteScene() {};
 	void handleEvent(const SDL_Event& event) override;
 	void throwRoulette();

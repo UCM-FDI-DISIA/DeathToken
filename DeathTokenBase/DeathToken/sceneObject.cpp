@@ -20,7 +20,7 @@ sceneObject::sceneObject(GameState* p, Vector2D<> pos, Texture* text) : GameObje
 
 }
 sceneObject::sceneObject(GameState* p, Vector2D<> position, int width, int height, Texture* t)
-	: GameObject(p), pos(position), speed({0,0}), w(width), h(height), frame(0), texture(t)
+	: GameObject(p), pos(position), speed({ 0,0 }), w(width), h(height), frame(0), texture(t)
 {}
 
 // Devuelve el rect de collision
@@ -46,6 +46,11 @@ sceneObject::getRenderRect() const
 	};
 }
 
+Collision sceneObject::hit(const SDL_Rect&, Collision::Target)
+{
+	return Collision();
+}
+
 // Comprueba que os objetos se eliminen cuando caen al vacío
 void sceneObject::update() {
 	int side = Game::TILE_SIDE;
@@ -54,6 +59,8 @@ void sceneObject::update() {
 		|| pos.getX() < 0)
 		delete this;
 }
+
+
 // Intenta mover el objeto segun su velocidad comprobando las colisiones
 Collision
 sceneObject::tryToMove(const Vector2D<>& speed, Collision::Target target)

@@ -3,12 +3,14 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Baccarat.h"
+#include "CrazyBaccaratManager.h"
 #include "BaccaratBlackjack.h"
 #include "BaccaratBet.h"
 #include "Slots.h"
 #include "Marbles.h"
 #include "Collision.h"
 #include "SceneObject.h"
+#include "RouletteScene.h"
 #include <list>
 
 class Player;
@@ -21,8 +23,10 @@ class Menu : public GameState
 	Button* baccarat;
 	Button* marbles;
 	Button* fights;
+	Button* roulette;
 	Button* slots;
 	HUDLobby* hud;
+	PlayerEconomy* eco;
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);
