@@ -12,6 +12,7 @@
 #include "Collision.h"
 #include "SceneObject.h"
 #include "RouletteScene.h"
+#include "marblesInsanity.h"
 #include <list>
 
 class Player;

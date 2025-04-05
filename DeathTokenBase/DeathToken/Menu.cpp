@@ -26,7 +26,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame())); });
+	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
@@ -54,6 +54,7 @@ void Menu::gameChanger(GameState* juego) {
 			juego = new CrazyBaccaratManager(getGame());
 		}
 		else if (typeid(*juego) == typeid(Marbles)) {
+			juego = new MarblesInsanity(getGame());
 
 		}
 		else if (typeid(*juego) == typeid(SlotsNormal)) {

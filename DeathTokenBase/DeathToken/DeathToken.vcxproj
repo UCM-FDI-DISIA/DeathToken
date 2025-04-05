@@ -144,6 +144,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CrazyBaccaratManager.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="sdlUtils.h" />
     <ClInclude Include="SlotsNormal.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Celda.cpp" />
     <ClCompile Include="CrazyBaccaratManager.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="PlayerEconomy.cpp" />
     <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="SlotsNormal.cpp" />
