@@ -3,7 +3,7 @@
 #include "UI.h"
 #include "Game.h"	
 
-MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->getTexture(MARBLESBACK)), mInsanity(true), gameFinish(false), dColor({ 0,0,0,0 }) {
+MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->getTexture(MARBLESBACK)), gameFinish(false), dColor({ 0,0,0,0 }) {
 	CMarbles.push_back(game->getTexture(REDMARBLE));
 	CMarbles.push_back(game->getTexture(GREENMARBLE));
 	CMarbles.push_back(game->getTexture(BLUEMARBLE));
@@ -13,7 +13,6 @@ MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->g
 	wMarble = { 0,0,0,0 };
 	wMarbleShow = false;
 	gameFinish = false;
-	mInsanity = true;
 	posColor = -1;
 }
 
@@ -28,12 +27,7 @@ MarblesInsanity::~MarblesInsanity()
 void MarblesInsanity::render() const
 {
 
-	//texture->render();
-	if (!mInsanity) {
-		//Marbles::render();
-		
-	}
-	else if(!gameFinish){
+	if(!gameFinish){
 		//render del trilero
 		texture->render();
 		for (auto btn : trileroButtons) {
@@ -55,17 +49,12 @@ void MarblesInsanity::update()
 {
 	static float elapsedTime = 0.0f;
 
-	if (!mInsanity) {
-		//Marbles::update();
-
-	}
 	if (gameFinish) {
 		float dt = SDLUtils::getDeltaTime();
 		elapsedTime += dt;
 
 		if (elapsedTime >= 3.0f) {
 			elapsedTime = 0.0f;
-			mInsanity = false;
 			game->pop();
 			game->push(new Marbles(game,dColor));
 		}
@@ -83,8 +72,6 @@ void MarblesInsanity::update()
 
 void MarblesInsanity::StartRoundTrickster()
 {
-	//Marbles::setbInsanity(true);
-	
 	std::uniform_int_distribution<> distrib(0, 3);
 	std::uniform_int_distribution<> posDistrib(0, 2);
 	posColor = posDistrib(game->getGen());

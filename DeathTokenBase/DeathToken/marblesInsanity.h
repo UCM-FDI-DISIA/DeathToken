@@ -8,7 +8,6 @@ private:
 	UIMarblesInsanity* uiI;
 
 	Texture* texture;
-	bool mInsanity;
 	bool gameFinish;
 	std::vector<ButtonMarblesInsanity*> trileroButtons;
 	std::vector<int> dColor;

@@ -1,7 +1,6 @@
 #include "Marbles.h"
 #include "Game.h"	
 #include <iostream>
-//std::vector<int> Marbles::blockedMarble = { 0, 0,0,0};
 
 Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
 	marbles({ 0,0,0,0 }),
@@ -39,7 +38,6 @@ void  Marbles::generateMarbles() {
 	std::uniform_int_distribution<> distrib(0, validColors.size() - 1);
 
 	for (int i = 0; i < 3; i++) {
-		//int color;
 		int color = validColors[distrib(game->getGen())];
 
 		marbles[color]++;
@@ -220,7 +218,6 @@ void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, B
 }
 
 void Marbles::clearBets() {
-	setbInsanity(false);
 	blockedMarble = { 0,0,0,0 };
 	betsHistory = bets;
 	bets.clear();
@@ -242,17 +239,4 @@ void Marbles::repeat()
 void Marbles::setBlockedMarble(std::vector<int> blocked)
 {
 	blockedMarble = blocked;
-}
-/* std::vector<int> Marbles::getBlockedMarble() {
-	return blockedMarble;
-}*/
-
-bool Marbles::getbInsanity()
-{
-	return bInsanity;
-}
-
-void Marbles::setbInsanity(bool insanity)
-{
-	bInsanity = insanity;
 }

@@ -60,8 +60,6 @@ public:
 	void repeat();
 
 	void setBlockedMarble(std::vector<int> blocked);
-	//static std::vector<int> getBlockedMarble();
-	bool getbInsanity();
-	void setbInsanity(bool insanity);
+
 };
 
