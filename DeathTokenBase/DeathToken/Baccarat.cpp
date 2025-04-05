@@ -8,15 +8,15 @@ Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getText
 	//Buttons
 	if (!bJ)
 	{
-		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8, 0);//x8 apuesta
-		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2, 1);//x2 apuesta
-		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);//x2 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8);//x8 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2);//x2 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2);//x2 apuesta
 	}
 	hud = new HUDBet(this);
 }
 
-Cards* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
-	Cards* carta = new Cards(this, frame, { a, b }, rot);
+Card* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
+	Card* carta = new Card(this, frame, { a, b }, rot);
 	addObjects(carta);
 	return carta;
 }

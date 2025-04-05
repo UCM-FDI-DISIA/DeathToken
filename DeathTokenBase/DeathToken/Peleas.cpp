@@ -105,7 +105,7 @@ void Peleas::StartBattle()
 		margin,
 		barWidth,
 		barHeight,
-		_battleM->getFigther1().getMaxHealth(),
+		_battleM->getFigther2().getMaxHealth(),
 		{ 0, 255, 0, 255 },  // Usar vida máxima real
 		{ 70, 70, 70, 255 },
 		true);
