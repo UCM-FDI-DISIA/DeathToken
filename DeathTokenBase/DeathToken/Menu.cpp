@@ -1,24 +1,32 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Player.h"
-#include "Peleas.h"
-#include "PeleasPelea.h"
+
+
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
-	PlayerEconomy::EconomyInitialize();
+	eco = new PlayerEconomy();
+	eco->EconomyInitialize();
 	//Baccarat button
 	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	baccarat->connect([this]() {
+		gameChanger(baccaratState = new Baccarat(getGame()));
+		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			tutorialBaccarat = false;
+			baccaratState->showTutorial();
+		}
+		});
 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new Slots(getGame())); });
+	slots->connect([this]() { gameChanger(new SlotsNormal(getGame()));});
 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
@@ -27,15 +35,20 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame())); });
+	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
+	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
+
+	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 100, wBut, wBut, game->getTexture(ROULETTE));
+	addObjects(roulette);
+	addEventListener(roulette);
+	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
 
 	if (ghost == nullptr) {
-		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
+		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
@@ -44,7 +57,24 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 }
 
 void Menu::gameChanger(GameState* juego) {
+	if (eco->getInsanity() > 0)
+	{
+		if (typeid(*juego) == typeid(Baccarat)) {
+			juego = new CrazyBaccaratManager(getGame());
+		}
+		else if (typeid(*juego) == typeid(Marbles)) {
+			juego = new MarblesInsanity(getGame());
+
+		}
+		else if (typeid(*juego) == typeid(SlotsNormal)) {
+			juego = new SlotsLocura(getGame());
+		}
+		/*else if (typeid(*juego) == typeid(PeleasReanimadas)) {
+
+		}*/
+	}
 	game->push(juego);
+
 }
 
 void Menu::render() const {

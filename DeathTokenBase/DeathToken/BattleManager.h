@@ -42,4 +42,5 @@ private:
 		endMatch = true;
 	}
 };
+
 #endif

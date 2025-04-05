@@ -17,21 +17,11 @@ Slots::Slots(Game* g) : GameState(g), comprobanteIndice(0), ui(new UISlots(this,
 		addEventListener(button);
 
 		Carrete* c = carretes[i];
-		button->connect([this, c]{  
-				if(c->getParada())++comprobanteIndice;
-				c->pararGiro();
-				
-		});
-		x += TAM_CELDA + offset;
+		button->connect([this, c] {
+			if (c->getParada())++comprobanteIndice;
+			c->pararGiro();
+			});
 	}
-
-	for (int i = 0; i < 7; ++i) {
-		pair<int, int> aux;
-		aux.first = i;
-		aux.second = multiplicadores[i];
-		puntuaciones.insert(aux);
-	}
-
 }
 Slots:: ~Slots() {
 	for (Carrete* i : carretes) i = nullptr;
@@ -49,17 +39,16 @@ void Slots::update() {
 		int multiplicador = 0;
 		for (int i = 0; i < N_COLUM; ++i) {
 
-			bool telarañas1_2 = vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete1[i] == 0;
-			bool telarañas1_3 = vectorCarrete1[i] == vectorCarrete3[i] && vectorCarrete1[i] == 0;
-			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
+			bool telaraï¿½as1_2 = vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete1[i] == 0;
+			bool telaraï¿½as1_3 = vectorCarrete1[i] == vectorCarrete3[i] && vectorCarrete1[i] == 0;
+			bool telaraï¿½as2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
 
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
-				auto it = puntuaciones.find(vectorCarrete1[i]);
-				multiplicador += it->second;
+				
+				multiplicador += multiplicadores[vectorCarrete1[i]];
 			}
-			else if (telarañas1_2 || telarañas1_3 || telarañas2_3) {
-				auto it = puntuaciones.find(0);
-				multiplicador += it->second;
+			else if (telaraï¿½as1_2 || telaraï¿½as1_3 || telaraï¿½as2_3) {
+				multiplicador += multiplicadores[0];
 			}
 		}
 		for (Carrete* c : carretes) c->deleteCarrete();

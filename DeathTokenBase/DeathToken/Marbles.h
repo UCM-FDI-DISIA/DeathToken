@@ -16,7 +16,7 @@ protected:
 		int multiplier= 0;
 		int moneyBet= 0;
 	};
-	UIMarbles* ui;
+	UIMarbles*  ui;
 	HUDBet* hud;
 
 	Texture* texture;
@@ -31,7 +31,9 @@ protected:
 	long long turnMoneyBet;
 	int clave = 0;
 
-	
+	bool bInsanity;
+	std::vector<int> blockedMarble;
+
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH1 = (118.0 / 1080.0) * Game::WIN_HEIGHT;
 	double PosPW3 = (302.0 / 1920.0) * Game::WIN_WIDTH;
@@ -43,7 +45,7 @@ protected:
 	double marginW = (10.0 / 1920.0) * Game::WIN_WIDTH;
 	double marginH = (10.0 / 1080.0) * Game::WIN_WIDTH;
 public:
-	Marbles(Game* game);
+	Marbles(Game* game, std::vector<int> blockedMarble);
 	virtual ~Marbles();
 	void render() const override;
 	void update() override;
@@ -56,5 +58,8 @@ public:
 	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles);
 	void clearBets();
 	void repeat();
+
+	void setBlockedMarble(std::vector<int> blocked);
+
 };
 

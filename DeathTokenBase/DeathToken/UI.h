@@ -28,7 +28,7 @@ public:
 
 	void changeChip(const int& id);
 	int currentChipValue();
-	
+
 	void OnExit();
 	virtual void OnGo() = 0;
 };
@@ -41,9 +41,9 @@ protected:
 	ButtonUI* repeat;
 
 	virtual void OnErase() {};
-	virtual void OnInfo() {};
 	virtual void OnRepeat() {};
-	
+	virtual void OnInfo() {};
+
 
 public:
 	UIChips(GameState* gS, Game* game);
@@ -66,7 +66,7 @@ public:
 	void OnInfo();
 };
 class Marbles;
-class UIMarbles :public   UIChips{
+class UIMarbles :public   UIChips {
 	Marbles* marbles;
 	std::vector<ButtonBet*> bets;
 public:
@@ -76,6 +76,19 @@ public:
 	void OnErase() override;
 	void OnRepeat() override;
 };
+
+
+class MarblesInsanity;
+class UIMarblesInsanity : public UIChips {
+	MarblesInsanity* marblesI;
+	std::vector<ButtonBet*> bets;
+public:
+	UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marbles);
+	void OnGo() override;
+	void render() const ;
+	void update();
+};
+
 
 class Baccarat;
 class UIBaccarat :public   UIChips {
@@ -87,6 +100,7 @@ public:
 	void OnGo() override;
 	void OnErase() override;
 	void OnRepeat() override;
+	void OnInfo() override;
 };
 
 class Peleas;
@@ -102,4 +116,32 @@ protected:
 	Peleas* _peleas;
 	ButtonUI* autoText;
 	ButtonUI* historial;
+}
+class RouletteScene;
+class UIRoulette :public   UI {
+	RouletteScene* rouletteS;
+public:
+	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
+
+	void OnGo() override;
+};
+
+
+class UITutorial
+{
+protected:
+	GameState* gS;
+	Game* game;
+	ButtonUI* exit;
+	ButtonUI* arrowNext;
+	ButtonUI* arrowBack;
+	size_t totalPages;//pags totales tuto
+	bool arrow = false;
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+
+	UITutorial(GameState* gS, Game* game, size_t tam);
+
+	void OnExit();
 };

@@ -109,8 +109,19 @@ public:
 	ButtonMarbles(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*, int type, std::vector<int>);
 	~ButtonMarbles(){}
 	void render() const override;
-	void handleEvent( const SDL_Event& event) override;
+	void handleEvent(const SDL_Event& event) override;
 };
+
+//MARBLESINSANITY
+class ButtonMarblesInsanity : public ButtonUI {
+protected:
+public:
+	ButtonMarblesInsanity(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, bool acertado, std::vector<int> discardMarble);
+	~ButtonMarblesInsanity() {}
+	void render() const override;
+	void handleEvent(const SDL_Event& event) override;
+};
+
 //BACCARAT
 class ButtonBaccarat : public ButtonBet
 {
@@ -121,5 +132,6 @@ public:
 	ButtonBaccarat(GameState*, Game* game, UI* ui, int x, int y, int w, int h);
 	~ButtonBaccarat(){}
 	void render() const override;
-	void handleEvent( const SDL_Event& event) override;
+	void handleEvent(const SDL_Event& event) override;
+	void repeatDoubleBet() { currentBet = betHistory * 2; };
 };

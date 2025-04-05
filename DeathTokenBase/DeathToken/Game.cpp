@@ -43,6 +43,10 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/ArrowR.png", 1, 1},
 	TextureSpec{"ui/ArrowR_HV.png", 1, 1},
 	TextureSpec{"ui/ArrowR_Clicked.png", 1, 1},
+	TextureSpec{"ui/ArrowU.png", 1, 1},
+	TextureSpec{"ui/ArrowU_Clicked.png", 1, 1},
+	TextureSpec{"ui/ArrowD.png", 1, 1},
+	TextureSpec{"ui/ArrowD_Clicked.png", 1, 1},
 	TextureSpec{"ui/Info.png", 1, 1},
 	TextureSpec{"ui/Info_HV.png", 1, 1},
 	TextureSpec{"ui/Info_Clicked.png", 1, 1},
@@ -95,6 +99,15 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
 	TextureSpec{"blackFont.png",1,1},
+	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
+	TextureSpec{"blackFont.png",1,1},
+	TextureSpec{"roulette/rouletteBG.png",1,1},
+	TextureSpec{"roulette/roulette.png",1,1},
+	TextureSpec{"roulette/rouletteLocura.png",1,1},
+	TextureSpec{"roulette/rouletteArrow.png",1,1},
+	TextureSpec{"tutorial/Tutorial_bg1_baccarat.png",1,1},
+	TextureSpec{"tutorial/Tutorial_bg2_baccarat.png",1,1},
+	TextureSpec{"tutorial/Tutorial_bg3_baccarat.png",1,1},
 
 
 
@@ -105,8 +118,6 @@ std::array<std::string, NUM_TYPO> typoList{
 	"../assets/typo/Grand_Casino.otf",
 	"../assets/typo/Magnificent Serif.ttf",
 };
-
-TTF_Font* Game::font = nullptr;
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
