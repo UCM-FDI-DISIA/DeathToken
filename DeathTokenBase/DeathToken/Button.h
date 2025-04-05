@@ -111,6 +111,17 @@ public:
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 };
+
+//MARBLESINSANITY
+class ButtonMarblesInsanity : public ButtonUI {
+protected:
+public:
+	ButtonMarblesInsanity(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, bool acertado, std::vector<int> discardMarble);
+	~ButtonMarblesInsanity() {}
+	void render() const override;
+	void handleEvent(const SDL_Event& event) override;
+};
+
 //BACCARAT
 class ButtonBaccarat : public ButtonBet
 {

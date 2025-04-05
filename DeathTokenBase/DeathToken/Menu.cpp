@@ -17,7 +17,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new Slots(getGame())); });
+	slots->connect([this]() { gameChanger(new SlotsNormal(getGame()));});
 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
@@ -39,7 +39,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
 
 	if (ghost == nullptr) {
-		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
+		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
@@ -56,8 +56,8 @@ void Menu::gameChanger(GameState* juego) {
 		else if (typeid(*juego) == typeid(Marbles)) {
 
 		}
-		else if (typeid(*juego) == typeid(Slots)) {
-
+		else if (typeid(*juego) == typeid(SlotsNormal)) {
+			juego = new SlotsLocura(getGame());
 		}
 		/*else if (typeid(*juego) == typeid(PeleasReanimadas)) {
 

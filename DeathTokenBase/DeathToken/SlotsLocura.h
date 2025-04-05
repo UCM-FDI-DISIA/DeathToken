@@ -25,7 +25,7 @@ private:
 	int getResult() override { return 0; }
 public:
 	SlotsLocura(Game*);
-	~SlotsLocura(){}
+	~SlotsLocura() {}
 	void update() override;
 	void render() const override;
 	int getNext();
