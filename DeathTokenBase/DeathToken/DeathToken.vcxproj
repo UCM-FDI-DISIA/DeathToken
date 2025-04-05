@@ -166,6 +166,7 @@
     <ClInclude Include="Slots.h" />
     <ClInclude Include="SlotsLocura.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
@@ -198,6 +199,7 @@
     <ClCompile Include="sceneObject.cpp" />
     <ClCompile Include="SlotsLocura.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

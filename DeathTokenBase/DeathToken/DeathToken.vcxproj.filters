@@ -126,6 +126,9 @@
     <ClInclude Include="marblesInsanity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -213,6 +216,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="marblesInsanity.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

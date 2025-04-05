@@ -3,32 +3,28 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Baccarat.h"
-#include "CrazyBaccaratManager.h"
-#include "BaccaratBlackjack.h"
-#include "BaccaratBet.h"
-#include "SlotsNormal.h"
-#include "SlotsLocura.h"
+#include "Slots.h"
 #include "Marbles.h"
 #include "Collision.h"
 #include "SceneObject.h"
-#include "RouletteScene.h"
-#include "marblesInsanity.h"
-#include <list>
 
 class Player;
 
 class Menu : public GameState
 {
-	list<sceneObject*> objetos;
+	GameList<sceneObject> objetos;
 	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
 	Button* marbles;
 	Button* fights;
-	Button* roulette;
 	Button* slots;
-	HUDLobby* hud;
-	PlayerEconomy* eco;
+	//Booleanos para activar el tutorial al entrar por primera vez al juego
+	bool tutorialBaccarat = true;
+	bool tutorialSlots = true;
+	bool tutorialFights = true;
+	bool tutorialMarbles = true;
+	GameState* baccaratState;
 public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);

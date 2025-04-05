@@ -73,6 +73,7 @@ public:
 	Card* createCard(int a, int b, int rot, int frame);
 	void addCards();
 	void win();
+	void showTutorial() override { ui->OnInfo(); };
 
 	//metodos apuestas
 	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
