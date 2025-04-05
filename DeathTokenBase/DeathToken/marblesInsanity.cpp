@@ -1,16 +1,20 @@
 #include "marblesInsanity.h"
 #include "sdlUtils.h"
 #include "UI.h"
+#include "Game.h"	
 
-
-MarblesInsanity::MarblesInsanity(Game* game) : Marbles(game), texture(game->getTexture(MARBLESBACK)), mInsanity(true), gameFinish(false), dColor({ 0,0,0,0 }) {
+MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->getTexture(MARBLESBACK)), mInsanity(true), gameFinish(false), dColor({ 0,0,0,0 }) {
 	CMarbles.push_back(game->getTexture(REDMARBLE));
 	CMarbles.push_back(game->getTexture(GREENMARBLE));
 	CMarbles.push_back(game->getTexture(BLUEMARBLE));
 	CMarbles.push_back(game->getTexture(YELLOWMARBLE));
 	uiI = new UIMarblesInsanity(this, game, this);
-
-	//StartRoundTrickster();
+	wMarbleI = -1;
+	wMarble = { 0,0,0,0 };
+	wMarbleShow = false;
+	gameFinish = false;
+	mInsanity = true;
+	posColor = -1;
 }
 
 MarblesInsanity::~MarblesInsanity()
@@ -26,7 +30,7 @@ void MarblesInsanity::render() const
 
 	//texture->render();
 	if (!mInsanity) {
-		Marbles::render();
+		//Marbles::render();
 		
 	}
 	else if(!gameFinish){
@@ -49,20 +53,25 @@ void MarblesInsanity::render() const
 
 void MarblesInsanity::update()
 {
+	static float elapsedTime = 0.0f;
+
 	if (!mInsanity) {
-		Marbles::update();
+		//Marbles::update();
 
 	}
-	static float elapsedTime = 0.0f;
 	if (gameFinish) {
 		float dt = SDLUtils::getDeltaTime();
 		elapsedTime += dt;
 
 		if (elapsedTime >= 3.0f) {
+			elapsedTime = 0.0f;
 			mInsanity = false;
+			game->pop();
+			game->push(new Marbles(game,dColor));
 		}
 	}
 	else {
+		elapsedTime = 0.0f;
 		for (auto btn : trileroButtons) {
 			btn->update();
 
@@ -74,12 +83,8 @@ void MarblesInsanity::update()
 
 void MarblesInsanity::StartRoundTrickster()
 {
-	Marbles::setbInsanity(true);
-	wMarbleI = -1;
-	wMarble = {0,0,0,0};
-	wMarbleShow = false;
-	gameFinish = false;
-	mInsanity = true;
+	//Marbles::setbInsanity(true);
+	
 	std::uniform_int_distribution<> distrib(0, 3);
 	std::uniform_int_distribution<> posDistrib(0, 2);
 	posColor = posDistrib(game->getGen());
@@ -136,11 +141,10 @@ void MarblesInsanity::discardMarble(int x,int y,int widht,int height, bool marbl
 				wMarbleI = i;
 			}
 		}
-		Marbles::setBlockedMarble(color);
 		gameFinish = true;
 	}
 	else {
-		
+		dColor = { 0,0,0,0 };
 		gameFinish = true;
 	}
 	

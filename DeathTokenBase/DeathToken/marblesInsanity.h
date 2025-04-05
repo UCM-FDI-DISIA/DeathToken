@@ -2,7 +2,7 @@
 #include "Marbles.h"
 #include "Game.h"
 #include "vector"
-class MarblesInsanity : public Marbles
+class MarblesInsanity : public GameState
 {
 private:
 	UIMarblesInsanity* uiI;

@@ -248,14 +248,14 @@ ButtonMarbles::ButtonMarbles(GameState* gS, Game* game, UI* ui, int x, int y, in
 void
 ButtonMarbles::render() const
 {
-	std::vector<int> blockedMarble = Marbles::getBlockedMarble();
+	//std::vector<int> blockedMarble = Marbles::getBlockedMarble();
 	SDL_Rect auxBox;
 	int pos = 0;
 	switch (type)
 	{
 	case 1: {
 		for (int i = 0; i < NCMarbles.size(); i++) {
-			if (NCMarbles[i] == 1 && NCMarbles[i] != blockedMarble[i]) {
+			if (NCMarbles[i] == 1 /* && NCMarbles[i] != blockedMarble[i]*/) {
 				auxBox.x = (int)(box.x + box.w / 2.0 - (74.0 / 1080.0 * Game::WIN_HEIGHT) / 2.0);
 				auxBox.y = (int)(box.y + box.h / 2.0 - (74.0 / 1920.0 * Game::WIN_WIDTH) / 2.0);
 				auxBox.w = (int)((74.0 / 1920.0 * Game::WIN_WIDTH));

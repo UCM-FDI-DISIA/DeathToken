@@ -32,7 +32,7 @@ protected:
 	int clave = 0;
 
 	bool bInsanity;
-	static std::vector<int> blockedMarble;
+	std::vector<int> blockedMarble;
 
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
 	double PosPH1 = (118.0 / 1080.0) * Game::WIN_HEIGHT;
@@ -45,7 +45,7 @@ protected:
 	double marginW = (10.0 / 1920.0) * Game::WIN_WIDTH;
 	double marginH = (10.0 / 1080.0) * Game::WIN_WIDTH;
 public:
-	Marbles(Game* game);
+	Marbles(Game* game, std::vector<int> blockedMarble);
 	virtual ~Marbles();
 	void render() const override;
 	void update() override;
@@ -60,7 +60,7 @@ public:
 	void repeat();
 
 	void setBlockedMarble(std::vector<int> blocked);
-	static std::vector<int> getBlockedMarble();
+	//static std::vector<int> getBlockedMarble();
 	bool getbInsanity();
 	void setbInsanity(bool insanity);
 };

@@ -168,13 +168,7 @@ UISlots::OnInfo()
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game) ,marbles(marbles){}
 void UIMarbles::OnGo() {
-	if (&Marbles::getbInsanity) {
-
-	}
-	else {
-		marbles->startRound();
-
-	}
+	marbles->startRound();
 }
 
 void UIMarbles::OnErase() {
@@ -190,10 +184,7 @@ void UIMarbles::OnRepeat()
 //MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
 void UIMarblesInsanity::OnGo() {
-	if (&Marbles::getbInsanity) {
-
 		marblesI->StartRoundTrickster();
-	}
 }
 
 void UIMarblesInsanity::render() const
