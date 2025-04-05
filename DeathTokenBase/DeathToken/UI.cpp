@@ -3,6 +3,7 @@
 #include "Marbles.h"
 #include "Slots.h"
 #include "Baccarat.h"
+#include "RouletteScene.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -203,4 +204,10 @@ void UIBaccarat::OnErase() {
 void UIBaccarat::OnRepeat()
 {
 	baccarat->repeat();
+}
+
+UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : UI(gS, game), rouletteS(rouletteS) {}
+
+void UIRoulette::OnGo() {
+	rouletteS->throwRoulette();
 }

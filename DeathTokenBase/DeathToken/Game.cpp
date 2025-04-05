@@ -91,6 +91,10 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
 	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
 	TextureSpec{"blackFont.png",1,1},
+	TextureSpec{"roulette/rouletteBG.png",1,1},
+	TextureSpec{"roulette/roulette.png",1,1},
+	TextureSpec{"roulette/rouletteLocura.png",1,1},
+	TextureSpec{"roulette/rouletteArrow.png",1,1},
 
 
 

@@ -28,7 +28,7 @@ public:
 
 	void changeChip(const int& id);
 	int currentChipValue();
-	
+
 	void OnExit();
 	virtual void OnGo() = 0;
 };
@@ -43,7 +43,7 @@ protected:
 	virtual void OnErase() {};
 	virtual void OnInfo() {};
 	virtual void OnRepeat() {};
-	
+
 
 public:
 	UIChips(GameState* gS, Game* game);
@@ -66,7 +66,7 @@ public:
 	void OnInfo();
 };
 class Marbles;
-class UIMarbles :public   UIChips{
+class UIMarbles :public   UIChips {
 	Marbles* marbles;
 	std::vector<ButtonBet*> bets;
 public:
@@ -87,4 +87,13 @@ public:
 	void OnGo() override;
 	void OnErase() override;
 	void OnRepeat() override;
+};
+
+class RouletteScene;
+class UIRoulette :public   UI {
+	RouletteScene* rouletteS;
+public:
+	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
+
+	void OnGo() override;
 };
