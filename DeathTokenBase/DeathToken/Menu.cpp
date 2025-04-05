@@ -1,33 +1,24 @@
-﻿#include "checkML.h"
-#include "menu.h"
-#include "game.h"
-#include "player.h"
+#include "Menu.h"
+#include "Game.h"
+#include "Player.h"
+#include "Peleas.h"
+#include "PeleasPelea.h"
 
-
-Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)), baccaratState(nullptr) {
-	addEventListener(this);
+Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
-	eco = new PlayerEconomy();
-	eco->EconomyInitialize();
+	PlayerEconomy::EconomyInitialize();
 	//Baccarat button
-	baccarat = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
+	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() {
-		gameChanger(baccaratState = new Baccarat(getGame()));
-		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
-		{
-			tutorialBaccarat = false;
-			baccaratState->showTutorial();
-		}
-		});
+	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new SlotsNormal(getGame()));});
+	slots->connect([this]() { gameChanger(new Slots(getGame())); });
 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
@@ -36,63 +27,46 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)),
 	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
+	marbles->connect([this]() { gameChanger(new Marbles(getGame())); });
 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 
-	roulette = new Button(this,(int) (Game::WIN_WIDTH / 2 - wBut / 2), (int)(Game::WIN_HEIGHT / 100), (int)wBut, (int)wBut, game->getTexture(ROULETTE));
-	addObjects(roulette);
-	addEventListener(roulette);
-	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
-
 	if (ghost == nullptr) {
-		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
+		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST));
 		addObjects(ghost);
 		addEventListener(ghost);
 	}
 
 	hud = new HUDLobby(this);
 }
- Menu::~Menu() {
-	 delete eco;
-	 texture = nullptr;
-	 hud = nullptr;
-	 if(baccaratState)
-	 delete baccaratState;
-}
 
 void Menu::gameChanger(GameState* juego) {
-	if (eco->getInsanity() > 0)
-	{
-		if (typeid(*juego) == typeid(Baccarat)) {
-			delete juego;
-			juego = new BaccaratInsanityManager(getGame());
-		}
-		else if (typeid(*juego) == typeid(Marbles)) {
-			delete juego;
-			juego = new MarblesInsanity(getGame());
-
-		}
-		else if (typeid(*juego) == typeid(SlotsNormal)) {
-			delete juego;
-			juego = new SlotsInsanity(getGame());
-		}
-		else if (typeid(*juego) == typeid(Peleas)) {
-			delete juego;
-			juego = new PeleasInsanity(getGame());
-		}
-	}
 	game->push(juego);
-
 }
 
 void Menu::render() const {
 	texture->render();
 	GameState::render();
+	
+}
+Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
+	Collision col;
+	bool hit = false;
 
+	for (sceneObject* obj : objetos) {
+		if (!hit) {
+			col = obj->hit(rect, target);
+			hit = col.result != col.NONE;
+			if (target == Collision::PLAYER && col.result == col.OBSTACLE) {
+				hit = true;
+			}
+		}
+	}
+	if (hit) return col;
+	else return col = NO_COLLISION;
 }
 
 void Menu::update() {//detecto interseciones player/button
@@ -116,11 +90,4 @@ void Menu::handleEvent(const SDL_Event& event) {
 		else if (marbles->Button::getHover()) marbles->Button::getCallback();
 		else if (fights->Button::getHover()) fights->Button::getCallback();
 	}
-#ifdef _DEBUG
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE) {
-		eco->setInsanity(100);
-	}
-#endif // _DEBUG
-
-	
 }

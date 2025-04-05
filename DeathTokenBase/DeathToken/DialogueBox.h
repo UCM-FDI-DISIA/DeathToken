@@ -1,69 +1,27 @@
-﻿#ifndef DIALOGUEBOX_H
+#ifndef DIALOGUEBOX_H
 #define DIALOGUEBOX_H
 
-#pragma region INCLUDES
-#include "game.h"           // Configuraciones del juego
-#include "gameObject.h"     // Clase base para objetos del juego
-#include <deque>            // Contenedor para historial de diálogos
-#include <memory>           // Para punteros inteligentes (no usado directamente aquí)
-#include <SDL.h>            // Librería gráfica principal
-#include <SDL_ttf.h>        // Manejo de fuentes de texto
-#include <string>           // Para manejo de strings
-#pragma endregion
+#include "Game.h"
+#include "gameObject.h"
+#include <deque>
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <string>
 
-#pragma region CONSTANTS
-// Espacio de nombres para constantes de la caja de diálogo
-namespace DialogueBoxConstants {
-	// Constantes de temporización
-	const int NEXT_DIALOGUE_DELAY = 6000;       // 6 segundos para diálogo automático
-	const int EXTRA_LINE_DELAY = 2000;          // +2 segundos por línea extra
-	const int SCROLL_TIMEOUT = 3000;            // 3 segundos para resetear scroll
-	const int MANUAL_SCROLL_SPEED = 20;         // Velocidad scroll manual (px)
-	const float AUTO_SCROLL_BASE_SPEED = 1.2f;  // Velocidad base scroll automático
-	const float AUTO_SCROLL_FAST_FACTOR = 4 + (1.0f / 3.0f); // Factor velocidad rápida
 
-	// Dimensiones por defecto
-	const int BOXWIDTH = 500;       // Ancho predeterminado
-	const int BOXHEIGHT = 250;      // Alto predeterminado
-	const int TEXT_MARGIN = 10;     // Margen interior del texto
+class DialogueBox : EventHandler {
 
-	// Configuración de texto
-	const float LINE_HEIGHT_FACTOR = 1.3f;  // Altura de línea (1.3 * tamaño fuente)
-	const float CHAR_WIDTH_FACTOR = 0.6f;   // Ancho estimado por carácter
-	const float NUM_WIDTH_FACTOR = 0.4f;   // Ancho estimado en números
+	const int BOXWIDTH = 500;
+	const int BOXHEIGHT = 250;
+	const int MARGIN = 10;
+	// Definir la altura de l�nea seg�n la fuente (puede variar)
+	const int lineHeight = static_cast<int>(Game::FONTSMALLSIZE * 1.3f);  // Se recomienda usar 1.3 * tama�o de la fuente
+	// Estimar el ancho promedio de un car�cter
+	const float charWidth = Game::FONTSMALLSIZE * 0.6f;  // Aproximadamente 14.4 px para fuente de 24px
+	const int letterdelay = 30; // en milisegundos
+	const int fastLetter = 5; // en milisegundos
 
-	// Temporizadores de escritura
-	const int NORMAL_LETTER_DELAY = 30;     // Retardo entre letras (normal)
-	const int FAST_LETTER_DELAY = 5;        // Retardo entre letras (rápido)
-}
-#pragma endregion
-
-#pragma region CLASS_DEFINITION
-/*****************************************************************/
-/* Clase DialogueBox: Maneja la visualización de texto en el juego*/
-/* Hereda de EventHandler para gestionar eventos de entrada       */
-/*****************************************************************/
-class DialogueBox : public EventHandler {
 public:
-<<<<<<< HEAD
-#pragma region CONSTRUCTORS_DESTRUCTOR
-	/// Constructor por defecto
-	DialogueBox();
-
-	/**
-	 * Constructor parametrizado
-	 * @param renderer Renderizador SDL
-	 * @param font Fuente de texto a usar
-	 * @param posx Posición X (opcional, default: 800)
-	 * @param posy Posición Y (opcional, default: 200)
-	 * @param update Si necesita actualización (opcional, default: false)
-	 * @param transparente Si es transparente (opcional, default: true)
-	 * @param wi Ancho (opcional, default: 500)
-	 * @param he Alto (opcional, default: 250)
-	 */
-	DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx = 800, int posy = 200,
-		bool update = false, bool transparente = true, int wi = 500, int he = 250);
-=======
 	DialogueBox()
 		: renderer(nullptr)
 		, font(nullptr)
@@ -113,59 +71,22 @@ public:
 		textWidth = w - 2 * MARGIN;
 		charsPerLine = textWidth / charWidth;
 	}
->>>>>>> b3e294d (Ajuste del battlemanager para que vaya a la misma velocidad que el texto)
 
-	/// Destructor
-	~DialogueBox();
-#pragma endregion
+	~DialogueBox() {
+		renderer = nullptr;
+		font = nullptr;
+		history.clear();
+		displayedText.clear();
+		message.clear();
+	};
 
-#pragma region PUBLIC_METHODS
-	/**
-	 * Muestra un mensaje en la caja
-	 * @param message Texto a mostrar
-	 * @param instantShow Mostrar inmediatamente (opcional, default: true)
-	 */
-	virtual void showMessage(const std::string& message, bool instantShow = false);
-
-	/// Oculta la caja de diálogo
+	void showMessage(const std::string& message);
 	void hideMessage();
-
-	/// Limpia el historial de mensajes
-	void resetHistory();
-
-	/// Renderiza la caja
-	virtual void render() const;
-
-	/**
-	 * Actualiza el estado de la caja
-	 * @param deltaTime Tiempo desde último frame (ms)
-	 */
-	virtual void update(float deltaTime);
-
-	/// Maneja eventos de entrada (override de EventHandler)
+	void ResetHistory();
+	void render() const;
+	void update(float deltaTime);
 	void handleEvent(const SDL_Event& event) override;
-#pragma endregion
 
-<<<<<<< HEAD
-#pragma region GETTERS_SETTERS
-	// Indica si debe avanzar al siguiente estado
-	inline bool shouldAdvanceState() const { return nextState; }
-
-	// Devuelve el historial de diálogos
-	inline const std::deque<std::string>& getHistory() const { return history; }
-
-	// Devuelve un dialogo dentro del historial según su indice (index)
-	inline const std::string& getMessage(unsigned int index = UINT_MAX) const
-	{
-		if (history.empty()) {
-			return ""; // Si no hay mensajes, devuelve cadena vacía
-		}
-		if (index >= history.size()) 
-		{ 
-			return history.back(); 
-		} // Si el índice es inválido, devuelve el último mensaje
-		return history[index];
-=======
 	inline bool passNextState() {
 		return nextState;
 	}
@@ -173,89 +94,67 @@ public:
 	inline void SetPosition(int posx, int posy) {
 		x = posx;
 		y = posy;
->>>>>>> b3e294d (Ajuste del battlemanager para que vaya a la misma velocidad que el texto)
 	}
 
-	// Establece posición (x,y)
-	inline void setPosition(int posx, int posy) { x = posx; y = posy; }
+	inline void SetX(int posx) {
+		x = posx;
+	}
 
-	// Establece posición X
-	inline void setX(int posx) { x = posx; }
+	inline void SetY(int posy) {
+		y = posy;
+	}
+	inline void SetW(int wi) {
+		w = wi;
+		textWidth = w - 2 * MARGIN;
+		charsPerLine = textWidth / charWidth;
+	}
 
-	// Establece posición Y
-	inline void setY(int posy) { y = posy; }
+	inline void SetH(int he) {
+		h = he;
+	}
 
-	// Establece ancho y recalcula métricas
-	inline void setWidth(int wi) { w = wi; calculateTextMetrics(); }
-
-	// Establece alto
-	inline void setHeight(int he) { h = he; }
-
-	// Activa/desactiva diálogo automático
-	inline void setAuto(bool a) { autoDialog = a; }
-
-	// Alterna diálogo automático
-	inline void toggleAuto() { autoDialog = !autoDialog; }
-
-	// Resetea flag de estado (para nuevo texto)
-	inline void resetDialogStateFlag() { nextState = false; }
-#pragma endregion
+	inline void SetAuto(bool a) {
+		autoDialog = a;
+	}
+	inline void InvertAuto() {
+		autoDialog = !autoDialog;
+	}
 
 	inline void BattleStatePass() {
 		nextState = false;
 	}
 
 protected:
-#pragma region PROTECTED_METHODS
-	/**
-	 * Calcula métricas del texto
-	 * @param fontSize Tamaño de fuente (opcional, default: Game::FONTSMALLSIZE)
-	 */
-	void calculateTextMetrics();
+	// Basico
+		// Render
+		// Renderer de la clase game
+	SDL_Renderer* renderer;
 
-	/**
-	 * Maneja el desplazamiento del texto
-	 * @param deltaTime Tiempo desde último frame
-	 * @param numLines Número de líneas de texto
-	 */
-	void handleScroll(float deltaTime);
-#pragma endregion
+	// Configuraciones de la letra
+	TTF_Font* font;
 
-#pragma region MEMBER_VARIABLES
-	// Elementos básicos
-	SDL_Renderer* renderer;  // Renderer SDL
-	TTF_Font* font;          // Fuente de texto
+	// Es el texto que ser� mostrado en pantalla. 
+	// Depende de si tiene escritura o no.
+	// En caso de tener escritura se iran a�adiendo caracteres con un delay de
+	// letterDelay o en caso de ir rapido con la pulsaci�n de espacio por el jugador
+	// ira a letterdelay / fastLetter. En caso de que se pulse enter se escribira automaticamente el dialogo.
+	// En caso de no tenerla ser� igual a message
+	std::string displayedText;
+	// Control de los mensajes
+	std::deque<std::string> history;
+	std::string message;
 
-	// Control de texto
-	std::string displayedText;   // Texto actual mostrado
-	std::deque<std::string> history; // Historial de diálogos (cola)
-	std::string message;         // Mensaje actual completo
+	// Posicion en pantalla (se usan pixeles)
+	int x;
+	int y;
 
-	// Posición y dimensiones
-	int x, y;   // Posición (coordenadas)
-	int h, w;   // Dimensiones (alto, ancho)
+	// Tama�o del cuadro de texto
+	int h;
+	int w;
 
-	// Estados y flags
-	bool visible;        // Visibilidad
-	bool transparente;   // Transparencia
-	bool isScrolling;    // Scroll activo
-	bool fast;           // Modo rápido
-	bool instantDisplay; // Mostrar todo
-	bool needsUpdate;    // Si el texto mostrado usará el update para escrito caracter a carácter o saldrá inmediatamente del update
-	bool nextState;      // Fin de diálogos
-	bool autoDialog;     // Avance automático
+	// Si debe de ser renderizado
+	bool visible;
 
-<<<<<<< HEAD
-	// Temporizadores y contadores
-	int scrollingTime;       // Tiempo scroll
-	int scrollOffset;        // Desplazamiento
-	int currentDialogIndex;  // Índice diálogo
-	int charIndex;          // Índice carácter
-	int completedTextTime;  // Tiempo texto completo
-	int textWidth;         // Ancho texto disponible
-	int charsPerLine;     // Caracteres por línea
-#pragma endregion
-=======
 	// Si tiene un fondo
 	bool transparente;
 
@@ -305,8 +204,5 @@ protected:
 	// Si true salta al siguiente dialogo automatico cuando llega el momento. 
 	// La condicion de salto es controlada por completedTextTime.
 	bool autoDialog = true;
->>>>>>> b3e294d (Ajuste del battlemanager para que vaya a la misma velocidad que el texto)
 };
-#pragma endregion
-
 #endif // DIALOGUEBOX_H

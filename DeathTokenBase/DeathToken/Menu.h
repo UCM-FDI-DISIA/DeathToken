@@ -1,47 +1,32 @@
-﻿#pragma once
-#include "texture.h"
-#include "gameState.h"
-#include "button.h"
-#include "baccarat.h"
-#include "baccaratInsanityManager.h"
-#include "baccaratBlackjack.h"
-#include "baccaratBet.h"
-#include "slotsNormal.h"
-#include "slotsInsanity.h"
-#include "marbles.h"
-#include "sceneObject.h"
-#include "rouletteScene.h"
-#include "marblesInsanity.h"
-#include "peleas.h"
-#include "peleasInsanity.h"
+#pragma once
+#include "Texture.h"
+#include "GameState.h"
+#include "Button.h"
+#include "Baccarat.h"
+#include "Slots.h"
+#include "Marbles.h"
+#include "Collision.h"
+#include "SceneObject.h"
 #include <list>
 
 class Player;
 
-class Menu : public GameState, EventHandler
+class Menu : public GameState
 {
+	list<sceneObject*> objetos;
 	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
 	Button* marbles;
 	Button* fights;
 	Button* slots;
-	Button* roulette;
-	//Booleanos para activar el tutorial al entrar por primera vez al juego
-	bool tutorialBaccarat = true;
-	bool tutorialSlots = true;
-	bool tutorialFights = true;
-	bool tutorialMarbles = true;
-	GameState* baccaratState;
-
 	HUDLobby* hud;
-	PlayerEconomy* eco;
 public:
 	Menu(Game* game);
-	virtual ~Menu();
 	void gameChanger(GameState* juego);
 	void render() const override;
+	Collision checkCollision(const SDL_Rect& rect, Collision::Target target);
 	void update() override;
-	void handleEvent(const SDL_Event& event); //para colisiones con button
+	void handleEvent(const SDL_Event& event);//para colisiones con button
 };
 
