@@ -3,6 +3,7 @@
 #include <list>
 #include "gameObject.h"
 #include "EventHandler.h"
+
 class Game;
 
 class GameState {
@@ -21,6 +22,5 @@ public:
 	void addEventListener(EventHandler* obj);
 	void addObjects(GameObject* obj);
 	void addObjectsUI(GameObject* obj);
-	virtual void showTutorial() {};
 };
 

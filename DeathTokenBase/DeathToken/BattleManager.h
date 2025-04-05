@@ -42,5 +42,4 @@ private:
 		endMatch = true;
 	}
 };
-
 #endif
