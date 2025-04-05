@@ -1,14 +1,13 @@
 #pragma once
-#include <cstdlib>
-#include <vector>
-#include <map>
-#include "gameState.h"
-#include "UI.h"
-#include "Texture.h"
-#include "EventHandler.h"
 #include "Button.h"
-#include "card.h"
-#include "Award.h"
+#include "Cards.h"
+#include "EventHandler.h"
+#include "gameState.h"
+#include "Texture.h"
+#include "UI.h"
+#include <cstdlib>
+#include <map>
+#include <vector>
 using namespace std;
 
 struct Mat {
@@ -22,7 +21,6 @@ protected:
 	struct Bet {
 		int multiplier = 0;
 		int moneyBet = 0;
-		int betType = 0;
 	};
 	UIBaccarat* ui;
 
@@ -47,18 +45,17 @@ protected:
 	const int xTwo = 2;
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
-	bool bankerBet = false, playerBet = false, tieBet = false;
-	bool hasWon = false;
 	//bool locura; global?
 public:
-	Baccarat(Game* game);
+	bool hasWon = false;
+	Baccarat(Game* game, bool bJ = false);
 	virtual ~Baccarat() {
 		HUDManager::popGame();
-		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
+		delete ui;  // Elimina la interfaz solo si fue creada dinï¿½micamente
 		ui = nullptr;  // Evita accesos a memoria liberada
 
 		//for (auto& b : bacButtons) {
-		//	delete b;  // Libera cada botón
+		//	delete b;  // Libera cada botï¿½n
 		//}
 
 	};
@@ -75,9 +72,9 @@ public:
 	void win();
 
 	//metodos apuestas
-	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
-	void newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat);
+	void createBaccaratButton(int x, int y, int width, int height, int multiplier);
+	void newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat);
 	void clearBets();
-	virtual void repeat();
+	void repeat();
 	virtual void startRound();
 };

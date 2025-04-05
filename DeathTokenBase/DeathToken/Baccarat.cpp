@@ -2,13 +2,16 @@
 #include "Game.h"
 #include <random>
 
-Baccarat::Baccarat(Game* game) : GameState(game), texture(game->getTexture(BACMAT)), ui(new UIBaccarat(this, game, this)) {
+Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), ui(new UIBaccarat(this, game, this)) {
 	addEventListener(this);
 	addCards();
 	//Buttons
-	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8, 0);//x8 apuesta
-	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2, 1);//x2 apuesta
-	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);//x2 apuesta
+	if (!bJ)
+	{
+		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8);//x8 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2);//x2 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2);//x2 apuesta
+	}
 	hud = new HUDBet(this);
 }
 
@@ -32,6 +35,7 @@ void Baccarat::addCards() {//llama al metodo que crea las cartas
 	//tercera banca
 	banker3 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5), (int)(Game::WIN_HEIGHT / 5.32), 270, 14);
 }
+
 
 void Baccarat::handleEvent(const SDL_Event& event) {
 }
@@ -127,7 +131,7 @@ int Baccarat::generateRnd() {
 
 void Baccarat::win() {
 	playerComb = 0, bankerComb = 0;
-
+	
 	for (int i = 0; i < mat.player.size(); i++) {
 		if (mat.player[i] > 9) mat.player[i] = 0;
 		playerComb += mat.player[i];
@@ -136,73 +140,38 @@ void Baccarat::win() {
 		if (mat.banker[i] > 9) mat.banker[i] = 0;
 		bankerComb += mat.banker[i];
 	}
-	clearDeck();//borramos mazo repartido
 	playerComb = playerComb % 10;
 	bankerComb = bankerComb % 10;
 
-	int multi = 0;
+#if _DEBUG
 	if (playerComb > bankerComb) {
-		playerBet = true;
+		cout << "GANA PLAYER" << endl;
 	}
 	else if (playerComb < bankerComb) {
-		bankerBet = true;
+		cout << "GANA BANKER" << endl;
 	}
-	else if (playerComb == bankerComb) {
-		tieBet = true;
+	else {
+		cout << "GANA EMPATE" << endl;
 	}
-	int totalBet = 0;
-	for (int i = 0; i < bets.size(); i++) {
-		if (bets[i].betType == 0 && tieBet) {
-			totalBet += bets[i].moneyBet;
-			if (multi == 0)
-			{
-				multi = bets[i].multiplier;
-			}
-		}
-		else if (bets[i].betType == 1 && bankerBet) {
-			totalBet += bets[i].moneyBet;
-			if (multi == 0)
-			{
-				multi = bets[i].multiplier;
-			}
-		}
-		else if (bets[i].betType == 2 && playerBet) {
-			totalBet += bets[i].moneyBet;
-			if (multi == 0)
-			{
-				multi = bets[i].multiplier;
-			}
-		}
-	}
-
-	if (totalBet > 0) {
-		game->push(new Award(game, (GameState*)this, totalBet, totalBet * multi));
-		hasWon = true;
-	}
-
-	playerBet = false;
-	bankerBet = false;
-	tieBet = false;
-	PlayerEconomy::setBet(0);
-	hud->refresh();
-	clearBets();
+#endif
 }
 
 //APUESTAS
-void Baccarat::newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat) {
-	moneyBet = ui->currentChipValue();
-	// así es más chuli (cleon)
-	bets[clave++] = { multiplier, moneyBet, betType };
+void Baccarat::newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat) {
+	moneyBet = btnBaccarat->getBet();
+
+	// asï¿½ es mï¿½s chuli (cleon)
+	bets[clave++] = { multiplier, moneyBet };
 	//clave++;
 }
 
 void
-Baccarat::createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType) {
+Baccarat::createBaccaratButton(int x, int y, int width, int height, int multiplier) {
 	ButtonBaccarat* btnBaccarat = new ButtonBaccarat(this, game, ui, x, y, width, height);
 	bacButtons.push_back(btnBaccarat);
 	addObjects(bacButtons.back());
 	addEventListener(bacButtons.back());
-	btnBaccarat->connect([this, multiplier, betType, btnBaccarat]() { newBet(multiplier, betType, btnBaccarat); });
+	btnBaccarat->connect([this, multiplier, btnBaccarat]() { newBet(multiplier, moneyBet, btnBaccarat); });
 }
 
 void Baccarat::clearBets() {
@@ -217,15 +186,10 @@ void Baccarat::clearBets() {
 void Baccarat::repeat()
 {
 	bets = betsHistory;
-	int currentBet = 0;
-	for (int i = 0; i < bets.size(); i++) {
-		currentBet += bets[i].moneyBet;
-	}
 	for (auto i : bacButtons)
 	{
 		i->repeat();
 	}
-	HUDManager::applyBet(currentBet);
 }
 
 void Baccarat::startRound() {
@@ -240,4 +204,5 @@ void Baccarat::startRound() {
 
 	handThird();//reparte tercera
 	win();
+	clearDeck();//borramos mazo repartido
 }
