@@ -27,7 +27,7 @@ public:
 
 	void changeChip(const int& id);
 	int currentChipValue();
-	
+
 	void OnExit();
 	virtual void OnGo() = 0;
 };
@@ -42,7 +42,7 @@ protected:
 	virtual void OnErase() {};
 	virtual void OnRepeat() {};
 	virtual void OnInfo() {};
-	
+
 
 public:
 	UIChips(GameState* gS, Game* game);
@@ -65,7 +65,7 @@ public:
 	void OnInfo();
 };
 class Marbles;
-class UIMarbles :public   UIChips{
+class UIMarbles :public   UIChips {
 	Marbles* marbles;
 	std::vector<ButtonBet*> bets;
 public:
@@ -99,6 +99,7 @@ protected:
 	ButtonUI* arrowNext;
 	ButtonUI* arrowBack;
 	size_t totalPages;//pags totales tuto
+	bool arrow = false;
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
@@ -106,5 +107,5 @@ public:
 	UITutorial(GameState* gS, Game* game, size_t tam);
 
 	void OnExit();
-	
+
 };

@@ -19,7 +19,11 @@ class Menu : public GameState
 	Button* marbles;
 	Button* fights;
 	Button* slots;
-
+	//Booleanos para activar el tutorial al entrar por primera vez al juego
+	bool tutorialBaccarat = true;
+	bool tutorialSlots = true;
+	bool tutorialFights = true;
+	bool tutorialMarbles = true;
 	GameState* baccaratState;
 public:
 	Menu(Game* game);

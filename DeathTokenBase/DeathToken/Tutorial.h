@@ -22,5 +22,8 @@ public:
 	void render() const override;
 	void nextPage(); //avanza a la siguiente pag
 	void previousPage(); //retrocede a la pag anterior
+	size_t getPage() {
+		return currentPage;
+	}; //devuelve el numero de pagina
 };
 

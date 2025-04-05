@@ -228,23 +228,37 @@ UITutorial::UITutorial(GameState* gS, Game* game, size_t tam) : gS(gS), game(gam
 
 	//falta la flecha de volver atras
 	if (totalPages > 0) {
-		arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-		gS->addObjects(arrowNext);
-		gS->addEventListener(arrowNext);
-		arrowNext->connect([this, gS]() {
+		/*Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+		if (tutorial->getPage() < totalPages)
+		{*/
+			arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
+			gS->addObjects(arrowNext);
+			gS->addEventListener(arrowNext);
+		//}
+		arrowNext->connect([this, gS, game]() {
 			Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
 			if (tutorial) {
 				tutorial->nextPage();
-			}
-			});
-		//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
-		arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-		gS->addObjects(arrowBack);
-		gS->addEventListener(arrowBack);
-		arrowBack->connect([this, gS]() {
-			Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-			if (tutorial) {
-				tutorial->previousPage();
+				if (tutorial->getPage() > 0 && !arrow)
+				{
+					/*if (tutorial->getPage() == totalPages) {
+
+					}*/
+					arrow = true;
+					arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
+					gS->addObjects(arrowBack);
+					gS->addEventListener(arrowBack);
+					//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
+					arrowBack->connect([this, gS]() {
+						Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+						if (tutorial) {
+							tutorial->previousPage();
+							/*if (tutorial->getPage() == 0) {
+
+							}*/
+						}
+						});
+				}
 			}
 			});
 	}
