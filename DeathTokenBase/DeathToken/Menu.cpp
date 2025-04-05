@@ -13,7 +13,14 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	baccarat = new Button(this,(int) xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
 	addObjects(baccarat);
 	addEventListener(baccarat);
-	baccarat->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	baccarat->connect([this]() {
+		gameChanger(baccaratState = new BaccaratBlackjack(getGame()));
+		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			tutorialBaccarat = false;
+			baccaratState->showTutorial();
+		}
+		});
 
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);

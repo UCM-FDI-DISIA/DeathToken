@@ -47,14 +47,15 @@ protected:
 	int clave = 0;//para verla apuesta que es
 	//bool locura; global?
 public:
-	Baccarat(Game* game);
+	bool hasWon = false;
+	Baccarat(Game* game, bool bJ = false);
 	virtual ~Baccarat() {
 		HUDManager::popGame();
-		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
+		delete ui;  // Elimina la interfaz solo si fue creada dinï¿½micamente
 		ui = nullptr;  // Evita accesos a memoria liberada
 
 		//for (auto& b : bacButtons) {
-		//	delete b;  // Libera cada botón
+		//	delete b;  // Libera cada botï¿½n
 		//}
 		
 	};
