@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "GameState.h"
 #include "Button.h"
+#include "Text.h"
 #include <vector>
 class Player;
 class UI
@@ -76,6 +77,19 @@ public:
 	void OnRepeat() override;
 };
 
+
+class MarblesInsanity;
+class UIMarblesInsanity : public UIChips {
+	MarblesInsanity* marblesI;
+	std::vector<ButtonBet*> bets;
+public:
+	UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marbles);
+	void OnGo() override;
+	void render() const ;
+	void update();
+};
+
+
 class Baccarat;
 class UIBaccarat :public   UIChips {
 	Baccarat* baccarat;
@@ -87,6 +101,15 @@ public:
 	void OnErase() override;
 	void OnRepeat() override;
 	void OnInfo() override;
+};
+
+class RouletteScene;
+class UIRoulette :public   UI {
+	RouletteScene* rouletteS;
+public:
+	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
+
+	void OnGo() override;
 };
 
 
@@ -107,5 +130,4 @@ public:
 	UITutorial(GameState* gS, Game* game, size_t tam);
 
 	void OnExit();
-
 };

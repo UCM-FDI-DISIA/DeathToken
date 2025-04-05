@@ -35,6 +35,10 @@ enum TextureName {
 	UIARROWR,
 	UIARROWRHV,
 	UIARROWRCLCK,
+	UIARROWU,
+	UIARROWUCLCK,
+	UIARROWD,
+	UIARROWDCLCK,
 	UIINFO,
 	UIINFOHV,
 	UIINFOCLCK,
@@ -88,6 +92,9 @@ enum TextureName {
 	ROULETTE,
 	ROULETTEINSANITY,
 	ROULETTEARROW,
+	TUTORIAL1,
+	TUTORIAL2,
+	TUTORIAL3,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
