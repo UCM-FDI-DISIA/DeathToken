@@ -1,5 +1,148 @@
 #pragma once
+#include "Texture.h"
+#include "GameState.h"
+#include "Button.h"
+#include "Text.h"
+#include <vector>
+class Player;
 class UI
 {
+protected:
+	GameState* gS;
+	Game* game;
+	ButtonUI* exit;
+	ButtonUI* go;
+	bool onBet;
+
+	ButtonUI* arrowL;
+	ButtonUI* arrowR;
+	int chipPage;
+	std::vector<ButtonChip*> chips;
+	int chipOnUse;
+	void OnArrow(const bool& left);
+
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+	UI(GameState* g, Game* game);
+
+	void changeChip(const int& id);
+	int currentChipValue();
+
+	void OnExit();
+	virtual void OnGo() = 0;
 };
 
+class UIChips : public UI
+{
+protected:
+	ButtonUI* erase;
+	ButtonUI* info;
+	ButtonUI* repeat;
+
+	virtual void OnErase() {};
+	virtual void OnRepeat() {};
+	virtual void OnInfo() {};
+
+
+public:
+	UIChips(GameState* gS, Game* game);
+};
+class Slots;
+class UISlots : public UI
+{
+protected:
+	Slots* slots;
+	ButtonUI* x2;
+	ButtonUI* x3;
+	ButtonUI* x5;
+	ButtonUI* info;
+public:
+	UISlots(GameState*, Game*, Slots*);
+	void OnGo() override;
+	void Onx2();
+	void Onx3();
+	void Onx5();
+	void OnInfo();
+};
+class Marbles;
+class UIMarbles :public   UIChips {
+	Marbles* marbles;
+	std::vector<ButtonBet*> bets;
+public:
+	UIMarbles(GameState* gS, Game* game, Marbles* marbles);
+
+	void OnGo() override;
+	void OnErase() override;
+	void OnRepeat() override;
+};
+
+
+class MarblesInsanity;
+class UIMarblesInsanity : public UIChips {
+	MarblesInsanity* marblesI;
+	std::vector<ButtonBet*> bets;
+public:
+	UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marbles);
+	void OnGo() override;
+	void render() const ;
+	void update();
+};
+
+
+class Baccarat;
+class UIBaccarat :public   UIChips {
+	Baccarat* baccarat;
+	std::vector<ButtonBet*> bets;
+public:
+	UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat);
+
+	void OnGo() override;
+	void OnErase() override;
+	void OnRepeat() override;
+	void OnInfo() override;
+};
+
+class RouletteScene;
+class UIRoulette :public   UI {
+	RouletteScene* rouletteS;
+public:
+	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
+
+	void OnGo() override;
+};
+
+
+class UITutorial
+{
+protected:
+	GameState* gS;
+	Game* game;
+	ButtonUI* exit;
+	ButtonUI* arrowNext;
+	ButtonUI* arrowBack;
+	size_t totalPages;//pags totales tuto
+	bool arrow = false;
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+
+	UITutorial(GameState* gS, Game* game, size_t tam);
+
+	void OnExit();
+};
+
+class Peleas;
+class UIPeleas : public UI {
+public:
+	UIPeleas(Game* game, Peleas* peleas) : UI((GameState*)peleas, game), _peleas(peleas)
+	{
+	};
+
+	void OnGo() override;
+
+protected:
+	Peleas* _peleas;
+	ButtonUI* autoText;
+	ButtonUI* historial;
+};

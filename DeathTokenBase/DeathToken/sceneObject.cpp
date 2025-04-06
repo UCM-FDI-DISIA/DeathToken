@@ -16,9 +16,12 @@ sceneObject::sceneObject(GameState* p, Vector2D<> pos, Vector2D<> sp, int w, int
 {	}
 sceneObject::sceneObject(GameState* p, Texture* text) : GameObject(p), state(p), texture(text)
 {	}
-sceneObject::sceneObject(GameState* p, Vector2D<> pos, Texture* text): GameObject(p), pos(pos), texture(text) {
+sceneObject::sceneObject(GameState* p, Vector2D<> pos, Texture* text) : GameObject(p), pos(pos), texture(text) {
 
 }
+sceneObject::sceneObject(GameState* p, Vector2D<> position, int width, int height, Texture* t)
+	: GameObject(p), pos(position), speed({0,0}), w(width), h(height), frame(0), texture(t)
+{}
 
 // Devuelve el rect de collision
 SDL_Rect
@@ -42,18 +45,7 @@ sceneObject::getRenderRect() const
 		h
 	};
 }
-void sceneObject::setListAnchor(GameList<sceneObject>::anchor&& anchor) {
-	this->anchor = std::move(anchor);
-}
 
-// Comprueba que os objetos se eliminen cuando caen al vacÌo
-void sceneObject::update() {
-	int side = Game::TILE_SIDE;
-	SDL_Rect rect = getCollisionRect();
-	if (rect.y + rect.h >= Game::WIN_HEIGHT * side - side/2
-		|| pos.getX() < 0)
-		delete this;
-}
 // Intenta mover el objeto segun su velocidad comprobando las colisiones
 Collision
 sceneObject::tryToMove(const Vector2D<>& speed, Collision::Target target)
@@ -67,11 +59,11 @@ sceneObject::tryToMove(const Vector2D<>& speed, Collision::Target target)
 
 		//collision = state->checkCollision(rect, target);
 
-		// Cantidad que se ha entrado en el obst·culo (lo que hay que deshacer)
+		// Cantidad que se ha entrado en el obstaÃÅculo (lo que hay que deshacer)
 		int fix = collision.vertical * (speed.getY() > 0 ? 1 : -1);
 		pos += {0, speed.getY() - fix};
 
-		rect.y -= fix; // recoloca la caja para la siguiente colisiÛn
+		rect.y -= fix; // recoloca la caja para la siguiente colisioÃÅn
 	}
 
 	collision.horizontal = 0; // la horizontal del choque vertical da igual
@@ -82,7 +74,7 @@ sceneObject::tryToMove(const Vector2D<>& speed, Collision::Target target)
 
 		//Collision partial = state->checkCollision(rect, target);
 
-		// Copia la informaciÛn de esta colisiÛn a la que se devolver·
+		// Copia la informacioÃÅn de esta colisioÃÅn a la que se devolveraÃÅ
 		//collision.horizontal = partial.horizontal;
 
 		/*if (partial.result == Collision::DAMAGE)

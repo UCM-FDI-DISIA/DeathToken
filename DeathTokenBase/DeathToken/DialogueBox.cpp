@@ -1,131 +1,209 @@
 #include "DialogueBox.h"
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <iostream>
 #include "Game.h"
+#include <iostream>
 
-const int BOXWIDTH = 500;
-const int BOXHEIGHT = 250;
-const int MARGIN = 100;
+const int NEXTDIALOG = 6000;
+const int NEXTDIALOGSPARETIME = 2000;
+const int SCROLLINGTIME = 3000;
+const int SCROLL_SPEED = 20;
+const float AUTO_SCROLL_SPEED = 1.2f;
+const float AUTO_SCROLL_FAST = 4 + 1.0f / 3.0f;
 
-DialogueBox::DialogueBox(SDL_Renderer* renderer, TTF_Font* font)
-    : renderer(renderer), font(font), visible(false) {
+
+
+void DialogueBox::showMessage(const std::string& in) {
+	if (!in.empty()) {
+		history.push_back(in);
+		if (!needsUpdate) {
+			message = history[currentDialogIndex];
+			displayedText = message;
+		}
+	}
+	visible = true;
 }
 
-void DialogueBox::showMessage(const std::string& message) {
-    this->message = message;
-    visible = true;
+void DialogueBox::ResetHistory() {
+	message = "";
+	displayedText = "";
+	history.clear();
+	visible = false;
+	scrollOffset = 0;
+	charIndex = 0;
+	currentDialogIndex = 0;
+
 }
-void DialogueBox::addMessage(const std::string& message) {
-    this->message += message;
-    visible = true;
-}
-void DialogueBox::ResetMessage() {
-    this->message = "";
-    visible = true;
-}
+
 void DialogueBox::hideMessage() {
-    visible = false;
+	visible = false;
 }
 
-void DialogueBox::render(bool transparente) const {
-    if (!visible) return;
-    int transparent;
-    if (transparente) {
-        transparent = SDL_ALPHA_TRANSPARENT;
-    }
-    else {
-        transparent = 255;
-    }
+void DialogueBox::update(float deltaTime) {
+	if (!visible || !needsUpdate) return;
 
-    SDL_Color textColor = { 255, 255, 255, 255 };  // Blanco para el texto
+	message = history[currentDialogIndex];
 
-    // Crear la superficie del texto (con ajuste de ancho de 400px)
-    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, message.c_str(), textColor, 400);
-    if (!textSurface) {
-        std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
-        return;
-    }
+	// Calcular el número de líneas necesarias
+	int numLines = (displayedText.size() / charsPerLine) + 1;
 
-    // Crear la textura a partir de la superficie
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    if (!textTexture) {
-        SDL_FreeSurface(textSurface);
-        std::cerr << "Error al crear la textura del texto: " << SDL_GetError() << std::endl;
-        return;
-    }
+	if (!instantDisplay && charIndex < message.size()) {
+		if (fast) {
+			for (int i = 0; i < letterdelay / fastLetter && charIndex < message.size(); i++)
+			{
+				displayedText += message[charIndex++];
+			}
+		}
+		else {
+			displayedText += message[charIndex++];
+		}
+	}
+	else if (instantDisplay) {
+		displayedText = message;
+		if (numLines * lineHeight > h) {
+			scrollOffset = (numLines * lineHeight) - h;
+		}
+		charIndex = message.size();
+	}
 
-    // Rectángulo para el cuadro de diálogo
-    SDL_Rect dialogBox = { (Game::WIN_WIDTH - BOXWIDTH) / 2, Game::WIN_HEIGHT - BOXHEIGHT + MARGIN, BOXWIDTH, BOXHEIGHT };
-    SDL_Rect textRect = { dialogBox.x, dialogBox.y, textSurface->w, textSurface->h };
+	if (charIndex == message.size() && autoDialog) {
+		if (completedTextTime >= NEXTDIALOG + (((numLines * lineHeight) - h) > 0 ? (numLines * lineHeight) - h : 0) * NEXTDIALOGSPARETIME) {
+			completedTextTime = 0;
+			if (currentDialogIndex + 1 < history.size()) {
+				currentDialogIndex++;
+				charIndex = 0;
+				displayedText = history[currentDialogIndex][charIndex];
+				charIndex++;
+				instantDisplay = false;
+				scrollOffset = 0;
+			}
+			else {
+				//aviso al battle
+				nextState = true;
+			}
+		}
+		else {
+			completedTextTime += deltaTime;
+		}
+	}
 
-    // Ajustar el tamaño del cuadro de diálogo si el texto es más largo
-    if (textSurface->w + 20 > dialogBox.w) {
-        dialogBox.w = textSurface->w + 20;
-        textRect.w = textSurface->w;
-    }
+	if (isScrolling) {
 
-    // Habilitar el modo de mezcla para permitir transparencia
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    // Establecer el color del cuadro de diálogo (transparente con negro)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, transparent);  // Fondo negro semi-transparente
-    SDL_RenderFillRect(renderer, &dialogBox);  // Dibujar el cuadro de diálogo
+		if (autoDialog) {
+			scrollingTime += deltaTime;
+			completedTextTime -= deltaTime;
+		}
 
-    // Renderizar el texto sobre el cuadro de diálogo
-    SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+		if (scrollingTime >= SCROLLINGTIME) {
+			isScrolling = false;
+		}
 
-    // Liberar los recursos
-    SDL_DestroyTexture(textTexture);
-    SDL_FreeSurface(textSurface);
+		return;
+	}
+
+	// Si la altura total del texto excede la caja de diálogo
+	if (numLines * lineHeight > h) {
+		// Desplazamos hacia abajo si el texto excede la caja
+		if (scrollOffset < (numLines * lineHeight) - h) {
+			scrollOffset += AUTO_SCROLL_SPEED + AUTO_SCROLL_SPEED * fast * AUTO_SCROLL_FAST;
+		}
+	}
+
+
 }
 
-void DialogueBox::render(int x, int y, bool transparente) const {
-    if (!visible) return;
-    int transparent;
-    if (transparente) {
-        transparent = SDL_ALPHA_TRANSPARENT;
-    }
-    else {
-        transparent = 255;
-    }
-    
-    SDL_Color textColor = { 0, 0, 0, 255 };  // Blanco para el texto
+void DialogueBox::render() const {
+	if (!visible) return;
+	int transparent = transparente ? SDL_ALPHA_TRANSPARENT : 255;
 
-    // Crear la superficie del texto (con ajuste de ancho de 400px)
-    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, message.c_str(), textColor, 400);
-    if (!textSurface) {
-        std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
-        return;
-    }
+	SDL_Color textColor = { 0, 0, 0, 255 };
+	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, displayedText.c_str(), textColor, textWidth);
 
-    // Crear la textura a partir de la superficie
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    if (!textTexture) {
-        SDL_FreeSurface(textSurface);
-        std::cerr << "Error al crear la textura del texto: " << SDL_GetError() << std::endl;
-        return;
-    }
+#ifdef _DEBUG
+	if (!textSurface)
+	{
+		std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
+		return;
+	}
+#endif // DEBUG
 
-    // Rectángulo para el cuadro de diálogo
-    SDL_Rect dialogBox = { x, y - BOXHEIGHT / 2 + MARGIN, BOXWIDTH, BOXHEIGHT };  // Dimensiones por defecto para el cuadro
-    SDL_Rect textRect = { dialogBox.x + MARGIN / 10, dialogBox.y + MARGIN / 10, textSurface->w, textSurface->h };
 
-    // Ajustar el tamaño del cuadro de diálogo si el texto es más largo
-    if (textSurface->w + 20 > dialogBox.w) {
-        dialogBox.w = textSurface->w + 20;
-        textRect.w = textSurface->w;
-    }
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    // Establecer el color del cuadro de diálogo (transparente con negro)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, transparent);
+#ifdef _DEBUG
+	if (!textTexture) {
+		SDL_FreeSurface(textSurface);
+		std::cerr << "Error al crear la textura del texto: " << SDL_GetError() << std::endl;
+		return;
+	}
+#endif // DEBUG
 
-    SDL_RenderFillRect(renderer, &dialogBox);  // Dibujar el cuadro de diálogo
 
-    // Renderizar el texto sobre el cuadro de diálogo
-    SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
 
-    // Liberar los recursos
-    SDL_DestroyTexture(textTexture);
-    SDL_FreeSurface(textSurface);
+	SDL_Rect dialogBox = { x, y, w, h };
+	SDL_Rect textRect = { dialogBox.x + MARGIN, dialogBox.y + MARGIN - scrollOffset, textSurface->w, textSurface->h };
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, transparent);
+	SDL_RenderFillRect(renderer, &dialogBox);
+
+	SDL_RenderSetClipRect(renderer, &dialogBox);
+	SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+	SDL_RenderSetClipRect(renderer, nullptr);
+
+	SDL_DestroyTexture(textTexture);
+	SDL_FreeSurface(textSurface);
+}
+
+void DialogueBox::handleEvent(const SDL_Event& event) {
+	if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_SPACE) {
+			fast = true;
+		}
+		if (event.key.keysym.sym == SDLK_RETURN) {
+			if (charIndex < message.size()) {
+				instantDisplay = true;
+			}
+			else {
+				if (currentDialogIndex + 1 < history.size()) {
+					currentDialogIndex++;
+					displayedText = "";
+					charIndex = 0;
+					instantDisplay = false;
+					scrollOffset = 0;
+					completedTextTime = 0;
+				}
+				else {
+					//aviso al battle
+					nextState = true;
+				}
+			}
+		}
+	}
+	if (event.type == SDL_KEYUP) {
+		if (event.key.keysym.sym == SDLK_SPACE) {
+			fast = false;
+		}
+	}
+	if (event.type == SDL_MOUSEWHEEL) {
+
+		// Calcular el número de líneas necesarias
+		int numLines = (displayedText.size() / charsPerLine) + 1;
+
+		// Permitir que el jugador haga scroll solo si hay más texto
+		if (numLines * lineHeight > h) {
+
+			isScrolling = true;
+			scrollingTime = 0;
+			scrollOffset -= event.wheel.y * SCROLL_SPEED;
+
+			// Evitar que se mueva hacia arriba más allá del inicio del texto
+			if (scrollOffset < 0) {
+				scrollOffset = 0;
+			}
+
+			// Evitar que se mueva más allá del final del texto
+			else if (scrollOffset > numLines * lineHeight - h) {
+				scrollOffset = numLines * lineHeight - h;
+			}
+		}
+	}
 }
