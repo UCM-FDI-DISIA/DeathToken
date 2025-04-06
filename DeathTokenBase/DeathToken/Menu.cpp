@@ -15,7 +15,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(baccarat);
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
-		gameChanger(baccaratState = new BaccaratBlackjack(getGame()));
+		gameChanger(baccaratState = new BaccaratFlip(getGame()));
 		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			tutorialBaccarat = false;

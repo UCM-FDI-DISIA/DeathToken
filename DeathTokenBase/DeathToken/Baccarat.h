@@ -71,7 +71,7 @@ public:
 	void bankThird();
 	int generateRnd();
 	Card* createCard(int a, int b, int rot, int frame);
-	void addCards();
+	virtual void addCards();
 	void win();
 	void showTutorial() override { ui->OnInfo(); };
 
