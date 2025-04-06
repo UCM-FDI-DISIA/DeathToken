@@ -85,7 +85,7 @@ class UIMarblesInsanity : public UIChips {
 public:
 	UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marbles);
 	void OnGo() override;
-	void render() const ;
+	void render() const;
 	void update();
 };
 
@@ -104,12 +104,14 @@ public:
 };
 
 class RouletteScene;
-class UIRoulette :public   UI {
+class UIRoulette :public   UIChips {
 	RouletteScene* rouletteS;
 public:
 	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
 
 	void OnGo() override;
+	void render() const;
+	void update();
 };
 
 
