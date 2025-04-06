@@ -15,7 +15,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(baccarat);
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
-		gameChanger(baccaratState = new BaccaratBlackjack(getGame()));
+		gameChanger(baccaratState = new Baccarat(getGame()));
 		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			tutorialBaccarat = false;
@@ -35,7 +35,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
+	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);

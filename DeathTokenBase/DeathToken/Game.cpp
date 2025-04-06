@@ -23,6 +23,8 @@ const std::string textureRoot = "../assets/images/";
 // Especificación de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"celdaSlots.png",1,1},
+	TextureSpec{"baccarat/Tick.png",1,1},
+	TextureSpec{"baccarat/Cross.png",1,1},
 	TextureSpec{"iconosSlots.png",7,1},
 	TextureSpec{"map/Casino_bg.png", 1, 1},
 	TextureSpec{"baccarat/Baccarat_bg2.png", 1, 1},

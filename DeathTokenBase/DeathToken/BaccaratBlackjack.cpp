@@ -56,13 +56,13 @@ void BaccaratBlackjack::startRound() {
 }
 
 void BaccaratBlackjack::askCards() {
-	int xBut = Game::WIN_WIDTH * 4 / 5, yBut = Game::WIN_HEIGHT * 3 / 4, wBut = Game::WIN_WIDTH / 10, hBut = Game::WIN_HEIGHT / 7;
-	more = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(SLOTSBUT));
+	int xBut = Game::WIN_WIDTH * 7.16 / 8, yBut = Game::WIN_HEIGHT * 4.5 / 7, wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
+	more = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
 	addObjects(more);
 	addEventListener(more);
 	more->connect([this]() { handOneCard(); });
-	yBut = Game::WIN_HEIGHT * 3 / 5;
-	stand = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(SLOTSBUT));
+	yBut = Game::WIN_HEIGHT * 4.5 / 9;
+	stand = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
 	addObjects(stand);
 	addEventListener(stand);
 	stand->connect([this]() { bancaAI(); });

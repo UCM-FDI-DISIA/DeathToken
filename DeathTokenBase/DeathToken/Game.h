@@ -17,6 +17,8 @@ using uint = unsigned int;
 
 enum TextureName {
 	CELDA,
+	TICK,
+	CROSS,
 	ICONOS,
 	BACKGROUND,
 	BACMAT,
