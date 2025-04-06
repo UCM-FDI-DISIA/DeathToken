@@ -1,12 +1,14 @@
 #pragma once
 #include "gameStateMachine.h"
 
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <array>
+#include "Fighter.h"
 #include "HUD.h"
 #include "Texture.h"
+#include <array>
+#include <cassert>
 #include <random>
+#include <SDL.h>
+#include <SDL_ttf.h>
 
 class Player;
 
@@ -96,12 +98,22 @@ enum TextureName {
 	TUTORIAL1,
 	TUTORIAL2,
 	TUTORIAL3,
+	PELEASFONDO,
+	PELEASTARJETAFONDO,
+	PELEASTARJETAS,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
 	GRAND_CASINO,
 	AWARD,
 	NUM_TYPO,
+};
+
+struct Matchup {
+	Fighter fighter1;
+	Fighter fighter2;
+	int advantageFighterIndex = 0;
+	string battleDescription;
 };
 class Game : private GameStateMachine {
 public:
@@ -110,6 +122,9 @@ public:
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint TILE_SIDE = 1;
+	static constexpr uint FONTSMALLSIZE = 28;
+	static constexpr uint FONTBIGSIZE = 32;
+	static TTF_Font* font;
 private:
 	// Ventana de la SDL (se destruir� en el destructor)
 	SDL_Window* window = nullptr;
@@ -118,6 +133,13 @@ private:
 	// Array con todas las texturas del juego
 	std::array<Texture*, NUM_TEXTURES> textures;
 	std::array<const char*, NUM_TYPO> typo;
+
+	vector<Fighter> fighters;
+	vector<Matchup> battleQueue;  // Cola de enfrentamientos
+
+	// Carga de objetos del json
+	bool loadFightersFromJSON(const string& filename);
+	bool loadMatchupsFromJSON(const string& filename);
 
 public:
 	Game();
@@ -130,6 +152,8 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+
+	inline const Matchup& GetMatchUp(int i) const { assert(i < battleQueue.size()); return battleQueue[i]; }
 
 	std::mt19937 gen;
 	std::mt19937& getGen() { return gen; }; // Devolver referencia

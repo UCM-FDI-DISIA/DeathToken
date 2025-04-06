@@ -40,7 +40,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { gameChanger(new Baccarat(getGame())); });
+	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 
 	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 100, wBut, wBut, game->getTexture(ROULETTE));
 	addObjects(roulette);

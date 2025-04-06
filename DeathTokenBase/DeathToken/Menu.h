@@ -13,6 +13,7 @@
 #include "SceneObject.h"
 #include "RouletteScene.h"
 #include "marblesInsanity.h"
+#include "Peleas.h"
 #include <list>
 
 class Player;

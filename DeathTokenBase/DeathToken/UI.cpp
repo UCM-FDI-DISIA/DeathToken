@@ -6,6 +6,7 @@
 #include "RouletteScene.h"
 #include "marblesInsanity.h"
 #include "Tutorial.h"
+#include "Peleas.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -299,4 +300,9 @@ UITutorial::relativeY(const float& n)
 
 void UITutorial::OnExit() {
 	game->pop();
+}
+
+// UI PELEAS
+void UIPeleas::OnGo() {
+	_peleas->StartBattle();
 }
