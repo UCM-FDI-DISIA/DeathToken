@@ -222,10 +222,22 @@ void UIBaccarat::OnRepeat()
 	baccarat->repeat();
 }
 
-UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : UI(gS, game), rouletteS(rouletteS) {}
+UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : UIChips(gS, game), rouletteS(rouletteS) {}
 
 void UIRoulette::OnGo() {
 	rouletteS->throwRoulette();
+}
+
+void UIRoulette::render() const
+{
+	go->render();
+	exit->render();
+}
+
+void UIRoulette::update()
+{
+	go->update();
+	exit->update();
 }
 
 void

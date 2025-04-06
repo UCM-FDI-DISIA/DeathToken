@@ -13,7 +13,8 @@ void RouletteScene::handleEvent(const SDL_Event& event) {
 }
 
 void RouletteScene::update() {
-	GameState::update();
+	roul->update();
+	ui->update();
 	if (canThrow) {
 		canThrow = false;
 		uniform_int_distribution<> distrib(1000, 1500);
@@ -26,7 +27,8 @@ void RouletteScene::update() {
 
 void RouletteScene::render() const {
 	rouletteBG->render();
-	GameState::render();
+	roul->render();
+	ui->render();
 	SDL_Rect arrow = { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 30, Game::WIN_HEIGHT / 2 - Game::WIN_WIDTH / 30,
 		Game::WIN_WIDTH / 15, Game::WIN_WIDTH / 15 };
 	arrowTex->render(arrow);
