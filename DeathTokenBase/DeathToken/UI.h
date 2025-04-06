@@ -75,6 +75,7 @@ public:
 	void OnGo() override;
 	void OnErase() override;
 	void OnRepeat() override;
+	void OnInfo() override;
 };
 
 
@@ -87,6 +88,7 @@ public:
 	void OnGo() override;
 	void render() const;
 	void update();
+	void OnInfo() override;
 };
 
 
