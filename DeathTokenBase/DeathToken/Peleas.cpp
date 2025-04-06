@@ -151,6 +151,11 @@ Peleas::render() const {
 		dialog->render();
 		break;
 	case FSState::FIGHT:
+		SDL_Rect fondo2;
+		fondo2.x = fondo2.y = 0;
+		fondo2.h = Game::WIN_HEIGHT;
+		fondo2.w = Game::WIN_WIDTH;
+		game->getTexture(PELEASRING)->render(fondo2);
 		dialog->render();
 		fighter1bar->render();
 		fighter2bar->render();

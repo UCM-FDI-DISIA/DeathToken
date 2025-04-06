@@ -101,6 +101,7 @@ enum TextureName {
 	PELEASFONDO,
 	PELEASTARJETAFONDO,
 	PELEASTARJETAS,
+	PELEASRING,
 	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

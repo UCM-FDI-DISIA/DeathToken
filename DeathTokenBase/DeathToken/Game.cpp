@@ -107,6 +107,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"FondoTarjetasConReglas.png", 1, 1},
 	TextureSpec{"FondoDeFotoDeTarjeta.png", 1, 1},
 	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
+	TextureSpec{"Ring.png", 1, 1},
 
 };
 
