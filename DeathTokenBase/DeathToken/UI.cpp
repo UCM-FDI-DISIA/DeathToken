@@ -149,33 +149,35 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 }
 void
 UISlots::OnGo() {
-	slots->iniciarGiro();
+	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
+		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
+		HUDManager::getHudBet()->refresh();
+		slots->setBetTurno(PlayerEconomy::getBet());
+		slots->iniciarGiro();
+	}
 }
 void
 UISlots::Onx2()
 {
-
+	PlayerEconomy::setBet(currentChipValue() * 2);
+	HUDManager::getHudBet()->refresh();
 }
 void
 UISlots::Onx3()
 {
-
+	PlayerEconomy::setBet(currentChipValue() * 3);
+	HUDManager::getHudBet()->refresh();
 }
 void
 UISlots::Onx5()
 {
-
+	PlayerEconomy::setBet(currentChipValue() * 5);
+	HUDManager::getHudBet()->refresh();
 }
 void
 UISlots::OnInfo()
 {
-	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
-	/*std::vector<Texture*> slotsTutorial = {
-	game->getTexture(imagen1),
-	game->getTexture(imagen2),
-	game->getTexture(imagen3)
-	};
-	game->push(new Tutorial(game, gS, slotsTutorial));*/
+
 }
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
