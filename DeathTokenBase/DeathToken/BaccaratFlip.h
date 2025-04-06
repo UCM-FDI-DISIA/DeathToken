@@ -3,18 +3,26 @@
 class BaccaratFlip : public Baccarat
 {
 private:
-	//botones, eventos????
+	Texture* text;
+	Button* carta1;
+	Button* carta2;
+	Button* carta3;
 	Card* extra1;
 	Card* extra2;
 	Card* extra3;
 
+	int flips = 0;
+	bool active = false;
+
 	vector<int> extraVals;
+
 	int hiddenExtraIndex = -1;
 public:
 	BaccaratFlip(Game* game);
-	//void addCards() override;
+	void addCards() override;
 	void handleExtraCards();
-
+	void startRound() override;
+	void cardButton();
 	//void generateThreeRandoms();//genera las tres cartas a elegir, tienen que tener un rect que detecte el clik del raton y les haga flip
 	void render() const override;
 	void handleEvents();//para dar la vuelta a las cartas o decirle que va al player o a la banca
