@@ -108,11 +108,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\SDL2_mixer-2.8.0\include;../SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\SDL2_mixer-2.8.0\lib\x64;..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +156,7 @@
     <ClInclude Include="PlayerEconomy.h" />
     <ClInclude Include="sdlUtils.h" />
     <ClInclude Include="SlotsNormal.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
@@ -197,6 +200,7 @@
     <ClCompile Include="PlayerEconomy.cpp" />
     <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="SlotsNormal.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameState.cpp" />
