@@ -28,7 +28,6 @@ public:
 	virtual ~sceneObject() { texture = nullptr; state = nullptr; }
 	virtual Collision hit(const SDL_Rect&, Collision::Target) = 0;
 	Vector2D<> position() const { return pos; };
-	void setPos(Point2D<> pos2) { pos = pos2; };
 	Collision tryToMove(const Vector2D<>&, Collision::Target);
 	SDL_Rect getCollisionRect() const;
 	SDL_Rect getRenderRect() const;

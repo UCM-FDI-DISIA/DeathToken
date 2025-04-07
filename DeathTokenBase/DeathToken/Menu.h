@@ -6,7 +6,6 @@
 #include "CrazyBaccaratManager.h"
 #include "BaccaratBlackjack.h"
 #include "BaccaratBet.h"
-#include "BaccaratFlip.h"
 #include "SlotsNormal.h"
 #include "SlotsLocura.h"
 #include "Marbles.h"

@@ -21,8 +21,6 @@ public:
 	void addEventListener(EventHandler* obj);
 	void addObjects(GameObject* obj);
 	void addObjectsUI(GameObject* obj);
-	void deleteSpecificGO(GameObject* obj);
-	void deleteSpecificEH(EventHandler* obj);
 	virtual void showTutorial() {};
 };
 
