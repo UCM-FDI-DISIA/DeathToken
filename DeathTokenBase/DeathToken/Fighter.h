@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "Game.h"
 //#include "json.hpp" // Usar la librería nlohmann/json
 
 using namespace std;
@@ -43,6 +44,7 @@ public:
 	inline float getAbility() const { return health + attack * 1.3f; }
 	inline int getMaxHealth() const { return maxHealth; }
 	inline float getMindset() const { return mindset; }
+	inline TextureName getTexName() const { return tex; }
 
 	inline bool isAlive() const { return health > 0; } // es un metodo util para saber si el combate sigue o no
 
@@ -64,6 +66,7 @@ private:
 	int attack;
 	string desc;
 	float mindset;    // Valor adicional que puede afectar el rendimiento
+	TextureName tex;
 };
 
 #endif // FIGHTER_H
