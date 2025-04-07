@@ -1,6 +1,6 @@
 #include "BaccaratFlip.h"
 
-BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)) {
+BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(BACCARATBUT)) {
 	addCards();
 
 }
