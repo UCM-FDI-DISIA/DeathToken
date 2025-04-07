@@ -32,3 +32,4 @@ public:
 	SDL_Rect getCollisionRect() const;
 	SDL_Rect getRenderRect() const;
 };
+//

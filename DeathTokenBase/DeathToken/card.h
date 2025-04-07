@@ -13,4 +13,4 @@ public:
 	void update() override;
 	Collision hit(const SDL_Rect&, Collision::Target) override;
 };
-
+//

@@ -23,3 +23,4 @@ void Card::update() {
 Collision Card::hit(const SDL_Rect&, Collision::Target) {
 	return NO_COLLISION;
 }
+//
