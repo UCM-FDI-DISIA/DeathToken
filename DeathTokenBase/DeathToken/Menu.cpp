@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Player.h"
+#include "SoundManager.h"
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
 	//Widht, height, position baccarat button
@@ -48,7 +49,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	hud = new HUDLobby(this);
 }
 
-void Menu::gameChanger(GameState* juego) {
+void Menu::gameChanger(GameState* juego) 
+{
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("EntrarJuego");
 	game->push(juego);
 }
 
