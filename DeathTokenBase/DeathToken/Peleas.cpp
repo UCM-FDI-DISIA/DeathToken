@@ -27,7 +27,7 @@ std::string formatOdds(float odds) {
 
 Peleas::Peleas(Game* game)
 	: GameState(game)
-	, dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/Candice/CANDY.TTF", Game::FONTSMALLSIZE), (25.0f / 1920.0f)* Game::WIN_WIDTH, (870.0f / 1080.0f)* Game::WIN_HEIGHT, true, false, 400, 180))
+	, dialog(new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), (25.0f / 1920.0f)* Game::WIN_WIDTH, (870.0f / 1080.0f)* Game::WIN_HEIGHT, true, false, 400, 180))
 	, _battleM(nullptr)
 	, nombre1(nullptr)
 	, nombre2(nullptr)
@@ -46,14 +46,14 @@ Peleas::Peleas(Game* game)
 
 	_battleM->StartBattle();
 
-	nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
-	nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
-	Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
-	Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
-	Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
-	Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
-	Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
-	Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
+	nombre1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA1X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
+	nombre2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA2X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
+	Cuota1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA1X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
+	Cuota2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA2X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
+	Animo1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
+	Animo2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
+	Apuesta1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
+	Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG), APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
 
 
 	nombre1->showMessage(_battleM->getFigther1().getName());

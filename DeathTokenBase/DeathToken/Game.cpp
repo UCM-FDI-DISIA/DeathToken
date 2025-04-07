@@ -9,7 +9,6 @@ using namespace std;
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
-TTF_Font* Game::font = nullptr;
 
 using json = nlohmann::json;
 
@@ -131,11 +130,13 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	return v;
 }
 
-vector<string> Game::loadTypo() {
-	vector<string> v;
-	v.push_back("../assets/typo/Grand_Casino.otf");
-	v.push_back("../assets/typo/Magnificent Serif.ttf");
-	if (v.size() != NUM_TYPO) throw "Tipografías sin índice, error al cargar";
+vector<TTF_Font*> Game::loadFonts() {
+	vector<TTF_Font*> v;
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",150));
+	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
+	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
 	return v;
 };
 
@@ -163,14 +164,8 @@ Game::Game() {
 			textureSpec[i].numColumns));
 
 	TTF_Init();
-	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
-	vector<string> typoList = loadTypo();
+	fonts = loadFonts();
 
-	for (int i = 0; i < NUM_TYPO; i++)
-	{
-		typo.push_back(typoList[i].c_str());
-		TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
-	}
 	if (loadFightersFromJSON("peleadores.json") && loadMatchupsFromJSON("../DeathToken/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
@@ -229,8 +224,8 @@ void Game::run() {
 Texture* Game::getTexture(TextureName name) const {
 	return textures[name];
 }
-const char* Game::getTypo(TypoName name) const {
-	return typo[name];
+TTF_Font* Game::getTypo(TypoName name) const {
+	return fonts[name];
 }
 SDL_Renderer* Game::getRenderer() const { return renderer; }
 

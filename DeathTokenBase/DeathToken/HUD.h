@@ -6,7 +6,6 @@
 class HUD : public GameObject
 {
 protected:
-	const char* typo;
 	long long& balance = PlayerEconomy::blueSouls;
 	long long& redSouls = PlayerEconomy::redSouls;
 	long long& bet = PlayerEconomy::bet;

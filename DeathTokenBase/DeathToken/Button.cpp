@@ -70,7 +70,6 @@ ButtonUI::render() const
 	else if (!hover)
 		text->render(box);
 	else {
-		SDL_Rect point(box.x - Game::TILE_SIDE, box.y, box.h, box.h);
 		text->render(boxB);
 	}
 }

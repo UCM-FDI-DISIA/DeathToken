@@ -135,6 +135,8 @@ enum TextureName {
 enum TypoName {
 	GRAND_CASINO,
 	AWARD,
+	FIGHTS_BIG,
+	FIGHTS_SMALL,
 	NUM_TYPO
 };
 
@@ -155,7 +157,6 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	// Array con todas las texturas del juego
 	std::vector<Texture*> textures;
-	std::vector<const char*> typo;
 
 	std::vector<Fighter> fighters;
 	std::vector<Matchup> battleQueue;  // Cola de enfrentamientos
@@ -171,7 +172,8 @@ private:
 		uint numRows;		// Número de frames por columna
 	};
 	std::vector<TextureSpec> loadTextures();
-	std::vector<std::string> loadTypo();
+	std::vector<TTF_Font*> loadFonts();
+	std::vector<TTF_Font*> fonts;
 
 public:
 
@@ -179,15 +181,13 @@ public:
 	static int WIN_HEIGHT;
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
 	static constexpr uint FRAME_RATE = 50;
-	static constexpr uint TILE_SIDE = 1;
 	static constexpr uint FONTSMALLSIZE = 28;
 	static constexpr uint FONTBIGSIZE = 32;
-	static TTF_Font* font;
 	Game();
 	~Game();
 	void run();
 	Texture* getTexture(TextureName name) const;
-	const char* getTypo(TypoName name) const;
+	TTF_Font* getTypo(TypoName name) const;
 	SDL_Renderer* getRenderer() const;
 	void push(GameState*);
 	void replace(GameState*);

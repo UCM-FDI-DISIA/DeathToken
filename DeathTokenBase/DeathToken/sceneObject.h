@@ -19,7 +19,6 @@ protected:
 
 public:
 	sceneObject(GameState*, Vector2D<>, int, int, Texture*);
-	sceneObject(GameState*, istream&, Vector2D<>, int, int, Texture*);
 	sceneObject(GameState*, Vector2D<>, Vector2D<>, int, int, Texture*);
 	sceneObject(GameState*, Texture*);
 	sceneObject(GameState*, Vector2D<>, Texture*);

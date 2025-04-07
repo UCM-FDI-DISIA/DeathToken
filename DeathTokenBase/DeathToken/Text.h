@@ -9,13 +9,13 @@ class Text : public GameObject {
 public:
     enum Alignment { IZQUIERDA, DERECHA, CENTRO };
     //Constructora sencilla, texto blanco, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, const char* typo, int x, int y, int size, Alignment alignment = IZQUIERDA);
+    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alignment = IZQUIERDA);
     //Constructora para color, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment = IZQUIERDA);
+    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment = IZQUIERDA);
     //Constructora para usar contorno, relleno blanco y contorno negro, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize, Alignment alignment = IZQUIERDA);
+    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize, Alignment alignment = IZQUIERDA);
     //Constructora para usar contorno con colores, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize,
+    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
     virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
     void setPos(int x, int y);

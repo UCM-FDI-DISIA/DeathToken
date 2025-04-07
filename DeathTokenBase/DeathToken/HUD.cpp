@@ -44,12 +44,11 @@ HUD::HUD(GameState* gS) : GameObject(gS)
 {
 	gS->addObjectsUI(this);
 
-	typo = gS->getGame()->getTypo(GRAND_CASINO);
-	balanceDescText = new Text(gS, typo, relativeX(1600), relativeY(70),
+	balanceDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX(1600), relativeY(70),
 							   relativeX(50), relativeX(3), Text::DERECHA);
 	balanceDescText->setMessage("SALDO");
 	gS->addObjectsUI(balanceDescText);
-	balanceText = new Text(gS, typo, relativeX(1870), relativeY(70 + getNumberY(balance)),
+	balanceText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX(1870), relativeY(70 + getNumberY(balance)),
 						   relativeX(getNumberSize(balance)), relativeX(3), Text::DERECHA);
 	balanceText->setMessage(std::to_string(balance));
 	gS->addObjectsUI(balanceText);
@@ -65,11 +64,11 @@ HUD::refresh()
 
 HUDLobby::HUDLobby(GameState* gS) : HUD(gS)
 {
-	redSoulsDescText = new Text(gS, typo, relativeX(1600), relativeY(150),
+	redSoulsDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX(1600), relativeY(150),
 								relativeX(50), relativeX(3), Text::DERECHA);
 	redSoulsDescText->setMessage("ALMAS");
 	gS->addObjectsUI(redSoulsDescText);
-	redSoulsText = new Text(gS, typo, relativeX(1870), relativeY(150 + getNumberY(redSouls)),
+	redSoulsText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX(1870), relativeY(150 + getNumberY(redSouls)),
 							relativeX(getNumberSize(redSouls)), relativeX(3), Text::DERECHA);
 	redSoulsText->setMessage(std::to_string(redSouls));
 	gS->addObjectsUI(redSoulsText);
@@ -88,11 +87,11 @@ HUDLobby::refresh()
 
 HUDBet::HUDBet(GameState* gS) : HUD(gS)
 {
-	betDescText = new Text(gS, typo, relativeX(1600), relativeY(150),
+	betDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX(1600), relativeY(150),
 		relativeX(50), relativeX(3), Text::DERECHA);
 	betDescText->setMessage("APUESTA");
 	gS->addObjectsUI(betDescText);
-	betText = new Text(gS, typo, relativeX(1870), relativeY(150 + getNumberY(bet)),
+	betText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX(1870), relativeY(150 + getNumberY(bet)),
 		relativeX(getNumberSize(bet)), relativeX(3), Text::DERECHA);
 	betText->setMessage(std::to_string(bet));
 	gS->addObjectsUI(betText);

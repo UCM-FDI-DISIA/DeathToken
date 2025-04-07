@@ -5,12 +5,6 @@
 #include "texture.h"
 #include "game.h"
 
-sceneObject::sceneObject(GameState* p, istream& in, Vector2D<> sp, int w, int h, Texture* text)
-	: GameObject(p), state(p), moveDelay(0), speed(sp), w(w* Game::TILE_SIDE), h(h* Game::TILE_SIDE), frame(0), texture(text)
-{
-	in >> pos;
-	pos = pos * Game::TILE_SIDE;
-}
 sceneObject::sceneObject(GameState* p, Vector2D<> pos, Vector2D<> sp, int w, int h, Texture* text)
 	: GameObject(p), state(p), moveDelay(0), pos(pos), speed(sp), w(w), h(h), frame(0), texture(text)
 {	}
