@@ -29,6 +29,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"map/Casino_bg.png", 1, 1},
 	TextureSpec{"baccarat/Baccarat_bg2.png", 1, 1},
 	TextureSpec{"baccarat/Blackjack_bg2.png", 1, 1},
+	TextureSpec{"baccarat/BaccaratFlip__mask.png", 1, 1},
 	TextureSpec{"baccarat/barajaBaccarat.png", 14, 1},
 	TextureSpec{"map/Casino_baccarat_cut.png", 1, 1},
 	TextureSpec{"DeathTokenToken.png", 1, 1},

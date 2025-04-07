@@ -36,7 +36,6 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(marbles);
 	addEventListener(marbles);
 	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
