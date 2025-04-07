@@ -2,23 +2,16 @@
 #include "json.hpp"
 #include "Menu.h"
 #include "sdlutils.h"
+#include <vector>
 #include <iostream>
 #include <string>
+using namespace std;
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
+TTF_Font* Game::font = nullptr;
 
 using json = nlohmann::json;
-// Formato de la especificaci�n de una textura
-struct TextureSpec
-{
-	const char* name;	// Ruta del archivo
-	uint numColumns;	// Número de frames por fila
-	uint numRows;		// Número de frames por columna
-};
-
-// Directorio raíz de los archivos de textura
-const std::string textureRoot = "../assets/images/";
 
 // Especificación de las texturas del juego
 const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
@@ -115,14 +108,18 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
 	TextureSpec{"Ring.png", 1, 1},
 
+	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
+	return v;
+}
+
+vector<string> Game::loadTypo(){
+	vector<string> v;
+	v.push_back("../assets/typo/Grand_Casino.otf");
+	v.push_back("../assets/typo/Magnificent Serif.ttf");
+	if (v.size() != NUM_TYPO) throw "Tipografías sin índice, error al cargar";
+	return v;
 };
 
-std::array<std::string, NUM_TYPO> typoList{
-	"../assets/typo/Grand_Casino.otf",
-	"../assets/typo/Magnificent Serif.ttf",
-};
-
-TTF_Font* Game::font = nullptr;
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -138,6 +135,8 @@ Game::Game() {
 		throw "Error cargando SDL";
 	inicializa(window);
 	// Carga las texturas
+	vector<TextureSpec> textureSpec = loadTextures();
+	std::string textureRoot = "../assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures[i] = new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
@@ -145,7 +144,8 @@ Game::Game() {
 			textureSpec[i].numColumns);
 
 	TTF_Init();
-	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
+	//font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
+	vector<string> typoList = loadTypo();
 	for (int i = 0; i < NUM_TYPO; i++)
 	{
 		typo[i] = typoList[i].c_str();

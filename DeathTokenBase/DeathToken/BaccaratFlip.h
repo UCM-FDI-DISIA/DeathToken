@@ -18,7 +18,6 @@ private:
 	int chosen;
 	int flips = 0;
 	bool active = false;
-
 	vector<int> extraVals;
 public:
 	BaccaratFlip(Game* game);
