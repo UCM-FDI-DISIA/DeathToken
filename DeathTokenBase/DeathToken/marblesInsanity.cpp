@@ -91,13 +91,13 @@ void MarblesInsanity::createTricksterButtons()
 		std::vector<int> marbleColor = { 0, 0, 0, 0 };
 		if (i ==posColor) {
 			marbleColor = dColor;
-			createButtonT((Game::WIN_WIDTH / 4 * i)+ (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(211.0 / 1920.0 * Game::WIN_WIDTH), (int)(212.0 / 1080.0 * Game::WIN_HEIGHT),
-				game->getTexture(CUP), game->getTexture(CUP), true, marbleColor);
+			createButtonT((Game::WIN_WIDTH / 4 * i)+ (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
+				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), true, marbleColor);
 		}
 		else {
 			
-			createButtonT((Game::WIN_WIDTH / 4 * i) + (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(211.0 / 1920.0 * Game::WIN_WIDTH), (int)(212.0 / 1080.0 * Game::WIN_HEIGHT),
-				game->getTexture(CUP), game->getTexture(CUP), false, marbleColor);
+			createButtonT((Game::WIN_WIDTH / 4 * i) + (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(124.0 / 1920.0 * Game::WIN_WIDTH), (int)(124.0 / 1920.0 * Game::WIN_HEIGHT),
+				game->getTexture(CANICASBUT), game->getTexture(CANICASBUT), false, marbleColor);
 			
 
 		}
