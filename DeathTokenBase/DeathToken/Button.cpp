@@ -39,7 +39,6 @@ void Button::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es enter
 		if (hover)
 			cb();
-
 	}
 }
 void Button::connect(Callback callback) {
