@@ -17,12 +17,12 @@ PlayerEconomy::EconomyInitialize(bool savedGame)
 		bet = 0;
 	}
 }
-int
+long long
 PlayerEconomy::getBlueSouls()
 {
 	return blueSouls;
 }
-int
+long long
 PlayerEconomy::getRedSouls()
 {
 	return redSouls;
@@ -32,7 +32,7 @@ PlayerEconomy::getInsanity()
 {
 	return insanity;
 }
-int
+long long
 PlayerEconomy::getBet()
 {
 	return bet;
