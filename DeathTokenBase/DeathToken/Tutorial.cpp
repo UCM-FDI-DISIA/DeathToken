@@ -3,7 +3,7 @@
 
 Tutorial::Tutorial(Game* game, GameState* gameState, std::vector<Texture*> imagesTutorial) :
 	GameState(game), 
-	anterior(gameState),
+	anterior(gameState),//juego de fondo
 	images(imagesTutorial),//vector imagenes del tutorial
 	ui(new UITutorial(this, game, imagesTutorial.size())),//botones de exit, sig...
 	currentPage(0)

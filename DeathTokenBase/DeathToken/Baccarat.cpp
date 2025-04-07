@@ -70,7 +70,6 @@ void Baccarat::handCards() {
 }
 
 void Baccarat::handThird() {//reparte la tercera segun las normas
-	//cout << mat.player[0] << " " << mat.player[1] << endl;
 	if (mat.player[0] > 9) mat.player[0] = 0;//para q las figuras no tengan valor
 	if (mat.player[1] > 9) mat.player[1] = 0;
 	if (mat.banker[0] > 9) mat.banker[0] = 0;
@@ -245,4 +244,5 @@ void Baccarat::startRound() {
 
 	handThird();//reparte tercera
 	win();
+
 }
