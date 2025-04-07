@@ -4,7 +4,6 @@
 #include "Fighter.h"
 #include "HUD.h"
 #include "Texture.h"
-#include <array>
 #include <cassert>
 #include <random>
 #include <SDL.h>
@@ -107,12 +106,12 @@ enum TextureName {
 	PELEASTARJETAFONDO,
 	PELEASTARJETAS,
 	PELEASRING,
-	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
+	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
 	GRAND_CASINO,
 	AWARD,
-	NUM_TYPO,
+	NUM_TYPO
 };
 
 struct Matchup {
@@ -121,8 +120,37 @@ struct Matchup {
 	int advantageFighterIndex = 0;
 	string battleDescription;
 };
+
+
 class Game : private GameStateMachine {
+
+private:
+	// Ventana de la SDL (se destruir� en el destructor)
+	SDL_Window* window = nullptr;
+	// Renderizador de la SDL (para dibujar)
+	SDL_Renderer* renderer = nullptr;
+	// Array con todas las texturas del juego
+	std::vector<Texture*> textures;
+	std::vector<const char*> typo;
+
+	std::vector<Fighter> fighters;
+	std::vector<Matchup> battleQueue;  // Cola de enfrentamientos
+
+	// Carga de objetos del json
+	bool loadFightersFromJSON(const string& filename);
+	bool loadMatchupsFromJSON(const string& filename);
+	// Formato de la especificaci�n de una textura
+	struct TextureSpec
+	{
+		const char* name;	// Ruta del archivo
+		uint numColumns;	// Número de frames por fila
+		uint numRows;		// Número de frames por columna
+	};
+	std::vector<TextureSpec> loadTextures();
+	std::vector<std::string> loadTypo();
+
 public:
+
 	static int WIN_WIDTH;
 	static int WIN_HEIGHT;
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
@@ -131,23 +159,6 @@ public:
 	static constexpr uint FONTSMALLSIZE = 28;
 	static constexpr uint FONTBIGSIZE = 32;
 	static TTF_Font* font;
-private:
-	// Ventana de la SDL (se destruir� en el destructor)
-	SDL_Window* window = nullptr;
-	// Renderizador de la SDL (para dibujar)
-	SDL_Renderer* renderer = nullptr;
-	// Array con todas las texturas del juego
-	std::array<Texture*, NUM_TEXTURES> textures;
-	std::array<const char*, NUM_TYPO> typo;
-
-	vector<Fighter> fighters;
-	vector<Matchup> battleQueue;  // Cola de enfrentamientos
-
-	// Carga de objetos del json
-	bool loadFightersFromJSON(const string& filename);
-	bool loadMatchupsFromJSON(const string& filename);
-
-public:
 	Game();
 	~Game();
 	void run();

@@ -2,126 +2,124 @@
 #include "json.hpp"
 #include "Menu.h"
 #include "sdlutils.h"
+#include <vector>
 #include <iostream>
 #include <string>
+using namespace std;
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
+TTF_Font* Game::font = nullptr;
 
 using json = nlohmann::json;
-// Formato de la especificaci�n de una textura
-struct TextureSpec
-{
-	const char* name;	// Ruta del archivo
-	uint numColumns;	// Número de frames por fila
-	uint numRows;		// Número de frames por columna
-};
-
-// Directorio raíz de los archivos de textura
-const std::string textureRoot = "../assets/images/";
 
 // Especificación de las texturas del juego
-const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
-	TextureSpec{"celdaSlots.png",1,1},
-	TextureSpec{"baccarat/Tick.png",1,1},
-	TextureSpec{"baccarat/Cross.png",1,1},
-	TextureSpec{"iconosSlots.png",7,1},
-	TextureSpec{"map/Casino_bg.png", 1, 1},
-	TextureSpec{"baccarat/Baccarat_bg2.png", 1, 1},
-	TextureSpec{"baccarat/Blackjack_bg2.png", 1, 1},
-	TextureSpec{"baccarat/barajaBaccarat.png", 14, 1},
-	TextureSpec{"map/Casino_baccarat_cut.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"map/Casino_marbles_cut.png", 1, 1},
-	TextureSpec{"DeathTokenToken.png", 1, 1},
-	TextureSpec{"ui/Exit.png", 1, 1},
-	TextureSpec{"ui/Exit_HV.png", 1, 1},
-	TextureSpec{"ui/Exit_Clicked.png", 1, 1},
-	TextureSpec{"ui/Erase.png", 1, 1},
-	TextureSpec{"ui/Erase_HV.png", 1, 1},
-	TextureSpec{"ui/Erase_Clicked.png", 1, 1},
-	TextureSpec{"ui/ArrowL.png", 1, 1},
-	TextureSpec{"ui/ArrowL_HV.png", 1, 1},
-	TextureSpec{"ui/ArrowL_Clicked.png", 1, 1},
-	TextureSpec{"ui/ArrowR.png", 1, 1},
-	TextureSpec{"ui/ArrowR_HV.png", 1, 1},
-	TextureSpec{"ui/ArrowR_Clicked.png", 1, 1},
-	TextureSpec{"ui/ArrowU.png", 1, 1},
-	TextureSpec{"ui/ArrowU_Clicked.png", 1, 1},
-	TextureSpec{"ui/ArrowD.png", 1, 1},
-	TextureSpec{"ui/ArrowD_Clicked.png", 1, 1},
-	TextureSpec{"ui/Info.png", 1, 1},
-	TextureSpec{"ui/Info_HV.png", 1, 1},
-	TextureSpec{"ui/Info_Clicked.png", 1, 1},
-	TextureSpec{"ui/Repeat.png", 1, 1},
-	TextureSpec{"ui/Repeat_HV.png", 1, 1},
-	TextureSpec{"ui/Repeat_Clicked.png", 1, 1},
-	TextureSpec{"ui/Go.png", 1, 1},
-	TextureSpec{"ui/Go_HV.png", 1, 1},
-	TextureSpec{"ui/Go_Clicked.png", 1, 1},
-	TextureSpec{"ui/slots/x2.png", 1, 1},
-	TextureSpec{"ui/slots/x2_HV.png", 1, 1},
-	TextureSpec{"ui/slots/x2_Clicked.png", 1, 1},
-	TextureSpec{"ui/slots/x3.png", 1, 1},
-	TextureSpec{"ui/slots/x3_HV.png", 1, 1},
-	TextureSpec{"ui/slots/x3_Clicked.png", 1, 1},
-	TextureSpec{"ui/slots/x5.png", 1, 1},
-	TextureSpec{"ui/slots/x5_HV.png", 1, 1},
-	TextureSpec{"ui/slots/x5_Clicked.png", 1, 1},
-	TextureSpec{"ui/chips/chip_1.png", 1, 1},
-	TextureSpec{"ui/chips/chip_2.png", 1, 1},
-	TextureSpec{"ui/chips/chip_5.png", 1, 1},
-	TextureSpec{"ui/chips/chip_10.png", 1, 1},
-	TextureSpec{"ui/chips/chip_25.png", 1, 1},
-	TextureSpec{"ui/chips/chip_50.png", 1, 1},
-	TextureSpec{"ui/chips/chip_100.png", 1, 1},
-	TextureSpec{"ui/chips/chip_200.png", 1, 1},
-	TextureSpec{"ui/chips/chip_500.png", 1, 1},
-	TextureSpec{"ui/chips/chip_1K.png", 1, 1},
-	TextureSpec{"ui/chips/chip_2K.png", 1, 1},
-	TextureSpec{"ui/chips/chip_5K.png", 1, 1},
-	TextureSpec{"player.png", 1, 1},
-	TextureSpec{"marbles/Marbles_bg.png",1,1},
-	TextureSpec{"ui/marbles/1_1_NoFill_MRB.png",1,1},
-	TextureSpec{"ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1},
-	TextureSpec{"ui/marbles/2_1_NoFill_MRB.png",1,1},
-	TextureSpec{"ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1},
-	TextureSpec{"ui/marbles/3_1_NoFill_MRB.png",1,1},
-	TextureSpec{"ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1},
-	TextureSpec{"ui/marbles/4_3_NoFill_MRB.png",1,1},
-	TextureSpec{"ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/CyanMarbleIcon_sm.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon.png",1,1},
-	TextureSpec{"ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1},
-	TextureSpec{"marbles/cup.png",1,1},
-	TextureSpec{"blackFont.png",1,1},
-	TextureSpec{"roulette/rouletteBG.png",1,1},
-	TextureSpec{"roulette/roulette.png",1,1},
-	TextureSpec{"roulette/rouletteLocura.png",1,1},
-	TextureSpec{"roulette/rouletteArrow.png",1,1},
-	TextureSpec{"tutorial/Tutorial_bg1_baccarat.png",1,1},
-	TextureSpec{"tutorial/Tutorial_bg2_baccarat.png",1,1},
-	TextureSpec{"tutorial/Tutorial_bg3_baccarat.png",1,1},
-	TextureSpec{"tutorial/Tutorial_bg1_marbles.png",1,1},
-	TextureSpec{"tutorial/Tutorial_bg1_marblesInsanity.png",1,1},
-	TextureSpec{"FondoTarjetasConReglas.png", 1, 1},
-	TextureSpec{"FondoDeFotoDeTarjeta.png", 1, 1},
-	TextureSpec{"TarjetaDePeleadores.png", 1, 1},
-	TextureSpec{"Ring.png", 1, 1},
+vector<Game::TextureSpec> Game::loadTextures() {
+	vector<Game::TextureSpec> v;
+	v.push_back(TextureSpec{ "celdaSlots.png",1,1 });
+	v.push_back(TextureSpec{ "baccarat/Tick.png",1,1 });
+	v.push_back(TextureSpec{ "baccarat/Cross.png",1,1 });
+	v.push_back(TextureSpec{ "iconosSlots.png",7,1 });
+	v.push_back(TextureSpec{ "map/Casino_bg.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Baccarat_bg2.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Blackjack_bg2.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/barajaBaccarat.png", 14, 1 });
+	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_marbles_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Exit.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Exit_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Exit_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Erase.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Erase_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Erase_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowL.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowL_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowL_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowR.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowR_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowR_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowU.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowU_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowD.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/ArrowD_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Info.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Info_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Info_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Repeat.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Repeat_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Repeat_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Go.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Go_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/Go_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x2.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x2_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x2_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x3.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x3_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x3_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x5.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x5_HV.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/slots/x5_Clicked.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_1.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_2.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_5.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_10.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_25.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_50.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_100.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_200.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_500.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_1K.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_2K.png", 1, 1 });
+	v.push_back(TextureSpec{ "ui/chips/chip_5K.png", 1, 1 });
+	v.push_back(TextureSpec{ "player.png", 1, 1 });
+	v.push_back(TextureSpec{ "marbles/Marbles_bg.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/1_1_NoFill_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/1_1_NoFill_Clicked_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/2_1_NoFill_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/2_1_NoFill_Clicked_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/3_1_NoFill_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/CyanMarbleIcon.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/CyanMarbleIcon_sm.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/YellowMarbleIcon.png",1,1 });
+	v.push_back(TextureSpec{ "ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/cup.png",1,1 });
+	v.push_back(TextureSpec{ "blackFont.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteBG.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteArrow.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_baccarat.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marbles.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
+	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
+	v.push_back(TextureSpec{ "FondoDeFotoDeTarjeta.png", 1, 1 });
+	v.push_back(TextureSpec{ "TarjetaDePeleadores.png", 1, 1 });
+	v.push_back(TextureSpec{ "Ring.png", 1, 1 });
 
+	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
+	return v;
+}
+
+vector<string> Game::loadTypo(){
+	vector<string> v;
+	v.push_back("../assets/typo/Grand_Casino.otf");
+	v.push_back("../assets/typo/Magnificent Serif.ttf");
+	if (v.size() != NUM_TYPO) throw "Tipografías sin índice, error al cargar";
+	return v;
 };
 
-std::array<std::string, NUM_TYPO> typoList{
-	"../assets/typo/Grand_Casino.otf",
-	"../assets/typo/Magnificent Serif.ttf",
-};
-
-TTF_Font* Game::font = nullptr;
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -137,6 +135,8 @@ Game::Game() {
 		throw "Error cargando SDL";
 	inicializa(window);
 	// Carga las texturas
+	vector<TextureSpec> textureSpec = loadTextures();
+	std::string textureRoot = "../assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures[i] = new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
@@ -144,7 +144,8 @@ Game::Game() {
 			textureSpec[i].numColumns);
 
 	TTF_Init();
-	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
+	//font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
+	vector<string> typoList = loadTypo();
 	for (int i = 0; i < NUM_TYPO; i++)
 	{
 		typo[i] = typoList[i].c_str();
