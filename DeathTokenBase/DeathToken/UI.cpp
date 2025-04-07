@@ -194,17 +194,35 @@ void UIMarbles::OnRepeat()
 	marbles->repeat();
 }
 
+void UIMarbles::OnInfo()
+{
+	std::vector<Texture*> baccaratTutorial = {
+	game->getTexture(TUTORIALMARBLES)
+	};
+	game->push(new Tutorial(game, gS, baccaratTutorial));
+}
+
 //MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
 void UIMarblesInsanity::OnGo() {
 	marblesI->StartRoundTrickster();
 }
 
+void UIMarblesInsanity::OnInfo()
+{
+	std::vector<Texture*> baccaratTutorial = {
+	game->getTexture(TUTORIALMARBLESINSANITY)
+	};
+	game->push(new Tutorial(game, gS, baccaratTutorial));
+}
+
 void UIMarblesInsanity::render() const
 {
+	info->render();
 	go->render();
 }
 void UIMarblesInsanity::update() {
+	info->update();
 	go->update();
 }
 
