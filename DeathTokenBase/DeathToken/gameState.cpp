@@ -51,3 +51,4 @@ void GameState::deleteSpecificEH(EventHandler* obj)//Elimina el objeto de la lis
 		}
 	}
 }
+//

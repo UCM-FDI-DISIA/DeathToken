@@ -15,4 +15,4 @@ public:
 	Collision hit(const SDL_Rect&, Collision::Target) override;
 	
 };
-
+//

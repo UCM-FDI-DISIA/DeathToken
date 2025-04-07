@@ -19,7 +19,7 @@ enum TextureName {
 	BACKGROUND,
 	BACMAT,
 	BLACKMAT,
-	FLIPCARD,
+	FLIPCARD,//carta boton
 	CARDS,
 	BACCARATBUT,
 	SLOTSBUT,

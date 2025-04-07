@@ -105,7 +105,7 @@ const std::array<TextureSpec, NUM_TEXTURES> textureSpec{
 	TextureSpec{"tutorial/Tutorial_bg2_baccarat.png",1,1},
 	TextureSpec{"tutorial/Tutorial_bg3_baccarat.png",1,1},
 
-
+	//
 
 
 };

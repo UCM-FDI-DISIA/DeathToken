@@ -511,3 +511,4 @@ bool Button::playerHovered(const SDL_Rect& playerRect) {
 	return SDL_HasIntersection(&playerRect, &box);//rect player y rect button
 }
 
+//
