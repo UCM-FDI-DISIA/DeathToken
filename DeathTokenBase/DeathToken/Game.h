@@ -1,12 +1,13 @@
 #pragma once
 #include "gameStateMachine.h"
 
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <array>
+#include "Fighter.h"
 #include "HUD.h"
 #include "Texture.h"
+#include <cassert>
 #include <random>
+#include <SDL.h>
+#include <SDL_ttf.h>
 
 class Player;
 
@@ -15,11 +16,12 @@ using uint = unsigned int;
 
 enum TextureName {
 	CELDA,
+	TICK,
+	CROSS,
 	ICONOS,
 	BACKGROUND,
 	BACMAT,
 	BLACKMAT,
-	FLIPCARD,//carta boton
 	CARDS,
 	BACCARATBUT,
 	SLOTSBUT,
@@ -89,6 +91,7 @@ enum TextureName {
 	BLUEMARBLESM,
 	YELLOWMARBLE,
 	YELLOWMARBLESM,
+	CUP,
 	BLACKFOND,
 	ROULETTEBG,
 	ROULETTE,
@@ -97,30 +100,65 @@ enum TextureName {
 	TUTORIAL1,
 	TUTORIAL2,
 	TUTORIAL3,
-	NUM_TEXTURES,  // Truco C++: n�mero de texturas definidas
+	TUTORIALMARBLES,
+	TUTORIALMARBLESINSANITY,
+	PELEASFONDO,
+	PELEASTARJETAFONDO,
+	PELEASTARJETAS,
+	PELEASRING,
+	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
 	GRAND_CASINO,
 	AWARD,
-	NUM_TYPO,
+	NUM_TYPO
 };
+
+struct Matchup {
+	Fighter fighter1;
+	Fighter fighter2;
+	int advantageFighterIndex = 0;
+	string battleDescription;
+};
+
+
 class Game : private GameStateMachine {
-public:
-	static int WIN_WIDTH;
-	static int WIN_HEIGHT;
-	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
-	static constexpr uint FRAME_RATE = 50;
-	static constexpr uint TILE_SIDE = 1;
+
 private:
 	// Ventana de la SDL (se destruir� en el destructor)
 	SDL_Window* window = nullptr;
 	// Renderizador de la SDL (para dibujar)
 	SDL_Renderer* renderer = nullptr;
 	// Array con todas las texturas del juego
-	std::array<Texture*, NUM_TEXTURES> textures;
-	std::array<const char*, NUM_TYPO> typo;
+	std::vector<Texture*> textures;
+	std::vector<const char*> typo;
+
+	std::vector<Fighter> fighters;
+	std::vector<Matchup> battleQueue;  // Cola de enfrentamientos
+
+	// Carga de objetos del json
+	bool loadFightersFromJSON(const string& filename);
+	bool loadMatchupsFromJSON(const string& filename);
+	// Formato de la especificaci�n de una textura
+	struct TextureSpec
+	{
+		const char* name;	// Ruta del archivo
+		uint numColumns;	// Número de frames por fila
+		uint numRows;		// Número de frames por columna
+	};
+	std::vector<TextureSpec> loadTextures();
+	std::vector<std::string> loadTypo();
 
 public:
+
+	static int WIN_WIDTH;
+	static int WIN_HEIGHT;
+	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
+	static constexpr uint FRAME_RATE = 50;
+	static constexpr uint TILE_SIDE = 1;
+	static constexpr uint FONTSMALLSIZE = 28;
+	static constexpr uint FONTBIGSIZE = 32;
+	static TTF_Font* font;
 	Game();
 	~Game();
 	void run();
@@ -131,6 +169,8 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+
+	inline const Matchup& GetMatchUp(int i) const { assert(i < battleQueue.size()); return battleQueue[i]; }
 
 	std::mt19937 gen;
 	std::mt19937& getGen() { return gen; }; // Devolver referencia
