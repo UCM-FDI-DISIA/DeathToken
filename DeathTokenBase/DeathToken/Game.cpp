@@ -156,21 +156,20 @@ Game::Game() {
 	// Carga las texturas
 	vector<TextureSpec> textureSpec = loadTextures();
 	std::string textureRoot = "../assets/images/";
-	textures.resize(NUM_TEXTURES);
 	for (int i = 0; i < NUM_TEXTURES; ++i)
-		textures[i] = new Texture(renderer,
+		textures.push_back(new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows,
-			textureSpec[i].numColumns);
+			textureSpec[i].numColumns));
 
 	TTF_Init();
-	//font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
+	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
 	vector<string> typoList = loadTypo();
-	typo.resize(NUM_TYPO);
 
 	for (int i = 0; i < NUM_TYPO; i++)
 	{
-		typo[i] = typoList[i].c_str();
+		typo.push_back(typoList[i].c_str());
+		TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
 	}
 	if (loadFightersFromJSON("peleadores.json") && loadMatchupsFromJSON("../DeathToken/matchups.json")) {
 #ifdef DEBUG

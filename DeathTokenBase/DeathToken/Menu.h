@@ -1,26 +1,25 @@
 #pragma once
-#include "Texture.h"
-#include "GameState.h"
-#include "Button.h"
-#include "Baccarat.h"
-#include "CrazyBaccaratManager.h"
-#include "BaccaratBlackjack.h"
-#include "BaccaratBet.h"
-#include "SlotsNormal.h"
-#include "SlotsLocura.h"
-#include "Marbles.h"
-#include "Collision.h"
-#include "SceneObject.h"
-#include "RouletteScene.h"
+#include "texture.h"
+#include "gameState.h"
+#include "button.h"
+#include "baccarat.h"
+#include "baccaratInsanityManager.h"
+#include "baccaratBlackjack.h"
+#include "baccaratBet.h"
+#include "slotsNormal.h"
+#include "slotsInsanity.h"
+#include "marbles.h"
+#include "sceneObject.h"
+#include "rouletteScene.h"
 #include "marblesInsanity.h"
-#include "Peleas.h"
+#include "peleas.h"
 #include <list>
 
 class Player;
 
 class Menu : public GameState
 {
-	list<sceneObject*> objetos;
+	std::list<sceneObject*> objetos;
 	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
@@ -41,7 +40,6 @@ public:
 	Menu(Game* game);
 	void gameChanger(GameState* juego);
 	void render() const override;
-	Collision checkCollision(const SDL_Rect& rect, Collision::Target target);
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button
 };

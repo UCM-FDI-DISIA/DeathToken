@@ -1,8 +1,8 @@
 #pragma once
-#include "GameState.h"
-#include "Roulette.h"
-#include "EventHandler.h"
-#include "UI.h"
+#include "gameState.h"
+#include "roulette.h"
+#include "eventHandler.h"
+#include "ui.h"
 
 class RouletteScene : public GameState, public EventHandler
 {

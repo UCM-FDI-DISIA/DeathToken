@@ -1,4 +1,4 @@
-#include "RouletteScene.h"
+#include "rouletteScene.h"
 
 RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRoulette(this, game, this)), eco(eco), rouletteBG(game->getTexture(ROULETTEBG)) {
 	addEventListener(this);

@@ -1,7 +1,7 @@
 #ifndef DIALOGUEBOX_H
 #define DIALOGUEBOX_H
 
-#include "Game.h"
+#include "game.h"
 #include "gameObject.h"
 #include <deque>
 #include <SDL.h>

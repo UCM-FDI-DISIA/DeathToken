@@ -1,4 +1,4 @@
-﻿#include "GameState.h"
+﻿#include "gameState.h"
 
 GameState::~GameState() {
 	for (GameObject* object : gameObjects)

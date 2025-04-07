@@ -1,5 +1,5 @@
 #pragma once
-#include "Baccarat.h"
+#include "baccarat.h"
 class BaccaratBet : public Baccarat
 {
 	Button* bet = nullptr;

@@ -1,9 +1,9 @@
-#include "SlotsNormal.h"
+#include "slotsNormal.h"
 #include "Carrete.h"
-#include "Button.h"
-#include "Texture.h"
-#include "Game.h"
-#include "Award.h"
+#include "button.h"
+#include "texture.h"
+#include "game.h"
+#include "award.h"
 using namespace std;
 
 SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)

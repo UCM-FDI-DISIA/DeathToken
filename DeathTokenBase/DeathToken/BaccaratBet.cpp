@@ -1,4 +1,4 @@
-#include "BaccaratBet.h"
+#include "baccaratBet.h"
 
 void BaccaratBet::repeatBet() {
 

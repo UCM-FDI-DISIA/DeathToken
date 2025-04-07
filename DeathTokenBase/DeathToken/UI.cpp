@@ -1,12 +1,12 @@
-#include "UI.h"
-#include "Game.h"
-#include "Marbles.h"
-#include "Slots.h"
-#include "Baccarat.h"
-#include "RouletteScene.h"
+#include "ui.h"
+#include "game.h"
+#include "marbles.h"
+#include "slots.h"
+#include "baccarat.h"
+#include "rouletteScene.h"
 #include "marblesInsanity.h"
-#include "Tutorial.h"
-#include "Peleas.h"
+#include "tutorial.h"
+#include "peleas.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)

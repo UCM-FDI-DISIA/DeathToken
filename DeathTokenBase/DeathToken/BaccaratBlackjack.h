@@ -1,5 +1,5 @@
 #pragma once
-#include "Baccarat.h"
+#include "baccarat.h"
 #include <vector>
 class BaccaratBlackjack : public Baccarat
 {

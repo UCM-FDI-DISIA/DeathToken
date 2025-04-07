@@ -1,8 +1,8 @@
 #pragma once
 
 #include "gameState.h"
-#include "Texture.h"
-#include "Text.h"
+#include "texture.h"
+#include "text.h"
 #include <string>
 
 class Marbles;

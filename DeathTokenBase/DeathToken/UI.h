@@ -1,8 +1,8 @@
 #pragma once
-#include "Texture.h"
-#include "GameState.h"
-#include "Button.h"
-#include "Text.h"
+#include "texture.h"
+#include "gameState.h"
+#include "button.h"
+#include "text.h"
 #include <vector>
 class Player;
 class UI

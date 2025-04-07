@@ -1,9 +1,8 @@
 #pragma once
 #include <SDL.h>
 #include "gameObject.h"
-#include "Collision.h"
-#include "Vector2D.h"
-#include "Game.h"
+#include "vector2D.h"
+#include "game.h"
 class Texture;
 
 class sceneObject : public GameObject {
@@ -26,10 +25,8 @@ public:
 	sceneObject(GameState*, Vector2D<>, Texture*);
 
 	virtual ~sceneObject() { texture = nullptr; state = nullptr; }
-	virtual Collision hit(const SDL_Rect&, Collision::Target) = 0;
 	Vector2D<> position() const { return pos; };
 	void setPos(Point2D<> pos2) { pos = pos2; };
-	Collision tryToMove(const Vector2D<>&, Collision::Target);
 	SDL_Rect getCollisionRect() const;
 	SDL_Rect getRenderRect() const;
 };

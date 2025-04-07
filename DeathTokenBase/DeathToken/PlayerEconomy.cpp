@@ -1,4 +1,4 @@
-#include "PlayerEconomy.h"
+#include "playerEconomy.h"
 
 //Inicialización máquina
 long long PlayerEconomy::blueSouls = 0;

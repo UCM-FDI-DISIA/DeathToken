@@ -1,7 +1,7 @@
 ﻿#include "checkML.h"
-#include "Player.h"
-#include "Texture.h"
-#include "Menu.h"
+#include "player.h"
+#include "texture.h"
+#include "menu.h"
 
 // Se crea el jugador leyendo de archivo su posición y vidas
 Player::Player(GameState* g, Point2D<> pos, Texture* texture, Menu* men)
@@ -22,15 +22,6 @@ void Player::render() const {
 
 }
 
-// Actualización y colisiones del personaje
-void Player::update() {
-
-	//collision(menu->getLimits());
-}
-
-Collision Player::hit(const SDL_Rect& rect, Collision::Target target) {
-	return NO_COLLISION;
-}
 // Recibe el input y establece la nueva dirección de movimiento (solo salta si está en el suelo)
 void Player::handleEvent(const SDL_Event& evento) {
 	if (evento.type == SDL_KEYDOWN) {
@@ -68,7 +59,7 @@ SDL_Rect Player::getRect() const {
 	rect.h = h;//alto
 	return rect;
 }
-void Player::collision(vector<SDL_Rect> obstaculos) {
+void Player::move(vector<SDL_Rect> obstaculos) {
 	
 	SDL_Rect collision;
 

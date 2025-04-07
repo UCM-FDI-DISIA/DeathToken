@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "gameObject.h"
 #include <SDL.h>
 
 class BarraVida : public GameObject {

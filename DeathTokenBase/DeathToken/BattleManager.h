@@ -1,8 +1,8 @@
 #ifndef BATTLEMANAGER_H
 #define BATTLEMANAGER_H
 
-#include "DialogueBox.h"
-#include "Fighter.h"
+#include "dialogueBox.h"
+#include "fighter.h"
 #include <fstream>
 #include <iostream>
 #include <string>

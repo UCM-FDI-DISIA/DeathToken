@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector2D.h"
+#include "vector2D.h"
 #include "sceneObject.h"
 class Card : public sceneObject
 {
@@ -11,6 +11,5 @@ public:
 	Card(GameState* game, int frame, Point2D<> pos, double angle = 0);
 	void render() const override;
 	void update() override;
-	Collision hit(const SDL_Rect&, Collision::Target) override;
 };
 

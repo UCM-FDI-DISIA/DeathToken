@@ -1,10 +1,10 @@
 #pragma once
-#include "Slots.h"
+#include "slots.h"
 #include <vector>
 
 class Celda;
 
-class SlotsLocura : public Slots {
+class SlotsInsanity : public Slots {
 private:
 	constexpr static int N_COLUM = 4;
 	constexpr static int TAM_CELDA = 200;
@@ -24,8 +24,8 @@ private:
 	void ClearBoard();
 	int getResult() override { return 0; }
 public:
-	SlotsLocura(Game*);
-	~SlotsLocura() {}
+	SlotsInsanity(Game*);
+	~SlotsInsanity() {}
 	void update() override;
 	void render() const override;
 	int getNext();

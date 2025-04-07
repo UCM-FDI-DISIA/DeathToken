@@ -1,5 +1,5 @@
-#include "Marbles.h"
-#include "Game.h"	
+#include "marbles.h"
+#include "game.h"	
 #include <iostream>
 
 Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),

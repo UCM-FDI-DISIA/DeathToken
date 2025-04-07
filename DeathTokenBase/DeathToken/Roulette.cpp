@@ -1,4 +1,4 @@
-#include "Roulette.h"
+#include "roulette.h"
 
 Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : sceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
 	w = Game::WIN_WIDTH / 2;
@@ -64,10 +64,6 @@ void Roulette::update() {
 			}
 		}
 	}
-}
-
-Collision Roulette::hit(const SDL_Rect&, Collision::Target) {
-	return NO_COLLISION;
 }
 
 void Roulette::addSpeed(int s) {

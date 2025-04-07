@@ -1,11 +1,11 @@
-#include "SlotsLocura.h"
+#include "slotsInsanity.h"
+#include "celda.h"
+#include "award.h"
 #include <chrono>
 #include <random>
-#include "Celda.h"
-#include "Award.h"
 using namespace std;
 
-SlotsLocura::SlotsLocura(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
+SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
 {
 	float x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
 	float y = Game::WIN_HEIGHT * (50 / 1080.0f);
@@ -20,7 +20,7 @@ SlotsLocura::SlotsLocura(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlay
 	}
 	resultante = vectorAleatorio();
 }
-vector<int> SlotsLocura::vectorAleatorio() {
+vector<int> SlotsInsanity::vectorAleatorio() {
 	vector<int> vector;
 
 	for (int i = 0; i < frecuencias.size(); ++i) {
@@ -35,7 +35,7 @@ vector<int> SlotsLocura::vectorAleatorio() {
 	return vector;
 }
 
-void SlotsLocura::update() {
+void SlotsInsanity::update() {
 	if (jugando) {
 		int line = checkBoard();
 		bool full = true;
@@ -62,7 +62,7 @@ void SlotsLocura::update() {
 	GameState::update();
 
 }
-void SlotsLocura::render() const {
+void SlotsInsanity::render() const {
 	SDL_Rect r;
 	r.x = r.y = 0;
 	r.h = Game::WIN_HEIGHT;
@@ -79,7 +79,7 @@ void SlotsLocura::render() const {
 	GameState::render();
 }
 
-int SlotsLocura::getNext() {
+int SlotsInsanity::getNext() {
 	if (turnoPlayer) {
 		int n = resultante[indice];
 		if (indice == resultante.size() - 1) resultante = vectorAleatorio();
@@ -91,7 +91,7 @@ int SlotsLocura::getNext() {
 	else return -1;
 }
 
-int SlotsLocura::checkBoard() const {
+int SlotsInsanity::checkBoard() const {
 	// Revisión filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
@@ -126,8 +126,7 @@ int SlotsLocura::checkBoard() const {
 
 	return -1;
 }
-
-void SlotsLocura::IA() {
+void SlotsInsanity::IA() {
 	if (SDL_GetTicks() - IAstartTime >= 1000) {
 		turnoPlayer = true;
 		bool placed = false;
@@ -143,14 +142,14 @@ void SlotsLocura::IA() {
 		}
 	}
 }
-void SlotsLocura::ClearBoard() {
+void SlotsInsanity::ClearBoard() {
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM; ++j) {
 			mat[i][j]->resetElem();
 		}
 	}
 }
-void SlotsLocura::iniciarGiro() {
+void SlotsInsanity::iniciarGiro() {
 	if (!jugando) {
 		turnoPlayer = true;
 	}

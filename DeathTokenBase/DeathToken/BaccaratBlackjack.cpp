@@ -1,4 +1,4 @@
-#include "BaccaratBlackjack.h"
+#include "baccaratBlackjack.h"
 
 BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)) {
 	player3->frame = 14;

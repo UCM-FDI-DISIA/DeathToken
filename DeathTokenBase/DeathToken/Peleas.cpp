@@ -1,7 +1,7 @@
-﻿#include "BattleManager.h"
-#include "Button.h"
-#include "Game.h"
-#include "Peleas.h"
+﻿#include "battleManager.h"
+#include "button.h"
+#include "game.h"
+#include "peleas.h"
 #include <iomanip>
 #include <sstream>
 #include <string>

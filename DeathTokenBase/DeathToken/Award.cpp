@@ -1,5 +1,5 @@
-#include "Award.h"
-#include "Game.h"
+#include "award.h"
+#include "game.h"
 #include "SDL.h"
 
 Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)

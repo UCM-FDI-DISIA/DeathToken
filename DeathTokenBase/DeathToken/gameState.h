@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <list>
 #include "gameObject.h"
-#include "EventHandler.h"
+#include "eventHandler.h"
 class Game;
 
 class GameState {

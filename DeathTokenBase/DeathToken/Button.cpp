@@ -1,6 +1,6 @@
-#include "Button.h"
-#include "UI.h"
-#include "Marbles.h"
+#include "button.h"
+#include "ui.h"
+#include "marbles.h"
 
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
 	: GameObject(g), text(t), hover(false)

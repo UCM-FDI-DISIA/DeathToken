@@ -1,4 +1,4 @@
-#include "HUD.h"
+#include "hud.h"
 
 inline int
 HUD::relativeX(const float& n)

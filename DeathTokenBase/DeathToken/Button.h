@@ -1,9 +1,9 @@
 #pragma once
-#include "Game.h"
+#include "game.h"
 #include "gameState.h"
-#include "EventHandler.h"
-#include "Texture.h"
-#include "PlayerEconomy.h"
+#include "eventHandler.h"
+#include "texture.h"
+#include "playerEconomy.h"
 #include <functional>
 #include <string>
 

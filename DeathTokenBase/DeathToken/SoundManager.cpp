@@ -1,4 +1,4 @@
-#include "SoundManager.h"
+#include "soundManager.h"
 #include <iostream>
 #include <SDL.h>
 

@@ -1,6 +1,6 @@
-﻿#include "Text.h"
+﻿#include "text.h"
+#include "game.h"
 #include <iostream>
-#include "Game.h"
 
 Text::Text(GameState* gS, const char* typo, int x, int y, int size, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),

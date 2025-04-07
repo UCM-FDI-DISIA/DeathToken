@@ -1,6 +1,6 @@
 #pragma once
 #include "gameState.h"
-#include "UI.h"
+#include "ui.h"
 
 class Slots : public GameState {
 protected:

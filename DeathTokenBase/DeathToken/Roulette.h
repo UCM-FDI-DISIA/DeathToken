@@ -1,7 +1,7 @@
 #pragma once
-#include "Vector2D.h"
+#include "vector2D.h"
 #include "sceneObject.h"
-#include "Award.h"
+#include "award.h"
 
 class Roulette : public sceneObject
 {
@@ -19,6 +19,5 @@ public:
 
 	void render() const override;
 	void update() override;
-	Collision hit(const SDL_Rect&, Collision::Target) override;
 };
 

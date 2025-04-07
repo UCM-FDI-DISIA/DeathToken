@@ -1,7 +1,6 @@
 #pragma once
-#include "Marbles.h"
-#include "Game.h"
-#include "vector"
+#include "marbles.h"
+#include "game.h"
 class MarblesInsanity : public GameState
 {
 private:

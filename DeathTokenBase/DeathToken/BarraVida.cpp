@@ -1,4 +1,4 @@
-#include "BarraVida.h"
+#include "barraVida.h"
 #include <SDL.h>
 
 BarraVida::BarraVida(GameState* estadoJuego, SDL_Renderer* renderizador, int x, int y,

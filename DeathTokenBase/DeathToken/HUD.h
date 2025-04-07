@@ -1,7 +1,7 @@
 #pragma once
-#include "Text.h"
-#include "PlayerEconomy.h"
-#include "Game.h"
+#include "text.h"
+#include "playerEconomy.h"
+#include "game.h"
 
 class HUD : public GameObject
 {

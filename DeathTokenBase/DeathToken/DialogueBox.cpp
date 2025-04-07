@@ -1,5 +1,5 @@
-#include "DialogueBox.h"
-#include "Game.h"
+#include "dialogueBox.h"
+#include "game.h"
 #include <iostream>
 
 const int NEXTDIALOG = 6000;
