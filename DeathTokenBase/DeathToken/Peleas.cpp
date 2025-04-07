@@ -138,7 +138,7 @@ void Peleas::StartBattle()
 		margin,
 		barWidth,
 		barHeight,
-		_battleM->getFigther1().getMaxHealth(),  // Usar vida máxima real
+		_battleM->getFigther1().getMaxHealth(), 
 		{ 0, 255, 0, 255 },
 		{ 70, 70, 70, 255 },
 		false);
@@ -150,9 +150,28 @@ void Peleas::StartBattle()
 		barWidth,
 		barHeight,
 		_battleM->getFigther2().getMaxHealth(),
-		{ 0, 255, 0, 255 },  // Usar vida máxima real
+		{ 0, 255, 0, 255 },  
 		{ 70, 70, 70, 255 },
 		true);
+
+
+	SDL_Rect Fighter1;
+	Fighter1.x = 50;
+	Fighter1.y = 500;
+	Fighter1.h = 500;
+	Fighter1.w = 500;
+
+
+	SDL_Rect Fighter2;
+	Fighter2.x = Game::WIN_WIDTH - 50;
+	Fighter2.y = 500;
+	Fighter2.h = 500;
+	Fighter2.w = 500;
+
+
+	game->getTexture(_battleM->getFigther1().getTexName())->render(Fighter1);
+
+	game->getTexture(_battleM->getFigther2().getTexName())->render(Fighter2);
 }
 
 void Peleas::render() const

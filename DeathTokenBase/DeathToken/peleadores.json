@@ -4,49 +4,57 @@
       "name": "Skeletor",
       "health": 110,
       "attack": 15,
-      "desc": "Esqueleto débil con guantes de boxeo"
+      "desc": "Esqueleto débil con guantes de boxeo",
+      "tex": "PELEASBOODOO"
     },
     {
       "name": "Romelario",
       "health": 190,
       "attack": 11,
-      "desc": "Payaso vejestorio mutante con una capa con capucha"
+      "desc": "Payaso vejestorio mutante con una capa con capucha",
+      "tex": "PELEASCORNEO"
     },
     {
       "name": "Alfredo",
       "health": 150,
       "attack": 13,
-      "desc": "Mostruo de pasta Boloñesa."
+      "desc": "Monstruo de pasta Boloñesa.",
+      "tex": "PELEASMCDOUGALD"
     },
     {
       "name": "Boodoo",
       "health": 135,
       "attack": 15,
-      "desc": "Muñeco vudú con botones en vez de ojos que sujeta dos agujas"
+      "desc": "Muñeco vudú con botones en vez de ojos que sujeta dos agujas",
+      "tex": "PELEASBOODOO"
     },
     {
       "name": "Corneo",
       "health": 110,
       "attack": 17,
-      "desc": "Un solo ojo muy grande con pupilas verdes"
+      "desc": "Un solo ojo muy grande con pupilas verdes",
+      "tex": "PELEASCORNEO"
     },
     {
       "name": "McDougald",
       "health": 170,
       "attack": 11,
-      "desc": "Bolsa de Patatas fritas con malas pintas"
+      "desc": "Bolsa de Patatas fritas con malas pintas",
+      "tex": "PELEASMCDOUGALD"
     },
     {
       "name": "Paulter Geist",
       "health": 122,
       "attack": 17,
-      "desc": "Pequeño fantasma que habita en un espejo"
+      "desc": "Pequeño fantasma que habita en un espejo",
+      "tex": "PELEASPAULTERGHEIST"
     },
     {
       "name": "Potapé",
       "health": 100,
       "attack": 10,
-      "desc": "Pequeño monstruo de vómito que habita en los trenes de las ciudades donde se organizan los mundiales."
+      "desc": "Pequeño monstruo de vómito que habita en los trenes de las ciudades donde se organizan los mundiales.",
+      "tex": "PELEASBOODOO"
     }
   ]
 }

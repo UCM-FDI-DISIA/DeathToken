@@ -16,9 +16,25 @@ bool Fighter::loadFromJSON(const std::string& jsonString)
 	desc = j["desc"].get<std::string>();
 	mindset = 50;  // Valor por defecto
 
+
+	if (j.contains("tex")) {
+		tex = stringToTextureName(j["tex"].get<std::string>());
+	}
+	else {
+		tex = NUM_TEXTURES; // O un valor por defecto
+	}
+
 	return true;
 }
 
+TextureName stringToTextureName(const std::string& texStr) {
+    if (texStr == "PELEASMCDOUGALD") return PELEASMCDOUGALD;
+    if (texStr == "PELEASCORNEO") return PELEASCORNEO;
+    if (texStr == "PELEASBOODOO") return PELEASBOODOO;
+    if (texStr == "PELEASPAULTERGHEIST") return PELEASPAULTERGHEIST;
+
+    return NUM_TEXTURES; 
+}
 const int ABILITYGAP = 8;
 float
 Fighter::getOdds(float Ability2) const {
