@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "json.hpp"
+#include "SoundManager.h"
 #include "Menu.h"
 #include <iostream>
 #include <string>
@@ -128,6 +129,17 @@ Game::Game() {
 			(textureRoot + textureSpec[i].name).c_str(),
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns);
+	// CARGA DE SONIDOS
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	if (!soundManager.inicializar(44100, 2, 2048)) {
+		std::cerr << "Error initializing SoundManager" << std::endl;
+		SDL_Quit();
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/TralaleroTralala.wav", "EntrarJuego",SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido de la entrarjuego." << std::endl;
+	}
+	soundManager.ajustarVolumenEfectos(50);
+
 
 	TTF_Init();
 	font = TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE);
@@ -152,6 +164,10 @@ Game::Game() {
 Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	soundManager.limpiar();
+
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
