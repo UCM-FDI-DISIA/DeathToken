@@ -56,11 +56,13 @@ std::string Award::getWinMessage(int multiplier) {
 }
 inline int Award::relativeX(const float& n)
 {
-	return (int)(n / 1920.0f) * Game::WIN_WIDTH;
+	int m = (int)((n / 1920.0f) * Game::WIN_WIDTH);
+	return m;
 }
 
 inline int
 Award::relativeY(const float& n)
 {
-	return (int)(n / 1080.0f) * Game::WIN_HEIGHT;
+	int m = (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+	return m;
 }

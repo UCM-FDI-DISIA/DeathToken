@@ -132,8 +132,9 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
+	int x = (200 / 1920.0f) * WIN_WIDTH;
 	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",150));
+	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",x));
 	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
