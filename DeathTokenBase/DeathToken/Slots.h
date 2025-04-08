@@ -5,7 +5,7 @@
 class Slots : public GameState {
 protected:
 	virtual int getResult() = 0;
-	int bet;
+	long long bet;
 	std::vector<int> multiplicadores = { 2,3,5,10,50,80,150 };
 
 	UISlots* ui;

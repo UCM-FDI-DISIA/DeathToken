@@ -8,7 +8,7 @@ using namespace std;
 
 SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 {
-	float x = Game::WIN_WIDTH * (0.5 - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
+	float x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
 	float y = Game::WIN_HEIGHT * (40 / 1080.0f);
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
