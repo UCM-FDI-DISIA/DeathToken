@@ -106,14 +106,21 @@ public:
 };
 
 class RouletteScene;
-class UIRoulette :public   UIChips {
+class UIRoulette {
+protected:
+	GameState* gS;
 	RouletteScene* rouletteS;
-public:
-	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
+	Game* game;
+	ButtonUI* exit;
+	ButtonUI* go;
 
-	void OnGo() override;
-	void render() const;
-	void update();
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+	UIRoulette(GameState* g, Game* game, RouletteScene* rouletteS);
+
+	void OnExit();
+	void OnGo();
 };
 
 

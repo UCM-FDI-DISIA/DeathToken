@@ -80,7 +80,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/chips/chip_50.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_100.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_200.png", 1, 1 });
-	
+
 	v.push_back(TextureSpec{ "ui/chips/chip_500.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_1K.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_2K.png", 1, 1 });
@@ -98,7 +98,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png",1,1 });
-	
+
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1 });
@@ -122,9 +122,43 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
 	v.push_back(TextureSpec{ "FondoDeFotoDeTarjeta.png", 1, 1 });
-	
+
 	v.push_back(TextureSpec{ "TarjetaDePeleadores.png", 1, 1 });
 	v.push_back(TextureSpec{ "Ring.png", 1, 1 });
+	//
+	v.push_back(TextureSpec{ "roulette/rouletteAnim0.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim1.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim2.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim3.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim4.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim5.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim6.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim7.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim8.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim9.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim10.png",1,1 });
+	/*v.push_back(TextureSpec{ "roulette/rouletteAnim11.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim12.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim13.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim14.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim15.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim16.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim17.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim18.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim19.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim20.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim21.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim22.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim23.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim24.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim25.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim26.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim27.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim28.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim29.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim30.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim31.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim32.png",1,1 });*/
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
@@ -132,8 +166,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
-	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",150));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf", 150));
 	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
@@ -309,8 +343,8 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);
+			}
 		}
-	}
 	catch (const json::parse_error& err) {
 #ifdef DEBUG
 		cout << "Error al procesar el JSON: " << e.what() << endl;
@@ -320,4 +354,4 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 
 	file.close();
 	return true;
-}
+		}
