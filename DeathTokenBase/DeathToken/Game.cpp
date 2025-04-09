@@ -122,9 +122,66 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
 	v.push_back(TextureSpec{ "FondoDeFotoDeTarjeta.png", 1, 1 });
-	
+	//
 	v.push_back(TextureSpec{ "TarjetaDePeleadores.png", 1, 1 });
 	v.push_back(TextureSpec{ "Ring.png", 1, 1 });
+	//
+	v.push_back(TextureSpec{ "roulette/rouletteAnim0.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim1.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim2.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim3.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim4.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim5.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim6.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim7.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim8.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim9.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim10.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim11.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim12.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim13.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim14.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim15.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim16.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim17.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim18.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim19.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim20.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim21.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim22.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim23.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim24.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim25.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim26.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim27.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim28.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim29.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim30.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim31.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim32.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim33.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim34.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim35.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim36.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim37.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim38.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim39.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim40.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim41.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim42.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim43.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim44.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim45.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim46.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim47.png",1,1 });
+
+	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
