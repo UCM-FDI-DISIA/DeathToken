@@ -137,7 +137,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/rouletteAnim8.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim9.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim10.png",1,1 });
-	/*v.push_back(TextureSpec{ "roulette/rouletteAnim11.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim11.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim12.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim13.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim14.png",1,1 });
@@ -158,7 +158,23 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/rouletteAnim29.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim30.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim31.png",1,1 });
-	v.push_back(TextureSpec{ "roulette/rouletteAnim32.png",1,1 });*/
+	v.push_back(TextureSpec{ "roulette/rouletteAnim32.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim33.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim34.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim35.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim36.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim37.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim38.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim39.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim40.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim41.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim42.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim43.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim44.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim45.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim46.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim47.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
@@ -293,7 +309,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 		// Convertir el JSON a string antes de pasarlo
 		fighter.loadFromJSON(item.dump());
 		fighters.push_back(fighter);
-	}
+}
 
 	file.close();
 	return true;
@@ -319,7 +335,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-		}
+	}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -343,7 +359,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);
-			}
+		}
 		}
 	catch (const json::parse_error& err) {
 #ifdef DEBUG
