@@ -13,8 +13,7 @@ void RouletteScene::handleEvent(const SDL_Event& event) {
 }
 
 void RouletteScene::update() {
-	roul->update();
-	ui->update();
+	GameState::update();
 	if (canThrow) {
 		canThrow = false;
 		uniform_int_distribution<> distrib(1000, 1500);
@@ -27,8 +26,7 @@ void RouletteScene::update() {
 
 void RouletteScene::render() const {
 	rouletteBG->render();
-	roul->render();
-	ui->render();
+	GameState::render();
 	SDL_Rect arrow = { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 30, Game::WIN_HEIGHT / 2 - Game::WIN_WIDTH / 30,
 		Game::WIN_WIDTH / 15, Game::WIN_WIDTH / 15 };
 	arrowTex->render(arrow);
@@ -37,6 +35,5 @@ void RouletteScene::render() const {
 void RouletteScene::throwRoulette() {
 	if (eco->getBlueSouls() >= costPerThrow) {
 		canThrow = true;
-		eco->addBlueSouls(-500);
 	}
 }

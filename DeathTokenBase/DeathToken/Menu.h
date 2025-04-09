@@ -19,7 +19,6 @@ class Player;
 
 class Menu : public GameState
 {
-	std::list<sceneObject*> objetos;
 	Player* ghost = nullptr;
 	Texture* texture;
 	Button* baccarat;
@@ -38,6 +37,7 @@ class Menu : public GameState
 	PlayerEconomy* eco;
 public:
 	Menu(Game* game);
+	virtual ~Menu() { delete eco; };
 	void gameChanger(GameState* juego);
 	void render() const override;
 	void update() override;
