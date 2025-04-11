@@ -53,16 +53,13 @@ class UISlots : public UI
 {
 protected:
 	Slots* slots;
-	ButtonUI* x2;
-	ButtonUI* x3;
-	ButtonUI* x5;
+	ButtonUI* erase;
 	ButtonUI* info;
+	std::vector<ButtonBet*> bets;
 public:
 	UISlots(GameState*, Game*, Slots*);
 	void OnGo() override;
-	void Onx2();
-	void Onx3();
-	void Onx5();
+	void OnErase();
 	void OnInfo();
 };
 class Marbles;

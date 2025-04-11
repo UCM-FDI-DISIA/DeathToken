@@ -85,7 +85,6 @@ protected:
 	int id;
 	int value;
 	int values[3];
-	bool slot;
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
 		int v0, int v1, int v2, Texture*, Texture*, Texture*);
@@ -94,7 +93,6 @@ public:
 	void changePage(const int& n);
 	void update() override;
 	void render() const override;
-	void setSlot();
 	int getValue();
 };
 
@@ -134,4 +132,13 @@ public:
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 	void repeatDoubleBet() { currentBet = betHistory * 2; };
+};
+//SLOTS
+class ButtonSlots : public ButtonBet
+{
+public:
+	ButtonSlots(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text);
+	~ButtonSlots() {}
+	void render() const override;
+	void handleEvent(const SDL_Event& event) override;
 };
