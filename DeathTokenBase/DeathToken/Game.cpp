@@ -1,3 +1,5 @@
+#include "firebase/app.h"
+#include "firebase/database.h"
 #include "game.h"
 #include "json.hpp"
 #include "menu.h"
@@ -9,6 +11,10 @@ using namespace std;
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
+firebase::App* app;
+firebase::database::Database* db;
+firebase::database::DatabaseReference dbref;
+
 
 using json = nlohmann::json;
 
@@ -213,6 +219,7 @@ Game::Game() {
 		throw "Error cargando SDL";
 	inicializa(window);
 	// Carga las texturas
+	startDatabase();
 	vector<TextureSpec> textureSpec = loadTextures();
 	std::string textureRoot = "../assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
@@ -297,6 +304,21 @@ void Game::pop() {
 	popState();
 }
 void Game::stop() { while (!empty()) popState(); }
+
+void Game::startDatabase()
+{
+	firebase::AppOptions options;  // No puntero, por eso usamos "."
+
+	options.set_api_key("1:136166131440:web:2308c20429e96e49c76435");
+	options.set_app_id("deathtoken");
+	options.set_database_url("https://deathtoken-default-rtdb.firebaseio.com/");
+
+	app = firebase::App::Create(options);
+	if (app == nullptr) { return ; }
+
+	db = firebase::database::Database::GetInstance(app);
+	dbref = db->GetReference();
+}
 
 bool Game::loadFightersFromJSON(const string& filename)
 {
