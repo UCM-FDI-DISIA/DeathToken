@@ -146,7 +146,11 @@ public:
 class Peleas;
 class UIPeleas : public UI {
 public:
-	UIPeleas(Game* game, Peleas* peleas) : UI((GameState*)peleas, game), _peleas(peleas)
+	UIPeleas(Game* game, Peleas* peleas) 
+		: UI((GameState*)peleas, game)
+		, _peleas(peleas)
+		, autoText(nullptr)
+		, historial(nullptr)
 	{
 	};
 
