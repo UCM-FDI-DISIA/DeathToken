@@ -56,12 +56,12 @@ void BaccaratBlackjack::startRound() {
 }
 
 void BaccaratBlackjack::askCards() {
-	int xBut = Game::WIN_WIDTH * 7.16 / 8, yBut = Game::WIN_HEIGHT * 4.5 / 7, wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
+	int xBut =(int)( Game::WIN_WIDTH * 7.16 / 8), yBut =(int) (Game::WIN_HEIGHT * 4.5 / 7), wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
 	more = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
 	addObjects(more);
 	addEventListener(more);
 	more->connect([this]() { handOneCard(); });
-	yBut = Game::WIN_HEIGHT * 4.5 / 9;
+	yBut =(int) (Game::WIN_HEIGHT * 4.5 / 9);
 	stand = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
 	addObjects(stand);
 	addEventListener(stand);
@@ -115,11 +115,11 @@ void BaccaratBlackjack::clearDeck() {
 	playerXpos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 30);
 	bankerXpos = (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 + Game::WIN_WIDTH / 30);
 
-	for (int i = bankerCardVec.size(); i > 0; i--) {
+	for (size_t i = bankerCardVec.size(); i > 0; i--) {
 		bankerCardVec.pop_back();
 		gameObjects.pop_back();
 	}
-	for (int i = playerCardVec.size(); i > 0; i--) {
+	for (size_t i = playerCardVec.size(); i > 0; i--) {
 		playerCardVec.pop_back();
 		gameObjects.pop_back();
 	}

@@ -10,7 +10,7 @@ class Roulette : public sceneObject
 	Texture* texture;
 	double rot = 0;
 	double speed = 0;
-	float decelerate = 0.95;
+	float decelerate = 0.95f;
 	bool started = false;
 	PlayerEconomy* eco;
 	float animTime = 0.0f;

@@ -43,7 +43,7 @@ public:
 		, h(BOXHEIGHT)
 		, w(BOXWIDTH)
 		, textWidth(w - 2 * MARGIN)
-		, charsPerLine(textWidth / charWidth)
+		, charsPerLine((int)(textWidth / charWidth))
 	{
 	}
 
@@ -69,7 +69,7 @@ public:
 		, w(wi)
 	{
 		textWidth = w - 2 * MARGIN;
-		charsPerLine = textWidth / charWidth;
+		charsPerLine = (int)(textWidth / charWidth);
 	}
 
 	~DialogueBox() {
@@ -106,7 +106,7 @@ public:
 	inline void SetW(int wi) {
 		w = wi;
 		textWidth = w - 2 * MARGIN;
-		charsPerLine = textWidth / charWidth;
+		charsPerLine =(int)( textWidth / charWidth);
 	}
 
 	inline void SetH(int he) {

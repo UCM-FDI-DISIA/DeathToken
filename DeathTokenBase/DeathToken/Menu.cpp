@@ -1,3 +1,4 @@
+#include "checkML.h"
 #include "menu.h"
 #include "game.h"
 #include "player.h"
@@ -42,7 +43,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 
-	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 100, wBut, wBut, game->getTexture(ROULETTE));
+	roulette = new Button(this,(int) (Game::WIN_WIDTH / 2 - wBut / 2), (int)(Game::WIN_HEIGHT / 100), (int)wBut, (int)wBut, game->getTexture(ROULETTE));
 	addObjects(roulette);
 	addEventListener(roulette);
 	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
@@ -54,6 +55,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	}
 
 	hud = new HUDLobby(this);
+}
+ Menu::~Menu() {
+	 delete eco;
+
 }
 
 void Menu::gameChanger(GameState* juego) {

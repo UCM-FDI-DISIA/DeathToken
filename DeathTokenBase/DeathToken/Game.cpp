@@ -189,7 +189,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
-	int x = (200 / 1920.0f) * WIN_WIDTH;
+	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
 	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",x));
 	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
@@ -371,7 +371,9 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 	}
 	catch (const json::parse_error& err) {
 #ifdef DEBUG
-		cout << "Error al procesar el JSON: " << e.what() << endl;
+		cout << "Error al procesar el JSON: " << err.what() << endl;
+#else
+		(void)err;
 #endif
 		return false;
 	}
