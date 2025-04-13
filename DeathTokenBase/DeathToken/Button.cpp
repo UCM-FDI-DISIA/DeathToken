@@ -533,7 +533,9 @@ ButtonSlots::handleEvent(const SDL_Event& event)
 	}
 }
 void ButtonSlots::render() const {
-	text->render(box);
+	if (text != nullptr) {
+		text->render(box);
+	}
 	if (currentBet > 0)
 	{
 		currentText->render(chipSpace);
