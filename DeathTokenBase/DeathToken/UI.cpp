@@ -290,7 +290,11 @@ void UITutorial::OnExit() {
 
 // UI PELEAS
 void UIPeleas::OnGo() {
-	_peleas->StartBattle();
+	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
+		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
+		HUDManager::getHudBet()->refresh();
+		_peleas->StartBattle();
+	}
 }
 
 inline int UIRoulette::relativeX(const float& n)

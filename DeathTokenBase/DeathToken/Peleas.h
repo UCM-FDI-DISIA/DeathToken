@@ -3,6 +3,7 @@
 #include "battleManager.h"
 #include "dialogueBox.h"
 #include "gameState.h"
+#include "hud.h"
 #include "ui.h"
 #include <SDL_ttf.h>
 enum class FSState { CARDS, FIGHT };
@@ -11,6 +12,7 @@ public:
 	Peleas(Game* game);
 	~Peleas()
 	{
+		bet = nullptr;
 		delete ui;
 		ui = nullptr;
 		delete fighter1bar;
@@ -60,5 +62,8 @@ private:
 	BarraVida* fighter1bar;
 	BarraVida* fighter2bar;
 	UIPeleas* ui;
+	HUDBet* bet;
+	ButtonPeleas* bet1;
+	ButtonPeleas* bet2;
 	FSState state;
 };

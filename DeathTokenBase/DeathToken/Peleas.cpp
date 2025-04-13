@@ -2,6 +2,7 @@
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
+#include "award.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -40,6 +41,9 @@ Peleas::Peleas(Game* game)
 	, fighter1bar(nullptr)
 	, fighter2bar(nullptr)
 	, ui(new UIPeleas(game, this))
+	, bet(new HUDBet(this))
+	, bet1(new ButtonPeleas(this, game, ui, APUESTA1X* Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT, 200, 200, nullptr))
+	, bet2(new ButtonPeleas(this, game, ui, APUESTA2X* Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT, 200, 200, nullptr))
 	, state(FSState::CARDS)
 {
 	_battleM = new BattleManager(dialog, game);
@@ -88,6 +92,10 @@ Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
 	Apuesta2->showMessage("Apuesta: ");
 
 	addEventListener((EventHandler*)dialog);
+	addEventListener(bet1);
+	addEventListener(bet2);
+	addObjects(bet1);
+	addObjects(bet2);
 }
 
 void Peleas::StartBattle()
@@ -203,6 +211,9 @@ Peleas::update() {
 			fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
 			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()),(_battleM->getFigther1().getMaxHealth()));
 			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()),(_battleM->getFigther2().getMaxHealth()));
+		}
+		else {
+			game->push(new Award(game, this, APUESTA, APUESTA * CUOTA));
 		}
 		
 		break;
