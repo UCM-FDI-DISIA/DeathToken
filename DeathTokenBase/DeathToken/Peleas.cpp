@@ -213,7 +213,7 @@ Peleas::update() {
 			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()),(_battleM->getFigther2().getMaxHealth()));
 		}
 		else {
-			game->push(new Award(game, this, APUESTA, APUESTA * CUOTA));
+			/*game->push(new Award(game, this, APUESTA, APUESTA * CUOTA));*/
 		}
 		
 		break;
