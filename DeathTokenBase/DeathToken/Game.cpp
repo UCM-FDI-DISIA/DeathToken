@@ -1,3 +1,4 @@
+#include <iostream>
 #include "firebase/app.h"
 #include "firebase/database.h"
 #include "game.h"
@@ -5,7 +6,6 @@
 #include "menu.h"
 #include "sdlutils.h"
 #include <vector>
-#include <iostream>
 #include <string>
 using namespace std;
 
@@ -307,7 +307,7 @@ void Game::stop() { while (!empty()) popState(); }
 
 void Game::startDatabase()
 {
-	firebase::AppOptions options;  // No puntero, por eso usamos "."
+	firebase::AppOptions options; 
 
 	options.set_api_key("1:136166131440:web:2308c20429e96e49c76435");
 	options.set_app_id("deathtoken");

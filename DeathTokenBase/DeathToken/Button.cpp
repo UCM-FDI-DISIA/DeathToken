@@ -24,8 +24,8 @@ void Button::render() const {
 		text->render(box);
 	}
 	else {
-		SDL_Rect point(box.x, box.y, box.h, box.h);
-		text->render(box, SDL_Color(255, 255, 0));
+		SDL_Rect point = { box.x, box.y, box.h, box.h };
+		text->render(box, SDL_Color{ 255, 255, 0 });
 	}
 
 }

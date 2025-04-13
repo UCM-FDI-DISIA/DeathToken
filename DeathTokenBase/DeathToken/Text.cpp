@@ -68,7 +68,10 @@ Text::eraseMessage()
 void
 Text::setColor(int red, int green, int blue, int alpha)
 {
-    textColor = SDL_Color(red, green, blue, alpha);
+    textColor.r = red;
+    textColor.g = green;
+    textColor.b = blue;
+    textColor.a = alpha;
 }
 void
 Text::setSize(int size)
@@ -78,7 +81,10 @@ Text::setSize(int size)
 void
 Text::setOutlineColor(int red, int green, int blue, int alpha)
 {
-    outlineColor = SDL_Color(red, green, blue, alpha);
+    outlineColor.r = red;
+    outlineColor.g = green;
+    outlineColor.b = blue;
+    outlineColor.a = alpha;
 }
 void
 Text::setWidth(int width)

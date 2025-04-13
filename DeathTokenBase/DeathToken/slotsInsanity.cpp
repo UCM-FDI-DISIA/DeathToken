@@ -71,7 +71,7 @@ void SlotsInsanity::render() const {
 
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
-	SDL_Rect box((int)(Game::WIN_WIDTH / 2 + celdaX * (N_COLUM / 2.0f) + (20 / 1920.0f) * Game::WIN_WIDTH), (int)(Game::WIN_HEIGHT / 2 - celdaY), (int)celdaX, (int)celdaY);
+	SDL_Rect box{ (int)(Game::WIN_WIDTH / 2 + celdaX * (N_COLUM / 2.0f) + (20 / 1920.0f) * Game::WIN_WIDTH), (int)(Game::WIN_HEIGHT / 2 - celdaY), (int)celdaX, (int)celdaY };
 	if (turnoPlayer) { game->getTexture(CELDA)->render(box); }
 	else { game->getTexture(CELDA)->render(box, { 170,230,255 }); }
 
