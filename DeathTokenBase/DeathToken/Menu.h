@@ -37,7 +37,7 @@ class Menu : public GameState
 	PlayerEconomy* eco;
 public:
 	Menu(Game* game);
-	virtual ~Menu() { delete eco; };
+	virtual ~Menu();
 	void gameChanger(GameState* juego);
 	void render() const override;
 	void update() override;

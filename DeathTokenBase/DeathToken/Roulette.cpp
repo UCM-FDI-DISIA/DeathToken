@@ -213,7 +213,7 @@ void Roulette::update() {
 				texture = game->getTexture(ROULETTEINSANITY);
 			}
 			i++;
-			animTime = SDL_GetTicks();
+			animTime = (float)SDL_GetTicks();
 		}
 	}
 	else {
@@ -293,7 +293,7 @@ void Roulette::update() {
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
 				cout << "LOCURA" << endl;
-				animTime = SDL_GetTicks();
+				animTime =(float) SDL_GetTicks();
 				i = 0;
 				eco->setInsanity(5);
 			}

@@ -1,6 +1,6 @@
 #include "baccaratFlip.h"
 
-BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(BACCARATBUT)) {
+BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)) {
 	addCards();
 
 }
@@ -68,7 +68,7 @@ void BaccaratFlip::cardButton()
 void BaccaratFlip::deckButton()
 {
 	if (flips == 2) {
-		player = new Button(this, Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 90, Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8, Game::WIN_WIDTH / 20 * 2.72, Game::WIN_HEIGHT / 8, text);
+		player = new Button(this,(int)( Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 90), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), (int)(Game::WIN_WIDTH / 20 * 2.72), Game::WIN_HEIGHT / 8, text);
 		addObjects(player);
 		addEventListener(player);
 		player->connect([this] {
@@ -104,7 +104,7 @@ void BaccaratFlip::deckButton()
 
 			});
 
-		banker = new Button(this, Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42, Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8, Game::WIN_WIDTH / 20 * 2.72, Game::WIN_HEIGHT / 8, text);
+		banker = new Button(this, (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8), (int)(Game::WIN_WIDTH / 20 * 2.72), Game::WIN_HEIGHT / 8, text);
 		addObjects(banker);
 		addEventListener(banker);
 		banker->connect([this] {

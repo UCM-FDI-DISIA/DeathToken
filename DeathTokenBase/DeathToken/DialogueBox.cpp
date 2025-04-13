@@ -43,7 +43,7 @@ void DialogueBox::update(float deltaTime) {
 	message = history[currentDialogIndex];
 
 	// Calcular el número de líneas necesarias
-	int numLines = (displayedText.size() / charsPerLine) + 1;
+	int numLines =(int)( (displayedText.size() / charsPerLine) + 1);
 
 	if (!instantDisplay && charIndex < message.size()) {
 		if (fast) {
@@ -61,7 +61,7 @@ void DialogueBox::update(float deltaTime) {
 		if (numLines * lineHeight > h) {
 			scrollOffset = (numLines * lineHeight) - h;
 		}
-		charIndex = message.size();
+		charIndex =(int) message.size();
 	}
 
 	if (charIndex == message.size() && autoDialog) {
@@ -81,15 +81,15 @@ void DialogueBox::update(float deltaTime) {
 			}
 		}
 		else {
-			completedTextTime += deltaTime;
+			completedTextTime += (int)deltaTime;
 		}
 	}
 
 	if (isScrolling) {
 
 		if (autoDialog) {
-			scrollingTime += deltaTime;
-			completedTextTime -= deltaTime;
+			scrollingTime += (int)deltaTime;
+			completedTextTime -= (int)deltaTime;
 		}
 
 		if (scrollingTime >= SCROLLINGTIME) {
@@ -103,7 +103,7 @@ void DialogueBox::update(float deltaTime) {
 	if (numLines * lineHeight > h) {
 		// Desplazamos hacia abajo si el texto excede la caja
 		if (scrollOffset < (numLines * lineHeight) - h) {
-			scrollOffset += AUTO_SCROLL_SPEED + AUTO_SCROLL_SPEED * fast * AUTO_SCROLL_FAST;
+			scrollOffset += (int)(AUTO_SCROLL_SPEED + AUTO_SCROLL_SPEED * fast * AUTO_SCROLL_FAST);
 		}
 	}
 
@@ -186,7 +186,7 @@ void DialogueBox::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEWHEEL) {
 
 		// Calcular el número de líneas necesarias
-		int numLines = (displayedText.size() / charsPerLine) + 1;
+		int numLines = (int)((displayedText.size() / charsPerLine) + 1);
 
 		// Permitir que el jugador haga scroll solo si hay más texto
 		if (numLines * lineHeight > h) {
