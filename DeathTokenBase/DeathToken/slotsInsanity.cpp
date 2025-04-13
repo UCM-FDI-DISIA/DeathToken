@@ -19,6 +19,14 @@ SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turno
 		}
 	}
 	resultante = vectorAleatorio();
+
+	float w = Game::WIN_WIDTH * (150.0f / 1920.0f);
+	float h = Game::WIN_HEIGHT * (150.0f / 1080.0f);
+	x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * ((N_COLUM / 2.0f) + 1));
+	y = Game::WIN_HEIGHT * 0.5f - h / 2;
+	btnBet = new ButtonSlots(this, game, ui, int(x), (int)y, (int)w, (int)h, game->getTexture(CELDA));
+	addObjects(btnBet);
+	addEventListener(btnBet);
 }
 vector<int> SlotsInsanity::vectorAleatorio() {
 	vector<int> vector;
@@ -128,8 +136,23 @@ int SlotsInsanity::checkBoard() const {
 }
 void SlotsInsanity::IA() {
 	if (SDL_GetTicks() - IAstartTime >= 1000) {
-		turnoPlayer = true;
 		bool placed = false;
+		for (int i = 0; i < N_COLUM; ++i) {
+			for (int j = 0; j < N_COLUM; ++j) {
+				if (mat[i][j]->getElem() != -1) {
+					mat[i][j]->setElem(resultante[indice]);
+					int linea = checkBoard();
+					if (linea == -1) {
+						mat[i][j]->setElem(-1);
+					}
+					else {
+						placed = true;
+						break;
+					}
+				}
+			}
+			if (placed) { break; }
+		}
 		while (!placed) {
 			int x = rand() % N_COLUM;
 			int y = rand() % N_COLUM;
@@ -140,6 +163,7 @@ void SlotsInsanity::IA() {
 				placed = true;
 			}
 		}
+		turnoPlayer = true;
 	}
 }
 void SlotsInsanity::ClearBoard() {

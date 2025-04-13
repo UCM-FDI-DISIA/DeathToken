@@ -29,6 +29,14 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 			c->pararGiro();
 			});
 	}
+
+	float w = Game::WIN_WIDTH * (150.0f / 1920.0f);
+	float h = Game::WIN_HEIGHT * (150.0f / 1080.0f);
+	x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * ((N_COLUM / 2.0f) + 1));
+	y = Game::WIN_HEIGHT * 0.5f - h/2;
+	btnBet = new ButtonSlots(this, game, ui, int(x), (int)y, (int)w, (int)h, game->getTexture(CELDA));
+	addObjects(btnBet);
+	addEventListener(btnBet);
 }
 SlotsNormal:: ~SlotsNormal() {
 	for (Carrete* i : carretes) i = nullptr;
@@ -51,7 +59,7 @@ void SlotsNormal::update() {
 			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
 
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
-				
+
 				multiplicador += multiplicadores[vectorCarrete1[i]];
 			}
 			else if (telarañas1_2 || telarañas1_3 || telarañas2_3) {

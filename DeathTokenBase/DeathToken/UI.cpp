@@ -123,24 +123,10 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 
 UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot)
 {
-	for (ButtonChip* i : chips)
-	{
-		i->setSlot();
-	}
-	x2 = new ButtonUI(gS, relativeX(50.0f), relativeY(209.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIX2), game->getTexture(UIX2CLCK));
-	gS->addObjects(x2);
-	gS->addEventListener(x2);
-	x2->connect([this]() { Onx2(); });
-
-	x3 = new ButtonUI(gS, relativeX(50.0f), relativeY(369.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIX3), game->getTexture(UIX3CLCK));
-	gS->addObjects(x3);
-	gS->addEventListener(x3);
-	x3->connect([this]() { Onx3(); });
-
-	x5 = new ButtonUI(gS, relativeX(50.0f), relativeY(529.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIX5), game->getTexture(UIX5CLCK));
-	gS->addObjects(x5);
-	gS->addEventListener(x5);
-	x5->connect([this]() { Onx5(); });
+	erase = new ButtonUI(gS, relativeX(1030.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
+	gS->addObjects(erase);
+	gS->addEventListener(erase);
+	erase->connect([this]() { OnErase(); });
 
 	info = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
 	gS->addObjects(info);
@@ -157,27 +143,13 @@ UISlots::OnGo() {
 	}
 }
 void
-UISlots::Onx2()
-{
-	PlayerEconomy::setBet(currentChipValue() * 2);
-	HUDManager::getHudBet()->refresh();
-}
-void
-UISlots::Onx3()
-{
-	PlayerEconomy::setBet(currentChipValue() * 3);
-	HUDManager::getHudBet()->refresh();
-}
-void
-UISlots::Onx5()
-{
-	PlayerEconomy::setBet(currentChipValue() * 5);
-	HUDManager::getHudBet()->refresh();
-}
-void
 UISlots::OnInfo()
 {
 
+}
+void
+UISlots::OnErase() {
+	slots->clear();
 }
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
