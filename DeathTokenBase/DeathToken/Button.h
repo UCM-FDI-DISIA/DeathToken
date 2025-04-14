@@ -14,11 +14,13 @@ class UI;
 class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
+	Texture* textC;
 	SDL_Rect box;
 	Callback cb;
 	bool hover;
+	bool clicked;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*);
+	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr);
 	virtual ~Button() {}
 	void render() const override;
 	void update() override;
@@ -34,12 +36,9 @@ class ButtonUI : public Button
 {
 protected:
 	SDL_Rect boxB;
-	bool clicked;
-	Texture* textC;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 	~ButtonUI() {}
-	void update() override;
 	void render() const override;
 };
 

@@ -2,8 +2,8 @@
 #include "ui.h"
 #include "marbles.h"
 
-Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
-	: GameObject(g), text(t), hover(false)
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t,Texture* tC)
+	: GameObject(g), text(t),textC(tC), hover(false), clicked(false)
 {
 	box.x = x;
 	box.y = y;
@@ -16,16 +16,22 @@ Button::update()
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 
-	// Comprueba si el rat�n est� sobre el rect�ngulo
+	// Comprueba si el ratón está sobre el rectángulo
 	hover = SDL_PointInRect(&point, &box);
+	// Comprueba si se está haciendo click
+	int mouseState = SDL_GetMouseState(NULL, NULL);
+	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
 }
 void Button::render() const {
-	if (!hover) {
-		text->render(box);
-	}
-	else {
+	if (hover && textC == nullptr) {
 		SDL_Rect point(box.x, box.y, box.h, box.h);
 		text->render(box, SDL_Color(255, 255, 0));
+	}
+	else if (clicked && textC != nullptr) {
+		textC->render(box);
+	}
+	else {
+		text->render(box);
 	}
 
 }
@@ -50,18 +56,11 @@ void Button::connect(Callback callback) {
 }
 
 ButtonUI::ButtonUI(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: Button(g, x, y, w, h, t), textC(tC), clicked(false) {
+	: Button(g, x, y, w, h, t, tC) {
 	boxB.x = (int)(x - (w * 0.05f));
 	boxB.y = (int)(y - (h * 0.05f));
 	boxB.w = (int)(w * 1.1f);
 	boxB.h = (int)(h * 1.1f);
-}
-void
-ButtonUI::update()
-{
-	Button::update();
-	int mouseState = SDL_GetMouseState(NULL, NULL);
-	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
 }
 void
 ButtonUI::render() const

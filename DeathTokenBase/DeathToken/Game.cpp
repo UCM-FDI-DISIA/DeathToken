@@ -15,10 +15,14 @@ using json = nlohmann::json;
 // Especificación de las texturas del juego
 vector<Game::TextureSpec> Game::loadTextures() {
 	vector<Game::TextureSpec> v;
-	v.push_back(TextureSpec{ "celdaSlots.png",1,1 });
+	v.push_back(TextureSpec{ "slots/celdaSlots.png",1,1 });
+	v.push_back(TextureSpec{ "slots/bet.png",1,1 });
+	v.push_back(TextureSpec{ "slots/iconosSlots.png",7,1 });
+	v.push_back(TextureSpec{ "slots/button.png",1,1 });
+	v.push_back(TextureSpec{ "slots/buttonClick.png",1,1 });
+	v.push_back(TextureSpec{ "slots/fondo.png",1,1 });
 	v.push_back(TextureSpec{ "baccarat/Tick.png",1,1 });
 	v.push_back(TextureSpec{ "baccarat/Cross.png",1,1 });
-	v.push_back(TextureSpec{ "iconosSlots.png",7,1 });
 	v.push_back(TextureSpec{ "map/Casino_bg.png", 1, 1 });
 	///
 	v.push_back(TextureSpec{ "baccarat/Baccarat_bg2.png", 1, 1 });

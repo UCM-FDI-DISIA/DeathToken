@@ -16,9 +16,13 @@ using uint = unsigned int;
 
 enum TextureName {
 	CELDA,
+	BETSLOTS,
+	ICONOS,
+	BTNSLOT,
+	BTNSLOTCLICK,
+	SLOTSFONDO,
 	TICK,
 	CROSS,
-	ICONOS,
 	BACKGROUND,
 	/// <summary>
 	/// 
