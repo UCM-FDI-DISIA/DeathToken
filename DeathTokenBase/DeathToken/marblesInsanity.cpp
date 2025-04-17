@@ -1,7 +1,7 @@
 #include "marblesInsanity.h"
 #include "sdlUtils.h"
-#include "UI.h"
-#include "Game.h"	
+#include "ui.h"
+#include "game.h"	
 
 MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->getTexture(MARBLESBACK)), gameFinish(false), dColor({ 0,0,0,0 }) {
 	CMarbles.push_back(game->getTexture(REDMARBLE));

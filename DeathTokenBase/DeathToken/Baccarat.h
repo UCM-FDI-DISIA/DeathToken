@@ -3,12 +3,12 @@
 #include <vector>
 #include <map>
 #include "gameState.h"
-#include "UI.h"
-#include "Texture.h"
-#include "EventHandler.h"
-#include "Button.h"
+#include "ui.h"
+#include "texture.h"
+#include "eventHandler.h"
+#include "button.h"
 #include "card.h"
-#include "Award.h"
+#include "award.h"
 using namespace std;
 
 struct Mat {
@@ -71,7 +71,7 @@ public:
 	void bankThird();
 	int generateRnd();
 	Card* createCard(int a, int b, int rot, int frame);
-	void addCards();
+	virtual void addCards();
 	void win();
 	void showTutorial() override { ui->OnInfo(); };
 

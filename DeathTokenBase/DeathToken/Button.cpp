@@ -1,6 +1,6 @@
-#include "Button.h"
-#include "UI.h"
-#include "Marbles.h"
+#include "button.h"
+#include "ui.h"
+#include "marbles.h"
 
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
 	: GameObject(g), text(t), hover(false)
@@ -33,13 +33,16 @@ void Button::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		SDL_Point point{ event.button.x, event.button.y };
 		if (SDL_PointInRect(&point, &box))
+		{
 			cb();
+		}
 	}
 	//si player encima de button y presiono enter entra
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es enter
 		if (hover)
+		{
 			cb();
-
+		}
 	}
 }
 void Button::connect(Callback callback) {
@@ -70,7 +73,6 @@ ButtonUI::render() const
 	else if (!hover)
 		text->render(box);
 	else {
-		SDL_Rect point(box.x - Game::TILE_SIDE, box.y, box.h, box.h);
 		text->render(boxB);
 	}
 }

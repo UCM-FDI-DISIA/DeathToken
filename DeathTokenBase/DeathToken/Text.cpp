@@ -1,42 +1,42 @@
-﻿#include "Text.h"
+﻿#include "text.h"
+#include "game.h"
 #include <iostream>
-#include "Game.h"
 
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
       x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
-    font = TTF_OpenFont(typo, size);
+    font = typo;
     message = "";
 }
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
       x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
-    font = TTF_OpenFont(typo, size);
+    font = typo;
     message = "";
 }
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
     x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
-    font = TTF_OpenFont(typo, size);
+    font = typo;
     message = "";
 }
-Text::Text(GameState* gS, const char* typo, int x, int y, int size, int outlineSize,
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
            SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor(outlineColor),
       x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
-    font = TTF_OpenFont(typo, size);
+    font = typo;
     message = "";
 }
 void

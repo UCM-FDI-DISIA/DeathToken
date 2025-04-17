@@ -1,4 +1,4 @@
-#include "BarraVida.h"
+#include "barraVida.h"
 #include <SDL.h>
 
 BarraVida::BarraVida(GameState* estadoJuego, SDL_Renderer* renderizador, int x, int y,
@@ -21,7 +21,7 @@ BarraVida::BarraVida(GameState* estadoJuego, SDL_Renderer* renderizador, int x, 
 	rect.h = alto;
 }
 
-void BarraVida::updateColorBasedOnHealth(float currentHealth, float maxHealth)
+void BarraVida::updateColorBasedOnHealth(float currentHealth, int maxHealth)
 {
 	float ratio = currentHealth / maxHealth;
 
@@ -65,7 +65,8 @@ void BarraVida::establecerValor(int nuevoValor)
 	if (valorActual < 0) valorActual = 0;
 	if (valorActual > valorMaximo) valorActual = valorMaximo;
 
-	updateColorBasedOnHealth(valorActual, valorMaximo);
+	updateColorBasedOnHealth(static_cast<float>(valorActual),
+                                 (valorMaximo));
 }
 void BarraVida::establecerPosicion(int x, int y)
 {

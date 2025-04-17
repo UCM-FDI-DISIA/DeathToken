@@ -1,7 +1,7 @@
-﻿#include "BattleManager.h"
-#include "Button.h"
-#include "Game.h"
-#include "Peleas.h"
+﻿#include "battleManager.h"
+#include "button.h"
+#include "game.h"
+#include "peleas.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -27,7 +27,7 @@ std::string formatOdds(float odds) {
 
 Peleas::Peleas(Game* game)
 	: GameState(game)
-	, dialog(new DialogueBox(game->getRenderer(), TTF_OpenFont("../assets/Candice/CANDY.TTF", Game::FONTSMALLSIZE), (25.0f / 1920.0f)* Game::WIN_WIDTH, (870.0f / 1080.0f)* Game::WIN_HEIGHT, true, false, 400, 180))
+	, dialog(new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, false, 400, 180))
 	, _battleM(nullptr)
 	, nombre1(nullptr)
 	, nombre2(nullptr)
@@ -45,17 +45,37 @@ Peleas::Peleas(Game* game)
 	_battleM = new BattleManager(dialog, game);
 
 	_battleM->StartBattle();
+nombre1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+    static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
 
-	nombre1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
-	nombre2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, NOMBRESY * Game::WIN_HEIGHT);
-	Cuota1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
-	Cuota2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, CUOTAY * Game::WIN_HEIGHT);
-	Animo1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
-	Animo2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO) * Game::WIN_HEIGHT);
-	Apuesta1 = new DialogueBox(game->getRenderer(), Game::font, APUESTA1X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
-	Apuesta2 = new DialogueBox(game->getRenderer(), Game::font, APUESTA2X * Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT);
+nombre2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+    static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
 
+Cuota1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+    static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
 
+Cuota2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+    static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
+
+Animo1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+    static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
+
+Animo2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+    static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
+
+Apuesta1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+    static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
+
+Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+    static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 	nombre1->showMessage(_battleM->getFigther1().getName());
 	nombre2->showMessage(_battleM->getFigther2().getName());
 
@@ -178,18 +198,18 @@ Peleas::update() {
 		break;
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
-			_battleM->Update(currentTime - lastUpdate);
+			_battleM->Update(static_cast<float>(currentTime - lastUpdate));
 			fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
 			fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
-			fighter1bar->updateColorBasedOnHealth(_battleM->getFigther1().getHealth(), _battleM->getFigther1().getMaxHealth());
-			fighter2bar->updateColorBasedOnHealth(_battleM->getFigther2().getHealth(), _battleM->getFigther2().getMaxHealth());
+			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()),(_battleM->getFigther1().getMaxHealth()));
+			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()),(_battleM->getFigther2().getMaxHealth()));
 		}
 		
 		break;
 	default:
 		break;
 	}
-	dialog->update(currentTime - lastUpdate);
+	dialog->update(static_cast<float>(currentTime - lastUpdate));
 	lastUpdate = currentTime;
 	GameState::update();
 

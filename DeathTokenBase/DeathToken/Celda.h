@@ -1,11 +1,11 @@
 #pragma once
-#include "Button.h"
-#include "Vector2D.h"
-class SlotsLocura;
+#include "button.h"
+#include "vector2D.h"
+class SlotsInsanity;
 
 class Celda : public Button {
 public:
-	Celda(SlotsLocura*, Point2D<int>, int, int, Texture*, Texture*);
+	Celda(SlotsInsanity*, Point2D<int>, int, int, Texture*, Texture*);
 	inline ~Celda() {};
 	void render() const override;
 	inline int getElem() { return elem; }
@@ -14,5 +14,5 @@ public:
 private:
 	int elem;
 	Texture* iconos;
-	SlotsLocura* slots;
+	SlotsInsanity* slots;
 };

@@ -1,5 +1,4 @@
-#include "Carrete.h"
-
+#include "carrete.h"
 
 vector<int> Carrete::vectorAleatorio() {
 	vector<int> vector;

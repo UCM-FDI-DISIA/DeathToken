@@ -1,8 +1,8 @@
 #pragma once
-#include "Texture.h"
-#include "GameState.h"
-#include "Button.h"
-#include "Text.h"
+#include "texture.h"
+#include "gameState.h"
+#include "button.h"
+#include "text.h"
 #include <vector>
 class Player;
 class UI
@@ -106,14 +106,21 @@ public:
 };
 
 class RouletteScene;
-class UIRoulette :public   UIChips {
+class UIRoulette {
+protected:
+	GameState* gS;
 	RouletteScene* rouletteS;
-public:
-	UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS);
+	Game* game;
+	ButtonUI* exit;
+	ButtonUI* go;
 
-	void OnGo() override;
-	void render() const;
-	void update();
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+	UIRoulette(GameState* g, Game* game, RouletteScene* rouletteS);
+
+	void OnExit();
+	void OnGo();
 };
 
 
@@ -139,7 +146,11 @@ public:
 class Peleas;
 class UIPeleas : public UI {
 public:
-	UIPeleas(Game* game, Peleas* peleas) : UI((GameState*)peleas, game), _peleas(peleas)
+	UIPeleas(Game* game, Peleas* peleas) 
+		: UI((GameState*)peleas, game)
+		, _peleas(peleas)
+		, autoText(nullptr)
+		, historial(nullptr)
 	{
 	};
 

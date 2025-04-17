@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "gameObject.h"
 #include <SDL.h>
 
 class BarraVida : public GameObject {
@@ -21,7 +21,7 @@ public:
 	void establecerValor(int nuevoValor);
 	void establecerPosicion(int x, int y);
 	void establecerVisible(bool esVisible);
-	void updateColorBasedOnHealth(float currentHealth, float maxHealth);
+	void updateColorBasedOnHealth(float currentHealth, int maxHealth);
 	int obtenerValor() const;
 	bool estaVisible() const;
 

@@ -1,9 +1,9 @@
 #pragma once
-#include "BarraVida.h"
-#include "BattleManager.h"
-#include "DialogueBox.h"
+#include "barraVida.h"
+#include "battleManager.h"
+#include "dialogueBox.h"
 #include "gameState.h"
-#include "UI.h"
+#include "ui.h"
 #include <SDL_ttf.h>
 enum class FSState { CARDS, FIGHT };
 class Peleas : public GameState {

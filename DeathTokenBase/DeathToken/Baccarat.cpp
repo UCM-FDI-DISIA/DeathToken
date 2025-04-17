@@ -1,5 +1,5 @@
-#include "Baccarat.h"
-#include "Game.h"
+#include "baccarat.h"
+#include "game.h"
 #include <random>
 
 Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), ui(new UIBaccarat(this, game, this)) {

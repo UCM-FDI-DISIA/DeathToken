@@ -1,8 +1,8 @@
 #pragma once
-#include "GameState.h"
-#include "Roulette.h"
-#include "EventHandler.h"
-#include "UI.h"
+#include "gameState.h"
+#include "roulette.h"
+#include "eventHandler.h"
+#include "ui.h"
 
 class RouletteScene : public GameState, public EventHandler
 {
@@ -14,10 +14,9 @@ class RouletteScene : public GameState, public EventHandler
 	PlayerEconomy* eco;
 	HUDBet* hud;
 	UIRoulette* ui;
-	sceneObject* arrow;
 public:
 	RouletteScene(Game* g, PlayerEconomy* eco);
-	virtual ~RouletteScene() {};
+	virtual ~RouletteScene() { HUDManager::popGame(); delete ui; };
 	void handleEvent(const SDL_Event& event) override;
 	void throwRoulette();
 	void update() override;

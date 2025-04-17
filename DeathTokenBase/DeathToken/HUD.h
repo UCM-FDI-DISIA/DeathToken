@@ -1,12 +1,11 @@
 #pragma once
-#include "Text.h"
-#include "PlayerEconomy.h"
-#include "Game.h"
+#include "text.h"
+#include "playerEconomy.h"
+#include "game.h"
 
 class HUD : public GameObject
 {
 protected:
-	const char* typo;
 	long long& balance = PlayerEconomy::blueSouls;
 	long long& redSouls = PlayerEconomy::redSouls;
 	long long& bet = PlayerEconomy::bet;

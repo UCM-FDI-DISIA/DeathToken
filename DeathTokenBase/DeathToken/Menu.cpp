@@ -1,6 +1,7 @@
-#include "Menu.h"
-#include "Game.h"
-#include "Player.h"
+#include "checkML.h"
+#include "menu.h"
+#include "game.h"
+#include "player.h"
 
 
 
@@ -36,14 +37,13 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(marbles);
 	addEventListener(marbles);
 	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
 
 	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
 	addObjects(fights);
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 
-	roulette = new Button(this, Game::WIN_WIDTH / 2 - wBut / 2, Game::WIN_HEIGHT / 100, wBut, wBut, game->getTexture(ROULETTE));
+	roulette = new Button(this,(int) (Game::WIN_WIDTH / 2 - wBut / 2), (int)(Game::WIN_HEIGHT / 100), (int)wBut, (int)wBut, game->getTexture(ROULETTE));
 	addObjects(roulette);
 	addEventListener(roulette);
 	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
@@ -56,19 +56,23 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 
 	hud = new HUDLobby(this);
 }
+ Menu::~Menu() {
+	 delete eco;
+
+}
 
 void Menu::gameChanger(GameState* juego) {
 	if (eco->getInsanity() > 0)
 	{
 		if (typeid(*juego) == typeid(Baccarat)) {
-			juego = new CrazyBaccaratManager(getGame());
+			juego = new BaccaratInsanityManager(getGame());
 		}
 		else if (typeid(*juego) == typeid(Marbles)) {
 			juego = new MarblesInsanity(getGame());
 
 		}
 		else if (typeid(*juego) == typeid(SlotsNormal)) {
-			juego = new SlotsLocura(getGame());
+			juego = new SlotsInsanity(getGame());
 		}
 		/*else if (typeid(*juego) == typeid(PeleasReanimadas)) {
 
@@ -82,22 +86,6 @@ void Menu::render() const {
 	texture->render();
 	GameState::render();
 
-}
-Collision Menu::checkCollision(const SDL_Rect& rect, Collision::Target target) {
-	Collision col;
-	bool hit = false;
-
-	for (sceneObject* obj : objetos) {
-		if (!hit) {
-			col = obj->hit(rect, target);
-			hit = col.result != col.NONE;
-			if (target == Collision::PLAYER && col.result == col.OBSTACLE) {
-				hit = true;
-			}
-		}
-	}
-	if (hit) return col;
-	else return col = NO_COLLISION;
 }
 
 void Menu::update() {//detecto interseciones player/button

@@ -14,7 +14,7 @@ protected:
 	struct Bet {
 		std::vector<int> typeOfBet;
 		int multiplier= 0;
-		int moneyBet= 0;
+		long long moneyBet= 0;
 	};
 	UIMarbles*  ui;
 	HUDBet* hud;
@@ -55,7 +55,7 @@ public:
 	void startRound();
 	void createMarbleButton(int x, int y, int width, int height, Texture*, Texture*, int type, std::vector<int> NCMarbles);
 	void marblesButtonCreation();
-	void newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles);
+	void newBet(std::vector<int> typeOfBet, int multiplier, long long moneyBet, ButtonMarbles* btnMarbles);
 	void clearBets();
 	void repeat();
 

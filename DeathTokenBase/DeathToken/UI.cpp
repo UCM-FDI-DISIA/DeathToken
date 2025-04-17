@@ -1,12 +1,12 @@
-#include "UI.h"
-#include "Game.h"
-#include "Marbles.h"
-#include "Slots.h"
-#include "Baccarat.h"
-#include "RouletteScene.h"
+#include "ui.h"
+#include "game.h"
+#include "marbles.h"
+#include "slots.h"
+#include "baccarat.h"
+#include "rouletteScene.h"
 #include "marblesInsanity.h"
-#include "Tutorial.h"
-#include "Peleas.h"
+#include "tutorial.h"
+#include "peleas.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -242,24 +242,6 @@ void UIBaccarat::OnRepeat()
 	baccarat->repeat();
 }
 
-UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : UIChips(gS, game), rouletteS(rouletteS) {}
-
-void UIRoulette::OnGo() {
-	rouletteS->throwRoulette();
-}
-
-void UIRoulette::render() const
-{
-	go->render();
-	exit->render();
-}
-
-void UIRoulette::update()
-{
-	go->update();
-	exit->update();
-}
-
 void
 UIBaccarat::OnInfo()
 {
@@ -337,4 +319,37 @@ void UITutorial::OnExit() {
 // UI PELEAS
 void UIPeleas::OnGo() {
 	_peleas->StartBattle();
+}
+
+inline int UIRoulette::relativeX(const float& n)
+{
+	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
+}
+
+inline int UIRoulette::relativeY(const float& n)
+{
+	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+}
+
+UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS(gS), game(game), rouletteS(rouletteS)
+{
+	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
+	gS->addObjects(exit);
+	gS->addEventListener(exit);
+	exit->connect([this]() { OnExit(); });
+
+	go = new ButtonUI(gS, relativeX(1697.0f), relativeY(858.0f), relativeX(173.0f), relativeY(173.0f), game->getTexture(UIGO), game->getTexture(UIGOCLCK));
+	gS->addObjects(go);
+	gS->addEventListener(go);
+	go->connect([this]() { OnGo(); });
+}
+
+void UIRoulette::OnExit()
+{
+	game->pop();
+}
+
+void UIRoulette::OnGo()
+{
+	rouletteS->throwRoulette();
 }

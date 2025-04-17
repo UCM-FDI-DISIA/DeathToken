@@ -1,5 +1,5 @@
-#include "Award.h"
-#include "Game.h"
+#include "award.h"
+#include "game.h"
 #include "SDL.h"
 
 Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
@@ -11,14 +11,14 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 	//Mirar el virtualTimer
 
 
-	text = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f), relativeY(Game::WIN_HEIGHT / 5.0f), relativeX(wSize), relativeX(cSize), Text::CENTRO);
+	text = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 5.0f), relativeX((float)wSize), relativeX((float)cSize), Text::CENTRO);
 	//if (betG != 0) {
-		int multi = mWinG / betG;
-		text->setMessage(getWinMessage(multi));
+	long long multi = mWinG / betG;
+		text->setMessage(getWinMessage((int)multi));
 	//}
 	this->addObjects(text);
 
-	winText = new Text(state, game->getTypo(AWARD), relativeX(Game::WIN_WIDTH / 2.0f), relativeY(Game::WIN_HEIGHT / 2.0f), relativeX(nSize), relativeX(cSize), Text::CENTRO);
+	winText = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 2.0f), relativeX((float)nSize), relativeX((float)cSize), Text::CENTRO);
 	winText->setMessage("0");
 	this->addObjects(winText);
 }
@@ -56,11 +56,13 @@ std::string Award::getWinMessage(int multiplier) {
 }
 inline int Award::relativeX(const float& n)
 {
-	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
+	int m = (int)((n / 1920.0f) * Game::WIN_WIDTH);
+	return m;
 }
 
 inline int
 Award::relativeY(const float& n)
 {
-	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+	int m = (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+	return m;
 }

@@ -1,5 +1,4 @@
-
-#include "Fighter.h"
+#include "fighter.h"
 #include "json.hpp"
 using json = nlohmann::json;
 

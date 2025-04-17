@@ -1,4 +1,4 @@
-#include "BaccaratBet.h"
+#include "baccaratBet.h"
 
 void BaccaratBet::repeatBet() {
 
@@ -25,7 +25,7 @@ void BaccaratBet::didntWin() {
 	buttonsOn = false;
 	for (int i = 0; i < betsHistory.size(); i++) {
 		if (betsHistory[i].betType == 0) {
-			betsHistory[i].multiplier == 8;
+			betsHistory[i].multiplier = 8;
 		}
 		else {
 			betsHistory[i].multiplier = 2;
@@ -35,12 +35,12 @@ void BaccaratBet::didntWin() {
 
 void BaccaratBet::acumulate() {
 	if (!buttonsOn) {
-		int xBut = Game::WIN_WIDTH * 7.07 / 8, yBut = Game::WIN_HEIGHT * 4.5 / 7, wBut = Game::WIN_WIDTH / 18, hBut = Game::WIN_WIDTH / 18;
+		int xBut = (int)(Game::WIN_WIDTH * 7.07 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut =(int) Game::WIN_WIDTH / 18, hBut =(int) Game::WIN_WIDTH / 18;
 		bet = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
 		addObjects(bet);
 		addEventListener(bet);
 		bet->connect([this]() { repeatBet(); });
-		yBut = Game::WIN_HEIGHT * 4.5 / 9;
+		yBut = (int)(Game::WIN_HEIGHT * 4.5 / 9);
 		stop = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
 		addObjects(stop);
 		addEventListener(stop);

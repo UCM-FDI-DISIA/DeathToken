@@ -1,6 +1,6 @@
-#include "BattleManager.h"
+#include "battleManager.h"
 #include "json.hpp"
-#include "Peleas.h"
+#include "peleas.h"
 #include <algorithm>
 #include <chrono>
 #include <cstdlib>

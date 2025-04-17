@@ -1,4 +1,4 @@
-#include "Tutorial.h"
+#include "tutorial.h"
 
 
 Tutorial::Tutorial(Game* game, GameState* gameState, std::vector<Texture*> imagesTutorial) :

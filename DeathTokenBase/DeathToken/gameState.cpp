@@ -1,4 +1,4 @@
-﻿#include "GameState.h"
+﻿#include "gameState.h"
 
 GameState::~GameState() {
 	for (GameObject* object : gameObjects)
@@ -30,4 +30,23 @@ void GameState::addObjects(GameObject* obj) {
 }
 void GameState::addObjectsUI(GameObject* obj) {
 	gameObjectsUI.push_back(obj);
+}
+void GameState::deleteSpecificGO(GameObject* obj)//Elimina el objeto de la lista de GameObjects
+{
+	for (auto& o : gameObjects) {
+		if (o == obj) {
+			erase(gameObjects, obj);
+			return;
+		}
+	}
+}
+
+void GameState::deleteSpecificEH(EventHandler* obj)//Elimina el objeto de la lista de EventHandlers
+{
+	for (auto& o : eventHandlers) {
+		if (o == obj) {
+			erase(eventHandlers, obj);
+			return;
+		}
+	}
 }

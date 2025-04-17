@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <list>
 #include "gameObject.h"
-#include "EventHandler.h"
+#include "eventHandler.h"
 class Game;
 
 class GameState {
@@ -21,6 +21,8 @@ public:
 	void addEventListener(EventHandler* obj);
 	void addObjects(GameObject* obj);
 	void addObjectsUI(GameObject* obj);
+	void deleteSpecificGO(GameObject* obj);
+	void deleteSpecificEH(EventHandler* obj);
 	virtual void showTutorial() {};
 };
 

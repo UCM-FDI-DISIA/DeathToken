@@ -1,7 +1,7 @@
 #include "Celda.h"
-#include "SlotsLocura.h"
+#include "slotsInsanity.h"
 
-Celda::Celda(SlotsLocura* g, Point2D<int> p, int w, int h, Texture* tx, Texture* ic) 
+Celda::Celda(SlotsInsanity* g, Point2D<int> p, int w, int h, Texture* tx, Texture* ic) 
 	: Button(g,p.getX(), p.getY(), w, h, tx), elem(-1), iconos (ic), slots(g){
 	connect([this] {if (elem == -1 && slots->getJugando()) { elem = slots->getNext(); }});
 	g->addEventListener(this);

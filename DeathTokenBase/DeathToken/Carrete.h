@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <chrono>
 #include <random>
-#include "checkML.h"
 
 class Carrete : public sceneObject {
 private:
@@ -34,6 +33,4 @@ public:
 	void pararGiro();
 	void render() const override;
 	void update() override;
-
-	virtual Collision hit(const SDL_Rect&, Collision::Target) { return NO_COLLISION; }
 };

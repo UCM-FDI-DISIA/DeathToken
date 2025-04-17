@@ -1,5 +1,5 @@
 #include "card.h"
-#include "Game.h"
+#include "game.h"
 
 Card::Card(GameState* game, int frame, Point2D<> pos, double angle) :
 	sceneObject(game, pos, game->getGame()->getTexture(CARDS)),
@@ -19,7 +19,4 @@ void Card::render() const {
 
 void Card::update() {
 
-}
-Collision Card::hit(const SDL_Rect&, Collision::Target) {
-	return NO_COLLISION;
 }

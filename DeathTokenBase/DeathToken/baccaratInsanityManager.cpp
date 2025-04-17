@@ -1,15 +1,15 @@
-#include "CrazyBaccaratManager.h"
-#include "Game.h"
+#include "baccaratInsanityManager.h"
+#include "game.h"
 
-CrazyBaccaratManager::CrazyBaccaratManager(Game* game) : game(game), GameState(game) {
+BaccaratInsanityManager::BaccaratInsanityManager(Game* game) : game(game), GameState(game) {
 }
 
-void CrazyBaccaratManager::update()
+void BaccaratInsanityManager::update()
 {
 	randomCard();
 }
 
-void CrazyBaccaratManager::randomCard() {
+void BaccaratInsanityManager::randomCard() {
 	uniform_int_distribution<> distrib(0, 2);
 
 	int num = distrib(game->getGen());

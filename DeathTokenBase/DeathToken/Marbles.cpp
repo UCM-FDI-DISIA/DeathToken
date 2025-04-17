@@ -1,5 +1,5 @@
-#include "Marbles.h"
-#include "Game.h"	
+#include "marbles.h"
+#include "game.h"	
 #include <iostream>
 
 Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
@@ -35,7 +35,8 @@ void  Marbles::generateMarbles() {
 
 	int pos = 1;
 	SDL_Rect auxBox;
-	std::uniform_int_distribution<> distrib(0, validColors.size() - 1);
+
+	std::uniform_int_distribution<>distrib(0,(int) validColors.size() - 1);
 
 	for (int i = 0; i < 3; i++) {
 		int color = validColors[distrib(game->getGen())];
@@ -80,7 +81,7 @@ int  Marbles::checkBets() {
 		}
 		
 		if (won|| wonTriple) {
-			moneyWin += typeBet.moneyBet * typeBet.multiplier;
+			moneyWin += (int) typeBet.moneyBet * typeBet.multiplier;
 		}
 		turnMoneyBet += typeBet.moneyBet;
 	}
@@ -208,7 +209,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 	
 }
 
-void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles) {
+void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, long long moneyBet, ButtonMarbles* btnMarbles) {
 	
 	moneyBet = ui->currentChipValue();
 

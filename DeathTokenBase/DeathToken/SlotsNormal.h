@@ -1,5 +1,5 @@
 #pragma once
-#include "Slots.h"
+#include "slots.h"
 
 #include <iostream>
 #include <vector>
