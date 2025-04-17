@@ -13,205 +13,56 @@ void Roulette::render() const {
 void Roulette::update() {
 	if (eco->getInsanity() > 0) {
 		if (SDL_GetTicks() - animTime >= 35.0f) {
-			if (i == 0)
-			{
-				texture = game->getTexture(ROULETTEANIM0);
-			}
-			else if (i == 1)
-			{
-				texture = game->getTexture(ROULETTEANIM1);
-			}
-			else if (i == 2)
-			{
-				texture = game->getTexture(ROULETTEANIM2);
-			}
-			else if (i == 3)
-			{
-				texture = game->getTexture(ROULETTEANIM3);
-			}
-			else if (i == 4)
-			{
-				texture = game->getTexture(ROULETTEANIM4);
-			}
-			else if (i == 5)
-			{
-				texture = game->getTexture(ROULETTEANIM5);
-			}
-			else if (i == 6)
-			{
-				texture = game->getTexture(ROULETTEANIM6);
-			}
-			else if (i == 7)
-			{
-				texture = game->getTexture(ROULETTEANIM7);
-			}
-			else if (i == 8)
-			{
-				texture = game->getTexture(ROULETTEANIM8);
-			}
-			else if (i == 9)
-			{
-				texture = game->getTexture(ROULETTEANIM9);
-			}
-			else if (i == 10)
-			{
-				texture = game->getTexture(ROULETTEANIM10);
-			}
-			else if (i == 11)
-			{
-				texture = game->getTexture(ROULETTEANIM11);
-			}
-			else if (i == 12)
-			{
-				texture = game->getTexture(ROULETTEANIM12);
-			}
-			else if (i == 13)
-			{
-				texture = game->getTexture(ROULETTEANIM13);
-			}
-			else if (i == 14)
-			{
-				texture = game->getTexture(ROULETTEANIM14);
-			}
-			else if (i == 15)
-			{
-				texture = game->getTexture(ROULETTEANIM15);
-			}
-			else if (i == 16)
-			{
-				texture = game->getTexture(ROULETTEANIM16);
-			}
-			else if (i == 17)
-			{
-				texture = game->getTexture(ROULETTEANIM17);
-			}
-			else if (i == 18)
-			{
-				texture = game->getTexture(ROULETTEANIM18);
-			}
-			else if (i == 19)
-			{
-				texture = game->getTexture(ROULETTEANIM19);
-			}
-			else if (i == 20)
-			{
-				texture = game->getTexture(ROULETTEANIM20);
-			}
-			else if (i == 21)
-			{
-				texture = game->getTexture(ROULETTEANIM21);
-			}
-			else if (i == 22)
-			{
-				texture = game->getTexture(ROULETTEANIM22);
-			}
-			else if (i == 23)
-			{
-				texture = game->getTexture(ROULETTEANIM23);
-			}
-			else if (i == 24)
-			{
-				texture = game->getTexture(ROULETTEANIM24);
-			}
-			else if (i == 25)
-			{
-				texture = game->getTexture(ROULETTEANIM25);
-			}
-			else if (i == 26)
-			{
-				texture = game->getTexture(ROULETTEANIM26);
-			}
-			else if (i == 27)
-			{
-				texture = game->getTexture(ROULETTEANIM27);
-			}
-			else if (i == 28)
-			{
-				texture = game->getTexture(ROULETTEANIM28);
-			}
-			else if (i == 29)
-			{
-				texture = game->getTexture(ROULETTEANIM29);
-			}
-			else if (i == 30)
-			{
-				texture = game->getTexture(ROULETTEANIM30);
-			}
-			else if (i == 31)
-			{
-				texture = game->getTexture(ROULETTEANIM31);
-			}
-			else if (i == 32)
-			{
-				texture = game->getTexture(ROULETTEANIM32);
-			}
-			else if (i == 33)
-			{
-				texture = game->getTexture(ROULETTEANIM33);
-			}
-			else if (i == 34)
-			{
-				texture = game->getTexture(ROULETTEANIM34);
-			}
-			else if (i == 35)
-			{
-				texture = game->getTexture(ROULETTEANIM35);
-			}
-			else if (i == 36)
-			{
-				texture = game->getTexture(ROULETTEANIM36);
-			}
-			else if (i == 37)
-			{
-				texture = game->getTexture(ROULETTEANIM37);
-			}
-			else if (i == 38)
-			{
-				texture = game->getTexture(ROULETTEANIM38);
-			}
-			else if (i == 39)
-			{
-				texture = game->getTexture(ROULETTEANIM39);
-			}
-			else if (i == 40)
-			{
-				texture = game->getTexture(ROULETTEANIM40);
-			}
-			else if (i == 41)
-			{
-				texture = game->getTexture(ROULETTEANIM41);
-			}
-			else if (i == 42)
-			{
-				texture = game->getTexture(ROULETTEANIM42);
-			}
-			else if (i == 43)
-			{
-				texture = game->getTexture(ROULETTEANIM43);
-			}
-			else if (i == 44)
-			{
-				texture = game->getTexture(ROULETTEANIM44);
-			}
-			else if (i == 45)
-			{
-				texture = game->getTexture(ROULETTEANIM45);
-			}
-			else if (i == 46)
-			{
-				texture = game->getTexture(ROULETTEANIM46);
-			}
-			else if (i == 47)
-			{
-				texture = game->getTexture(ROULETTEANIM47);
-			}
-			else if (i == 48)
-			{
-				texture = game->getTexture(ROULETTEANIM48);
-			}
-			else {
-				texture = game->getTexture(ROULETTEINSANITY);
-			}
+			if (i == 0) { texture = game->getTexture(ROULETTEANIM0); }
+			else if (i == 1) { texture = game->getTexture(ROULETTEANIM1); }
+			else if (i == 2) { texture = game->getTexture(ROULETTEANIM2); }
+			else if (i == 3) { texture = game->getTexture(ROULETTEANIM3); }
+			else if (i == 4) { texture = game->getTexture(ROULETTEANIM4); }
+			else if (i == 5) { texture = game->getTexture(ROULETTEANIM5); }
+			else if (i == 6) { texture = game->getTexture(ROULETTEANIM6); }
+			else if (i == 7) { texture = game->getTexture(ROULETTEANIM7); }
+			else if (i == 8) { texture = game->getTexture(ROULETTEANIM8); }
+			else if (i == 9) { texture = game->getTexture(ROULETTEANIM9); }
+			else if (i == 10) { texture = game->getTexture(ROULETTEANIM10); }
+			else if (i == 11) { texture = game->getTexture(ROULETTEANIM11); }
+			else if (i == 12) { texture = game->getTexture(ROULETTEANIM12); }
+			else if (i == 13) { texture = game->getTexture(ROULETTEANIM13); }
+			else if (i == 14) { texture = game->getTexture(ROULETTEANIM14); }
+			else if (i == 15) { texture = game->getTexture(ROULETTEANIM15); }
+			else if (i == 16) { texture = game->getTexture(ROULETTEANIM16); }
+			else if (i == 17) { texture = game->getTexture(ROULETTEANIM17); }
+			else if (i == 18) { texture = game->getTexture(ROULETTEANIM18); }
+			else if (i == 19) { texture = game->getTexture(ROULETTEANIM19); }
+			else if (i == 20) { texture = game->getTexture(ROULETTEANIM20); }
+			else if (i == 21) { texture = game->getTexture(ROULETTEANIM21); }
+			else if (i == 22) { texture = game->getTexture(ROULETTEANIM22); }
+			else if (i == 23) { texture = game->getTexture(ROULETTEANIM23); }
+			else if (i == 24) { texture = game->getTexture(ROULETTEANIM24); }
+			else if (i == 25) { texture = game->getTexture(ROULETTEANIM25); }
+			else if (i == 26) { texture = game->getTexture(ROULETTEANIM26); }
+			else if (i == 27) { texture = game->getTexture(ROULETTEANIM27); }
+			else if (i == 28) { texture = game->getTexture(ROULETTEANIM28); }
+			else if (i == 29) { texture = game->getTexture(ROULETTEANIM29); }
+			else if (i == 30) { texture = game->getTexture(ROULETTEANIM30); }
+			else if (i == 31) { texture = game->getTexture(ROULETTEANIM31); }
+			else if (i == 32) { texture = game->getTexture(ROULETTEANIM32); }
+			else if (i == 33) { texture = game->getTexture(ROULETTEANIM33); }
+			else if (i == 34) { texture = game->getTexture(ROULETTEANIM34); }
+			else if (i == 35) { texture = game->getTexture(ROULETTEANIM35); }
+			else if (i == 36) { texture = game->getTexture(ROULETTEANIM36); }
+			else if (i == 37) { texture = game->getTexture(ROULETTEANIM37); }
+			else if (i == 38) { texture = game->getTexture(ROULETTEANIM38); }
+			else if (i == 39) { texture = game->getTexture(ROULETTEANIM39); }
+			else if (i == 40) { texture = game->getTexture(ROULETTEANIM40); }
+			else if (i == 41) { texture = game->getTexture(ROULETTEANIM41); }
+			else if (i == 42) { texture = game->getTexture(ROULETTEANIM42); }
+			else if (i == 43) { texture = game->getTexture(ROULETTEANIM43); }
+			else if (i == 44) { texture = game->getTexture(ROULETTEANIM44); }
+			else if (i == 45) { texture = game->getTexture(ROULETTEANIM45); }
+			else if (i == 46) { texture = game->getTexture(ROULETTEANIM46); }
+			else if (i == 47) { texture = game->getTexture(ROULETTEANIM47); }
+			else if (i == 48) { texture = game->getTexture(ROULETTEANIM48); }
+			else { texture = game->getTexture(ROULETTEINSANITY); }
 			i++;
 			animTime = (float)SDL_GetTicks();
 		}
@@ -293,7 +144,7 @@ void Roulette::update() {
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
 				cout << "LOCURA" << endl;
-				animTime =(float) SDL_GetTicks();
+				animTime = (float)SDL_GetTicks();
 				i = 0;
 				eco->setInsanity(5);
 			}

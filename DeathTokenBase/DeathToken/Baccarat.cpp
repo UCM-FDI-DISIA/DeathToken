@@ -2,7 +2,7 @@
 #include "game.h"
 #include <random>
 
-Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), ui(new UIBaccarat(this, game, this)) {
+Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), smoke(game->getTexture(SMOKE)), ui(new UIBaccarat(this, game, this)) {
 	addEventListener(this);
 	addCards();
 	//Buttons
@@ -43,6 +43,9 @@ void Baccarat::handleEvent(const SDL_Event& event) {
 void Baccarat::render() const {
 	texture->render();
 	GameState::render();
+	if (cardAnim) {
+		smoke->renderFrame(sm, 0, frame);
+	}
 }
 
 void Baccarat::clearDeck() {
@@ -56,6 +59,56 @@ void Baccarat::clearDeck() {
 
 void Baccarat::update() {//para que las cartas se muevan enun futuro
 	GameState::update();
+	if (cardAnim && SDL_GetTicks() - animTime > 250.0f && frame < 4)
+	{
+		cout << frame << endl;
+		frame++;
+		animTime = SDL_GetTicks();
+		if (frame == 3) {
+			if (animInCard == 0)
+			{
+				player1->frame = mat.player[0];
+			}
+			else if (animInCard == 1)
+			{
+				banker1->frame = mat.banker[0];
+			}
+			else if (animInCard == 2)
+			{
+				player2->frame = mat.player[1];
+			}
+			else if (animInCard == 3)
+			{
+				banker2->frame = mat.banker[1];
+			}
+		}
+		if (frame == 4 && animInCard < 3) {
+			frame = 0;
+			if (animInCard == 0)
+			{
+				animInCard++;
+				sm = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+			}
+			else if (animInCard == 1)
+			{
+				animInCard++;
+				sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+			}
+			else if (animInCard == 2)
+			{
+				animInCard++;
+				sm = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+			}
+		}
+	}
+	if (frame == 4) {
+		handThird();//reparte tercera
+		cardAnim = false;
+		frame = 0;
+		animInCard = 0;
+		sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+		win();
+	}
 }
 
 void Baccarat::handCards() {
@@ -70,7 +123,6 @@ void Baccarat::handCards() {
 }
 
 void Baccarat::handThird() {//reparte la tercera segun las normas
-	//cout << mat.player[0] << " " << mat.player[1] << endl;
 	if (mat.player[0] > 9) mat.player[0] = 0;//para q las figuras no tengan valor
 	if (mat.player[1] > 9) mat.player[1] = 0;
 	if (mat.banker[0] > 9) mat.banker[0] = 0;
@@ -82,6 +134,7 @@ void Baccarat::handThird() {//reparte la tercera segun las normas
 		rndNum = generateRnd();
 		mat.player.push_back(rndNum);
 		cardsVec.push_back(rndNum);
+		//thirdPlayerMove = true;
 		player3->frame = rndNum;
 		bankThird();
 	}
@@ -90,6 +143,7 @@ void Baccarat::handThird() {//reparte la tercera segun las normas
 			rndNum = generateRnd();
 			mat.banker.push_back(rndNum);
 			cardsVec.push_back(rndNum);
+			//thirdBankerMove = true;
 			banker3->frame = rndNum;
 		}
 	}
@@ -102,6 +156,7 @@ void Baccarat::bankThird() {//se llama desde handthird si es necesario
 		rndNum = generateRnd();
 		mat.banker.push_back(rndNum);
 		cardsVec.push_back(rndNum);
+		//thirdBankerMove = true;
 		banker3->frame = rndNum;
 	}
 }
@@ -233,16 +288,24 @@ void Baccarat::repeat()
 }
 
 void Baccarat::startRound() {
-	hasWon = false;
-	player3->frame = 14;//inicializamos invisible
-	banker3->frame = 14;
-	handCards();
+	if (!cardAnim)
+	{
+		hasWon = false;
+		player1->frame = 0;//inicializamos boca abajo
+		banker1->frame = 0;
+		player2->frame = 0;
+		banker2->frame = 0;
+		player3->frame = 14;//inicializamos invisible
+		banker3->frame = 14;
+		handCards();
+		cardAnim = true;
+		animTime = SDL_GetTicks();
+	}
 	//eleccion frame cartas
-	player1->frame = mat.player[0];
-	banker1->frame = mat.banker[0];
-	player2->frame = mat.player[1];
-	banker2->frame = mat.banker[1];
+	//banker1->frame = mat.banker[0];
+	//player2->frame = mat.player[1];
+	//banker2->frame = mat.banker[1];
 
-	handThird();//reparte tercera
-	win();
+	//handThird();//reparte tercera
+	//win();
 }
