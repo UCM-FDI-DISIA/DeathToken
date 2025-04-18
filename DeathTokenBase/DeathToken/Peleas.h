@@ -13,6 +13,7 @@ public:
 	~Peleas()
 	{
 		PlayerEconomy::setBet(0);
+		HUDManager::popGame();
 		bet = nullptr;
 		delete ui;
 		ui = nullptr;
