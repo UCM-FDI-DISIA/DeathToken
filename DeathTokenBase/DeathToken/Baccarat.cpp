@@ -22,6 +22,10 @@ Card* Baccarat::createCard(int a, int b, int rot, int frame) {//crea cartas
 }
 
 void Baccarat::addCards() {//llama al metodo que crea las cartas
+	//tercera player
+	player3 = createCard((int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81 + Game::WIN_HEIGHT / 8), (int)(Game::WIN_HEIGHT / 5.33), 90, 14);
+	//tercera banca
+	banker3 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5 - Game::WIN_HEIGHT / 8), (int)(Game::WIN_HEIGHT / 5.32), 270, 14);
 	//derch player
 	player1 = createCard((int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.33), 0, 0);
 	//banker izq
@@ -30,10 +34,6 @@ void Baccarat::addCards() {//llama al metodo que crea las cartas
 	player2 = createCard((int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.33), 0, 0);
 	//banker dch
 	banker2 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32), 0, 0);;
-	//tercera player
-	player3 = createCard((int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81), (int)(Game::WIN_HEIGHT / 5.33), 90, 14);
-	//tercera banca
-	banker3 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5), (int)(Game::WIN_HEIGHT / 5.32), 270, 14);
 }
 
 
@@ -107,7 +107,27 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 		frame = 0;
 		animInCard = 0;
 		sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+	}
+	if (thirdPlayerMove) {
+		player3->setPos(player3->position() - Vector2D(5, 0));
+		if (player3->position().getX() <= (int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81))
+		{
+			thirdPlayerMove = false;
+			goForWin = true;
+		}
+	}
+	if (thirdBankerMove) {
+		banker3->setPos(banker3->position() + Vector2D(5, 0));
+		if (banker3->position().getX() >= (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5))
+		{
+			thirdBankerMove = false;
+			goForWin = true;
+		}
+	}
+	if (goForWin)
+	{
 		win();
+		goForWin = false;
 	}
 }
 
@@ -129,12 +149,11 @@ void Baccarat::handThird() {//reparte la tercera segun las normas
 	if (mat.banker[1] > 9) mat.banker[1] = 0;
 	playerComb = (mat.player[0] + mat.player[1]) % 10;
 	bankerComb = (mat.banker[0] + mat.banker[1]) % 10;//cuando pasa de 10 no se cuentan decena
-	//cout << playerComb << " " << bankerComb << endl;
 	if (playerComb < 6) {
 		rndNum = generateRnd();
 		mat.player.push_back(rndNum);
 		cardsVec.push_back(rndNum);
-		//thirdPlayerMove = true;
+		thirdPlayerMove = true;
 		player3->frame = rndNum;
 		bankThird();
 	}
@@ -143,9 +162,12 @@ void Baccarat::handThird() {//reparte la tercera segun las normas
 			rndNum = generateRnd();
 			mat.banker.push_back(rndNum);
 			cardsVec.push_back(rndNum);
-			//thirdBankerMove = true;
+			thirdBankerMove = true;
 			banker3->frame = rndNum;
 		}
+	}
+	else {
+		goForWin = true;
 	}
 }
 
@@ -156,7 +178,7 @@ void Baccarat::bankThird() {//se llama desde handthird si es necesario
 		rndNum = generateRnd();
 		mat.banker.push_back(rndNum);
 		cardsVec.push_back(rndNum);
-		//thirdBankerMove = true;
+		thirdBankerMove = true;
 		banker3->frame = rndNum;
 	}
 }
@@ -288,7 +310,7 @@ void Baccarat::repeat()
 }
 
 void Baccarat::startRound() {
-	if (!cardAnim)
+	if (mat.player.size() == 0 && mat.player.size() == 0)
 	{
 		hasWon = false;
 		player1->frame = 0;//inicializamos boca abajo
@@ -297,6 +319,8 @@ void Baccarat::startRound() {
 		banker2->frame = 0;
 		player3->frame = 14;//inicializamos invisible
 		banker3->frame = 14;
+		player3->setPos(Vector2D((int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81 + Game::WIN_HEIGHT / 8), (int)(Game::WIN_HEIGHT / 5.33)));
+		banker3->setPos(Vector2D((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5 - Game::WIN_HEIGHT / 8), (int)(Game::WIN_HEIGHT / 5.32)));
 		handCards();
 		cardAnim = true;
 		animTime = SDL_GetTicks();

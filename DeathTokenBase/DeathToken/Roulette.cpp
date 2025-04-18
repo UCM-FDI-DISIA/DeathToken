@@ -166,7 +166,7 @@ void Roulette::update() {
 				|| rot >= 313.2f && rot < 320.4f || rot >= 327.6f && rot < 334.8f
 				|| rot >= 349.2f && rot < 356.4f) {
 				cout << "4000 TOKEN" << endl;
-				//game->push(new Award(game, gS, 1, 4000));
+				game->push(new Award(game, gS, 1, 4000));
 			}
 		}
 	}
