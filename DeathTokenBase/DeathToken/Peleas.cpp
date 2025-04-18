@@ -42,9 +42,11 @@ Peleas::Peleas(Game* game)
 	, fighter2bar(nullptr)
 	, ui(new UIPeleas(game, this))
 	, bet(new HUDBet(this))
-	, bet1(new ButtonPeleas(this, game, ui, APUESTA1X* Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT, 200, 200, nullptr))
-	, bet2(new ButtonPeleas(this, game, ui, APUESTA2X* Game::WIN_WIDTH, (CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT, 200, 200, nullptr))
+	, bet1(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA1X * Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
+	, bet2(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA2X * Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
 	, state(FSState::CARDS)
+	, apuesta1(0)
+	, apuesta2(0)
 {
 	_battleM = new BattleManager(dialog, game);
 
@@ -96,6 +98,7 @@ Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
 	addEventListener(bet2);
 	addObjects(bet1);
 	addObjects(bet2);
+	bet->refresh();
 }
 
 void Peleas::StartBattle()
@@ -111,7 +114,6 @@ void Peleas::StartBattle()
 	dialog->ResetHistory();
 	// Configuración de las barras de vida
 	SDL_Renderer* renderer = game->getRenderer();
-
 
 	// Barra de vida del luchador 1 (izquierda)
 	int barWidth = Game::WIN_WIDTH / 3;
@@ -213,13 +215,27 @@ Peleas::update() {
 			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()),(_battleM->getFigther2().getMaxHealth()));
 		}
 		else {
-			/*game->push(new Award(game, this, APUESTA, APUESTA * CUOTA));*/
+			if (apuesta1 > 0 && _battleM->getFigther1().isAlive()) {
+				game->push(new Award(game, this, apuesta1, static_cast<long>(apuesta1 * _battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility()))));
+			}
+			else if (apuesta2 > 0) {
+				game->push(new Award(game, this, apuesta2, static_cast<long>(apuesta2 * _battleM->getFigther2().getOdds(_battleM->getFigther1().getAbility()))));
+			}
+			bet->update();
+			state = FSState::CARDS;
+			_battleM->StartBattle();
+			dialog->ResetHistory();
+			bet1->clear();
+			bet2->clear();
+			bet->refresh();
 		}
 		
 		break;
 	default:
 		break;
 	}
+	apuesta1 = bet1->getBet();
+	apuesta2 = bet2->getBet();
 	dialog->update(static_cast<float>(currentTime - lastUpdate));
 	lastUpdate = currentTime;
 	GameState::update();

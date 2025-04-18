@@ -12,6 +12,7 @@ public:
 	Peleas(Game* game);
 	~Peleas()
 	{
+		PlayerEconomy::setBet(0);
 		bet = nullptr;
 		delete ui;
 		ui = nullptr;
@@ -66,4 +67,7 @@ private:
 	ButtonPeleas* bet1;
 	ButtonPeleas* bet2;
 	FSState state;
+
+	int apuesta1 = 0;
+	int apuesta2 = 0;
 };
