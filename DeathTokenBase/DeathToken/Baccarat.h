@@ -44,7 +44,7 @@ protected:
 	bool thirdPlayerMove = false;
 	bool thirdBankerMove = false;
 	bool goForWin = false;
-	SDL_Rect sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+	SDL_Rect sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
 	float animTime;
 	Mat mat;
 	vector<int> cardsVec;

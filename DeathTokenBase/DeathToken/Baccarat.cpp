@@ -87,17 +87,17 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 			if (animInCard == 0)
 			{
 				animInCard++;
-				sm = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+				sm = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
 			}
 			else if (animInCard == 1)
 			{
 				animInCard++;
-				sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+				sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
 			}
 			else if (animInCard == 2)
 			{
 				animInCard++;
-				sm = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+				sm = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
 			}
 		}
 	}
@@ -106,7 +106,7 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 		cardAnim = false;
 		frame = 0;
 		animInCard = 0;
-		sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8), Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8 };
+		sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
 	}
 	if (thirdPlayerMove) {
 		player3->setPos(player3->position() - Vector2D(5, 0));
