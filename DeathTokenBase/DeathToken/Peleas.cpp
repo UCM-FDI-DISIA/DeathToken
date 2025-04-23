@@ -101,6 +101,18 @@ Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
 	bet->refresh();
 }
 
+void Peleas::setCards() {
+	// Mostrar los valores formateados
+	nombre1->showMessage(_battleM->getFigther1().getName());
+	nombre2->showMessage(_battleM->getFigther2().getName());
+	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())));
+	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())));
+	Animo1->showMessage("Animo: " + _battleM->getFigther1().getStringMindset());
+	Animo2->showMessage("Animo: " + _battleM->getFigther2().getStringMindset());
+	Apuesta1->showMessage("Apuesta: ");
+	Apuesta2->showMessage("Apuesta: ");
+}
+
 void Peleas::StartBattle()
 {
 	if (state == FSState::FIGHT) {
@@ -221,12 +233,13 @@ Peleas::update() {
 			else if (apuesta2 > 0) {
 				game->push(new Award(game, this, apuesta2, static_cast<long>(apuesta2 * _battleM->getFigther2().getOdds(_battleM->getFigther1().getAbility()))));
 			}
-			bet->update();
 			state = FSState::CARDS;
 			_battleM->StartBattle();
 			dialog->ResetHistory();
+			setCards();
 			bet1->clear();
 			bet2->clear();
+			bet->update();
 			bet->refresh();
 		}
 		

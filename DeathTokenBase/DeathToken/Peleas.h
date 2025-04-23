@@ -71,4 +71,6 @@ private:
 
 	int apuesta1 = 0;
 	int apuesta2 = 0;
+
+	void setCards();
 };

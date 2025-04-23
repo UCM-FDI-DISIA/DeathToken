@@ -40,7 +40,7 @@ public:
 	inline int getHealth() const { return health; }
 	inline int getAttack() const { return attack; }
 	inline string getDesc() const { return desc; }
-	inline float getAbility() const { return health + attack * 1.3f; }
+	inline float getAbility() const { return maxHealth + attack * 1.3f; }
 	inline int getMaxHealth() const { return maxHealth; }
 	inline float getMindset() const { return mindset; }
 

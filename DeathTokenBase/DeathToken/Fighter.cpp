@@ -18,7 +18,7 @@ bool Fighter::loadFromJSON(const std::string& jsonString)
 	return true;
 }
 
-const int ABILITYGAP = 8;
+const int ABILITYGAP = 2;
 float
 Fighter::getOdds(float Ability2) const {
 	float difference = getAbility() - Ability2;
@@ -26,13 +26,13 @@ Fighter::getOdds(float Ability2) const {
 		if (difference < ABILITYGAP) {
 			return 5.0f;  // Cuota 1:5
 		}
-		else if (difference >= ABILITYGAP && difference < 1.3f * ABILITYGAP) {
+		else if (difference < 1.5f * ABILITYGAP) {
 			return 2.75f;  // Cuota 1:2.75
 		}
-		else if (difference >= 1.3f * ABILITYGAP && difference < 1.6f * ABILITYGAP) {
+		else if (difference < 2.0f * ABILITYGAP) {
 			return 2.5f;  // Cuota 1:2.5
 		}
-		else if (difference >= 1.6f * ABILITYGAP && difference < 2 * ABILITYGAP) {
+		else if (difference < 2.5f * ABILITYGAP) {
 			return 2.0f;  // Cuota 1:2
 		}
 		else {
@@ -42,16 +42,16 @@ Fighter::getOdds(float Ability2) const {
 
 	else {
 
-		if (difference < ABILITYGAP) {
+		if (difference > -ABILITYGAP) {
 			return 5.0f;  // Cuota 1:5
 		}
-		else if (difference >= -ABILITYGAP && difference < -1.3f * ABILITYGAP) {
+		else if (difference < -1.5f * ABILITYGAP) {
 			return 3.0f;  // Cuota 1:2.75
 		}
-		else if (difference >= -1.3f * ABILITYGAP && difference < -1.6f * ABILITYGAP) {
+		else if (difference < -2.0f * ABILITYGAP) {
 			return 3.5f;  // Cuota 1:2.5
 		}
-		else if (difference >= -1.6f * ABILITYGAP && difference < -2 * ABILITYGAP) {
+		else if (difference < -2.5f * ABILITYGAP) {
 			return 4.0f;  // Cuota 1:2
 		}
 		else {
