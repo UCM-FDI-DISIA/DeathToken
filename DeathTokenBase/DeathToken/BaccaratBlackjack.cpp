@@ -1,15 +1,12 @@
 #include "baccaratBlackjack.h"
 
 BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)) {
-	player3->frame = 14;
-	banker3->frame = 14;
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);
 }
 
 void BaccaratBlackjack::handCards() {
 	Baccarat::handCards();
 	if (totalCards(mat.player) == 21) {
-		cout << "BlackJack!" << endl;
 		game->push(new Award(game, (GameState*)this, 100, 400));
 		win = true;
 	}
@@ -21,9 +18,14 @@ void BaccaratBlackjack::render() const {
 }
 
 void BaccaratBlackjack::update() {
-	Baccarat::update();
+	GameState::update();
+
+	if (!canAsk) {
+		victory();
+		canAsk = true;
+	}
+
 	if (totalCards(mat.player) > 21) {
-		cout << "pierdes" << endl;
 		banker1->frame = mat.banker[0];
 		win = true;
 	}
@@ -33,35 +35,30 @@ void BaccaratBlackjack::victory() {
 	if (totalCards(mat.player) > totalCards(mat.banker) && totalCards(mat.player) <= 21 || totalCards(mat.banker) > 21) {
 		game->push(new Award(game, (GameState*)this, 100, 400));
 	}
-	else if (totalCards(mat.banker) > totalCards(mat.player) && totalCards(mat.banker) <= 21) {
-		cout << "gana banker" << endl;
-	}
 	else if (totalCards(mat.banker) == totalCards(mat.player) && totalCards(mat.banker) <= 21 && totalCards(mat.player) <= 21 && !win) {
 		game->push(new Award(game, (GameState*)this, 100, 100));
 	}
-
+	clearDeck();
 }
 
 void BaccaratBlackjack::startRound() {
-	clearDeck();
-	canAsk = true;
 	win = false;
 	handCards();
 	//eleccion frame cartas
 	player1->frame = mat.player[0];
-	//banker1->frame = mat.banker[0];
+	banker1->frame = mat.banker[0];
 	player2->frame = mat.player[1];
-	banker2->frame = mat.banker[1];
+	//banker2->frame = mat.banker[1];
 	askCards();
 }
 
 void BaccaratBlackjack::askCards() {
-	int xBut =(int)( Game::WIN_WIDTH * 7.16 / 8), yBut =(int) (Game::WIN_HEIGHT * 4.5 / 7), wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
+	int xBut = (int)(Game::WIN_WIDTH * 7.16 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
 	more = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
 	addObjects(more);
 	addEventListener(more);
 	more->connect([this]() { handOneCard(); });
-	yBut =(int) (Game::WIN_HEIGHT * 4.5 / 9);
+	yBut = (int)(Game::WIN_HEIGHT * 4.5 / 9);
 	stand = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
 	addObjects(stand);
 	addEventListener(stand);
@@ -81,7 +78,7 @@ void BaccaratBlackjack::handOneCard() {
 void BaccaratBlackjack::bancaAI() {
 	if (!win) {
 		canAsk = false;
-		banker1->frame = mat.banker[0];
+		banker2->frame = mat.banker[1];
 		while (totalCards(mat.banker) < 17) {
 			rndNum = generateRnd();
 			mat.banker.push_back(rndNum);
@@ -90,7 +87,7 @@ void BaccaratBlackjack::bancaAI() {
 			cardsVec.push_back(rndNum);
 		}
 	}
-	victory();
+
 }
 
 int BaccaratBlackjack::totalCards(vector<int> askedCards) {
@@ -111,6 +108,7 @@ int BaccaratBlackjack::totalCards(vector<int> askedCards) {
 
 void BaccaratBlackjack::clearDeck() {
 	banker1->frame = 0;
+	banker2->frame = 0;
 	Baccarat::clearDeck();
 	playerXpos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 30);
 	bankerXpos = (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20 + Game::WIN_WIDTH / 30);
@@ -123,7 +121,6 @@ void BaccaratBlackjack::clearDeck() {
 		playerCardVec.pop_back();
 		gameObjects.pop_back();
 	}
-
 	eventHandlers.pop_back();
 	eventHandlers.pop_back();
 	gameObjects.pop_back();

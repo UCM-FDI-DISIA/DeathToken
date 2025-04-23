@@ -33,7 +33,7 @@ void Baccarat::addCards() {//llama al metodo que crea las cartas
 	//izq player
 	player2 = createCard((int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.33), 0, 0);
 	//banker dch
-	banker2 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32), 0, 0);;
+	banker2 = createCard((int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.38 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32), 0, 0);
 }
 
 
@@ -325,11 +325,5 @@ void Baccarat::startRound() {
 		cardAnim = true;
 		animTime = SDL_GetTicks();
 	}
-	//eleccion frame cartas
-	//banker1->frame = mat.banker[0];
-	//player2->frame = mat.player[1];
-	//banker2->frame = mat.banker[1];
-
-	//handThird();//reparte tercera
-	//win();
+	
 }
