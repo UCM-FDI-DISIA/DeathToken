@@ -1,6 +1,7 @@
 #pragma once
 #include "texture.h"
 #include "gameState.h"
+#include "SoundManager.h"
 #include "button.h"
 #include "text.h"
 #include <vector>
@@ -30,7 +31,10 @@ public:
 	int currentChipValue();
 
 	void OnExit();
-	virtual void OnGo() = 0;
+	virtual void OnGo() {
+		SoundManager& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("PresionaBoton");
+	}
 };
 
 class UIChips : public UI

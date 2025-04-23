@@ -221,6 +221,22 @@ Game::Game() {
 			textureSpec[i].numRows,
 			textureSpec[i].numColumns));
 
+
+	// CARGA DE SONIDOS
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	if (!soundManager.inicializar(44100, 2, 2048)) {
+		std::cerr << "Error initializing SoundManager" << std::endl;
+		SDL_Quit();
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/TralaleroTralala.wav", "EntrarJuego",SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido de la entrarjuego." << std::endl;
+	}
+	soundManager.ajustarVolumenEfectos(50);
+
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBoton.wav", "PresionaBoton", SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
 	TTF_Init();
 	fonts = loadFonts();
 
