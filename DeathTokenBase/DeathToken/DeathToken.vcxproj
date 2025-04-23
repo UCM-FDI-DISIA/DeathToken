@@ -116,15 +116,15 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;..\SDL2_mixer-2.8.0\include;..\firebase_cpp_sdk_12.7.0\firebase_cpp_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>
       </MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;..\SDL2_mixer-2.8.0\lib\x64;..\firebase_cpp_sdk_12.7.0\firebase_cpp_sdk\libs\windows\VS2019\MT\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;firebase_app.lib;firebase_database.lib;firebase_analytics.lib;firebase_auth.lib;firebase_dynamic_links.lib;firebase_firestore.lib;firebase_functions.lib;firebase_gma.lib;firebase_installations.lib;firebase_messaging.lib;firebase_remote_config.lib;firebase_storage.lib;ws2_32.lib;wldap32.lib;crypt32.lib;userenv.lib;iphlpapi.lib;kernel32.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;..\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)firebase_cpp_sdk_12.7.0\firebase_cpp_sdk\libs\windows\VS2019\MT\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;firebase_app.lib;firebase_database.lib;firebase_analytics.lib;firebase_auth.lib;firebase_dynamic_links.lib;firebase_firestore.lib;firebase_functions.lib;firebase_gma.lib;firebase_installations.lib;firebase_messaging.lib;firebase_remote_config.lib;firebase_storage.lib;ws2_32.lib;wldap32.lib;crypt32.lib;userenv.lib;iphlpapi.lib;kernel32.lib;psapi.lib;advapi32.lib;rpcrt4.lib;ole32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>
  %(AdditionalOptions)</AdditionalOptions>
     </Link>
