@@ -103,14 +103,14 @@ Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
 
 void Peleas::setCards() {
 	// Mostrar los valores formateados
-	nombre1->showMessage(_battleM->getFigther1().getName());
-	nombre2->showMessage(_battleM->getFigther2().getName());
-	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())));
-	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())));
-	Animo1->showMessage("Animo: " + _battleM->getFigther1().getStringMindset());
-	Animo2->showMessage("Animo: " + _battleM->getFigther2().getStringMindset());
-	Apuesta1->showMessage("Apuesta: ");
-	Apuesta2->showMessage("Apuesta: ");
+	nombre1->showMessage(_battleM->getFigther1().getName(), true);
+	nombre2->showMessage(_battleM->getFigther2().getName(), true);
+	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())), true);
+	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())), true);
+	Animo1->showMessage("Animo: " + _battleM->getFigther1().getStringMindset(), true);
+	Animo2->showMessage("Animo: " + _battleM->getFigther2().getStringMindset(), true);
+	Apuesta1->showMessage("Apuesta: ", true);
+	Apuesta2->showMessage("Apuesta: ", true);
 }
 
 void Peleas::StartBattle()
@@ -120,10 +120,10 @@ void Peleas::StartBattle()
 	}
 	state = FSState::FIGHT;
 	SDL_RenderClear(game->getRenderer());
-	dialog->SetX(Game::WIN_WIDTH / 3);
-	dialog->SetY(3 * Game::WIN_HEIGHT / 4);
-	dialog->SetW(Game::WIN_WIDTH / 3);
-	dialog->ResetHistory();
+	dialog->setX(Game::WIN_WIDTH / 3);
+	dialog->setY(3 * Game::WIN_HEIGHT / 4);
+	dialog->setWidth(Game::WIN_WIDTH / 3);
+	dialog->resetHistory();
 	// Configuración de las barras de vida
 	SDL_Renderer* renderer = game->getRenderer();
 
@@ -235,7 +235,7 @@ Peleas::update() {
 			}
 			state = FSState::CARDS;
 			_battleM->StartBattle();
-			dialog->ResetHistory();
+			dialog->resetHistory();
 			setCards();
 			bet1->clear();
 			bet2->clear();
