@@ -159,6 +159,7 @@
     <ClInclude Include="dialogueBox.h" />
     <ClInclude Include="fighter.h" />
     <ClInclude Include="hud.h" />
+    <ClInclude Include="inputBox.h" />
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="peleas.h" />
     <ClInclude Include="playerEconomy.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="dialogueBox.cpp" />
     <ClCompile Include="fighter.cpp" />
     <ClCompile Include="hud.cpp" />
+    <ClCompile Include="inputBox.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="peleas.cpp" />
     <ClCompile Include="playerEconomy.cpp" />

@@ -1,43 +1,43 @@
-#include "dialogueBox.h"
+Ôªø#include "dialogueBox.h"
 #include "game.h"
 #include <iostream>
 
 #pragma region CONSTRUCTORS_DESTRUCTOR
 /*****************************************************************/
-/* Constructor por defecto: Inicializa todos los valores b·sicos */
+/* Constructor por defecto: Inicializa todos los valores b√°sicos */
 /*****************************************************************/
 DialogueBox::DialogueBox()
-	: renderer(nullptr)      // Renderizador SDL (se asignar· despuÈs)
-	, font(nullptr)         // Fuente de texto (se asignar· despuÈs)
-	, history()             // Lista vacÌa de di·logos histÛricos
-	, message("")           // Mensaje actual vacÌo
+	: renderer(nullptr)      // Renderizador SDL (se asignar√° despu√©s)
+	, font(nullptr)         // Fuente de texto (se asignar√° despu√©s)
+	, history()             // Lista vac√≠a de di√°logos hist√≥ricos
+	, message("")           // Mensaje actual vac√≠o
 	, visible(false)        // Inicialmente invisible
 	, transparente(true)    // Fondo transparente por defecto
-	, charIndex(0)          // Õndice para animaciÛn de texto
-	, currentDialogIndex(0) // Primer di·logo
+	, charIndex(0)          // √çndice para animaci√≥n de texto
+	, currentDialogIndex(0) // Primer di√°logo
 	, scrollOffset(0)       // Sin desplazamiento
 	, fast(false)           // Velocidad normal de texto
-	, instantDisplay(false) // Mostrar progresivo (no instant·neo)
-	, needsUpdate(false)    // No requiere actualizaciÛn inicial
+	, instantDisplay(false) // Mostrar progresivo (no instant√°neo)
+	, needsUpdate(false)    // No requiere actualizaci√≥n inicial
 	, isScrolling(false)    // No hay scroll manual activo
-	, nextState(false)      // No est· listo para siguiente estado
+	, nextState(false)      // No est√° listo para siguiente estado
 	, scrollingTime(0)      // Temporizador de scroll en 0
-	, x(800)                // PosiciÛn X por defecto
-	, y(200)                // PosiciÛn Y por defecto
-	, h(DialogueBoxConstants::BOXHEIGHT)  // Altura est·ndar
-	, w(DialogueBoxConstants::BOXWIDTH)   // Ancho est·ndar
-	, autoDialog(true)      // Di·logo autom·tico activado
+	, x(800)                // Posici√≥n X por defecto
+	, y(200)                // Posici√≥n Y por defecto
+	, h(DialogueBoxConstants::BOXHEIGHT)  // Altura est√°ndar
+	, w(DialogueBoxConstants::BOXWIDTH)   // Ancho est√°ndar
+	, autoDialog(true)      // Di√°logo autom√°tico activado
 	, completedTextTime(0)  // Temporizador de texto completo en 0
 {
-	calculateTextMetrics(); // Calcula mÈtricas de texto
+	calculateTextMetrics(); // Calcula m√©tricas de texto
 }
 
 /***********************************************************************/
-/* Constructor parametrizado: Permite configuraciÛn personalizada       */
-/* Par·metros:                                                         */
+/* Constructor parametrizado: Permite configuraci√≥n personalizada       */
+/* Par√°metros:                                                         */
 /* - renderer: Puntero al renderizador SDL                             */
 /* - font: Fuente de texto a usar                                      */
-/* - posx, posy: PosiciÛn de la caja                                   */
+/* - posx, posy: Posici√≥n de la caja                                   */
 /* - update: Si requiere actualizaciones continuas                     */
 /* - transparente: Si el fondo es transparente                        */
 /* - wi, he: Ancho y alto personalizados                              */
@@ -47,26 +47,26 @@ DialogueBox::DialogueBox(SDL_Renderer* renderer, TTF_Font* font, int posx, int p
 	: renderer(renderer)    // Asigna renderizador
 	, font(font)            // Asigna fuente
 	, visible(false)        // Inicialmente invisible
-	, displayedText("")    // Texto mostrado vacÌo
-	, message("")          // Mensaje actual vacÌo
-	, charIndex(0)         // Comenzar desde primer car·cter
-	, currentDialogIndex(0) // Primer di·logo
+	, displayedText("")    // Texto mostrado vac√≠o
+	, message("")          // Mensaje actual vac√≠o
+	, charIndex(0)         // Comenzar desde primer car√°cter
+	, currentDialogIndex(0) // Primer di√°logo
 	, scrollOffset(0)       // Sin desplazamiento
 	, instantDisplay(false) // Mostrar progresivo
 	, fast(false)          // Velocidad normal
 	, isScrolling(false)   // No hay scroll manual
-	, nextState(false)     // No est· listo para siguiente estado
+	, nextState(false)     // No est√° listo para siguiente estado
 	, scrollingTime(0)     // Temporizador de scroll en 0
-	, transparente(transparente) // Transparencia seg˙n par·metro
-	, needsUpdate(update)  // ActualizaciÛn seg˙n par·metro
-	, x(posx)              // PosiciÛn X personalizada
-	, y(posy)             // PosiciÛn Y personalizada
+	, transparente(transparente) // Transparencia seg√∫n par√°metro
+	, needsUpdate(update)  // Actualizaci√≥n seg√∫n par√°metro
+	, x(posx)              // Posici√≥n X personalizada
+	, y(posy)             // Posici√≥n Y personalizada
 	, h(he)               // Altura personalizada
 	, w(wi)               // Ancho personalizado
 	, completedTextTime(0) // Temporizador en 0
-	, autoDialog(true)    // Di·logo autom·tico activado
+	, autoDialog(true)    // Di√°logo autom√°tico activado
 {
-	calculateTextMetrics(); // Calcula mÈtricas de texto
+	calculateTextMetrics(); // Calcula m√©tricas de texto
 }
 
 /******************************************/
@@ -80,59 +80,59 @@ DialogueBox::~DialogueBox() {
 
 #pragma region TEXT_MANAGEMENT
 /**************************************************************************************/
-/* Calcula las mÈtricas del texto para el formato									  */
-/* Par·metros:																		  */
-/* - fontSize: TamaÒo de fuente para c·lculos (opcional)							  */
-/* IMPORTANTE: fontSize DEBE DE SER EL TAMA—O DE FONT PARA QUE FUNCIONE CORRECTAMENTE */
+/* Calcula las m√©tricas del texto para el formato									  */
+/* Par√°metros:																		  */
+/* - fontSize: Tama√±o de fuente para c√°lculos (opcional)							  */
+/* IMPORTANTE: fontSize DEBE DE SER EL TAMA√ëO DE FONT PARA QUE FUNCIONE CORRECTAMENTE */
 /**************************************************************************************/
 void DialogueBox::calculateTextMetrics(int fontSize) {
 	// Margen a ambos lados del texto
 	textWidth = w - 2 * DialogueBoxConstants::TEXT_MARGIN;
-	// Caracteres por lÌnea basado en ancho de fuente
+	// Caracteres por l√≠nea basado en ancho de fuente
 	charsPerLine = static_cast<int>((textWidth / (fontSize * DialogueBoxConstants::CHAR_WIDTH_FACTOR)));
 }
 
 /*******************************************************************/
-/* Guarda un mensaje en el historial caja de di·logo y se mostrar· */
+/* Guarda un mensaje en el historial caja de di√°logo y se mostrar√° */
 /* cuando le toque actualizarse.								   */
-/* Par·metros:                                                     */
+/* Par√°metros:                                                     */
 /* - input_text: Texto a mostrar                                   */
 /* - instantShow: Si true, muestra todo el texto inmediatamente y  */
-/*   se saltar· todos los dialogos anteriores.					   */
+/*   se saltar√° todos los dialogos anteriores.					   */
 /*******************************************************************/
 void DialogueBox::showMessage(const std::string& input_text, bool instantShow) {
 	if (!input_text.empty()) {
-		history.push_back(input_text); // AÒade al historial de di·logos
+		history.push_back(input_text); // A√±ade al historial de di√°logos
 
 		if (instantShow) {
-			// Va directamente al ˙ltimo mensaje aÒadido
+			// Va directamente al √∫ltimo mensaje a√±adido
 			currentDialogIndex = (int)history.size() - 1;
 		}
 
 		message = history[currentDialogIndex]; // Establece mensaje actual
 
 		if (!needsUpdate) {
-			displayedText = message; // Muestra texto completo si no necesita actualizaciÛn
+			displayedText = message; // Muestra texto completo si no necesita actualizaci√≥n
 		}
 	}
-	visible = true; // Hace visible la caja de di·logo
+	visible = true; // Hace visible la caja de di√°logo
 }
 
 /*******************************************************************/
-/* Reinicia completamente el historial de di·logos                 */
+/* Reinicia completamente el historial de di√°logos                 */
 /*******************************************************************/
 void DialogueBox::resetHistory() {
 	message = "";           // Limpia mensaje actual
 	displayedText = "";     // Limpia texto mostrado
-	history.clear();        // VacÌa el historial
+	history.clear();        // Vac√≠a el historial
 	visible = false;        // Oculta la caja
 	scrollOffset = 0;       // Reinicia scroll
-	charIndex = 0;          // Reinicia Ìndice de caracteres
-	currentDialogIndex = 0; // Vuelve al primer di·logo
+	charIndex = 0;          // Reinicia √≠ndice de caracteres
+	currentDialogIndex = 0; // Vuelve al primer di√°logo
 }
 
 /*******************************************************************/
-/* Oculta la caja de di·logo                                      */
+/* Oculta la caja de di√°logo                                      */
 /*******************************************************************/
 void DialogueBox::hideMessage() {
 	visible = false;
@@ -142,30 +142,32 @@ void DialogueBox::hideMessage() {
 #pragma region SCROLL_HANDLING
 /*******************************************************************/
 /* Maneja el desplazamiento del texto                              */
-/* Par·metros:                                                     */
-/* - deltaTime: Tiempo transcurrido desde ˙ltima actualizaciÛn     */
-/* - numLines: N˙mero de lÌneas de texto                           */
+/* Par√°metros:                                                     */
+/* - deltaTime: Tiempo transcurrido desde √∫ltima actualizaci√≥n     */
+/* - numLines: N√∫mero de l√≠neas de texto                           */
 /*******************************************************************/
-void DialogueBox::handleScroll(float deltaTime, int numLines) {
+void DialogueBox::handleScroll(float deltaTime) {
+
+	int numLines = (int)((displayedText.size() / charsPerLine) + 1); // L√≠neas necesarias
 	// Si hay scroll manual activo
 	if (isScrolling) {
 		if (autoDialog) {
 			scrollingTime += (int)deltaTime; // Actualiza temporizador
-			// Pausa temporizador de di·logo autom·tico
+			// Pausa temporizador de di√°logo autom√°tico
 			completedTextTime -= (int)deltaTime;
 		}
 
-		// Vuelve a scroll autom·tico despuÈs de tiempo
+		// Vuelve a scroll autom√°tico despu√©s de tiempo
 		if (scrollingTime >= DialogueBoxConstants::SCROLL_TIMEOUT) {
 			isScrolling = false;
 		}
 		return;
 	}
 
-	// Scroll autom·tico solo si el texto no cabe
+	// Scroll autom√°tico solo si el texto no cabe
 	if (numLines * DialogueBoxConstants::LINE_HEIGHT_FACTOR > h) {
 		if (scrollOffset < (numLines * DialogueBoxConstants::LINE_HEIGHT_FACTOR) - h) {
-			// Calcula velocidad basada en modo r·pido/normal
+			// Calcula velocidad basada en modo r√°pido/normal
 			int scrollSpeed = DialogueBoxConstants::AUTO_SCROLL_BASE_SPEED;
 			if (fast) {
 				scrollSpeed += DialogueBoxConstants::AUTO_SCROLL_BASE_SPEED *
@@ -179,32 +181,32 @@ void DialogueBox::handleScroll(float deltaTime, int numLines) {
 
 #pragma region UPDATE_LOGIC
 /*******************************************************************/
-/* Actualiza el estado del di·logo                                 */
-/* Par·metros:                                                     */
-/* - deltaTime: Tiempo transcurrido desde ˙ltima actualizaciÛn    */
+/* Actualiza el estado del di√°logo                                 */
+/* Par√°metros:                                                     */
+/* - deltaTime: Tiempo transcurrido desde √∫ltima actualizaci√≥n    */
 /*******************************************************************/
 void DialogueBox::update(float deltaTime) {
 	if (!visible || !needsUpdate) return;
 
 	message = history[currentDialogIndex]; // Actualiza mensaje actual
 
-	// Calcular n˙mero de lÌneas necesarias
+	// Calcular n√∫mero de l√≠neas necesarias
 	int numLines = (int)((displayedText.size() / charsPerLine) + 1);
 	
-	// AnimaciÛn de texto progresivo
+	// Animaci√≥n de texto progresivo
 	if (charIndex < message.size()) {
-		if (fast) { // Modo r·pido (espacio pulsado)
+		if (fast) { // Modo r√°pido (espacio pulsado)
 			// Avanza varios caracteres a la vez
 			for (int i = 0; i < DialogueBoxConstants::NORMAL_LETTER_DELAY /
 				DialogueBoxConstants::FAST_LETTER_DELAY && charIndex < message.size(); i++) {
 				displayedText += message[charIndex++];
 			}
 		}
-		else { // Modo normal (un car·cter por actualizaciÛn)
+		else { // Modo normal (un car√°cter por actualizaci√≥n)
 			displayedText += message[charIndex++];
 		}
 	}
-	// Mostrar todo inmediatamente si se solicitÛ
+	// Mostrar todo inmediatamente si se solicit√≥
 	if (instantDisplay) {
 		displayedText = message;
 		// Ajusta scroll si hay overflow
@@ -215,7 +217,7 @@ void DialogueBox::update(float deltaTime) {
 	}
 	
 
-	// LÛgica para di·logo autom·tico
+	// L√≥gica para di√°logo autom√°tico
 	if (charIndex == message.size() && autoDialog) {
 		// Calcula tiempo necesario antes de avanzar
 		int requiredTime = DialogueBoxConstants::NEXT_DIALOGUE_DELAY;
@@ -226,7 +228,7 @@ void DialogueBox::update(float deltaTime) {
 
 		if (completedTextTime >= requiredTime) {
 			completedTextTime = 0;
-			// Si hay m·s di·logos, avanzar
+			// Si hay m√°s di√°logos, avanzar
 			if (currentDialogIndex + 1 < history.size()) {
 				currentDialogIndex++;
 				charIndex = 0;
@@ -234,7 +236,7 @@ void DialogueBox::update(float deltaTime) {
 				instantDisplay = false;
 				scrollOffset = 0;
 			}
-			else { // Fin de di·logos
+			else { // Fin de di√°logos
 				nextState = true; // Avisa al sistema de juego
 			}
 		}
@@ -243,14 +245,14 @@ void DialogueBox::update(float deltaTime) {
 		}
 	}
 
-	// Control de scroll manual/autom·tico
-	handleScroll(deltaTime, numLines);
+	// Control de scroll manual/autom√°tico
+	handleScroll(deltaTime);
 }
 #pragma endregion
 
 #pragma region RENDERING
 /*******************************************************************/
-/* Renderiza la caja de di·logo y su contenido                     */
+/* Renderiza la caja de di√°logo y su contenido                     */
 /*******************************************************************/
 void DialogueBox::render() const {
 	if (!visible) return;
@@ -259,7 +261,7 @@ void DialogueBox::render() const {
 	int transparent = transparente ? SDL_ALPHA_TRANSPARENT : 255;
 	SDL_Color textColor = { 0, 0, 0, 255 }; // Color negro
 
-	// Renderizar texto con ajuste de lÌneas autom·tico
+	// Renderizar texto con ajuste de l√≠neas autom√°tico
 	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(
 		font, displayedText.c_str(), textColor, textWidth);
 
@@ -284,8 +286,8 @@ void DialogueBox::render() const {
 	}
 #endif
 
-	// Definir ·reas de renderizado
-	SDL_Rect dialogBox = { x, y, w, h }; // Rect·ngulo de la caja
+	// Definir √°reas de renderizado
+	SDL_Rect dialogBox = { x, y, w, h }; // Rect√°ngulo de la caja
 	SDL_Rect textRect = {
 		dialogBox.x + DialogueBoxConstants::TEXT_MARGIN,
 		dialogBox.y + DialogueBoxConstants::TEXT_MARGIN - scrollOffset,
@@ -312,12 +314,12 @@ void DialogueBox::render() const {
 #pragma region INPUT_HANDLING
 /*******************************************************************/
 /* Maneja eventos de entrada                                       */
-/* Par·metros:                                                     */
+/* Par√°metros:                                                     */
 /* - event: Evento SDL a procesar                                  */
 /*******************************************************************/
 void DialogueBox::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_KEYDOWN) {
-		// Tecla ESPACIO: Acelera animaciÛn de texto
+		// Tecla ESPACIO: Acelera animaci√≥n de texto
 		if (event.key.keysym.sym == SDLK_SPACE) {
 			fast = true;
 		}
@@ -328,7 +330,7 @@ void DialogueBox::handleEvent(const SDL_Event& event) {
 				instantDisplay = true;
 			}
 			else {
-				// Avanza al siguiente di·logo
+				// Avanza al siguiente di√°logo
 				if (currentDialogIndex + 1 < history.size()) {
 					currentDialogIndex++;
 					displayedText = "";
@@ -338,7 +340,7 @@ void DialogueBox::handleEvent(const SDL_Event& event) {
 					completedTextTime = 0;
 				}
 				else {
-					// Indica que se completaron todos los di·logos
+					// Indica que se completaron todos los di√°logos
 					nextState = true;
 				}
 			}
@@ -352,7 +354,7 @@ void DialogueBox::handleEvent(const SDL_Event& event) {
 		}
 	}
 
-	// Rueda del ratÛn: scroll manual
+	// Rueda del rat√≥n: scroll manual
 	if (event.type == SDL_MOUSEWHEEL) {
 		int numLines = (int)((displayedText.size() / charsPerLine) + 1);
 

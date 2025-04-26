@@ -1,8 +1,9 @@
-﻿#include "battleManager.h"
+﻿#include "award.h"
+#include "battleManager.h"
 #include "button.h"
 #include "game.h"
+#include "inputBox.h"
 #include "peleas.h"
-#include "award.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -42,46 +43,47 @@ Peleas::Peleas(Game* game)
 	, fighter2bar(nullptr)
 	, ui(new UIPeleas(game, this))
 	, bet(new HUDBet(this))
-	, bet1(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA1X * Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
-	, bet2(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA2X * Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
+	, bet1(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA1X* Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
+	, bet2(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA2X* Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
 	, state(FSState::CARDS)
 	, apuesta1(0)
 	, apuesta2(0)
+	, input1(new InputBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, false, 400, 180))
 {
 	_battleM = new BattleManager(dialog, game);
 
 	_battleM->StartBattle();
-nombre1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
+	nombre1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
 
-nombre2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
+	nombre2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
 
-Cuota1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
+	Cuota1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
 
-Cuota2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
+	Cuota2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
 
-Animo1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
+	Animo1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
 
-Animo2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
+	Animo2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
 
-Apuesta1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
+	Apuesta1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 
-Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
+	Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 	nombre1->showMessage(_battleM->getFigther1().getName());
 	nombre2->showMessage(_battleM->getFigther2().getName());
 
@@ -99,6 +101,9 @@ Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
 	addObjects(bet1);
 	addObjects(bet2);
 	bet->refresh();
+
+	input1->setActive(true);
+	addEventListener((EventHandler*)input1);
 }
 
 void Peleas::setCards() {
@@ -191,6 +196,7 @@ Peleas::render() const {
 		Apuesta2->render();
 
 		dialog->render();
+		input1->render();
 		break;
 	case FSState::FIGHT:
 		SDL_Rect fondo2;
@@ -223,8 +229,8 @@ Peleas::update() {
 			_battleM->Update(static_cast<float>(currentTime - lastUpdate));
 			fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
 			fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
-			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()),(_battleM->getFigther1().getMaxHealth()));
-			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()),(_battleM->getFigther2().getMaxHealth()));
+			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()), (_battleM->getFigther1().getMaxHealth()));
+			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()), (_battleM->getFigther2().getMaxHealth()));
 		}
 		else {
 			if (apuesta1 > 0 && _battleM->getFigther1().isAlive()) {
@@ -242,7 +248,7 @@ Peleas::update() {
 			bet->update();
 			bet->refresh();
 		}
-		
+
 		break;
 	default:
 		break;
@@ -250,6 +256,7 @@ Peleas::update() {
 	apuesta1 = bet1->getBet();
 	apuesta2 = bet2->getBet();
 	dialog->update(static_cast<float>(currentTime - lastUpdate));
+	input1->update(static_cast<float>(currentTime - lastUpdate));
 	lastUpdate = currentTime;
 	GameState::update();
 

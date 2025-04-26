@@ -6,6 +6,9 @@
 #include "hud.h"
 #include "ui.h"
 #include <SDL_ttf.h>
+
+class InputBox;
+
 enum class FSState { CARDS, FIGHT };
 class Peleas : public GameState {
 public:
@@ -73,4 +76,7 @@ private:
 	int apuesta2 = 0;
 
 	void setCards();
+
+
+	InputBox* input1;
 };
