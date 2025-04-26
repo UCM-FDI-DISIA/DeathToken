@@ -164,6 +164,7 @@
     <ClInclude Include="baccaratInsanityManager.h" />
     <ClInclude Include="dialogueBox.h" />
     <ClInclude Include="fighter.h" />
+    <ClInclude Include="firebaseUtils.h" />
     <ClInclude Include="hud.h" />
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="peleas.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="baccaratInsanityManager.cpp" />
     <ClCompile Include="dialogueBox.cpp" />
     <ClCompile Include="fighter.cpp" />
+    <ClCompile Include="firebaseUtils.cpp" />
     <ClCompile Include="hud.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="peleas.cpp" />

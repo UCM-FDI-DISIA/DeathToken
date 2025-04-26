@@ -138,6 +138,9 @@
     <ClInclude Include="slotsInsanity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="firebaseUtils.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -246,6 +249,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="slotsInsanity.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="firebaseUtils.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
