@@ -1,4 +1,5 @@
 #include "FirebaseUtils.h"
+#include <SDL_timer.h>
 static firebase::App* app;
 static firebase::database::Database* db;
 static firebase::database::DatabaseReference dbref;
@@ -30,4 +31,41 @@ void FirebaseUtils::DeleteFirebaseUtils()
         app = nullptr;
     }
 }
+
+void FirebaseUtils::RegisterUser(std::string name, int chips, int souls)
+{
+	//referencia a la tabla "usuarios"
+	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
+
+	//se guarda toda la informacion que tiene esa tabla
+	firebase::Future<firebase::database::DataSnapshot> future = usuariosRef.GetValue();
+	//se espera a que se carge todo en future
+	while (future.status() == firebase::kFutureStatusPending) {
+		SDL_Delay(10);
+	}
+
+	//todos los resultado se guardan en una captura
+	const firebase::database::DataSnapshot& snapshot = *future.result();
+	
+	int maxId = 0;
+
+	//recorre todos los id para luego asignar id+1 al usuario nuevo
+	for (auto& child : snapshot.children()) {
+		int id = (int)child.key();
+		if (id > maxId) {
+			maxId = id;
+		}
+	}
+	int newId = maxId + 1;
+
+	//Mapa con los datos del usuario
+	firebase::Variant usuario = firebase::Variant::EmptyMap();
+	usuario.map()["nombre"] = name;
+	usuario.map()["fichas"] = chips;
+	usuario.map()["almas"] = souls;
+
+	//añadir datos a la base de datos
+	dbref.Child("usuarios").Child(std::to_string(newId)).SetValue(usuario);
+}
+
 

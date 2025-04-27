@@ -216,6 +216,7 @@ Game::Game() {
 	inicializa(window);
 	// Carga las texturas
 	startDatabase();
+
 	vector<TextureSpec> textureSpec = loadTextures();
 	std::string textureRoot = "../assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
@@ -306,7 +307,6 @@ void Game::stop() { while (!empty()) popState(); }
 void Game::startDatabase()
 {
 	FirebaseUtils::StartFirebase();
-	
 }
 
 bool Game::loadFightersFromJSON(const string& filename)
