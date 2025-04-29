@@ -28,6 +28,9 @@ enum TextureName {
 	FLIPCARD,
 	CARDS,
 	BACCARATBUT,
+	FLIP,
+	JACK,
+	BET,
 	/// <summary>
 
 	SLOTSBUT,

@@ -35,7 +35,7 @@ void BaccaratBet::didntWin() {
 
 void BaccaratBet::acumulate() {
 	if (!buttonsOn) {
-		int xBut = (int)(Game::WIN_WIDTH * 7.07 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut =(int) Game::WIN_WIDTH / 18, hBut =(int) Game::WIN_WIDTH / 18;
+		int xBut = (int)(Game::WIN_WIDTH * 7.07 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut = (int)Game::WIN_WIDTH / 18, hBut = (int)Game::WIN_WIDTH / 18;
 		bet = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
 		addObjects(bet);
 		addEventListener(bet);
@@ -63,4 +63,25 @@ void BaccaratBet::update() {
 		buttonsOn = true;
 		hasWon = false;
 	}
+	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
+	if (width < Game::WIN_WIDTH && height < Game::WIN_HEIGHT) {
+		width += Game::WIN_WIDTH / 50;
+		height += Game::WIN_HEIGHT / 50;
+		actual = time;
+	}
+
+	if (width >= Game::WIN_WIDTH && height >= Game::WIN_HEIGHT) {
+		width = 0;
+		height = 0;
+	}
+}
+
+void BaccaratBet::render() const
+{
+	Baccarat::render();
+	SDL_Rect black(0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT);
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_MUL);
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 170);
+	SDL_RenderFillRect(game->getRenderer(), &black);
+	intro->render(title);
 }

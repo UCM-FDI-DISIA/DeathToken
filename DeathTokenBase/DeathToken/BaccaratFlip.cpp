@@ -1,7 +1,7 @@
 ﻿#include "BaccaratFlip.h"
+#include "sdlUtils.h"
 
-
-BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)) {
+BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)), intro(game->getTexture(FLIP)) {
 	addCards();
 
 }
@@ -129,11 +129,25 @@ void BaccaratFlip::clearDeck()
 
 void BaccaratFlip::render() const {
 	Baccarat::render();
-
+	SDL_Rect black(0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT);
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_MUL);
+	SDL_SetRenderDrawColor(game->getRenderer(),0, 0, 0, 170);
+	SDL_RenderFillRect(game->getRenderer(), &black);
+	intro->render(title);
 }
 
 void BaccaratFlip::update()
 {
 	Baccarat::update();
-
+	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
+	if(width< Game::WIN_WIDTH && height < Game::WIN_HEIGHT) {
+		width += Game::WIN_WIDTH / 50;
+		height += Game::WIN_HEIGHT / 50;
+		actual = time;
+	}
+	
+	if (width >= Game::WIN_WIDTH  && height >= Game::WIN_HEIGHT ) {
+		width = 0;
+		height = 0;
+	}
 }

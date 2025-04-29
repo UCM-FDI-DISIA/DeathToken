@@ -25,7 +25,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "baccarat/Blackjack_bg2.png", 1, 1 });
 	v.push_back(TextureSpec{ "baccarat/BaccaratFlip__mask.png", 1, 1 });
 	v.push_back(TextureSpec{ "baccarat/barajaBaccarat.png", 14, 1 });
-	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 14, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bf.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bj.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bb.png", 1, 1 });
 	///
 	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
 	v.push_back(TextureSpec{ "map/Casino_marbles_cut.png", 1, 1 });

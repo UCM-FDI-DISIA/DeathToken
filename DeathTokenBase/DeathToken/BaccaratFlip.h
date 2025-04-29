@@ -4,6 +4,12 @@ class BaccaratFlip : public Baccarat
 {
 private:
 	Texture* text;
+	Texture* intro;
+	SDL_Rect title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
+	int width = 0;
+	int height = 0;
+	float time = 0;
+	float actual = 0;
 	//botones de la carta
 	Button* carta1;
 	Button* carta2;

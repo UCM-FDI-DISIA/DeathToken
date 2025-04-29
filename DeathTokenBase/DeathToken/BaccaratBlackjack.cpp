@@ -1,6 +1,6 @@
 #include "baccaratBlackjack.h"
 
-BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)) {
+BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)) {
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);
 }
 
@@ -15,11 +15,26 @@ void BaccaratBlackjack::handCards() {
 void BaccaratBlackjack::render() const {
 	tex->render();
 	GameState::render();
+	SDL_Rect black(0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT);
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_MUL);
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 170);
+	SDL_RenderFillRect(game->getRenderer(), &black);
+	intro->render(title);
 }
 
 void BaccaratBlackjack::update() {
 	GameState::update();
+	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
+	if (width < Game::WIN_WIDTH && height < Game::WIN_HEIGHT) {
+		width += Game::WIN_WIDTH / 50;
+		height += Game::WIN_HEIGHT / 50;
+		actual = time;
+	}
 
+	if (width >= Game::WIN_WIDTH && height >= Game::WIN_HEIGHT) {
+		width = 0;
+		height = 0;
+	}
 	if (!canAsk) {
 		victory();
 		canAsk = true;
