@@ -5,6 +5,9 @@ static firebase::database::Database* db;
 static firebase::database::DatabaseReference dbref;
 void FirebaseUtils::StartFirebase()
 {
+	//leer usuarios y ponerlos en una tabla
+	//si el nokmbre existe coje el nº de almas y de fichas
+	//guardar almas y fichas al salir
 	firebase::AppOptions options; 
 
 	options.set_api_key("AIzaSyBTKNWi5Tjs-TfjGKrIxzH8M6zL_xljtKY");
@@ -32,7 +35,7 @@ void FirebaseUtils::DeleteFirebaseUtils()
     }
 }
 
-void FirebaseUtils::RegisterUser(std::string name, int chips, int souls)
+void FirebaseUtils::RegisterUser(std::string name)
 {
 	//referencia a la tabla "usuarios"
 	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
@@ -47,8 +50,21 @@ void FirebaseUtils::RegisterUser(std::string name, int chips, int souls)
 	//todos los resultado se guardan en una captura
 	const firebase::database::DataSnapshot& snapshot = *future.result();
 	
-	int maxId = 0;
 
+	currentId = -1;
+	//Buscar que el usuario ya existe
+	for (const auto& child : snapshot.children()) {
+		auto data = child.value().map();
+		if (data["nombre"].string_value() == name) {
+			currentId = (int)child.key();
+			chips = data["fichas"].int64_value();
+			souls = data["almas"].int64_value();
+			return;
+		}
+	}
+	
+
+	int maxId = 0;
 	//recorre todos los id para luego asignar id+1 al usuario nuevo
 	for (auto& child : snapshot.children()) {
 		int id = (int)child.key();
@@ -56,7 +72,9 @@ void FirebaseUtils::RegisterUser(std::string name, int chips, int souls)
 			maxId = id;
 		}
 	}
-	int newId = maxId + 1;
+	currentId = maxId + 1;
+	chips = 2000;
+	souls = 0;
 
 	//Mapa con los datos del usuario
 	firebase::Variant usuario = firebase::Variant::EmptyMap();
@@ -65,7 +83,18 @@ void FirebaseUtils::RegisterUser(std::string name, int chips, int souls)
 	usuario.map()["almas"] = souls;
 
 	//añadir datos a la base de datos
-	dbref.Child("usuarios").Child(std::to_string(newId)).SetValue(usuario);
+	dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
+}
+
+void FirebaseUtils::GuardarProgreso(int chipsN, int soulsN)
+{
+	firebase::Variant usuarioU = firebase::Variant::EmptyMap();
+	usuarioU.map()["fichas"] = chipsN;
+	usuarioU.map()["almas"] = soulsN;
+
+	dbref.Child("usuarios")
+		.Child(std::to_string(currentId))
+		.UpdateChildren(usuarioU);
 }
 
 

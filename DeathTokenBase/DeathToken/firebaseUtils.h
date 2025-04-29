@@ -4,15 +4,18 @@
 class FirebaseUtils
 {
 private:
-	struct Usuario {
-		std::string name;
-		int chips;
-		int souls;
-	};
+
+	static int currentId;
+	static std::string name;
+	static int chips;
+	static int souls;
+
+	
 
 public:
 	static void StartFirebase();
 	static void DeleteFirebaseUtils();
-	static void RegisterUser(std::string name,int chips, int souls);
+	static void RegisterUser(std::string name);
+	void GuardarProgreso(int chipsN, int soulsN);
 };
 
