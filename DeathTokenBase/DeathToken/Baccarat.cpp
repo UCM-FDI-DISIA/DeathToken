@@ -59,12 +59,12 @@ void Baccarat::clearDeck() {
 
 void Baccarat::update() {//para que las cartas se muevan enun futuro
 	GameState::update();
-	if (cardAnim && SDL_GetTicks() - animTime > 250.0f && frame < 4)
+	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		cout << frame << endl;
 		frame++;
 		animTime = SDL_GetTicks();
-		if (frame == 3) {
+		if (frame == 7) {
 			if (animInCard == 0)
 			{
 				player1->frame = mat.player[0];
@@ -82,7 +82,7 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 				banker2->frame = mat.banker[1];
 			}
 		}
-		if (frame == 4 && animInCard < 3) {
+		if (frame == 9 && animInCard < 3) {
 			frame = 0;
 			if (animInCard == 0)
 			{
@@ -101,7 +101,7 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 			}
 		}
 	}
-	if (frame == 4) {
+	if (frame == 9) {
 		handThird();//reparte tercera
 		cardAnim = false;
 		frame = 0;
@@ -325,5 +325,5 @@ void Baccarat::startRound() {
 		cardAnim = true;
 		animTime = SDL_GetTicks();
 	}
-	
+
 }
