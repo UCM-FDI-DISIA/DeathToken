@@ -80,7 +80,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/chips/chip_50.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_100.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_200.png", 1, 1 });
-	
+
 	v.push_back(TextureSpec{ "ui/chips/chip_500.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_1K.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_2K.png", 1, 1 });
@@ -98,7 +98,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png",1,1 });
-	
+
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1 });
@@ -113,7 +113,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	//
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
-	v.push_back(TextureSpec{ "roulette/rouletteArrow.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/Demoniosenala.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
 	//
@@ -182,6 +182,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/rouletteAnim47.png",1,1 });
 
 	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/RecompensasRoulette.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/RecompensasRouletteInsanity.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
@@ -190,8 +192,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
-	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",x));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf", x));
 	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
@@ -228,7 +230,7 @@ Game::Game() {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
-	}
+}
 	Menu* menu = new Menu(this);
 	pushState(menu);
 
@@ -307,7 +309,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 #endif // DEBUG
 
 		return false;
-	}
+}
 
 	json j;
 	file >> j;
@@ -331,7 +333,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
 		return false;
-	}
+}
 
 	try {
 		json j;
@@ -343,7 +345,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-		}
+	}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -358,12 +360,12 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 				cout << "Índice de peleador inválido." << endl;
 #endif
 				continue;
-			}
+		}
 
 			Matchup matchup;
-			matchup.fighter1 = fighters[id1];
-			matchup.fighter2 = fighters[id2];
-			matchup.advantageFighterIndex = advantageFighterIndex;
+				matchup.fighter1 = fighters[id1];
+				matchup.fighter2 = fighters[id2];
+				matchup.advantageFighterIndex = advantageFighterIndex;
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);
