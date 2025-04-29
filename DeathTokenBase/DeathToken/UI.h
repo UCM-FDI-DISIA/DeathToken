@@ -141,6 +141,8 @@ public:
 	UITutorial(GameState* gS, Game* game, size_t tam);
 
 	void OnExit();
+	ButtonUI* downArrow();
+	ButtonUI* upArrow();
 };
 
 class Peleas;
