@@ -43,7 +43,7 @@ void InputBox::setActive(bool active) {
 /*****************************************************************/
 /* Establece la longitud máxima de entrada permitida             */
 /*****************************************************************/
-void InputBox::setMaxLength(unsigned length) {
+void InputBox::setMaxLength(unsigned int length) {
 	maxLength = length;
 }
 
@@ -114,6 +114,7 @@ void InputBox::handleEvent(const SDL_Event& event) {
 		// Si presionamos ENTER, confirmamos la entrada
 		else if (event.key.keysym.sym == SDLK_RETURN) {
 			history.push_back(userInput); // Guardamos el input en el historial
+			clearInput(); // Limpiamos la entrada
 			setActive(false); // Desactivamos la caja de entrada
 		}
 	}
@@ -165,17 +166,19 @@ void InputBox::render() const {
 	if (isActive && cursorVisible) {
 		// Calculamos la posición horizontal del cursor
 		int cursorX = x + DialogueBoxConstants::TEXT_MARGIN;
+		int cursorY = y + DialogueBoxConstants::TEXT_MARGIN;
 		if (!userInput.empty()) {
 			int textWidth = 0;
 			// Calculamos el ancho del texto para posicionar el cursor al final
 			TTF_SizeText(font, userInput.c_str(), &textWidth, nullptr);
-			cursorX += textWidth;
+			cursorX += textWidth - (w - (2 * DialogueBoxConstants::TEXT_MARGIN) - TTF_FontHeight(font) * DialogueBoxConstants::NUM_WIDTH_FACTOR) * static_cast<int>(textWidth / (w - 2 * DialogueBoxConstants::TEXT_MARGIN));
+			cursorY += (DialogueBoxConstants::TEXT_MARGIN + cursorHeight) * static_cast<int>(textWidth / (w - 2 * DialogueBoxConstants::TEXT_MARGIN));
 		}
 
 		// Creamos el rectángulo del cursor (línea vertical)
 		SDL_Rect cursorRect = {
 			cursorX,
-			y + DialogueBoxConstants::TEXT_MARGIN,
+			cursorY,
 			2, // Ancho del cursor
 			cursorHeight // Usamos la altura cacheada
 		};

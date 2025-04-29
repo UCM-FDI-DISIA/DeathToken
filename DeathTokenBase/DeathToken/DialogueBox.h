@@ -30,6 +30,7 @@ namespace DialogueBoxConstants {
 	// Configuración de texto
 	const float LINE_HEIGHT_FACTOR = 1.3f;  // Altura de línea (1.3 * tamaño fuente)
 	const float CHAR_WIDTH_FACTOR = 0.6f;   // Ancho estimado por carácter
+	const float NUM_WIDTH_FACTOR = 0.4f;   // Ancho estimado en números
 
 	// Temporizadores de escritura
 	const int NORMAL_LETTER_DELAY = 30;     // Retardo entre letras (normal)
@@ -97,6 +98,22 @@ public:
 	// Indica si debe avanzar al siguiente estado
 	inline bool shouldAdvanceState() const { return nextState; }
 
+	// Devuelve el historial de diálogos
+	inline const std::deque<std::string>& getHistory() const { return history; }
+
+	// Devuelve un dialogo dentro del historial según su indice (index)
+	inline const std::string& getMessage(unsigned int index = UINT_MAX) const
+	{
+		if (history.empty()) {
+			return ""; // Si no hay mensajes, devuelve cadena vacía
+		}
+		if (index >= history.size()) 
+		{ 
+			return history.back(); 
+		} // Si el índice es inválido, devuelve el último mensaje
+		return history[index];
+	}
+
 	// Establece posición (x,y)
 	inline void setPosition(int posx, int posy) { x = posx; y = posy; }
 
@@ -128,7 +145,7 @@ protected:
 	 * Calcula métricas del texto
 	 * @param fontSize Tamaño de fuente (opcional, default: Game::FONTSMALLSIZE)
 	 */
-	void calculateTextMetrics(int fontSize = Game::FONTSMALLSIZE);
+	void calculateTextMetrics();
 
 	/**
 	 * Maneja el desplazamiento del texto

@@ -85,10 +85,11 @@ DialogueBox::~DialogueBox() {
 /* - fontSize: Tamaño de fuente para cálculos (opcional)							  */
 /* IMPORTANTE: fontSize DEBE DE SER EL TAMAÑO DE FONT PARA QUE FUNCIONE CORRECTAMENTE */
 /**************************************************************************************/
-void DialogueBox::calculateTextMetrics(int fontSize) {
+void DialogueBox::calculateTextMetrics() {
 	// Margen a ambos lados del texto
 	textWidth = w - 2 * DialogueBoxConstants::TEXT_MARGIN;
 	// Caracteres por línea basado en ancho de fuente
+	int fontSize = TTF_FontHeight(font);
 	charsPerLine = static_cast<int>((textWidth / (fontSize * DialogueBoxConstants::CHAR_WIDTH_FACTOR)));
 }
 

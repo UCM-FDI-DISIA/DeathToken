@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "barraVida.h"
 #include "battleManager.h"
 #include "dialogueBox.h"
@@ -6,8 +6,6 @@
 #include "hud.h"
 #include "ui.h"
 #include <SDL_ttf.h>
-
-class InputBox;
 
 enum class FSState { CARDS, FIGHT };
 class Peleas : public GameState {
@@ -76,7 +74,4 @@ private:
 	int apuesta2 = 0;
 
 	void setCards();
-
-
-	InputBox* input1;
 };

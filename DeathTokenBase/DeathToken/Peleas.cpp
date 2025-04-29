@@ -48,7 +48,6 @@ Peleas::Peleas(Game* game)
 	, state(FSState::CARDS)
 	, apuesta1(0)
 	, apuesta2(0)
-	, input1(new InputBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, false, 400, 180))
 {
 	_battleM = new BattleManager(dialog, game);
 
@@ -101,9 +100,6 @@ Peleas::Peleas(Game* game)
 	addObjects(bet1);
 	addObjects(bet2);
 	bet->refresh();
-
-	input1->setActive(true);
-	addEventListener((EventHandler*)input1);
 }
 
 void Peleas::setCards() {
@@ -196,7 +192,6 @@ Peleas::render() const {
 		Apuesta2->render();
 
 		dialog->render();
-		input1->render();
 		break;
 	case FSState::FIGHT:
 		SDL_Rect fondo2;
@@ -214,8 +209,11 @@ Peleas::render() const {
 	GameState::render();
 }
 
-int lastUpdate = 0;
-SDL_Event event;
+namespace Variables_Peleas{
+	int lastUpdate = 0;
+}
+
+
 
 void
 Peleas::update() {
@@ -226,7 +224,7 @@ Peleas::update() {
 		break;
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
-			_battleM->Update(static_cast<float>(currentTime - lastUpdate));
+			_battleM->Update(static_cast<float>(currentTime - Variables_Peleas::lastUpdate));
 			fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
 			fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
 			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()), (_battleM->getFigther1().getMaxHealth()));
@@ -255,9 +253,8 @@ Peleas::update() {
 	}
 	apuesta1 = bet1->getBet();
 	apuesta2 = bet2->getBet();
-	dialog->update(static_cast<float>(currentTime - lastUpdate));
-	input1->update(static_cast<float>(currentTime - lastUpdate));
-	lastUpdate = currentTime;
+	dialog->update(static_cast<float>(currentTime - Variables_Peleas::lastUpdate));
+	Variables_Peleas::lastUpdate = currentTime;
 	GameState::update();
 
 }

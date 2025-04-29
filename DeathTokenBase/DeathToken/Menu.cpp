@@ -1,4 +1,4 @@
-#include "checkML.h"
+﻿#include "checkML.h"
 #include "menu.h"
 #include "game.h"
 #include "player.h"
@@ -6,6 +6,7 @@
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
+	addEventListener(this);
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 12.2;
@@ -74,9 +75,9 @@ void Menu::gameChanger(GameState* juego) {
 		else if (typeid(*juego) == typeid(SlotsNormal)) {
 			juego = new SlotsInsanity(getGame());
 		}
-		/*else if (typeid(*juego) == typeid(PeleasReanimadas)) {
-
-		}*/
+		else if (typeid(*juego) == typeid(Peleas)) {
+			juego = new PeleasInsanity(getGame());
+		}
 	}
 	game->push(juego);
 
@@ -109,4 +110,11 @@ void Menu::handleEvent(const SDL_Event& event) {
 		else if (marbles->Button::getHover()) marbles->Button::getCallback();
 		else if (fights->Button::getHover()) fights->Button::getCallback();
 	}
+#ifdef _DEBUG
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_BACKSPACE) {
+		eco->setInsanity(100);
+	}
+#endif // _DEBUG
+
+	
 }

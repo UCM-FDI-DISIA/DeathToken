@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "texture.h"
 #include "gameState.h"
 #include "button.h"
@@ -13,11 +13,12 @@
 #include "rouletteScene.h"
 #include "marblesInsanity.h"
 #include "peleas.h"
+#include "peleasInsanity.h"
 #include <list>
 
 class Player;
 
-class Menu : public GameState
+class Menu : public GameState, EventHandler
 {
 	Player* ghost = nullptr;
 	Texture* texture;
@@ -41,6 +42,6 @@ public:
 	void gameChanger(GameState* juego);
 	void render() const override;
 	void update() override;
-	void handleEvent(const SDL_Event& event);//para colisiones con button
+	void handleEvent(const SDL_Event& event); //para colisiones con button
 };
 
