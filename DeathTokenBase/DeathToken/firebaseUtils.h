@@ -5,14 +5,13 @@ class FirebaseUtils
 {
 private:
 
+	
+
+public:
 	static int currentId;
 	static std::string name;
 	static int chips;
 	static int souls;
-
-	
-
-public:
 	static void StartFirebase();
 	static void DeleteFirebaseUtils();
 	static void RegisterUser(std::string name);

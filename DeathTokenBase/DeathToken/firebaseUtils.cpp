@@ -3,11 +3,14 @@
 static firebase::App* app;
 static firebase::database::Database* db;
 static firebase::database::DatabaseReference dbref;
+
+int FirebaseUtils::currentId = -1;
+std::string FirebaseUtils::name = "";
+int FirebaseUtils::chips = 0;
+int FirebaseUtils::souls = 0;
 void FirebaseUtils::StartFirebase()
 {
 	//leer usuarios y ponerlos en una tabla
-	//si el nokmbre existe coje el nº de almas y de fichas
-	//guardar almas y fichas al salir
 	firebase::AppOptions options; 
 
 	options.set_api_key("AIzaSyBTKNWi5Tjs-TfjGKrIxzH8M6zL_xljtKY");
@@ -92,9 +95,7 @@ void FirebaseUtils::GuardarProgreso(int chipsN, int soulsN)
 	usuarioU.map()["fichas"] = chipsN;
 	usuarioU.map()["almas"] = soulsN;
 
-	dbref.Child("usuarios")
-		.Child(std::to_string(currentId))
-		.UpdateChildren(usuarioU);
+	dbref.Child("usuarios").Child(std::to_string(currentId)).UpdateChildren(usuarioU);
 }
 
 

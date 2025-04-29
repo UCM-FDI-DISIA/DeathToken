@@ -307,6 +307,7 @@ void Game::stop() { while (!empty()) popState(); }
 void Game::startDatabase()
 {
 	FirebaseUtils::StartFirebase();
+	FirebaseUtils::RegisterUser("Ivan");
 }
 
 bool Game::loadFightersFromJSON(const string& filename)
