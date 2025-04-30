@@ -11,6 +11,7 @@ class BaccaratBet : public Baccarat
 	int height = 0;
 	float time = 0;
 	float actual = 0;
+	bool animOn = true;
 public:
 	BaccaratBet(Game* game) : Baccarat(game), intro(game->getTexture(BET)) {};
 	void acumulate();
@@ -18,5 +19,6 @@ public:
 	void update() override;
 	void render() const override;
 	void didntWin();
+	void startRound() override;
 };
 

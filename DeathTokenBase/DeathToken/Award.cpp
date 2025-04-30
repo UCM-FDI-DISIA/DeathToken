@@ -12,10 +12,10 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 
 
 	text = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 5.0f), relativeX((float)wSize), relativeX((float)cSize), Text::CENTRO);
-	//if (betG != 0) {
+	if (betG != 0) {
 	long long multi = mWinG / betG;
 		text->setMessage(getWinMessage((int)multi));
-	//}
+	}
 	this->addObjects(text);
 
 	winText = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 2.0f), relativeX((float)nSize), relativeX((float)cSize), Text::CENTRO);

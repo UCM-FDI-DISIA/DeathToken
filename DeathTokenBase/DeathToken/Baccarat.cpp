@@ -61,7 +61,6 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 	GameState::update();
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
-		cout << frame << endl;
 		frame++;
 		animTime = SDL_GetTicks();
 		if (frame == 7) {

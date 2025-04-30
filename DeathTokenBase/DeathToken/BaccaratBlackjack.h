@@ -20,7 +20,9 @@ class BaccaratBlackjack : public Baccarat
 	int height = 0;
 	float time = 0;
 	float actual = 0;
-
+	bool animOn = true;
+	bool timeForWin = false;
+	float tiempo = 0;
 public:
 	BaccaratBlackjack(Game* game);
 	void update() override;
