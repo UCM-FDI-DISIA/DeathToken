@@ -6,8 +6,9 @@ static firebase::database::DatabaseReference dbref;
 
 int FirebaseUtils::currentId = -1;
 std::string FirebaseUtils::name = "";
-int FirebaseUtils::chips = 0;
-int FirebaseUtils::souls = 0;
+long long FirebaseUtils::chips = 0;
+long long FirebaseUtils::souls = 0;
+bool FirebaseUtils::insanity = false;
 
 void FirebaseUtils::StartFirebase()
 {
@@ -28,13 +29,13 @@ void FirebaseUtils::StartFirebase()
 
 void FirebaseUtils::DeleteFirebaseUtils()
 {
+	//db->PurgeOutstandingWrites();
+
 	if (db != nullptr) {
-        delete db;
         db = nullptr;
     }
 
     if (app != nullptr) {
-        delete app;
         app = nullptr;
     }
 }
@@ -59,10 +60,12 @@ void FirebaseUtils::RegisterUser(std::string name)
 	//Buscar que el usuario ya existe
 	for (const auto& child : snapshot.children()) {
 		auto data = child.value().map();
-		if (data["nombre"].string_value() == name) {
-			currentId = (int)child.key();
+		std::string nomrbeeq = data["nombre"].string_value();
+		if (nomrbeeq == name) {
+			currentId = std::stoi(child.key());
 			chips = data["fichas"].int64_value();
 			souls = data["almas"].int64_value();
+			insanity = data["locura"].bool_value();
 			return;
 		}
 	}
@@ -71,7 +74,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 	int maxId = 0;
 	//recorre todos los id para luego asignar id+1 al usuario nuevo
 	for (auto& child : snapshot.children()) {
-		int id = (int)child.key();
+		int id = std::stoi(child.key());
 		if (id > maxId) {
 			maxId = id;
 		}
@@ -79,12 +82,14 @@ void FirebaseUtils::RegisterUser(std::string name)
 	currentId = maxId + 1;
 	chips = 2000;
 	souls = 0;
+	insanity = false;
 
 	//Mapa con los datos del usuario
 	firebase::Variant usuario = firebase::Variant::EmptyMap();
 	usuario.map()["nombre"] = name;
 	usuario.map()["fichas"] = chips;
 	usuario.map()["almas"] = souls;
+	usuario.map()["locura"] = insanity;
 
 	//añadir datos a la base de datos
 	dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
@@ -137,6 +142,7 @@ std::vector<FirebaseUtils::userData> FirebaseUtils::getRanking()
 
 		ranking = vectorPrueba;
 	}
+	
 
 	return ranking;
 

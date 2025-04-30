@@ -27,7 +27,7 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 void Award::update() {
 	//Tendra que contar el tiempo para que despues de 5 segundos de mostrar el mensaje vuelva a la escena anterior
 	if (currentWin < mWinG) {
-		currentWin += std::min((long long)10, mWinG - currentWin);
+		currentWin += min((long long)10, mWinG - currentWin);
 		winText->setMessage(std::to_string(currentWin));
 		startTime = SDL_GetTicks();
 	}
