@@ -56,7 +56,10 @@ void SlotsInsanity::update() {
 		}
 		if (full || line != -1) {
 			if (line != -1) {
-				if (!turnoPlayer) { game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line])); }
+				if (!turnoPlayer) {
+					game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line]));
+				}
+				bet = 0;
 				jugando = false;
 				turnoPlayer = true;
 			}

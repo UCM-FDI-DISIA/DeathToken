@@ -25,7 +25,7 @@ private:
 	int getResult() override { return 0; }
 public:
 	SlotsInsanity(Game*);
-	~SlotsInsanity() {}
+	~SlotsInsanity() { HUDManager::popGame(); }
 	void update() override;
 	void render() const override;
 	int getNext();

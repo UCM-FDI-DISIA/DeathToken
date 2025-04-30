@@ -135,10 +135,9 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 }
 void
 UISlots::OnGo() {
-	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
-		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
-		HUDManager::getHudBet()->refresh();
+	if (PlayerEconomy::getBet() != 0) {
 		slots->setBetTurno(PlayerEconomy::getBet());
+		slots->clear();
 		slots->iniciarGiro();
 	}
 }
@@ -149,6 +148,7 @@ UISlots::OnInfo()
 }
 void
 UISlots::OnErase() {
+	HUDManager::resetBet();
 	slots->clear();
 }
 
@@ -158,6 +158,7 @@ void UIMarbles::OnGo() {
 }
 
 void UIMarbles::OnErase() {
+	HUDManager::resetBet();
 	marbles->clearBets();
 }
 
@@ -206,6 +207,7 @@ void UIBaccarat::OnGo() {
 }
 
 void UIBaccarat::OnErase() {
+	HUDManager::resetBet();
 	baccarat->clearBets();
 }
 

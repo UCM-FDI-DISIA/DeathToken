@@ -525,6 +525,7 @@ ButtonSlots::handleEvent(const SDL_Event& event)
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
+			HUDManager::applyBet(chip);
 			PlayerEconomy::setBet(currentBet);
 			HUDManager::getHudBet()->refresh();
 		}
