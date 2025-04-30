@@ -113,8 +113,10 @@ void InputBox::handleEvent(const SDL_Event& event) {
 		}
 		// Si presionamos ENTER, confirmamos la entrada
 		else if (event.key.keysym.sym == SDLK_RETURN) {
-			history.push_back(userInput); // Guardamos el input en el historial
-			clearInput(); // Limpiamos la entrada
+			if (!userInput.empty()) {
+				history.push_back(userInput); // Guardamos el input en el historial
+				clearInput(); // Limpiamos la entrada
+			}
 			setActive(false); // Desactivamos la caja de entrada
 		}
 	}

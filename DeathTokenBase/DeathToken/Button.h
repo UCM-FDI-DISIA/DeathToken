@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "game.h"
 #include "gameState.h"
 #include "eventHandler.h"
@@ -19,7 +19,7 @@ protected:
 	bool hover;
 public:
 	Button(GameState*, int x, int y, int w, int h, Texture*);
-	virtual ~Button() {}
+	virtual ~Button() { text = nullptr; }
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event&) override;
@@ -38,7 +38,7 @@ protected:
 	Texture* textC;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
-	~ButtonUI() {}
+	virtual ~ButtonUI() { textC = nullptr; }
 	void update() override;
 	void render() const override;
 };
@@ -63,7 +63,7 @@ protected:
 	};
 public:
 	ButtonBet(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*);
-	~ButtonBet() {}
+	virtual ~ButtonBet() { currentText = nullptr; ui = nullptr; game = nullptr; gS = nullptr; }
 	TextureName showChip();
 	void clear();
 	void repeat();
@@ -88,7 +88,7 @@ protected:
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
 		int v0, int v1, int v2, Texture*, Texture*, Texture*);
-	~ButtonChip() {}
+	~ButtonChip() { for (Texture* texture : textures) { texture = nullptr; } }
 	void setOnUse(const bool& val);
 	void changePage(const int& n);
 	void update() override;
@@ -105,7 +105,7 @@ protected:
 	std::vector<int> NCMarbles;
 public:
 	ButtonMarbles(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*, int type, std::vector<int>);
-	~ButtonMarbles() {}
+	~ButtonMarbles() { for (Texture* texture : CMarbles) { texture = nullptr; } }
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 };

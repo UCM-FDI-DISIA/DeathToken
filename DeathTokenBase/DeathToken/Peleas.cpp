@@ -2,7 +2,6 @@
 #include "battleManager.h"
 #include "button.h"
 #include "game.h"
-#include "inputBox.h"
 #include "peleas.h"
 #include <iomanip>
 #include <sstream>
@@ -209,7 +208,7 @@ Peleas::render() const {
 	GameState::render();
 }
 
-namespace Variables_Peleas{
+namespace Variables_Peleas {
 	int lastUpdate = 0;
 }
 

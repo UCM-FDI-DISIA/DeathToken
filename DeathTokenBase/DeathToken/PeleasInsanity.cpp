@@ -15,7 +15,7 @@ void PeleasInsanity::render() const
 	SDL_Rect fondo;
 	fondo.x = fondo.y = 0;
 	fondo.h = Game::WIN_HEIGHT;
-	fondo.w = Game::WIN_WIDTH;	
+	fondo.w = Game::WIN_WIDTH;
 	SDL_SetRenderDrawColor(game->getRenderer(), 0, 255, 255, 255);
 	SDL_RenderFillRect(game->getRenderer(), &fondo);
 
@@ -34,7 +34,7 @@ void PeleasInsanity::update()
 	uint currentTime = SDL_GetTicks();
 	input1->update(static_cast<float>(currentTime - lastUpdate));
 	if (!input1->getActive()) {
-		int apuesta = std::stoi(input1->getMessage());
+		int apuesta = std::stoi(input1->getMessage().empty() ? "0" : input1->getMessage());
 		if (apuesta == valor) {
 			input1->showMessage("Ganaste");
 		}

@@ -14,7 +14,7 @@ public:
 	void update() override;
 	void StartBattle();
 
-private:	
+private:
 	InputBox* input1;
 };
 

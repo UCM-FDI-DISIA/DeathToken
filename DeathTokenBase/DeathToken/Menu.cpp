@@ -4,8 +4,7 @@
 #include "player.h"
 
 
-
-Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
+Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)), baccaratState(nullptr) {
 	addEventListener(this);
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
@@ -59,23 +58,30 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 }
  Menu::~Menu() {
 	 delete eco;
-
+	 texture = nullptr;
+	 hud = nullptr;
+	 if(baccaratState)
+	 delete baccaratState;
 }
 
 void Menu::gameChanger(GameState* juego) {
 	if (eco->getInsanity() > 0)
 	{
 		if (typeid(*juego) == typeid(Baccarat)) {
+			delete juego;
 			juego = new BaccaratInsanityManager(getGame());
 		}
 		else if (typeid(*juego) == typeid(Marbles)) {
+			delete juego;
 			juego = new MarblesInsanity(getGame());
 
 		}
 		else if (typeid(*juego) == typeid(SlotsNormal)) {
+			delete juego;
 			juego = new SlotsInsanity(getGame());
 		}
 		else if (typeid(*juego) == typeid(Peleas)) {
+			delete juego;
 			juego = new PeleasInsanity(getGame());
 		}
 	}
