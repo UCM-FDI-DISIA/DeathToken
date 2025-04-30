@@ -8,6 +8,7 @@ int FirebaseUtils::currentId = -1;
 std::string FirebaseUtils::name = "";
 int FirebaseUtils::chips = 0;
 int FirebaseUtils::souls = 0;
+
 void FirebaseUtils::StartFirebase()
 {
 	//leer usuarios y ponerlos en una tabla
@@ -89,13 +90,56 @@ void FirebaseUtils::RegisterUser(std::string name)
 	dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
 }
 
-void FirebaseUtils::GuardarProgreso(int chipsN, int soulsN)
+void FirebaseUtils::SaveState(int chipsN, int soulsN)
 {
 	firebase::Variant usuarioU = firebase::Variant::EmptyMap();
 	usuarioU.map()["fichas"] = chipsN;
 	usuarioU.map()["almas"] = soulsN;
 
 	dbref.Child("usuarios").Child(std::to_string(currentId)).UpdateChildren(usuarioU);
+}
+
+std::vector<FirebaseUtils::userData> FirebaseUtils::getRanking()
+{
+	std::vector<userData> ranking;
+
+	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
+	firebase::Future<firebase::database::DataSnapshot> future = usuariosRef.GetValue();
+	while (future.status() == firebase::kFutureStatusPending) {
+		SDL_Delay(10);
+	}
+
+	const firebase::database::DataSnapshot& snapshot = *future.result();
+
+	//recorre cada hijo de la captura(osea cada id)
+	for (const auto& child : snapshot.children()) {
+		auto usuarioR = child.value().map();
+		userData nuevo;
+		nuevo.nombre = usuarioR["nombre"].string_value();
+		nuevo.fichas = usuarioR["fichas"].int64_value();
+		nuevo.almas = usuarioR["almas"].int64_value();
+
+		std::vector<userData> vectorPrueba;
+		bool insertado = false;
+
+		// recorre el vector ranking y pone en orden dependiendo del numero de almas
+		for (int i = 0; i < ranking.size(); ++i) {
+			if (!insertado && nuevo.fichas > ranking[i].fichas) {
+				vectorPrueba.push_back(nuevo);
+				insertado = true;
+			}
+			vectorPrueba.push_back(ranking[i]);
+		}
+
+		if (!insertado) {
+			vectorPrueba.push_back(nuevo);
+		}
+
+		ranking = vectorPrueba;
+	}
+
+	return ranking;
+
 }
 
 
