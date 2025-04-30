@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -17,7 +17,7 @@ public:
     //Constructora para usar contorno con colores, si no se especifica alineamiento a la izquierda
     Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
-    virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
+    virtual ~Text() { renderer = nullptr; font = nullptr; };
     void setPos(int x, int y);
     std::string getMessage();
     void setMessage(const std::string& message);
@@ -26,7 +26,7 @@ public:
     void setColor(int red, int green, int blue, int alpha);
     void setSize(int size);
     void setOutlineColor(int red, int green, int blue, int alpha);
-    //Para cajas de texto, por defecto el ancho es infinito (no habr· saltos de lÌnea autom·ticos)
+    //Para cajas de texto, por defecto el ancho es infinito (no habr√° saltos de l√≠nea autom√°ticos)
     void setWidth(int width);
     void update() override {};
     void render() const override;
