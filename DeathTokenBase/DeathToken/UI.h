@@ -143,7 +143,7 @@ public:
 class Peleas;
 class UIPeleas : public UI {
 public:
-	UIPeleas(Game* game, Peleas* peleas) 
+	UIPeleas(Game* game, Peleas* peleas)
 		: UI((GameState*)peleas, game)
 		, _peleas(peleas)
 		, autoText(nullptr)
@@ -157,4 +157,14 @@ protected:
 	Peleas* _peleas;
 	ButtonUI* autoText;
 	ButtonUI* historial;
+};
+
+class EscenaTutorial;
+class UIEscenaTutorial :public UI {
+protected:
+	EscenaTutorial* escenaTutorial;
+	std::vector<ButtonBet*> bets;
+public:
+	UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut);
+	void OnGo() override;
 };

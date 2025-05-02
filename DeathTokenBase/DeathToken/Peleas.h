@@ -3,14 +3,19 @@
 #include "battleManager.h"
 #include "dialogueBox.h"
 #include "gameState.h"
+#include "hud.h"
 #include "ui.h"
 #include <SDL_ttf.h>
+
 enum class FSState { CARDS, FIGHT };
 class Peleas : public GameState {
 public:
 	Peleas(Game* game);
 	~Peleas()
 	{
+		PlayerEconomy::setBet(0);
+		HUDManager::popGame();
+		bet = nullptr;
 		delete ui;
 		ui = nullptr;
 		delete fighter1bar;
@@ -60,5 +65,13 @@ private:
 	BarraVida* fighter1bar;
 	BarraVida* fighter2bar;
 	UIPeleas* ui;
+	HUDBet* bet;
+	ButtonPeleas* bet1;
+	ButtonPeleas* bet2;
 	FSState state;
+
+	int apuesta1 = 0;
+	int apuesta2 = 0;
+
+	void setCards();
 };

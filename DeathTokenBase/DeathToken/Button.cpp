@@ -540,3 +540,18 @@ void ButtonSlots::render() const {
 		currentText->render(chipSpace);
 	}
 }
+void ButtonPeleas::handleEvent(const SDL_Event& event) {
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ButtonSlots::ui->currentChipValue();
+		if (currentBet + chip <= PlayerEconomy::getBlueSouls())
+		{
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			PlayerEconomy::addBet(chip);
+			HUDManager::getHudBet()->refresh();
+		}
+		cb();
+	}
+}

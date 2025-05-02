@@ -7,6 +7,7 @@
 #include "marblesInsanity.h"
 #include "tutorial.h"
 #include "peleas.h"
+#include "EscenaTutorial.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -324,4 +325,15 @@ void UIRoulette::OnExit()
 void UIRoulette::OnGo()
 {
 	rouletteS->throwRoulette();
+}
+
+UIEscenaTutorial::UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut) :UI(gS, g), escenaTutorial(tut) {}
+
+void UIEscenaTutorial::OnGo() {
+	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
+		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
+		HUDManager::getHudBet()->refresh();
+		escenaTutorial->setBetTurno(PlayerEconomy::getBet());
+		escenaTutorial->iniciaJuego();
+	}
 }

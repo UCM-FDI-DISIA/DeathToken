@@ -1,6 +1,7 @@
 #include "game.h"
 #include "json.hpp"
-#include "menu.h"
+#include "EscenaTutorial.h"
+#include "Menu.h"
 #include "sdlutils.h"
 #include <vector>
 #include <iostream>
@@ -187,6 +188,9 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
 
+	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1});
+	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -233,8 +237,11 @@ Game::Game() {
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
 	}
-	Menu* menu = new Menu(this);
-	pushState(menu);
+	EscenaTutorial* tutorial = new EscenaTutorial(this);
+	pushState(tutorial);
+	//Menu* menu = new Menu(this);
+	//pushState(menu);
+
 
 	//SEMILLA DE NUMEROS ALEATORIOS
 	random_device rd;

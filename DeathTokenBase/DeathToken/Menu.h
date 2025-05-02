@@ -42,5 +42,6 @@ public:
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button
+
 };
 

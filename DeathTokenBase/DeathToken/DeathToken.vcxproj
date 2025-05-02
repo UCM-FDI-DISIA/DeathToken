@@ -157,6 +157,7 @@
     <ClInclude Include="checkML.h" />
     <ClInclude Include="baccaratInsanityManager.h" />
     <ClInclude Include="dialogueBox.h" />
+    <ClInclude Include="EscenaTutorial.h" />
     <ClInclude Include="fighter.h" />
     <ClInclude Include="hud.h" />
     <ClInclude Include="marblesInsanity.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="celda.cpp" />
     <ClCompile Include="baccaratInsanityManager.cpp" />
     <ClCompile Include="dialogueBox.cpp" />
+    <ClCompile Include="EscenaTutorial.cpp" />
     <ClCompile Include="fighter.cpp" />
     <ClCompile Include="hud.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
