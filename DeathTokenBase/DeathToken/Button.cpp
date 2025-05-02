@@ -1,9 +1,10 @@
 #include "button.h"
 #include "ui.h"
 #include "marbles.h"
+#include "EscenaTutorial.h"
 
-Button::Button(GameState* g, int x, int y, int w, int h, Texture* t,Texture* tC)
-	: GameObject(g), text(t),textC(tC), hover(false), clicked(false)
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
+	: GameObject(g), text(t), textC(tC), hover(false), clicked(false)
 {
 	box.x = x;
 	box.y = y;
@@ -551,6 +552,33 @@ void ButtonPeleas::handleEvent(const SDL_Event& event) {
 			currentText = game->getTexture(showChip());
 			PlayerEconomy::addBet(chip);
 			HUDManager::getHudBet()->refresh();
+		}
+		cb();
+	}
+}
+ButtonTutorial::ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text, EscenaTutorial* tut) :ButtonBet(gS, game, ui, x, y, w, h, text, NULL), _tut(tut) {}
+ButtonTutorial::~ButtonTutorial() { delete _tut; }
+void ButtonTutorial::render() const {
+	if (text != nullptr) {
+		text->render(box);
+	}
+	if (currentBet > 0)
+	{
+		currentText->render(chipSpace);
+	}
+}
+void ButtonTutorial::handleEvent(const SDL_Event& event) {
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ui->currentChipValue();
+		if (currentBet + chip <= PlayerEconomy::getBlueSouls())
+		{
+			_tut->apuesta();
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			PlayerEconomy::addBet(chip);
+			HUDManager::getHudBet()->refresh();			
 		}
 		cb();
 	}

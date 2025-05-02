@@ -148,3 +148,15 @@ public:
 	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text) {}
 	void handleEvent(const SDL_Event& event) override;
 };
+
+//EscenaTutorial
+class EscenaTutorial;
+class ButtonTutorial:public ButtonBet {
+private:
+	EscenaTutorial* _tut;
+public:
+	ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text,EscenaTutorial* tut);
+	~ButtonTutorial();
+	void render() const override;
+	virtual void handleEvent(const SDL_Event& event) override;
+};
