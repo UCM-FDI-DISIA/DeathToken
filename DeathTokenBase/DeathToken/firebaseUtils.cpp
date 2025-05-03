@@ -42,6 +42,11 @@ void FirebaseUtils::DeleteFirebaseUtils()
 
 void FirebaseUtils::RegisterUser(std::string name)
 {
+	if (db != nullptr) {
+		db->GoOffline();
+		SDL_Delay(100);
+		db->GoOnline();
+	}
 	//referencia a la tabla "usuarios"
 	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
 
