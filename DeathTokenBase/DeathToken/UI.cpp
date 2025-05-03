@@ -330,10 +330,11 @@ void UIRoulette::OnGo()
 UIEscenaTutorial::UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut) :UI(gS, g), escenaTutorial(tut) {}
 
 void UIEscenaTutorial::OnGo() {
-	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
+	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0 && escenaTutorial->getFase() == 2) {
 		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
 		HUDManager::getHudBet()->refresh();
 		escenaTutorial->setBetTurno(PlayerEconomy::getBet());
 		escenaTutorial->iniciaJuego();
+		cout << "Inicia tutorial" << "\n";
 	}
 }
