@@ -571,7 +571,7 @@ void ButtonTutorial::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
-		if (currentBet + chip <= PlayerEconomy::getBlueSouls())
+		if (currentBet + chip <= PlayerEconomy::getBlueSouls() && _tut->getFase() == 1)
 		{
 			_tut->apuesta();
 			currentBet += chip;

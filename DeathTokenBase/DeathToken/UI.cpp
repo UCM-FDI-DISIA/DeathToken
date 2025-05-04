@@ -335,6 +335,5 @@ void UIEscenaTutorial::OnGo() {
 		HUDManager::getHudBet()->refresh();
 		escenaTutorial->setBetTurno(PlayerEconomy::getBet());
 		escenaTutorial->iniciaJuego();
-		cout << "Inicia tutorial" << "\n";
 	}
 }

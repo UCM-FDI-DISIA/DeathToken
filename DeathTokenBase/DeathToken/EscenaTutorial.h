@@ -8,24 +8,33 @@
 using namespace std;
 class Menu;
 class EscenaTutorial : public GameState {
-private:
+protected:
 	long long bet;
+	int a;
 	int index;
 	int fases;
 	bool picked;
 	bool startGame;
 	bool hasChip;
 	bool resultado;
-	bool inDialog;
 	bool inState;
 	float counter;
+
+private:
+
 	UI* _ui;
 	HUDBet* _hud;
 	PlayerEconomy* eco;
 	ButtonBet* _bet;
-	DialogueBox* _dialog;
-	Game* _g;
-		int a;
+	Game* _g;	
+
+	DialogueBox* _dialog1;
+	DialogueBox* _dialog2;
+	DialogueBox* _dialog3;
+	DialogueBox* _dialog4;
+	DialogueBox* _dialog5;
+	DialogueBox* _dialog6;
+
 public:
 	EscenaTutorial(Game*);
 	~EscenaTutorial();
@@ -42,10 +51,11 @@ public:
 		PlayerEconomy::setBet(0);
 		HUDManager::getHudBet()->refresh();
 	}
-	void fase0(uint);
-	void fase1(uint);
-	void fase2(uint);
-	void fase3(uint);
-	void fase4(uint);
-	void fase5(uint);
+	void showDialog1() const;
+	void showDialog2() const;
+	void showDialog3() const;
+	void showDialog4() const;
+	void showDialog5() const;
+	void showDialog6() const;
+
 };

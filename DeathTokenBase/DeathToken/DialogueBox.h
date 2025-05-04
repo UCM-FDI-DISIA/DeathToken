@@ -137,6 +137,8 @@ public:
 
 	// Resetea flag de estado (para nuevo texto)
 	inline void resetDialogStateFlag() { nextState = false; }
+
+	
 #pragma endregion
 
 protected:
