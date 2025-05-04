@@ -14,6 +14,7 @@ private:
 	bool cursorVisible;             // Si el cursor está visible actualmente
 	unsigned maxLength;             // Longitud máxima de entrada permitida
 	int cursorHeight;              // Altura del cursor
+	bool numberInput;              // Si solo se permiten números
 
 public:
 	// Constructor
@@ -22,9 +23,9 @@ public:
 		int he = DialogueBoxConstants::BOXHEIGHT);
 
 	// Métodos públicos
-	void setActive(bool active);
+	void setActive(bool active, bool onlyNumbers = false);
 	inline bool getActive() const { return isActive; };
-	void setMaxLength(unsigned int length);
+	void setMaxLength(unsigned length);
 	const std::string& getUserInput() const;
 	void clearInput();
 	void updateDisplayText();

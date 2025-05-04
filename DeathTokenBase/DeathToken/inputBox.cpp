@@ -17,6 +17,7 @@ InputBox::InputBox(SDL_Renderer* renderer, TTF_Font* font, int posx, int posy,
 	isActive(false),
 	cursorColor({ 0, 0, 0, 255 }), // Negro por defecto
 	cursorVisible(true),
+	numberInput(false),
 	maxLength(50), // Longitud máxima por defecto
 	lastCursorBlink(0),
 	cursorHeight(static_cast<int>(TTF_FontHeight(font) * 0.8)) // Cacheamos la altura del cursor
@@ -32,8 +33,9 @@ InputBox::InputBox(SDL_Renderer* renderer, TTF_Font* font, int posx, int posy,
 /*****************************************************************/
 /* Activa/desactiva la caja para recibir entrada                 */
 /*****************************************************************/
-void InputBox::setActive(bool active) {
+void InputBox::setActive(bool active, bool onlyNumbers) {
 	isActive = active;
+	numberInput = onlyNumbers;
 	if (active) {
 		lastCursorBlink = SDL_GetTicks();
 		cursorVisible = true;
@@ -43,7 +45,7 @@ void InputBox::setActive(bool active) {
 /*****************************************************************/
 /* Establece la longitud máxima de entrada permitida             */
 /*****************************************************************/
-void InputBox::setMaxLength(unsigned int length) {
+void InputBox::setMaxLength(unsigned length) {
 	maxLength = length;
 }
 
@@ -123,13 +125,18 @@ void InputBox::handleEvent(const SDL_Event& event) {
 	else if (event.type == SDL_TEXTINPUT) {
 		// Si el tamaño del texto es menor que el máximo, agregamos el texto ingresado
 		if (userInput.length() < maxLength) {
-			// Solo aceptamos números con std::ranges::filter
+			auto view = std::string_view(event.text.text);
+
+			auto filter = numberInput ?
+				[](char c) { return std::isdigit(static_cast<unsigned char>(c)); }
+			: [](char c) { return std::isalnum(static_cast<unsigned char>(c)); };
+
 			std::ranges::copy(
-				std::string_view(event.text.text) | std::ranges::views::filter([](char c) { return std::isdigit(c); }),
+				view | std::ranges::views::filter(filter),
 				std::back_inserter(userInput)
 			);
 			// Recortamos el texto si excede la longitud máxima
-			if (userInput.length() > maxLength) userInput.resize(maxLength);
+			if (userInput.length() > maxLength) { userInput.resize(maxLength); }
 			updateDisplayText(); // Actualizamos la pantalla
 		}
 	}
