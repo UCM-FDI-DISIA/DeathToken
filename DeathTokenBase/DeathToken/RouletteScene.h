@@ -8,6 +8,7 @@ class RouletteScene : public GameState, public EventHandler
 {
 	Roulette* roul;
 	Texture* rouletteBG;
+	Texture* rouletteFrame;
 	Texture* arrowTex;
 	int costPerThrow = 500;
 	int canThrow = false;

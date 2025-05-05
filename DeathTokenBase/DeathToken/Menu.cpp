@@ -24,7 +24,11 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		}
 		});
 
-	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
+
+	//Widht, height, position slots button
+	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 3.5;
+	xBut = Game::WIN_WIDTH * 3.0 / 4.75; yBut = Game::WIN_HEIGHT / 1.7 + Game::WIN_HEIGHT / 20.0;
+	slots = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
 	slots->connect([this]() { gameChanger(new SlotsNormal(getGame()));});
@@ -38,12 +42,18 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(marbles);
 	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
 
-	fights = new Button(this, (Game::WIN_WIDTH / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(PELEASBUT));
+	//Widht, height, position fights button
+	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
+	xBut = Game::WIN_WIDTH * 3.0 / 15.5; yBut = Game::WIN_HEIGHT / 1.7 + Game::WIN_HEIGHT / 20.0;
+	fights = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(PELEASBUT));
 	addObjects(fights);
 	addEventListener(fights);
 	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 
-	roulette = new Button(this,(int) (Game::WIN_WIDTH / 2 - wBut / 2), (int)(Game::WIN_HEIGHT / 100), (int)wBut, (int)wBut, game->getTexture(ROULETTE));
+	//Widht, height, position roulette button
+	wBut = Game::WIN_WIDTH / 5.33; hBut = Game::WIN_HEIGHT / 5.967;
+	xBut = Game::WIN_WIDTH / 2.0 - wBut / 2; yBut = 0.0;
+	roulette = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(ROULETTEBUT));
 	addObjects(roulette);
 	addEventListener(roulette);
 	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });

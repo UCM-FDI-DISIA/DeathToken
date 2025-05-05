@@ -6,7 +6,7 @@ RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), 
 	addObjects(roul);
 	hud = new HUDBet(this);
 	arrowTex = game->getTexture(ROULETTEARROW);
-
+	rouletteFrame = game->getTexture(ROULETTEFRAME);
 }
 
 void RouletteScene::handleEvent(const SDL_Event& event) {
@@ -27,6 +27,7 @@ void RouletteScene::update() {
 
 void RouletteScene::render() const {
 	rouletteBG->render();
+	rouletteFrame->render();
 	GameState::render();
 	float x = Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 5.5, y = Game::WIN_HEIGHT / 2 - Game::WIN_HEIGHT / 8.35,
 		w = Game::WIN_WIDTH / 5.12, h = Game::WIN_HEIGHT / 3.042;

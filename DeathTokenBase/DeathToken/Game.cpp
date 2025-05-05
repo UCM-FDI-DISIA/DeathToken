@@ -27,9 +27,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "baccarat/barajaBaccarat.png", 14, 1 });
 	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 1, 1 });
 	///
-	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_slots_cut.png", 1, 1 });
 	v.push_back(TextureSpec{ "map/Casino_marbles_cut.png", 1, 1 });
-	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_ring_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_roulette_cut.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/Exit.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/Exit_HV.png", 1, 1 });
 	///
@@ -111,6 +112,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "blackFont.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteBG.png",1,1 });
 	//
+	v.push_back(TextureSpec{ "roulette/roulette_frame.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/Demoniosenala.png",1,1 });
