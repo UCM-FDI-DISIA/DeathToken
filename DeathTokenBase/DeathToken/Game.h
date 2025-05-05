@@ -212,7 +212,7 @@ struct Matchup {
 };
 
 
-class Game : private GameStateMachine {
+class Game : public GameStateMachine {
 
 private:
 	// Ventana de la SDL (se destruir� en el destructor)

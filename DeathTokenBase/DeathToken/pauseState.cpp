@@ -2,7 +2,7 @@
 #include "game.h"
 #include "menu.h"
 
-PauseState::PauseState(Game* game) : GameState(game), texture(game->getTexture(TUTORIAL1))
+PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior(other), texture(game->getTexture(TUTORIAL1))
 {
 	
 	back = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 12, Game::WIN_HEIGHT / 3 - Game::WIN_HEIGHT / 8,
@@ -19,7 +19,7 @@ PauseState::PauseState(Game* game) : GameState(game), texture(game->getTexture(T
 	addObjects(menu);
 	addEventListener(menu);
 	menu->connect([this, game]() {
-		game->push(new Menu(game));
+		game->replace(new Menu(game));
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
 }
@@ -30,6 +30,12 @@ PauseState::~PauseState()
 
 void PauseState::render() const
 {
+	anterior->render();
+	SDL_Rect black(0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT);
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_MUL);
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 170);
+	SDL_RenderFillRect(game->getRenderer(), &black);
+
 	texture->render();
 	GameState::render();
 }

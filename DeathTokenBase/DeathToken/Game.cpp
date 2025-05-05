@@ -260,7 +260,6 @@ void Game::run() {
 		SDLUtils::updateDeltaTime();
 		float dt = SDLUtils::getDeltaTime();
 
-
 		update();       // Actualiza el estado de los objetos del juego
 
 		SDL_RenderClear(renderer);
@@ -274,7 +273,7 @@ void Game::run() {
 			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
 				if (!pause)
 				{
-					push(new PauseState(this));
+					push(new PauseState(this,gameStates.top().get()));
 					pause = true;//si la pausa esta en true no se puede abrir otra
 				}
 			}
@@ -282,13 +281,10 @@ void Game::run() {
 				handleEvent(event);
 		}
 
-
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t frameTime = SDL_GetTicks() - frameStart;
 		if (frameTime < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - frameTime);
-
-
 	}
 }
 Texture* Game::getTexture(TextureName name) const {

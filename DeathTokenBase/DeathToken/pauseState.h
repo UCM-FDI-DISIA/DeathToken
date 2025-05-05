@@ -11,7 +11,7 @@ protected:
 	Texture* texture;
 	GameState* anterior;//para renderizar el juego en el fondo
 public:
-	PauseState(Game* g);
+	PauseState(Game* g, GameState* other);
 	virtual ~PauseState();//borrar botones
 	
 	virtual void render() const;
