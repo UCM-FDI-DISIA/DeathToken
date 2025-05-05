@@ -2,6 +2,7 @@
 #define USER_INPUT_BOX_H
 
 #include "dialogueBox.h"
+#include "EventHandler.h"
 #include <SDL.h>
 #include <string>
 

@@ -1,5 +1,6 @@
 #include "fighter.h"
 #include "json.hpp"
+#include "Game.h"
 using json = nlohmann::json;
 
 bool Fighter::loadFromJSON(const std::string& jsonString)
@@ -78,5 +79,27 @@ Fighter::getStringMindset() const {
 	else {
 		return "Invencible";  // Cuota 1:1.5
 	}
+}
+
+TextureName Fighter::getTextureName() const
+{
+  if (name == "Skeletor")
+    return TEXTURE_SKELETOR;
+  else if (name == "Romelario")
+    return TEXTURE_ROMELARIO;
+  else if (name == "Alfredo")
+    return TEXTURE_ALFREDO;
+  else if (name == "Boodoo")
+    return TEXTURE_BOODOO;
+  else if (name == "Corneo")
+    return TEXTURE_CORNEO;
+  else if (name == "McDougald")
+    return TEXTURE_MCDOUGALD;
+  else if (name == "Paulter Geist")
+    return TEXTURE_PAULTER_GEIST;
+  else if (name == "Potapé")
+    return TEXTURE_POTAPE;
+  // Default por si hay algún error
+  return TEXTURE_SKELETOR;
 }
 

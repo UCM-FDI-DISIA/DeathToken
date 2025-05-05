@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+enum TextureName;
 //#include "json.hpp" // Usar la librería nlohmann/json
 
 using namespace std;
@@ -34,7 +35,7 @@ public:
 
 	// Carga los datos del peleador desde un archivo JSON
 	bool loadFromJSON(const std::string& s);
-
+	TextureName getTextureName() const;
 	// Métodos Getters para acceder a los atributos
 	inline string getName() const { return name; }
 	inline int getHealth() const { return health; }

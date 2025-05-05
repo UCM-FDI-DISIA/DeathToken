@@ -125,6 +125,15 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	//
 	v.push_back(TextureSpec{ "TarjetaDePeleadores.png", 1, 1 });
 	v.push_back(TextureSpec{ "Ring.png", 1, 1 });
+
+  v.push_back(TextureSpec{ "Fighters/skeletor.png", 1, 1 });       // TEXTURE_SKELETOR
+  v.push_back(TextureSpec{ "Fighters/romelario.png", 1, 1 });      // TEXTURE_ROMELARIO
+  v.push_back(TextureSpec{ "Fighters/alfredo.png", 1, 1 });        // TEXTURE_ALFREDO
+  v.push_back(TextureSpec{ "Fighters/boodoo.png", 1, 1 });         // TEXTURE_BOODOO
+  v.push_back(TextureSpec{ "Fighters/corneo.png", 1, 1 });         // TEXTURE_CORNEO
+  v.push_back(TextureSpec{ "Fighters/mcdougald.png", 1, 1 });      // TEXTURE_MCDOUGALD
+  v.push_back(TextureSpec{ "Fighters/paulter_geist.png", 1, 1 });  // TEXTURE_PAULTER_GEIST
+  v.push_back(TextureSpec{ "Fighters/potape.png", 1, 1 });         // TEXTURE_POTAPE
 	//
 	v.push_back(TextureSpec{ "roulette/rouletteAnim0.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim1.png",1,1 });
