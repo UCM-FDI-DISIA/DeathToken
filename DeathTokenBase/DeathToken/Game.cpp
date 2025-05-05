@@ -1,6 +1,7 @@
 #include "game.h"
 #include "json.hpp"
 #include "menu.h"
+#include "pauseState.h"
 #include "sdlutils.h"
 #include <vector>
 #include <iostream>
@@ -84,7 +85,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/chips/chip_50.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_100.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_200.png", 1, 1 });
-	
+
 	v.push_back(TextureSpec{ "ui/chips/chip_500.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_1K.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_2K.png", 1, 1 });
@@ -102,7 +103,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png",1,1 });
-	
+
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1 });
@@ -194,8 +195,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
-	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",x));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf", x));
 	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
@@ -270,6 +271,13 @@ void Game::run() {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				stop();
+			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
+				if (!pause)
+				{
+					push(new PauseState(this));
+					pause = true;//si la pausa esta en true no se puede abrir otra
+				}
+			}
 			else
 				handleEvent(event);
 		}
