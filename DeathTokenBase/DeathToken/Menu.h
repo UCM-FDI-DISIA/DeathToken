@@ -10,7 +10,7 @@
 #include "slotsInsanity.h"
 #include "marbles.h"
 #include "sceneObject.h"
-#include "rouletteScene.h"
+#include "rouletteChoose.h"
 #include "marblesInsanity.h"
 #include "peleas.h"
 #include <list>

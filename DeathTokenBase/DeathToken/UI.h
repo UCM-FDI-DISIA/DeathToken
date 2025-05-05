@@ -123,6 +123,37 @@ public:
 	void OnGo();
 };
 
+class rouletteChoose;
+class UIRouletteChoose {
+protected:
+	GameState* gS;
+	rouletteChoose* rouletteC;
+	Game* game;
+	ButtonUI* exit;
+
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+	UIRouletteChoose(GameState* g, Game* game, rouletteChoose* rouletteC);
+
+	void OnExit();
+};
+
+class scythe;
+class UIScythe {
+protected:
+	GameState* gS;
+	scythe* s;
+	Game* game;
+	ButtonUI* exit;
+
+public:
+	inline int relativeX(const float& n);
+	inline int relativeY(const float& n);
+	UIScythe(GameState* g, Game* game, scythe* s);
+
+	void OnExit();
+};
 
 class UITutorial
 {
@@ -146,7 +177,7 @@ public:
 class Peleas;
 class UIPeleas : public UI {
 public:
-	UIPeleas(Game* game, Peleas* peleas) 
+	UIPeleas(Game* game, Peleas* peleas)
 		: UI((GameState*)peleas, game)
 		, _peleas(peleas)
 		, autoText(nullptr)

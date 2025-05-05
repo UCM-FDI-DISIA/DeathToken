@@ -40,7 +40,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(CANICASBUT));
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), {0,0,0,0})); });
+	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
 
 	//Widht, height, position fights button
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -56,7 +56,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	roulette = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(ROULETTEBUT));
 	addObjects(roulette);
 	addEventListener(roulette);
-	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
+	roulette->connect([this]() { gameChanger(new rouletteChoose(getGame(), eco)); });
 
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
@@ -66,8 +66,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 
 	hud = new HUDLobby(this);
 }
- Menu::~Menu() {
-	 delete eco;
+Menu::~Menu() {
+	delete eco;
 
 }
 
