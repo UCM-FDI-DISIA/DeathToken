@@ -5,7 +5,7 @@
 #include "game.h"
 #include "sdlutils.h"
 
-EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), resultado(false), inState(false), index(-1), fases(0), bet(0), a(0) {
+EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), resultado(false), inState(false), index(-1), fases(5), bet(0), a(0) {
 	float x = Game::WIN_WIDTH * (600.0f / 1920.0f);
 	float y = Game::WIN_HEIGHT * (680.0f / 1080.0f);
 	float cartaW = Game::WIN_WIDTH * (110.0f / 1920.0f);
@@ -42,8 +42,8 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 		});
 	addObjects(tijera);
 	addEventListener(tijera);
+	
 	//Interfaz
-
 	_dialog1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f)) * Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f)) * Game::WIN_HEIGHT,
 		true, false, 400, 180);
 	addEventListener((EventHandler*)_dialog1);
@@ -403,6 +403,6 @@ void EscenaTutorial::showDialog6()const {
 	_dialog6->showMessage("¡Ostras,casi se me olvida decirtelo! Para moverte tendrás que usar las teclas: 'W' 'A' 'S' 'D' o cruceta ('->', '<-' ,etc.)");
 	_dialog6->showMessage(", y para entrar a los juegos es con la tecla 'E'.");
 	_dialog6->showMessage("Además de que en varios juegos encontrarás botones como estos.");
-	_dialog6->showMessage("Tendrás uno de borarr apuesta,otro de información y un último donde puedes repetir de nuevo la partida");
-	_dialog6->showMessage("Lo dicho,mucha suerte y que tengas una buena partida.¡Suete! La necesitarás >:)");
+	_dialog6->showMessage("Tendrás uno de borrar apuesta,otro de información y un último donde puedes repetir de nuevo la partida");
+	_dialog6->showMessage("Lo dicho,mucha suerte y que tengas una buena partida.¡Suerte! La necesitarás >:)");
 }

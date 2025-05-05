@@ -46,7 +46,6 @@ public:
 	int getFase() { return fases; };
 	void apuesta() { hasChip = true; };
 	inline void clear() {
-		bet = 0;
 		_bet->clear();
 		PlayerEconomy::setBet(0);
 		HUDManager::getHudBet()->refresh();

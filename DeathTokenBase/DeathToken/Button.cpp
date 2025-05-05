@@ -577,7 +577,8 @@ void ButtonTutorial::handleEvent(const SDL_Event& event) {
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
-			PlayerEconomy::addBet(chip);
+			HUDManager::applyBet(chip);
+			PlayerEconomy::setBet(currentBet);
 			HUDManager::getHudBet()->refresh();			
 		}
 		cb();
