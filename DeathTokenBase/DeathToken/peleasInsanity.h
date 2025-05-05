@@ -1,20 +1,20 @@
-﻿#pragma once
-#include "gameState.h"
-#include "hud.h"
-#include "ui.h"
-#include <SDL_ttf.h>
+﻿#include "GameState.h"
+#include "inputBox.h"
+#include <SDL.h>
+#include <string>
 
-class InputBox;
-
-class PeleasInsanity : public GameState
-{
+class PeleasInsanity : public GameState {
 public:
-	PeleasInsanity(Game* game);
-	void render() const override;
-	void update() override;
-	void StartBattle();
+  PeleasInsanity(Game* game);
+  void render() const override;
+  void update() override;
 
 private:
-	InputBox* input1;
+  enum class State { INICIO, INPUT, COMPARACION, FINAL };
+  State currentState;
+  InputBox* input1;
+  int correctPrice;
+  int playerGuess;
+  Uint32 stateStartTime;
+  int lastUpdate;
 };
-

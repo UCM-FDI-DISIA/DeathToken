@@ -43,7 +43,7 @@ namespace DialogueBoxConstants {
 /* Clase DialogueBox: Maneja la visualización de texto en el juego*/
 /* Hereda de EventHandler para gestionar eventos de entrada       */
 /*****************************************************************/
-class DialogueBox : EventHandler {
+class DialogueBox : public EventHandler {
 public:
 #pragma region CONSTRUCTORS_DESTRUCTOR
 	/// Constructor por defecto

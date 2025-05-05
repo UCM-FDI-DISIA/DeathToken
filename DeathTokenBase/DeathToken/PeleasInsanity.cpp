@@ -1,49 +1,93 @@
-﻿#include "inputBox.h"
-#include "PeleasInsanity.h"
+﻿#include "PeleasInsanity.h"
+#include <cstdlib>
+#include <ctime>
+#include <string>
 
 PeleasInsanity::PeleasInsanity(Game* game)
-	: GameState(game)
-	, input1(new InputBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>(Game::WIN_WIDTH / 3), static_cast<int>(3 * Game::WIN_HEIGHT / 4), true, false, 400, 180))
-{
-	input1->setMaxLength(3);
-	input1->setActive(true);
-	addEventListener((EventHandler*)input1);
+    : GameState(game),
+    currentState(State::INICIO),
+    input1(new InputBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), 
+           static_cast<int>(Game::WIN_WIDTH / 3), 
+           static_cast<int>(3 * Game::WIN_HEIGHT / 4), 
+           true, false, 400, 180)),
+    correctPrice(0),
+    playerGuess(0),
+    stateStartTime(SDL_GetTicks()),
+    lastUpdate(0) {
+    
+    srand(static_cast<unsigned>(time(nullptr)));
+    correctPrice = rand() % 1000 + 1;  
+    input1->setMaxLength(3);
+    input1->showMessage("¡Adivina el precio del objeto!");
+    input1->setActive(false);
+    addEventListener(input1);
 }
 
-void PeleasInsanity::render() const
-{
-	SDL_Rect fondo;
-	fondo.x = fondo.y = 0;
-	fondo.h = Game::WIN_HEIGHT;
-	fondo.w = Game::WIN_WIDTH;
-	SDL_SetRenderDrawColor(game->getRenderer(), 0, 255, 255, 255);
-	SDL_RenderFillRect(game->getRenderer(), &fondo);
+void PeleasInsanity::render() const {
+    SDL_Rect fondo = {0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT};
+    SDL_SetRenderDrawColor(game->getRenderer(), 0, 255, 255, 255);
+    SDL_RenderFillRect(game->getRenderer(), &fondo);
 
-	input1->render();
-
-	GameState::render();
+    switch(currentState) {
+        case State::INICIO:
+        case State::COMPARACION:
+        case State::FINAL:
+            input1->render();
+            break;
+        case State::INPUT:
+            input1->render();
+            break;
+    }
+    GameState::render();
 }
 
+void PeleasInsanity::update() {
+    Uint32 currentTime = SDL_GetTicks();
+    switch(currentState) {
+        case State::INICIO:
+            if(currentTime - stateStartTime >= 2000) { // 2 segundos de espera
+                currentState = State::INPUT;
+                input1->clearInput();
+                input1->setActive(true);
+                stateStartTime = currentTime;
+            }
+            break;
 
-int lastUpdate = 0;
+        case State::INPUT:
+            input1->update(currentTime - lastUpdate);
+            if(!input1->getActive()) { // Usuario presionó Enter
+                try {
+                    playerGuess = std::stoi(input1->getMessage());
+                } catch(...) {
+                    playerGuess = 0;
+                }
+                currentState = State::COMPARACION;
+                input1->showMessage("Verificando...");
+                stateStartTime = currentTime;
+            }
+            break;
 
-int valor = 100;
+        case State::COMPARACION:
+            if(currentTime - stateStartTime >= 1000) { // 1 segundo de "verificación"
+                currentState = State::FINAL;
+                if(playerGuess == correctPrice) {
+                    input1->showMessage("¡Correcto! Ganaste.");
+                } else {
+                    input1->showMessage("Perdiste. Precio: " + std::to_string(correctPrice));
+                }
+                stateStartTime = currentTime;
+            }
+            break;
 
-void PeleasInsanity::update()
-{
-	uint currentTime = SDL_GetTicks();
-	input1->update(static_cast<float>(currentTime - lastUpdate));
-	if (!input1->getActive()) {
-		int apuesta = std::stoi(input1->getMessage().empty() ? "0" : input1->getMessage());
-		if (apuesta == valor) {
-			input1->showMessage("Ganaste");
-		}
-		else {
-			input1->showMessage("Perdiste");
-			input1->setActive(true);
-		}
-	}
-	GameState::update();
-	lastUpdate = currentTime;
+        case State::FINAL:
+            if(currentTime - stateStartTime >= 3000) { 
+                currentState = State::INICIO;
+                correctPrice = rand() % 1000 + 1; 
+                input1->showMessage("¡Adivina el precio del objeto!");
+                stateStartTime = currentTime;
+            }
+            break;
+    }
+    lastUpdate = currentTime;
+    GameState::update();
 }
-
