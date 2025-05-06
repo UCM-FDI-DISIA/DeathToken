@@ -237,10 +237,10 @@ Game::Game() {
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
 	}
-	EscenaTutorial* tutorial = new EscenaTutorial(this);
-	pushState(tutorial);
-	//Menu* menu = new Menu(this);
-	//pushState(menu);
+	//EscenaTutorial* tutorial = new EscenaTutorial(this);
+	//pushState(tutorial);
+	Menu* menu = new Menu(this);
+	pushState(menu);
 
 
 	//SEMILLA DE NUMEROS ALEATORIOS

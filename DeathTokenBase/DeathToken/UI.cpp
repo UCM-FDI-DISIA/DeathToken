@@ -330,7 +330,7 @@ void UIRoulette::OnGo()
 UIEscenaTutorial::UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut) :UI(gS, g), escenaTutorial(tut) {}
 
 void UIEscenaTutorial::OnGo() {
-	if (PlayerEconomy::getBet() != 0 && escenaTutorial->getFase() == 2) {
+	if (PlayerEconomy::getBet() != 0 && escenaTutorial->getFase() == 2 && !escenaTutorial->itIsInDIalog()) {
 		escenaTutorial->setBetTurno(PlayerEconomy::getBet());
 		escenaTutorial->clear();
 		escenaTutorial->iniciaJuego();

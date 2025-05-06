@@ -5,7 +5,7 @@
 #include "game.h"
 #include "sdlutils.h"
 
-EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), resultado(false), inState(false), index(-1), fases(5), bet(0), a(0) {
+EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), resultado(false), inState(false),dialog(true), index(-1), fases(0), bet(0), a(0) {
 	float x = Game::WIN_WIDTH * (600.0f / 1920.0f);
 	float y = Game::WIN_HEIGHT * (680.0f / 1080.0f);
 	float cartaW = Game::WIN_WIDTH * (110.0f / 1920.0f);
@@ -13,7 +13,7 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	//Botones juego
 	Button* piedra = new Button(this, (int)(x), (int)(y), (int)cartaW, (int)cartaH, game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
 	piedra->connect([this] {
-		if (!picked && startGame) {
+		if (!picked && startGame && !itIsInDIalog()) {
 			setIndex(0);
 			picked = true;
 		}
@@ -24,7 +24,7 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	x = Game::WIN_WIDTH * (900.0f / 1920.0f);
 	Button* papel = new Button(this, (int)x, (int)y, (int)cartaW, (int)cartaH, game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
 	papel->connect([this] {
-		if (!picked && startGame) {
+		if (!picked && startGame && !itIsInDIalog()) {
 			setIndex(1);
 			picked = true;
 		}
@@ -35,7 +35,7 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	x = Game::WIN_WIDTH * (1200.0f / 1920.0f);
 	Button* tijera = new Button(this, (int)x, (int)y, (int)cartaW, (int)cartaH, game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
 	tijera->connect([this] {
-		if (!picked && startGame) {
+		if (!picked && startGame  && !itIsInDIalog()) {
 			setIndex(2);
 			picked = true;
 		}
@@ -294,33 +294,46 @@ void EscenaTutorial::update() {
 	case 0:
 		_dialog1->update(currentTime - a);
 		if (_dialog1->shouldAdvanceState()) {
+			outDialog();
 			++fases;
+		}
+		else {
+			inDialog();
 		}
 		_dialog1->update(static_cast<float>(currentTime - a));
 		break;
 	case 1:
 		_dialog2->update(currentTime - a);
 		if (_dialog2->shouldAdvanceState()) {
-			if (hasChip)
+			outDialog();
+			if (hasChip && !dialog)
 			{
 				++fases;
 			}
+		}
+		else {
+			inDialog();
 		}
 		_dialog2->update(static_cast<float>(currentTime - a));
 		break;
 	case 2:
 		_dialog3->update(currentTime - a);
 		if (_dialog3->shouldAdvanceState()) {
-			if (startGame) {
+			outDialog();
+			if (startGame && !dialog) {
 				++fases;
 			}
+		}
+		else {
+			inDialog();
 		}
 		_dialog3->update(static_cast<float>(currentTime - a));
 		break;
 	case 3:
 		_dialog4->update(currentTime - a);
 		if (_dialog4->shouldAdvanceState()) {
-			if (picked)
+			outDialog();
+			if (picked && !dialog)
 			{
 				game->push(new Award(game, (GameState*)this, bet, bet * 2));
 				clear();
@@ -328,21 +341,32 @@ void EscenaTutorial::update() {
 				++fases;
 			}
 		}
+		else {
+			inDialog();
+		}
 		_dialog4->update(static_cast<float>(currentTime - a));
 			break;
 	case 4:
 		_dialog5->update(currentTime - a);
 		if (_dialog5->shouldAdvanceState()) {
+			outDialog();
 			++fases;
+		}
+		else{
+			inDialog();
 		}
 		_dialog5->update(static_cast<float>(currentTime - a));
 		break;
 	case 5:
 		_dialog6->update(currentTime - a);
 		if (_dialog6->shouldAdvanceState()) {
+			outDialog();
 			eco->EconomyInitialize();
 			clear();
 			game->push(new Menu(_g));
+		}
+		else {
+			inDialog();
 		}
 		break;
 	}
@@ -401,7 +425,7 @@ void EscenaTutorial::showDialog5() const {
 void EscenaTutorial::showDialog6()const {
 	_dialog6->showMessage("Con esto no tengo nada más que aclarar,solo decirte que si tienes alguna duda dentro de los juego tendrás este botón y te enseñará lo que necesites.");
 	_dialog6->showMessage("¡Ostras,casi se me olvida decirtelo! Para moverte tendrás que usar las teclas: 'W' 'A' 'S' 'D' o cruceta ('->', '<-' ,etc.)");
-	_dialog6->showMessage(", y para entrar a los juegos es con la tecla 'E'.");
+	_dialog6->showMessage(", y para entrar a los juegos es con la tecla 'E'.Con la 'P' podrás poner pausa.");
 	_dialog6->showMessage("Además de que en varios juegos encontrarás botones como estos.");
 	_dialog6->showMessage("Tendrás uno de borrar apuesta,otro de información y un último donde puedes repetir de nuevo la partida");
 	_dialog6->showMessage("Lo dicho,mucha suerte y que tengas una buena partida.¡Suerte! La necesitarás >:)");

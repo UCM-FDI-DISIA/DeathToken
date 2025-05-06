@@ -104,7 +104,7 @@ void Menu::update() {//detecto interseciones player/button
 
 //para que cuando intersecten player y button de a entre y entre en el boton
 void Menu::handleEvent(const SDL_Event& event) {
-	//GameState::handleEvent(event); //en principio evita repeticiones de codigo pero funciona igual sin esto
+	GameState::handleEvent(event); //en principio evita repeticiones de codigo pero funciona igual sin esto
 
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es el enter
 		if (baccarat->Button::getHover()) baccarat->Button::getCallback();

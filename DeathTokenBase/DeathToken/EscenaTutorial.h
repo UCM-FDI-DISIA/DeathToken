@@ -18,6 +18,7 @@ protected:
 	bool hasChip;
 	bool resultado;
 	bool inState;
+	bool dialog;
 	float counter;
 
 private:
@@ -40,16 +41,21 @@ public:
 	~EscenaTutorial();
 	void update() override;
 	void render() const override;
-	inline void setBetTurno(long long n) { bet = n; }
-	void iniciaJuego() { startGame = true; };
-	void setIndex(int i) { index = i; };
-	int getFase() { return fases; };
-	void apuesta() { hasChip = true; };
 	inline void clear() {
 		_bet->clear();
 		PlayerEconomy::setBet(0);
 		HUDManager::getHudBet()->refresh();
 	}
+
+	void inDialog() { dialog = true; };
+	void outDialog() { dialog = false; };
+	bool itIsInDIalog() const { return dialog; };
+	inline void setBetTurno(long long n) { bet = n; }
+	void iniciaJuego() { startGame = true; };
+	void setIndex(int i) { index = i; };
+	int getFase() { return fases; };
+	void apuesta() { hasChip = true; };
+
 	void showDialog1() const;
 	void showDialog2() const;
 	void showDialog3() const;

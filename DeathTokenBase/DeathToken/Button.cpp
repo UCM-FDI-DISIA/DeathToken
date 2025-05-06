@@ -45,7 +45,7 @@ void Button::handleEvent(const SDL_Event& event) {
 		}
 	}
 	//si player encima de button y presiono enter entra
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es enter
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) { //return es enter
 		if (hover)
 		{
 			cb();
@@ -571,7 +571,7 @@ void ButtonTutorial::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
-		if (currentBet + chip <= PlayerEconomy::getBlueSouls() && _tut->getFase() == 1)
+		if (currentBet + chip <= PlayerEconomy::getBlueSouls() && _tut->getFase() == 1 && !_tut->itIsInDIalog())
 		{
 			_tut->apuesta();
 			currentBet += chip;
