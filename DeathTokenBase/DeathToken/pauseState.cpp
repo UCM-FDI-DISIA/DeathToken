@@ -19,7 +19,8 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 	addObjects(menu);
 	addEventListener(menu);
 	menu->connect([this, game]() {
-		game->replace(new Menu(game));
+		game->stop(); // Pop de pausa y el juego actual
+		game->pushState(new Menu(game));
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
 }
