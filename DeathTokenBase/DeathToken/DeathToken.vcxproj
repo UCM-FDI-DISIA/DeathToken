@@ -160,6 +160,7 @@
     <ClInclude Include="fighter.h" />
     <ClInclude Include="hud.h" />
     <ClInclude Include="marblesInsanity.h" />
+    <ClInclude Include="pauseState.h" />
     <ClInclude Include="peleas.h" />
     <ClInclude Include="playerEconomy.h" />
     <ClInclude Include="rouletteChoose.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="fighter.cpp" />
     <ClCompile Include="hud.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
+    <ClCompile Include="pauseState.cpp" />
     <ClCompile Include="peleas.cpp" />
     <ClCompile Include="playerEconomy.cpp" />
     <ClCompile Include="rouletteChoose.cpp" />

@@ -1,6 +1,7 @@
 #include "game.h"
 #include "json.hpp"
 #include "menu.h"
+#include "pauseState.h"
 #include "sdlutils.h"
 #include <vector>
 #include <iostream>
@@ -196,6 +197,11 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/ChooseDemon.png",1,1 });
 	v.push_back(TextureSpec{ "baccarat/smoke.png",9,1 });
 
+	v.push_back(TextureSpec{ "Menus/pause.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/back.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/menu.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/rank.png",1,1 });
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -268,7 +274,6 @@ void Game::run() {
 		SDLUtils::updateDeltaTime();
 		float dt = SDLUtils::getDeltaTime();
 
-
 		update();       // Actualiza el estado de los objetos del juego
 
 		SDL_RenderClear(renderer);
@@ -279,17 +284,21 @@ void Game::run() {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				stop();
+			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
+				if (!pause)
+				{
+					push(new PauseState(this,gameStates.top().get()));
+					pause = true;//si la pausa esta en true no se puede abrir otra
+				}
+			}
 			else
 				handleEvent(event);
 		}
-
 
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t frameTime = SDL_GetTicks() - frameStart;
 		if (frameTime < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - frameTime);
-
-
 	}
 }
 Texture* Game::getTexture(TextureName name) const {
