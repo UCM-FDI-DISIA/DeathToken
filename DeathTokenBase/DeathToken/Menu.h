@@ -32,6 +32,7 @@ class Menu : public GameState
 	bool tutorialFights = true;
 	bool tutorialMarbles = true;
 	GameState* baccaratState;
+	GameState* marbleState;
 
 	HUDLobby* hud;
 	PlayerEconomy* eco;
