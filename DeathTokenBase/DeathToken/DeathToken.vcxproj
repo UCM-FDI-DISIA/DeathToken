@@ -158,6 +158,7 @@
     <ClInclude Include="baccaratInsanityManager.h" />
     <ClInclude Include="dialogueBox.h" />
     <ClInclude Include="fighter.h" />
+    <ClInclude Include="finalMenu.h" />
     <ClInclude Include="hud.h" />
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="pauseState.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="baccaratInsanityManager.cpp" />
     <ClCompile Include="dialogueBox.cpp" />
     <ClCompile Include="fighter.cpp" />
+    <ClCompile Include="finalMenu.cpp" />
     <ClCompile Include="hud.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="pauseState.cpp" />
