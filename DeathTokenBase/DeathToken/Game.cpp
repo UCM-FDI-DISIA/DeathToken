@@ -188,6 +188,11 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
 
+	v.push_back(TextureSpec{ "Menus/pause.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/back.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/menu.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/rank.png",1,1 });
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
