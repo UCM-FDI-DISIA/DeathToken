@@ -23,6 +23,14 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 		game->pushState(new Menu(game));
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
+	
+	rank = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 6, (Game::WIN_HEIGHT / 3)+ (Game::WIN_HEIGHT / 6) - Game::WIN_HEIGHT / 8,
+		Game::WIN_WIDTH / 3, Game::WIN_HEIGHT / 4, game->getTexture(RANK));
+	addObjects(rank);
+	addEventListener(rank);
+	menu->connect([this, game]() {
+		
+		});
 }
 
 PauseState::~PauseState()

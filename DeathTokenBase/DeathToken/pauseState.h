@@ -8,6 +8,7 @@ class PauseState: public GameState
 protected:
 	Button* back;
 	Button* menu;
+	Button* rank;
 	Texture* texture;
 	GameState* anterior;//para renderizar el juego en el fondo
 public:
