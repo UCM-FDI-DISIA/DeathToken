@@ -32,6 +32,9 @@ enum TextureName {
 	FLIPCARD,
 	CARDS,
 	BACCARATBUT,
+	FLIP,
+	JACK,
+	BET,
 	/// <summary>
 
 	SLOTSBUT,
@@ -199,6 +202,7 @@ enum TextureName {
 	ROULETTERECOMPENSAS,
 	ROULETTERECOMPENSASINSANITY,
 	CHOOSEDEMON,
+	SMOKE,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

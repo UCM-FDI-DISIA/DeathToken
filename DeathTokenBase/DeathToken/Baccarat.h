@@ -38,6 +38,14 @@ protected:
 	Card* banker2;
 	Card* banker3;
 	Texture* texture;
+	Texture* smoke;
+	int frame = 0;
+	int animInCard = 0;
+	bool thirdPlayerMove = false;
+	bool thirdBankerMove = false;
+	bool goForWin = false;
+	SDL_Rect sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
+	float animTime;
 	Mat mat;
 	vector<int> cardsVec;
 	HUDBet* hud;
@@ -47,7 +55,7 @@ protected:
 	const int xTwo = 2;
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
-	bool bankerBet = false, playerBet = false, tieBet = false;
+	bool bankerBet = false, playerBet = false, tieBet = false, cardAnim = false;
 	//bool locura; global?
 public:
 	bool hasWon = false;
