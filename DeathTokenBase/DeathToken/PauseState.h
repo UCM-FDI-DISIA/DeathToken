@@ -1,22 +1,20 @@
 #pragma once
 #include "gameState.h"
-#include "Texture.h"
-#include "Button.h"
+#include "texture.h"
+#include "button.h"
 
-
-
-#include <iostream>
-
-class PauseState : public GameState {
-private:
-
-	Button* cont;
+class PauseState: public GameState
+{
+protected:
+	Button* back;
 	Button* menu;
-	Button* salir;
+	Button* rank;
+	Texture* texture;
+	GameState* anterior;//para renderizar el juego en el fondo
 public:
-	PauseState(Game*);
-	void render() const override;
-	void continuar() const;
-	void backToMenu() const;
-	void exit() const;
+	PauseState(Game* g, GameState* other);
+	virtual ~PauseState();//borrar botones
+	
+	virtual void render() const;
 };
+
