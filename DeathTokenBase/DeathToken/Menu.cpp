@@ -51,10 +51,13 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
-	roulette = new Button(this,(int) (Game::WIN_WIDTH / 2 - wBut / 2), (int)(Game::WIN_HEIGHT / 100), (int)wBut, (int)wBut, game->getTexture(ROULETTE));
+	//Widht, height, position roulette button
+	wBut = Game::WIN_WIDTH / 5.33; hBut = Game::WIN_HEIGHT / 5.967;
+	xBut = Game::WIN_WIDTH / 2.0 - wBut / 2; yBut = 0.0;
+	roulette = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(ROULETTEBUT));
 	addObjects(roulette);
 	addEventListener(roulette);
-	roulette->connect([this]() { gameChanger(new RouletteScene(getGame(), eco)); });
+	roulette->connect([this]() { gameChanger(new rouletteChoose(getGame(), eco)); });
 
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
@@ -94,8 +97,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	hud = new HUDLobby(this);
 
 }
- Menu::~Menu() {
-	 delete eco;
+Menu::~Menu() {
+	delete eco;
 
 }
 

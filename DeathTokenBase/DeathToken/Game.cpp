@@ -1,7 +1,8 @@
 #include "game.h"
 #include "json.hpp"
 #include "EscenaTutorial.h"
-#include "Menu.h"
+#include "menu.h"
+#include "pauseState.h"
 #include "sdlutils.h"
 #include <vector>
 #include <iostream>
@@ -30,11 +31,15 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "baccarat/Blackjack_bg2.png", 1, 1 });
 	v.push_back(TextureSpec{ "baccarat/BaccaratFlip__mask.png", 1, 1 });
 	v.push_back(TextureSpec{ "baccarat/barajaBaccarat.png", 14, 1 });
-	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 14, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bf.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bj.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bb.png", 1, 1 });
 	///
-	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_slots_cut.png", 1, 1 });
 	v.push_back(TextureSpec{ "map/Casino_marbles_cut.png", 1, 1 });
-	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_ring_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_roulette_cut.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/Exit.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/Exit_HV.png", 1, 1 });
 	///
@@ -85,7 +90,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/chips/chip_50.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_100.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_200.png", 1, 1 });
-	
+
 	v.push_back(TextureSpec{ "ui/chips/chip_500.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_1K.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/chips/chip_2K.png", 1, 1 });
@@ -103,7 +108,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png",1,1 });
-	
+
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/GreenMarbleIcon_sm.png",1,1 });
@@ -116,9 +121,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "blackFont.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteBG.png",1,1 });
 	//
+	v.push_back(TextureSpec{ "roulette/roulette_frame.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
-	v.push_back(TextureSpec{ "roulette/rouletteArrow.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/Demoniosenala.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
 	//
@@ -187,6 +193,15 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/rouletteAnim47.png",1,1 });
 
 	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/RecompensasRoulette.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/RecompensasRouletteInsanity.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/ChooseDemon.png",1,1 });
+	v.push_back(TextureSpec{ "baccarat/smoke.png",9,1 });
+
+	v.push_back(TextureSpec{ "Menus/pause.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/back.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/menu.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/rank.png",1,1 });
 
 	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1});
 	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
@@ -198,8 +213,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
-	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf",FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf",x));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf", x));
 	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
@@ -266,7 +281,6 @@ void Game::run() {
 		SDLUtils::updateDeltaTime();
 		float dt = SDLUtils::getDeltaTime();
 
-
 		update();       // Actualiza el estado de los objetos del juego
 
 		SDL_RenderClear(renderer);
@@ -277,17 +291,21 @@ void Game::run() {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				stop();
+			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
+				if (!pause)
+				{
+					push(new PauseState(this,gameStates.top().get()));
+					pause = true;//si la pausa esta en true no se puede abrir otra
+				}
+			}
 			else
 				handleEvent(event);
 		}
-
 
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t frameTime = SDL_GetTicks() - frameStart;
 		if (frameTime < Game::FRAME_RATE)
 			SDL_Delay(Game::FRAME_RATE - frameTime);
-
-
 	}
 }
 Texture* Game::getTexture(TextureName name) const {
@@ -318,7 +336,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 #endif // DEBUG
 
 		return false;
-	}
+}
 
 	json j;
 	file >> j;
@@ -342,7 +360,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
 		return false;
-	}
+}
 
 	try {
 		json j;
@@ -354,7 +372,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-		}
+	}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -369,12 +387,12 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 				cout << "Índice de peleador inválido." << endl;
 #endif
 				continue;
-			}
+		}
 
 			Matchup matchup;
-			matchup.fighter1 = fighters[id1];
-			matchup.fighter2 = fighters[id2];
-			matchup.advantageFighterIndex = advantageFighterIndex;
+				matchup.fighter1 = fighters[id1];
+				matchup.fighter2 = fighters[id2];
+				matchup.advantageFighterIndex = advantageFighterIndex;
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);

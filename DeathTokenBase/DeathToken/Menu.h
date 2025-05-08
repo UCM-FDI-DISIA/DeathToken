@@ -10,7 +10,7 @@
 #include "slotsInsanity.h"
 #include "marbles.h"
 #include "sceneObject.h"
-#include "rouletteScene.h"
+#include "rouletteChoose.h"
 #include "marblesInsanity.h"
 #include "peleas.h"
 #include "Mesa.h"
@@ -35,6 +35,7 @@ class Menu : public GameState
 	GameState* baccaratState;
 	vector<SDL_Rect> obstaculos;
 	vector<Mesa*> juegos;
+	GameState* marbleState;
 
 	HUDLobby* hud;
 	PlayerEconomy* eco;
