@@ -84,7 +84,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 
 	//Widht, height, position roulette button
 	wBut = Game::WIN_WIDTH / 4.33; hBut = Game::WIN_HEIGHT / 3.967;
-	xBut = Game::WIN_WIDTH / 2.0 - wBut / 2; yBut = Game::WIN_HEIGHT * (190.0 / 1080.0);
+	xBut = Game::WIN_WIDTH / 2.0 - wBut / 2; yBut = Game::WIN_HEIGHT * (200.0 / 1080.0);
 	roulette = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(ROULETTEBUT), (int)wBut, (int)hBut);
 	addObjects(roulette);
 	addEventListener(roulette);
