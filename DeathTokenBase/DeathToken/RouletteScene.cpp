@@ -4,10 +4,8 @@ RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), 
 	addEventListener(this);
 	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE), eco);
 	addObjects(roul);
-	hudMenu = HUDManager::getHudLobby();
-	hud = new HUDLobby(this);
+	hud = new HUDBet(this);
 	arrowTex = game->getTexture(ROULETTEARROW);
-	rouletteFrame = game->getTexture(ROULETTEFRAME);
 }
 
 void RouletteScene::handleEvent(const SDL_Event& event) {
@@ -28,15 +26,10 @@ void RouletteScene::update() {
 
 void RouletteScene::render() const {
 	rouletteBG->render();
-	rouletteFrame->render();
 	GameState::render();
-	float x = Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 5.5, y = Game::WIN_HEIGHT / 2 - Game::WIN_HEIGHT / 8.35,
-		w = Game::WIN_WIDTH / 5.12, h = Game::WIN_HEIGHT / 3.042;
-	SDL_Rect arrow = { x, y,
-		w,  h };
-
+	SDL_Rect arrow = { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 30, Game::WIN_HEIGHT / 2 - Game::WIN_WIDTH / 30,
+		Game::WIN_WIDTH / 15, Game::WIN_WIDTH / 15 };
 	arrowTex->render(arrow);
-
 }
 
 void RouletteScene::throwRoulette() {

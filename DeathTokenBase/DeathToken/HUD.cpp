@@ -128,7 +128,7 @@ HUDManager::applyWinBet(long long win)
 {
 	PlayerEconomy::addBlueSouls(win);
 	PlayerEconomy::setBet(0);
-//	currentHudBet->refresh();
+	currentHudBet->refresh();
 }
 
 void HUDManager::popGame()

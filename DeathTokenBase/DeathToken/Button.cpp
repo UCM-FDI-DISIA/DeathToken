@@ -1,10 +1,9 @@
 ﻿#include "button.h"
 #include "ui.h"
 #include "marbles.h"
-#include "EscenaTutorial.h"
 
-Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: GameObject(g), text(t), textC(tC), hover(false), clicked(false)
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t)
+	: GameObject(g), text(t), hover(false)
 {
 	box.x = x;
 	box.y = y;
@@ -17,22 +16,16 @@ Button::update()
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 
-	// Comprueba si el ratón está sobre el rectángulo
+	// Comprueba si el rat�n est� sobre el rect�ngulo
 	hover = SDL_PointInRect(&point, &box);
-	// Comprueba si se está haciendo click
-	int mouseState = SDL_GetMouseState(NULL, NULL);
-	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
 }
 void Button::render() const {
-	if (hover && textC == nullptr) {
-		SDL_Rect point(box.x, box.y, box.h, box.h);
-		text->render(box, SDL_Color(255, 255, 0));
-	}
-	else if (clicked && textC != nullptr) {
-		textC->render(box);
+	if (!hover) {
+		text->render(box);
 	}
 	else {
-		text->render(box);
+		SDL_Rect point(box.x, box.y, box.h, box.h);
+		text->render(box, SDL_Color(255, 255, 0));
 	}
 
 }
@@ -45,7 +38,7 @@ void Button::handleEvent(const SDL_Event& event) {
 		}
 	}
 	//si player encima de button y presiono enter entra
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) { //return es enter
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es enter
 		if (hover)
 		{
 			cb();
@@ -57,11 +50,18 @@ void Button::connect(Callback callback) {
 }
 
 ButtonUI::ButtonUI(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: Button(g, x, y, w, h, t, tC) {
+	: Button(g, x, y, w, h, t), textC(tC), clicked(false) {
 	boxB.x = (int)(x - (w * 0.05f));
 	boxB.y = (int)(y - (h * 0.05f));
 	boxB.w = (int)(w * 1.1f);
 	boxB.h = (int)(h * 1.1f);
+}
+void
+ButtonUI::update()
+{
+	Button::update();
+	int mouseState = SDL_GetMouseState(NULL, NULL);
+	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
 }
 void
 ButtonUI::render() const
@@ -526,7 +526,6 @@ ButtonSlots::handleEvent(const SDL_Event& event)
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
-			HUDManager::applyBet(chip);
 			PlayerEconomy::setBet(currentBet);
 			HUDManager::getHudBet()->refresh();
 		}
@@ -553,34 +552,6 @@ void ButtonPeleas::handleEvent(const SDL_Event& event) {
 			currentText = game->getTexture(showChip());
 			PlayerEconomy::addBet(chip);
 			HUDManager::getHudBet()->refresh();
-		}
-		cb();
-	}
-}
-ButtonTutorial::ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text, EscenaTutorial* tut) :ButtonBet(gS, game, ui, x, y, w, h, text, NULL), _tut(tut) {}
-ButtonTutorial::~ButtonTutorial() { delete _tut; }
-void ButtonTutorial::render() const {
-	if (text != nullptr) {
-		text->render(box);
-	}
-	if (currentBet > 0)
-	{
-		currentText->render(chipSpace);
-	}
-}
-void ButtonTutorial::handleEvent(const SDL_Event& event) {
-	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
-	{
-		int chip = ui->currentChipValue();
-		if (currentBet + chip <= PlayerEconomy::getBlueSouls() && _tut->getFase() == 1 && !_tut->itIsInDIalog())
-		{
-			_tut->apuesta();
-			currentBet += chip;
-			lastChipSprite = "UICHIP" + std::to_string(chip);
-			currentText = game->getTexture(showChip());
-			HUDManager::applyBet(chip);
-			PlayerEconomy::setBet(currentBet);
-			HUDManager::getHudBet()->refresh();			
 		}
 		cb();
 	}

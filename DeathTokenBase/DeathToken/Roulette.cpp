@@ -3,14 +3,11 @@
 Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : sceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
 	w = Game::WIN_WIDTH / 2;
 	h = Game::WIN_WIDTH / 2;
-	recompensas = game->getTexture(ROULETTERECOMPENSAS);
 }
 
 void Roulette::render() const {
 	SDL_Rect rect = getRenderRect();
 	texture->render(rect, rot);
-	
-	recompensas->render(recompensasR);
 }
 
 void Roulette::update() {
@@ -214,8 +211,6 @@ void Roulette::update() {
 			}
 			else {
 				texture = game->getTexture(ROULETTEINSANITY);
-				recompensasR = { int(Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 4.5 + Game::WIN_WIDTH / 16.5), Game::WIN_HEIGHT / 2 - Game::WIN_WIDTH / 10, Game::WIN_WIDTH / 5, Game::WIN_WIDTH / 5 };
-				recompensas = game->getTexture(ROULETTERECOMPENSASINSANITY);
 			}
 			i++;
 			animTime = (float)SDL_GetTicks();
@@ -223,8 +218,6 @@ void Roulette::update() {
 	}
 	else {
 		texture = game->getTexture(ROULETTE);
-		recompensasR = { int(Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 4.5 + Game::WIN_WIDTH / 16.5), Game::WIN_HEIGHT / 2 - Game::WIN_WIDTH / 16, Game::WIN_WIDTH / 5, Game::WIN_WIDTH / 8 };
-		recompensas = game->getTexture(ROULETTERECOMPENSAS);
 	}
 	rot += speed;
 	if (rot > 360.0) rot -= 360.0;
@@ -300,7 +293,7 @@ void Roulette::update() {
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
 				cout << "LOCURA" << endl;
-				animTime = (float)SDL_GetTicks();
+				animTime =(float) SDL_GetTicks();
 				i = 0;
 				eco->setInsanity(5);
 			}
@@ -321,7 +314,8 @@ void Roulette::update() {
 				|| rot >= 277.2f && rot < 284.4f || rot >= 291.6f && rot < 298.8f
 				|| rot >= 313.2f && rot < 320.4f || rot >= 327.6f && rot < 334.8f
 				|| rot >= 349.2f && rot < 356.4f) {
-				game->push(new Award(game, gS, 1, 4000));
+				cout << "4000 TOKEN" << endl;
+				//game->push(new Award(game, gS, 1, 4000));
 			}
 		}
 	}
