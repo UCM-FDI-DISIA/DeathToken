@@ -14,9 +14,11 @@ class UI;
 class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
+	Texture* textC;
 	SDL_Rect box;
 	Callback cb;
 	bool hover;
+	bool clicked;
 public:
 	Button(GameState*, int x, int y, int w, int h, Texture*);
 	virtual ~Button() { text = nullptr; }
@@ -34,8 +36,6 @@ class ButtonUI : public Button
 {
 protected:
 	SDL_Rect boxB;
-	bool clicked;
-	Texture* textC;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 	virtual ~ButtonUI() { textC = nullptr; }
@@ -148,4 +148,16 @@ class ButtonPeleas : public ButtonSlots
 public:
 	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots( st, game, ui, x, y, w, h, text){}
 	void handleEvent(const SDL_Event& event) override;
+};
+
+//EscenaTutorial
+class EscenaTutorial;
+class ButtonTutorial:public ButtonBet {
+private:
+	EscenaTutorial* _tut;
+public:
+	ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text,EscenaTutorial* tut);
+	~ButtonTutorial();
+	void render() const override;
+	virtual void handleEvent(const SDL_Event& event) override;
 };

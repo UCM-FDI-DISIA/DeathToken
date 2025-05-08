@@ -248,7 +248,6 @@ void Peleas::render() const
   GameState::render();
 }
 
-
 namespace Variables_Peleas {
 	int lastUpdate = 0;
 }

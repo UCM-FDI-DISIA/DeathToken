@@ -16,9 +16,13 @@ using uint = unsigned int;
 
 enum TextureName {
 	CELDA,
+	BETSLOTS,
+	ICONOS,
+	BTNSLOT,
+	BTNSLOTCLICK,
+	SLOTSFONDO,
 	TICK,
 	CROSS,
-	ICONOS,
 	BACKGROUND,
 	/// <summary>
 	/// 
@@ -28,11 +32,15 @@ enum TextureName {
 	FLIPCARD,
 	CARDS,
 	BACCARATBUT,
+	FLIP,
+	JACK,
+	BET,
 	/// <summary>
 
 	SLOTSBUT,
 	CANICASBUT,
 	PELEASBUT,
+	ROULETTEBUT,
 	UIEXIT,
 	UIEXITHV,
 	/// <summary>
@@ -116,6 +124,7 @@ enum TextureName {
 	BLACKFOND,
 	ROULETTEBG,
 	//
+	ROULETTEFRAME,
 	ROULETTE,
 	ROULETTEINSANITY,
 	ROULETTEARROW,
@@ -198,6 +207,19 @@ enum TextureName {
 	ROULETTEANIM47,
 	//
 	ROULETTEANIM48,
+	ROULETTERECOMPENSAS,
+	ROULETTERECOMPENSASINSANITY,
+	CHOOSEDEMON,
+	SMOKE,
+	//
+	PAUSE,
+	BACK,
+	MENU,
+	RANK,
+	//
+	MANOS,
+	ICONOPPT,
+	//
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
@@ -216,7 +238,7 @@ struct Matchup {
 };
 
 
-class Game : private GameStateMachine {
+class Game : public GameStateMachine {
 
 private:
 	// Ventana de la SDL (se destruir� en el destructor)
@@ -242,9 +264,11 @@ private:
 	std::vector<TextureSpec> loadTextures();
 	std::vector<TTF_Font*> loadFonts();
 	std::vector<TTF_Font*> fonts;
-
+	bool pause = false;
 public:
-
+	void setPause(bool p) {
+		pause = p;
+	}
 	static int WIN_WIDTH;
 	static int WIN_HEIGHT;
 	static void inicializa(SDL_Window* window) { SDL_GetWindowSize(window, &WIN_WIDTH, &WIN_HEIGHT); }
@@ -261,6 +285,7 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+
 
 	inline const Matchup& GetMatchUp(int i) const { assert(i < battleQueue.size()); return battleQueue[i]; }
 

@@ -142,6 +142,15 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="peleasInsanity.h">
+    <ClInclude Include="EscenaTutorial.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesa.h">
+    <ClInclude Include="rouletteChoose.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scythe.h">
+    <ClInclude Include="pauseState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -258,6 +267,15 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="PeleasInsanity.cpp">
+    <ClCompile Include="EscenaTutorial.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesa.cpp">
+    <ClCompile Include="rouletteChoose.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scythe.cpp">
+    <ClCompile Include="pauseState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
