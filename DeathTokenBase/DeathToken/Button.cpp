@@ -1,4 +1,4 @@
-﻿#include "button.h"
+#include "button.h"
 #include "ui.h"
 #include "marbles.h"
 
