@@ -144,6 +144,9 @@
     <ClInclude Include="peleasInsanity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="GeneraPrecios.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -258,6 +261,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="PeleasInsanity.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneraPrecios.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

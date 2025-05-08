@@ -32,8 +32,7 @@ public:
 
 	void OnExit();
 	virtual void OnGo() {
-		SoundManager& soundManager = SoundManager::obtenerInstancia();
-		soundManager.reproducirEfecto("PresionaBoton");
+	
 	}
 };
 

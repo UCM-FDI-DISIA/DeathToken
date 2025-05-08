@@ -1,4 +1,5 @@
 #include "roulette.h"
+#include "SoundManager.h"
 
 Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : sceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
 	w = Game::WIN_WIDTH / 2;
@@ -226,6 +227,7 @@ void Roulette::update() {
 	{
 		speed = 0;
 	}
+
 	if (started && speed == 0) {
 		started = false;
 		if (eco->getInsanity() > 0) {
@@ -324,6 +326,8 @@ void Roulette::update() {
 void Roulette::addSpeed(int s) {
 	if (speed == 0)
 	{
+    SoundManager& soundManager = SoundManager::obtenerInstancia();
+    soundManager.reproducirEfecto("RuletaSonido");
 		eco->addBlueSouls(-500);
 		speed = s;
 		started = true;

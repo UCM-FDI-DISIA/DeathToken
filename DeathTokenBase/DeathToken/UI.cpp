@@ -136,6 +136,8 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 void
 UISlots::OnGo() {
 	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
+    SoundManager& soundManager = SoundManager::obtenerInstancia();
+    soundManager.reproducirEfecto("PresionaBotonSlots");
 		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
 		HUDManager::getHudBet()->refresh();
 		slots->setBetTurno(PlayerEconomy::getBet());
@@ -154,6 +156,8 @@ UISlots::OnErase() {
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
 void UIMarbles::OnGo() {
+  SoundManager& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("PresionaBotonCanicas");
 	marbles->startRound();
 }
 
@@ -177,6 +181,8 @@ void UIMarbles::OnInfo()
 //MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
 void UIMarblesInsanity::OnGo() {
+  SoundManager& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("PresionaBotonCanicas");
 	marblesI->StartRoundTrickster();
 }
 
@@ -202,6 +208,8 @@ void UIMarblesInsanity::update() {
 UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
 
 void UIBaccarat::OnGo() {
+  SoundManager& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("PresionaBotonBaccarat");
 	baccarat->startRound();
 }
 
@@ -290,6 +298,8 @@ void UITutorial::OnExit() {
 
 // UI PELEAS
 void UIPeleas::OnGo() {
+  SoundManager& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("PresionaBotonPeleas");
 	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
 		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
 		HUDManager::getHudBet()->refresh();

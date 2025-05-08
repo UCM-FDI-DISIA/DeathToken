@@ -134,6 +134,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
   v.push_back(TextureSpec{ "Fighters/mcdougald.png", 1, 1 });      // TEXTURE_MCDOUGALD
   v.push_back(TextureSpec{ "Fighters/paulter_geist.png", 1, 1 });  // TEXTURE_PAULTER_GEIST
   v.push_back(TextureSpec{ "Fighters/potape.png", 1, 1 });         // TEXTURE_POTAPE
+
+  v.push_back(TextureSpec{ "RingLocura.png", 1, 1 });    
 	//
 	v.push_back(TextureSpec{ "roulette/rouletteAnim0.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteAnim1.png",1,1 });
@@ -242,9 +244,24 @@ Game::Game() {
 	}*/
 	soundManager.ajustarVolumenEfectos(50);
 
-	if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBoton.wav", "PresionaBoton", SoundManager::EFECTO)) {
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBotonPeleas.wav", "PresionaBotonPeleas", SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
+
+  if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBotonCanicas.wav", "PresionaBotonCanicas", SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+  if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBotonBaccarat.wav", "PresionaBotonBaccarat", SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+  if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBotonSlots.wav", "PresionaBotonSlots", SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+   if (!soundManager.cargarSonido("../assets/sonido/Ruleta/RuletaSonido.wav", "RuletaSonido", SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	  }
 
 	TTF_Init();
 	fonts = loadFonts();
