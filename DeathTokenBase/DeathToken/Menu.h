@@ -26,7 +26,7 @@ class Menu : public GameState
 	Mesa* marbles;
 	Mesa* fights;
 	Mesa* slots;
-	Button* roulette;
+	Mesa* roulette;
 	//Booleanos para activar el tutorial al entrar por primera vez al juego
 	bool tutorialBaccarat = true;
 	bool tutorialSlots = true;
