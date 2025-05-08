@@ -184,4 +184,3 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 		}
 	}
 }
-

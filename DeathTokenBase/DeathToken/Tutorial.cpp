@@ -10,30 +10,6 @@ Tutorial::Tutorial(Game* game, GameState* gameState, std::vector<Texture*> image
 {
 }
 
-void Tutorial::update()
-{
-	//render imagenes de cada tutorial
-	if (!images.empty() && currentPage < images.size()) {
-	
-		if (currentPage != 0 && upArrowBut == nullptr) {
-			upArrowBut = ui->upArrow();
-		}
-		if (currentPage == 0 && upArrowBut != nullptr) {
-			GameState::deleteSpecificGO(upArrowBut);
-			GameState::deleteSpecificEH(upArrowBut);
-			upArrowBut = nullptr;
-		}
-		if (images.size() > 1 && currentPage != images.size()-1 && downArrow==nullptr) {
-			downArrow = ui->downArrow();
-		}
-		if (currentPage == images.size() - 1 && downArrow != nullptr) {
-			GameState::deleteSpecificGO(downArrow);
-			GameState::deleteSpecificEH(downArrow);
-			downArrow = nullptr;
-		}
-	}
-}
-
 void Tutorial::render() const {
 	//render estado anterior
 	anterior->render();
@@ -47,7 +23,6 @@ void Tutorial::render() const {
 	//render imagenes de cada tutorial
 	if (!images.empty() && currentPage < images.size()) {
 		images[currentPage]->render();
-		
 	}
 	GameState::render();//render botones de exit y flechas
 }

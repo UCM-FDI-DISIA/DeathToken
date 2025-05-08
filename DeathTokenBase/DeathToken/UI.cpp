@@ -4,11 +4,9 @@
 #include "slots.h"
 #include "baccarat.h"
 #include "rouletteScene.h"
-#include "rouletteChoose.h"
 #include "marblesInsanity.h"
 #include "tutorial.h"
 #include "peleas.h"
-#include "EscenaTutorial.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -125,21 +123,22 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 
 UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot)
 {
-	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
+	erase = new ButtonUI(gS, relativeX(1030.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
 	gS->addObjects(erase);
 	gS->addEventListener(erase);
 	erase->connect([this]() { OnErase(); });
 
-	info = new ButtonUI(gS, relativeX(1550.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
+	info = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
 	gS->addObjects(info);
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 }
 void
 UISlots::OnGo() {
-	if (PlayerEconomy::getBet() != 0) {
+	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
+		PlayerEconomy::subtractBlueSouls(PlayerEconomy::getBet());
+		HUDManager::getHudBet()->refresh();
 		slots->setBetTurno(PlayerEconomy::getBet());
-		slots->clear();
 		slots->iniciarGiro();
 	}
 }
@@ -150,7 +149,6 @@ UISlots::OnInfo()
 }
 void
 UISlots::OnErase() {
-	HUDManager::resetBet();
 	slots->clear();
 }
 
@@ -160,7 +158,6 @@ void UIMarbles::OnGo() {
 }
 
 void UIMarbles::OnErase() {
-	HUDManager::resetBet();
 	marbles->clearBets();
 }
 
@@ -209,7 +206,6 @@ void UIBaccarat::OnGo() {
 }
 
 void UIBaccarat::OnErase() {
-	HUDManager::resetBet();
 	baccarat->clearBets();
 }
 
@@ -240,41 +236,41 @@ UITutorial::UITutorial(GameState* gS, Game* game, size_t tam) : gS(gS), game(gam
 	exit->connect([this]() { OnExit(); });
 
 	//falta la flecha de volver atras
-	//if (totalPages > 0) {
-	//	/*Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-	//	if (tutorial->getPage() < totalPages)
-	//	{*/
-	//	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	//	gS->addObjects(arrowNext);
-	//	gS->addEventListener(arrowNext);
-	//	//}
-	//	arrowNext->connect([this, gS, game]() {
-	//		Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-	//		if (tutorial) {
-	//			tutorial->nextPage();
-	//			if (tutorial->getPage() > 0 && !arrow)
-	//			{
-	//				/*if (tutorial->getPage() == totalPages) {
+	if (totalPages > 0) {
+		/*Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+		if (tutorial->getPage() < totalPages)
+		{*/
+		arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
+		gS->addObjects(arrowNext);
+		gS->addEventListener(arrowNext);
+		//}
+		arrowNext->connect([this, gS, game]() {
+			Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+			if (tutorial) {
+				tutorial->nextPage();
+				if (tutorial->getPage() > 0 && !arrow)
+				{
+					/*if (tutorial->getPage() == totalPages) {
 
-	//				}*/
-	//				arrow = true;
-	//				arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-	//				gS->addObjects(arrowBack);
-	//				gS->addEventListener(arrowBack);
-	//				//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
-	//				arrowBack->connect([this, gS]() {
-	//					Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-	//					if (tutorial) {
-	//						tutorial->previousPage();
-	//						/*if (tutorial->getPage() == 0) {
+					}*/
+					arrow = true;
+					arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
+					gS->addObjects(arrowBack);
+					gS->addEventListener(arrowBack);
+					//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
+					arrowBack->connect([this, gS]() {
+						Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
+						if (tutorial) {
+							tutorial->previousPage();
+							/*if (tutorial->getPage() == 0) {
 
-	//						}*/
-	//					}
-	//					});
-	//			}
-	//		}
-	//		});
-	//}
+							}*/
+						}
+						});
+				}
+			}
+			});
+	}
 }
 
 inline int
@@ -292,35 +288,6 @@ void UITutorial::OnExit() {
 	game->pop();
 }
 
-ButtonUI* UITutorial::downArrow()
-{
-	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	gS->addObjects(arrowNext);
-	gS->addEventListener(arrowNext);
-
-	arrowNext->connect([this]() {
-		Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-		if (tutorial) {
-			tutorial->nextPage();
-		}
-		});
-	return arrowNext;
-}
-
-ButtonUI* UITutorial::upArrow()
-{
-	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-	gS->addObjects(arrowBack);
-	gS->addEventListener(arrowBack);
-
-	arrowBack->connect([this]() {
-		Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-		if (tutorial) {
-			tutorial->previousPage();
-		}
-		});
-	return arrowBack;
-}
 // UI PELEAS
 void UIPeleas::OnGo() {
 	if (PlayerEconomy::getBlueSouls() >= PlayerEconomy::getBet() && PlayerEconomy::getBet() != 0) {
@@ -361,59 +328,4 @@ void UIRoulette::OnExit()
 void UIRoulette::OnGo()
 {
 	rouletteS->throwRoulette();
-}
-
-UIEscenaTutorial::UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut) :UI(gS, g), escenaTutorial(tut) {}
-
-void UIEscenaTutorial::OnGo() {
-	if (PlayerEconomy::getBet() != 0 && escenaTutorial->getFase() == 2 && !escenaTutorial->itIsInDIalog()) {
-		escenaTutorial->setBetTurno(PlayerEconomy::getBet());
-		escenaTutorial->clear();
-		escenaTutorial->iniciaJuego();
-	}
-}
-inline int UIRouletteChoose::relativeX(const float& n)
-{
-	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
-}
-
-inline int UIRouletteChoose::relativeY(const float& n)
-{
-	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
-}
-
-UIRouletteChoose::UIRouletteChoose(GameState* gS, Game* game, rouletteChoose* rouletteC) : gS(gS), game(game), rouletteC(rouletteC)
-{
-	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-}
-
-void UIRouletteChoose::OnExit()
-{
-	game->pop();
-}
-
-inline int UIScythe::relativeX(const float& n)
-{
-	return (int)((n / 1920.0f) * Game::WIN_WIDTH);
-}
-
-inline int UIScythe::relativeY(const float& n)
-{
-	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
-}
-
-UIScythe::UIScythe(GameState* gS, Game* game, scythe* rouletteC) : gS(gS), game(game), s(s)
-{
-	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-}
-
-void UIScythe::OnExit()
-{
-	game->pop();
 }

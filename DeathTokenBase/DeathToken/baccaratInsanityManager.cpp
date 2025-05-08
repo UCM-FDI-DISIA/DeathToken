@@ -9,10 +9,6 @@ void BaccaratInsanityManager::update()
 	randomCard();
 }
 
-void BaccaratInsanityManager::render() const
-{
-}
-
 void BaccaratInsanityManager::randomCard() {
 	uniform_int_distribution<> distrib(0, 2);
 

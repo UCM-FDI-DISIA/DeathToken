@@ -15,12 +15,13 @@ protected:
 	HUDBet* hud;
 public:
 	inline Slots(Game* g) : GameState(g), ui(new UISlots(this, g, this)), hud(new HUDBet(this)), bet(0), btnBet()
-		{ hud->refresh(); }
+		{ HUDManager::getHudBet()->refresh(); }
 	virtual void iniciarGiro() = 0;
 	inline void setBetTurno(long long n) { bet = n; }
 	inline void clear() {
+		bet = 0;
 		btnBet->clear();
 		PlayerEconomy::setBet(0);
-		hud->refresh();
+		HUDManager::getHudBet()->refresh();
 	}
 };

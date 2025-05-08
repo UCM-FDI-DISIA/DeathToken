@@ -8,21 +8,15 @@ class RouletteScene : public GameState, public EventHandler
 {
 	Roulette* roul;
 	Texture* rouletteBG;
-	Texture* rouletteFrame;
 	Texture* arrowTex;
 	int costPerThrow = 500;
 	int canThrow = false;
 	PlayerEconomy* eco;
-	HUDLobby* hudMenu;
-	HUDLobby* hud;
+	HUDBet* hud;
 	UIRoulette* ui;
 public:
 	RouletteScene(Game* g, PlayerEconomy* eco);
-	virtual ~RouletteScene() {
-		delete ui; 
-		HUDManager::setHudLobby(hudMenu);
-		hudMenu->refresh();
-	};
+	virtual ~RouletteScene() { HUDManager::popGame(); delete ui; };
 	void handleEvent(const SDL_Event& event) override;
 	void throwRoulette();
 	void update() override;
