@@ -1,11 +1,11 @@
 #include "checkML.h"
 #include "Mesa.h"
+#include "Menu.h"
 #include "Game.h"
 
 
-Mesa::Mesa(GameState* g, Vector2D<> pos, Texture* tex, int i, int width, int height, Game* game) : sceneObject(g, pos, tex), hover(false), texture(tex), indexGame(i)
+Mesa::Mesa(GameState* g, Vector2D<> pos, Texture* tex, int width, int height) : sceneObject(g, pos, tex), hover(false), texture(tex)
 {
-	_game = game;
 	w = width;
 	h = height;
 }
@@ -27,7 +27,9 @@ void Mesa::update() {}
 
 void Mesa::handleEvent(SDL_Event const& evento) {
 	if (evento.key.keysym.sym == SDLK_e && hover) {
-		
+		if(hover){
+			cb();
+		}
 	}
 }
 

@@ -6,23 +6,23 @@
 using Callback = std::function<void()>;
 
 class Game;
-
+class Menu;
 class Mesa : public sceneObject, public EventHandler {
 private:
 	bool hover;
 	Texture* texture;
-	Game* _game;
-	int indexGame;
+	Player* player;
 	Callback cb;
 
 public:
-	Mesa(GameState*, Vector2D<>, Texture*, int, int, int, Game*);
+	Mesa(GameState*, Vector2D<>, Texture*, int, int);
 	~Mesa() { texture = nullptr; };
 	void render() const;
 	void update() override;
 	void handleEvent(const SDL_Event& evento) override;
 	bool getHover() const { return hover; }
-	void inGame(bool in) { hover = in; }
+	void setHover(bool hov) { hover = hov; };
+	Callback getCallback() { return cb; };
 	SDL_Rect getRect() const;
 	void connect(Callback);
 };

@@ -13,6 +13,7 @@
 #include "rouletteScene.h"
 #include "marblesInsanity.h"
 #include "peleas.h"
+#include "Mesa.h"
 #include <list>
 
 class Player;
@@ -21,10 +22,10 @@ class Menu : public GameState
 {
 	Player* ghost = nullptr;
 	Texture* texture;
-	Button* baccarat;
-	Button* marbles;
-	Button* fights;
-	Button* slots;
+	Mesa* baccarat;
+	Mesa* marbles;
+	Mesa* fights;
+	Mesa* slots;
 	Button* roulette;
 	//Booleanos para activar el tutorial al entrar por primera vez al juego
 	bool tutorialBaccarat = true;
@@ -32,9 +33,13 @@ class Menu : public GameState
 	bool tutorialFights = true;
 	bool tutorialMarbles = true;
 	GameState* baccaratState;
+	vector<SDL_Rect> obstaculos;
+	vector<Mesa*> juegos;
 
 	HUDLobby* hud;
 	PlayerEconomy* eco;
+
+	SDL_Rect cambiarColisiones(SDL_Rect);
 public:
 	Menu(Game* game);
 	virtual ~Menu();
