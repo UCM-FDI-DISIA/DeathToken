@@ -1,7 +1,6 @@
 #include "game.h"
 #include "json.hpp"
 #include "EscenaTutorial.h"
-#include "menu.h"
 #include "pauseState.h"
 #include "sdlutils.h"
 #include <vector>
@@ -252,10 +251,8 @@ Game::Game() {
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
 	}
-	//EscenaTutorial* tutorial = new EscenaTutorial(this);
-	//pushState(tutorial);
-	Menu* menu = new Menu(this);
-	pushState(menu);
+	EscenaTutorial* tutorial = new EscenaTutorial(this);
+	pushState(tutorial);
 
 
 	//SEMILLA DE NUMEROS ALEATORIOS
