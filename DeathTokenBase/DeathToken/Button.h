@@ -20,7 +20,7 @@ protected:
 	bool hover;
 	bool clicked;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*);
+	Button(GameState*, int x, int y, int w, int h, Texture*, Texture* = nullptr);
 	virtual ~Button() { text = nullptr; }
 	void render() const override;
 	void update() override;
@@ -39,7 +39,6 @@ protected:
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 	virtual ~ButtonUI() { textC = nullptr; }
-	void update() override;
 	void render() const override;
 };
 
