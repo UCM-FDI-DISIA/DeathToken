@@ -1,6 +1,30 @@
 #include "baccaratBet.h"
 #include "SDLUtils.h"
 
+BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getTexture(BET)) {
+	ButtonBaccarat* btnBaccarattie = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8);
+	bacButtons.push_back(btnBaccarattie);
+	addObjects(bacButtons.back());
+	addEventListener(bacButtons.back());
+	btnBaccarattie->connect([this, btnBaccarattie]() { 
+		if (!betOnPlayer && !betOnBanker) 
+		{ 
+			newBet(8, 0, btnBaccarattie); betOnTie = true;
+		} });
+
+	ButtonBaccarat* btnBaccaratbanker = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6);
+	bacButtons.push_back(btnBaccaratbanker);
+	addObjects(bacButtons.back());
+	addEventListener(bacButtons.back());
+	btnBaccaratbanker->connect([this, btnBaccaratbanker]() { if (!betOnPlayer && !betOnTie) { newBet(2, 1, btnBaccaratbanker); betOnBanker = true; } });
+
+	ButtonBaccarat* btnBaccaratplayer = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8);
+	bacButtons.push_back(btnBaccaratplayer);
+	addObjects(bacButtons.back());
+	addEventListener(bacButtons.back());
+	btnBaccaratplayer->connect([this, btnBaccaratplayer]() { if (!betOnTie && !betOnBanker) { newBet(2, 2, btnBaccaratplayer); betOnPlayer = true; } });
+}
+
 void BaccaratBet::repeatBet() {
 
 	for (int i = 0; i < betsHistory.size(); i++)
@@ -32,6 +56,9 @@ void BaccaratBet::didntWin() {
 			betsHistory[i].multiplier = 2;
 		}
 	}
+	betOnPlayer = false;
+	betOnBanker = false;
+	betOnTie = false;
 }
 
 void BaccaratBet::startRound()

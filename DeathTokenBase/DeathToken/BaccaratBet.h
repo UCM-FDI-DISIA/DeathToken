@@ -12,8 +12,9 @@ class BaccaratBet : public Baccarat
 	float time = 0;
 	float actual = 0;
 	bool animOn = true;
+	bool betOnTie = false, betOnPlayer = false, betOnBanker = false;
 public:
-	BaccaratBet(Game* game) : Baccarat(game), intro(game->getTexture(BET)) {};
+	BaccaratBet(Game* game);
 	void acumulate();
 	void repeatBet();
 	void update() override;
