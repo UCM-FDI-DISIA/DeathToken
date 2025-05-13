@@ -74,6 +74,10 @@
     <Import Project="..\DeathToken.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -114,13 +118,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)SDL2_mixer-2.8.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
