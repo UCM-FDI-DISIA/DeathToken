@@ -19,9 +19,7 @@ void Player::render() const {
 	else {
 		texture->renderFrame(render, 0, 0, SDL_FLIP_HORIZONTAL);
 	}
-
 }
-
 // Recibe el input y establece la nueva dirección de movimiento (solo salta si está en el suelo)
 void Player::handleEvent(const SDL_Event& evento) {
 	if (evento.type == SDL_KEYDOWN) {
@@ -59,8 +57,8 @@ SDL_Rect Player::getRect() const {
 	rect.h = h;//alto
 	return rect;
 }
-void Player::move(vector<SDL_Rect> obstaculos) {
-	
+void Player::collision(vector<SDL_Rect> obstaculos) {
+
 	SDL_Rect collision;
 
 	int fixY = 0;
@@ -88,5 +86,5 @@ void Player::move(vector<SDL_Rect> obstaculos) {
 		}
 	}
 	pos += {speed.getX() - fixX, speed.getY() - fixY};
-	
+
 }

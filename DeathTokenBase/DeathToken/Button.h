@@ -14,11 +14,13 @@ class UI;
 class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
+	Texture* textC;
 	SDL_Rect box;
 	Callback cb;
 	bool hover;
+	bool clicked;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*);
+	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr);
 	virtual ~Button() {}
 	void render() const override;
 	void update() override;
@@ -34,12 +36,9 @@ class ButtonUI : public Button
 {
 protected:
 	SDL_Rect boxB;
-	bool clicked;
-	Texture* textC;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 	~ButtonUI() {}
-	void update() override;
 	void render() const override;
 };
 
@@ -85,7 +84,6 @@ protected:
 	int id;
 	int value;
 	int values[3];
-	bool slot;
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
 		int v0, int v1, int v2, Texture*, Texture*, Texture*);
@@ -94,7 +92,6 @@ public:
 	void changePage(const int& n);
 	void update() override;
 	void render() const override;
-	void setSlot();
 	int getValue();
 };
 
@@ -134,4 +131,32 @@ public:
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 	void repeatDoubleBet() { currentBet = betHistory * 2; };
+};
+//SLOTS
+class ButtonSlots : public ButtonBet
+{
+public:
+	ButtonSlots(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text);
+	~ButtonSlots() {}
+	void render() const override;
+	virtual void handleEvent(const SDL_Event& event) override;
+};
+//Peleas
+class ButtonPeleas : public ButtonSlots
+{
+public:
+	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text) {}
+	void handleEvent(const SDL_Event& event) override;
+};
+
+//EscenaTutorial
+class EscenaTutorial;
+class ButtonTutorial:public ButtonBet {
+private:
+	EscenaTutorial* _tut;
+public:
+	ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text,EscenaTutorial* tut);
+	~ButtonTutorial();
+	void render() const override;
+	virtual void handleEvent(const SDL_Event& event) override;
 };

@@ -74,6 +74,14 @@
     <Import Project="..\DeathToken.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -114,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;..\SDL2_mixer-2.8.0\include;..\Firebase\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>
@@ -122,11 +130,9 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;..\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)Firebase\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;firebase_app.lib;firebase_database.lib;firebase_storage.lib;ws2_32.lib;crypt32.lib;userenv.lib;iphlpapi.lib;kernel32.lib;psapi.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>
- %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,15 +143,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;..\SDL2_mixer-2.8.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;..\SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -163,12 +169,17 @@
     <ClInclude Include="checkML.h" />
     <ClInclude Include="baccaratInsanityManager.h" />
     <ClInclude Include="dialogueBox.h" />
+    <ClInclude Include="EscenaTutorial.h" />
     <ClInclude Include="fighter.h" />
     <ClInclude Include="firebaseUtils.h" />
     <ClInclude Include="hud.h" />
     <ClInclude Include="marblesInsanity.h" />
+    <ClInclude Include="Mesa.h" />
+    <ClInclude Include="pauseState.h" />
     <ClInclude Include="peleas.h" />
     <ClInclude Include="playerEconomy.h" />
+    <ClInclude Include="rouletteChoose.h" />
+    <ClInclude Include="scythe.h" />
     <ClInclude Include="sdlUtils.h" />
     <ClInclude Include="slotsNormal.h" />
     <ClInclude Include="soundManager.h" />
@@ -206,12 +217,17 @@
     <ClCompile Include="celda.cpp" />
     <ClCompile Include="baccaratInsanityManager.cpp" />
     <ClCompile Include="dialogueBox.cpp" />
+    <ClCompile Include="EscenaTutorial.cpp" />
     <ClCompile Include="fighter.cpp" />
     <ClCompile Include="firebaseUtils.cpp" />
     <ClCompile Include="hud.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
+    <ClCompile Include="Mesa.cpp" />
+    <ClCompile Include="pauseState.cpp" />
     <ClCompile Include="peleas.cpp" />
     <ClCompile Include="playerEconomy.cpp" />
+    <ClCompile Include="rouletteChoose.cpp" />
+    <ClCompile Include="scythe.cpp" />
     <ClCompile Include="sdlUtils.cpp" />
     <ClCompile Include="slotsNormal.cpp" />
     <ClCompile Include="soundManager.cpp" />

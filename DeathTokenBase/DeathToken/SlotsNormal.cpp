@@ -8,7 +8,7 @@ using namespace std;
 
 SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 {
-	float x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
+	float x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 50) / 1920.0f) * (N_COLUM / 2.0f));
 	float y = Game::WIN_HEIGHT * (40 / 1080.0f);
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
@@ -19,7 +19,8 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 	for (int i = 0; i < N_COLUM; ++i) {
 		carretes.push_back(new Carrete(this, { (int)(x + i * celdaX), (int)y }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS)));
 		addObjects(carretes[i]);
-		Button* button = new Button(this, (int)(x + i * celdaX + (celdaX - botonX) / 2), (int)(y * 2 + celdaY * N_COLUM), (int)botonX, (int)botonY, game->getTexture(CELDA));
+		Button* button = new Button(this, (int)(x + i * celdaX + (celdaX - botonX) / 2), (int)(y * 2 + celdaY * N_COLUM), (int)botonX, (int)botonY,
+			game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
 		addObjects(button);
 		addEventListener(button);
 
@@ -29,8 +30,17 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 			c->pararGiro();
 			});
 	}
+
+	float w = Game::WIN_WIDTH * (200.0f / 1920.0f);
+	float h = Game::WIN_HEIGHT * (200.0f / 1080.0f);
+	x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 20) / 1920.0f) * ((N_COLUM / 2.0f) + 1.0f));
+	y = Game::WIN_HEIGHT * 0.5f - h / 2;
+	btnBet = new ButtonSlots(this, game, ui, int(x), (int)y, (int)w, (int)h, game->getTexture(BETSLOTS));
+	addObjects(btnBet);
+	addEventListener(btnBet);
 }
 SlotsNormal:: ~SlotsNormal() {
+	HUDManager::popGame();
 	for (Carrete* i : carretes) i = nullptr;
 	delete ui;
 }
@@ -51,7 +61,7 @@ void SlotsNormal::update() {
 			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
 
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
-				
+
 				multiplicador += multiplicadores[vectorCarrete1[i]];
 			}
 			else if (telarañas1_2 || telarañas1_3 || telarañas2_3) {
@@ -63,7 +73,10 @@ void SlotsNormal::update() {
 
 		std::cout << multiplicador << "\n";
 #endif
-		if (multiplicador != 0) game->push(new Award(game, (GameState*)this, bet, bet * multiplicador));
+		if (multiplicador != 0) {
+			game->push(new Award(game, (GameState*)this, bet, bet * multiplicador));
+		}
+		bet = 0;
 	}
 }
 void SlotsNormal::render() const {
@@ -71,7 +84,7 @@ void SlotsNormal::render() const {
 	r.x = r.y = 0;
 	r.h = Game::WIN_HEIGHT;
 	r.w = Game::WIN_WIDTH;
-	game->getTexture(MARBLESBACK)->render(r);
+	game->getTexture(SLOTSFONDO)->render(r);
 
 	GameState::render();
 }

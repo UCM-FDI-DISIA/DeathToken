@@ -60,6 +60,7 @@ public:
 	void repeat();
 
 	void setBlockedMarble(std::vector<int> blocked);
+	void showTutorial() override { ui->OnInfo(); };//IMPORTANTE PARA QUE SALGA EL TUTORIAL AL PRINCIPIO
 
 };
 
