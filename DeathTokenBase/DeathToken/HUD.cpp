@@ -1,4 +1,3 @@
-#include "firebaseUtils.h"
 #include "hud.h"
 
 inline int
@@ -43,7 +42,7 @@ long long HUD::getNumberY(long long n)
 }
 HUD::HUD(GameState* gS) : GameObject(gS)
 {
-	balance = FirebaseUtils::chips;
+	
 	gS->addObjectsUI(this);
 
 	balanceDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO), relativeX((float)1600.0f), relativeY((float)70.0f),

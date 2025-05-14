@@ -8,7 +8,7 @@ int FirebaseUtils::currentId = -1;
 std::string FirebaseUtils::name = "";
 long long FirebaseUtils::chips = 0;
 long long FirebaseUtils::souls = 0;
-bool FirebaseUtils::insanity = false;
+int FirebaseUtils::insanity = 0;
 
 void FirebaseUtils::StartFirebase()
 {
@@ -44,7 +44,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 	//Hago esto porque si se borra un usuario desde firebase, desde el vs lo guarda en cache o 
 	if (db != nullptr) {
 		db->GoOffline();
-		SDL_Delay(1000);
+		SDL_Delay(5000);
 		db->GoOnline();
 	}
 	//referencia a la tabla "usuarios"
@@ -70,7 +70,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 			currentId = std::stoi(child.key());
 			chips = data["fichas"].int64_value();
 			souls = data["almas"].int64_value();
-			insanity = data["locura"].bool_value();
+			insanity = data["locura"].int64_value();
 			return;
 		}
 	}
@@ -87,7 +87,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 	currentId = maxId + 1;
 	chips = 2000;
 	souls = 0;
-	insanity = false;
+	insanity = 0;
 
 	//Mapa con los datos del usuario
 	firebase::Variant usuario = firebase::Variant::EmptyMap();
@@ -100,11 +100,12 @@ void FirebaseUtils::RegisterUser(std::string name)
 	dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
 }
 
-void FirebaseUtils::SaveState(int chipsN, int soulsN)
+void FirebaseUtils::SaveState(int chipsN, int soulsN, int insanityN)
 {
 	firebase::Variant usuarioU = firebase::Variant::EmptyMap();
 	usuarioU.map()["fichas"] = chipsN;
 	usuarioU.map()["almas"] = soulsN;
+	usuarioU.map()["locura"] = insanityN;
 
 	dbref.Child("usuarios").Child(std::to_string(currentId)).UpdateChildren(usuarioU);
 }
@@ -173,7 +174,7 @@ void FirebaseUtils::CleanFirebase()
 		bool nombreB = datos["nombre"].is_string();
 		bool fichasB = datos["fichas"].is_int64();
 		bool almasB = datos["almas"].is_int64();
-		bool locuraB = datos["locura"].is_bool();
+		bool locuraB = datos["locura"].is_int64();
 
 		if (!(nombreB && fichasB && almasB && locuraB)) {
 			dbref.Child("usuarios").Child(key).RemoveValue();

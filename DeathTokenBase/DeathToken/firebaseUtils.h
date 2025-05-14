@@ -9,16 +9,17 @@ public:
 		std::string nombre;
 		int fichas;
 		int almas;
+		int locura;
 	};
 	static int currentId;
 	static std::string name;
 	static long long chips;
 	static long long souls;
-	static bool insanity;
+	static int insanity;
 	static void StartFirebase();
 	static void DeleteFirebaseUtils();
 	static void RegisterUser(std::string name);
-	static void SaveState(int chipsN, int soulsN);
+	static void SaveState(int chipsN, int soulsN, int insanityN);
 	static std::vector<userData> getRanking();
 	static void CleanFirebase();
 
