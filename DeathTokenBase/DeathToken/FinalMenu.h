@@ -11,6 +11,7 @@ private:
 	SDL_Rect rectI;
 	Vector2D<> posT;
 	Vector2D<> posI;
+	bool show;
 	
 	Vector2D<float> lerp(Vector2D<> origen, Vector2D<> destino);
 public:

@@ -2,6 +2,7 @@
 #include "json.hpp"
 #include "menu.h"
 #include "pauseState.h"
+#include "finalMenu.h"
 #include "sdlutils.h"
 #include <vector>
 #include <iostream>
@@ -193,6 +194,12 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "Menus/menu.png",1,1 });
 	v.push_back(TextureSpec{ "Menus/rank.png",1,1 });
 
+	v.push_back(TextureSpec{ "Menus/GoodText.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/GoodEnding.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/BadText.png",1,1 });
+	v.push_back(TextureSpec{ "Menus/BadEnding.png",1,1 });
+
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -241,7 +248,6 @@ Game::Game() {
 	}
 	Menu* menu = new Menu(this);
 	pushState(menu);
-
 	//SEMILLA DE NUMEROS ALEATORIOS
 	random_device rd;
 	gen = std::mt19937(rd()); // Inicializar con una semilla aleatoria

@@ -24,24 +24,20 @@ enum TextureName {
 	TICK,
 	CROSS,
 	BACKGROUND,
-	/// <summary>
-	/// 
-	/// </summary>
+	//
 	BACMAT,
 	BLACKMAT,
 	FLIPCARD,
 	CARDS,
 	BACCARATBUT,
-	/// <summary>
+	//
 
 	SLOTSBUT,
 	CANICASBUT,
 	PELEASBUT,
 	UIEXIT,
 	UIEXITHV,
-	/// <summary>
-	/// 
-	/// </summary>
+	//
 	UIEXITCLCK,
 	UIERASE,
 	UIERASEHV,
@@ -199,6 +195,12 @@ enum TextureName {
 	BACK,
 	MENU,
 	RANK,
+	//
+	GOODENDTEXT,
+	GOODENDIMG,
+	BADENDTEXT,
+	BADENDIMG,
+
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
