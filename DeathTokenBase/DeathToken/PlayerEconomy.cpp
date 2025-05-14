@@ -17,7 +17,6 @@ PlayerEconomy::EconomyInitialize(bool savedGame)
 		redSouls = FirebaseUtils::souls;
 		insanity = FirebaseUtils::insanity;
 		bet = 0;
-		//HUDManager::getCurrentHudLobby()->refresh();
 	}
 }
 long long
