@@ -41,9 +41,10 @@ void FirebaseUtils::DeleteFirebaseUtils()
 
 void FirebaseUtils::RegisterUser(std::string name)
 {
+	//Hago esto porque si se borra un usuario desde firebase, desde el vs lo guarda en cache o 
 	if (db != nullptr) {
 		db->GoOffline();
-		SDL_Delay(100);
+		SDL_Delay(1000);
 		db->GoOnline();
 	}
 	//referencia a la tabla "usuarios"
@@ -152,7 +153,7 @@ std::vector<FirebaseUtils::userData> FirebaseUtils::getRanking()
 
 }
 
-void FirebaseUtils::CleanCorruptUsers()
+void FirebaseUtils::CleanFirebase()
 {
 	if (db == nullptr) return;
 
@@ -167,15 +168,14 @@ void FirebaseUtils::CleanCorruptUsers()
 
 	for (const auto& child : snapshot.children()) {
 		std::string key = child.key();
-		auto data = child.value().map();
+		auto datos = child.value().map();
 
-		bool hasNombre = data["nombre"].is_string();
-		bool hasFichas = data["fichas"].is_int64();
-		bool hasAlmas = data["almas"].is_int64();
-		bool hasLocura = data["locura"].is_bool();
+		bool nombreB = datos["nombre"].is_string();
+		bool fichasB = datos["fichas"].is_int64();
+		bool almasB = datos["almas"].is_int64();
+		bool locuraB = datos["locura"].is_bool();
 
-		if (!(hasNombre && hasFichas && hasAlmas && hasLocura)) {
-			// Eliminar el usuario corrupto
+		if (!(nombreB && fichasB && almasB && locuraB)) {
 			dbref.Child("usuarios").Child(key).RemoveValue();
 		}
 	}

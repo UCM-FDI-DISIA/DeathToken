@@ -20,7 +20,7 @@ public:
 	static void RegisterUser(std::string name);
 	static void SaveState(int chipsN, int soulsN);
 	static std::vector<userData> getRanking();
-	static void CleanCorruptUsers();
+	static void CleanFirebase();
 
 };
 

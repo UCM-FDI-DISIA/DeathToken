@@ -12,20 +12,30 @@ Ranking::Ranking(Game* game, GameState* lastState) : GameState(game), state(last
 	vector<FirebaseUtils::userData> ranking = FirebaseUtils::getRanking();
 
     Text* title = new Text(state, game->getTypo(RANKINGT),
-        relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 6.0f),
-        relativeX(2.0f), relativeY(1.0f),
+        relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 7.0f),
+        relativeX(2.0f), relativeY(10),
         Text::CENTRO);
     title->setMessage(" RANKING DE JUGADORES ");
     this->addObjects(title);
     
-    int startY = relativeY(Game::WIN_HEIGHT / 6 + 200);
-    int stepY = relativeY(150);
-    for (int i = 0; i < ranking.size(); ++i) {
+    int startY = relativeY(Game::WIN_HEIGHT / 7 + 250);
+    int stepY = relativeY(100);
+    int mostrar = 0;
+    if (ranking.size() <= 5) {
+        mostrar = ranking.size();
+    }
+    else {
+        mostrar = 5;
+    }
+
+    for (int i = 0; i < mostrar; ++i) {
         auto& user = ranking[i];
 
-        string msg = to_string(i + 1) + ". " + (user.nombre) + "FICHAS: " + to_string(user.fichas) + "ALMAS: " + to_string(user.almas);
+        string msg = to_string(i + 1) + ". " + (user.nombre) + "  -FICHAS: " + to_string(user.fichas) + "  -ALMAS: " + to_string(user.almas);
         for (char& c : msg) {
-            c = std::toupper(static_cast<unsigned char>(c));
+            if (isalpha(static_cast<unsigned char>(c))) {
+                c = toupper(static_cast<unsigned char>(c));
+            }
         }
         Text* line = new Text(state, game->getTypo(RANKINGN),
             relativeX(Game::WIN_WIDTH/2),(startY + i * stepY),
