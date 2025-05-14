@@ -1,6 +1,6 @@
 #include "finalMenu.h"
-#include "Button.h"
-#include "Menu.h"
+#include "button.h"
+#include "menu.h"
 #include <cmath>
 
 
