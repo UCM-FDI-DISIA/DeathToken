@@ -4,7 +4,7 @@
 
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-      x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
+    x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
@@ -13,7 +13,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alig
 }
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
-      x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
+    x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
@@ -30,14 +30,18 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSiz
     message = "";
 }
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
-           SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
+    SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor(outlineColor),
-      x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
+    x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = typo;
     message = "";
+}
+void Text::setFont(TTF_Font* newFont)
+{
+    font = newFont;
 }
 void
 Text::setPos(int x, int y)
@@ -99,7 +103,7 @@ Text::render() const
     SDL_Rect textRect;
     SDL_Rect outlineRect;
     createTextRects(textRect, outlineRect, textSurface, outlineSurface);
-    
+
     SDL_RenderCopy(renderer, outlineTexture, nullptr, &outlineRect);
     SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
 

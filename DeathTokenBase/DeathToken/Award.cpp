@@ -32,6 +32,7 @@ void Award::update() {
 		startTime = SDL_GetTicks();
 	}
 	else if (SDL_GetTicks() - startTime >= 1000) {
+		if (HUDManager::getHudLobby())
 		HUDManager::applyWinBet(currentWin);
 		game->pop(); // Regresar al estado anterior
 	}

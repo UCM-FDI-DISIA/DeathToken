@@ -18,6 +18,7 @@ public:
     Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
     virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
+    void setFont(TTF_Font* newFont);
     void setPos(int x, int y);
     std::string getMessage();
     void setMessage(const std::string& message);
