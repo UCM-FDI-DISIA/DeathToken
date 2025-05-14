@@ -74,16 +74,27 @@
     <Import Project="..\DeathToken.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;..\SDL2_mixer-2.8.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;..\SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,12 +105,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;..\SDL2_mixer-2.8.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;..\SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,10 +122,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,65 +139,107 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Award.h" />
-    <ClInclude Include="Baccarat.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Cards.h" />
-    <ClInclude Include="Carrete.h" />
+    <ClInclude Include="award.h" />
+    <ClInclude Include="baccarat.h" />
+    <ClInclude Include="baccaratBet.h" />
+    <ClInclude Include="baccaratBlackjack.h" />
+    <ClInclude Include="baccaratFlip.h" />
+    <ClInclude Include="barraVida.h" />
+    <ClInclude Include="battleManager.h" />
+    <ClInclude Include="button.h" />
+    <ClInclude Include="card.h" />
+    <ClInclude Include="carrete.h" />
+    <ClInclude Include="celda.h" />
     <ClInclude Include="checkML.h" />
-    <ClInclude Include="Collision.h" />
-    <ClInclude Include="HUD.h" />
-    <ClInclude Include="PlayerEconomy.h" />
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="EndState.h" />
-    <ClInclude Include="EventHandler.h" />
-    <ClInclude Include="Font.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="baccaratInsanityManager.h" />
+    <ClInclude Include="dialogueBox.h" />
+    <ClInclude Include="EscenaTutorial.h" />
+    <ClInclude Include="fighter.h" />
+    <ClInclude Include="hud.h" />
+    <ClInclude Include="marblesInsanity.h" />
+    <ClInclude Include="Mesa.h" />
+    <ClInclude Include="pauseState.h" />
+    <ClInclude Include="peleas.h" />
+    <ClInclude Include="playerEconomy.h" />
+    <ClInclude Include="rouletteChoose.h" />
+    <ClInclude Include="scythe.h" />
+    <ClInclude Include="sdlUtils.h" />
+    <ClInclude Include="slotsNormal.h" />
+    <ClInclude Include="soundManager.h" />
+    <ClInclude Include="text.h" />
+    <ClInclude Include="endState.h" />
+    <ClInclude Include="eventHandler.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="gameStateMachine.h" />
-    <ClInclude Include="Marbles.h" />
-    <ClInclude Include="MatrizSlots.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="marbles.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="roulette.h" />
+    <ClInclude Include="rouletteScene.h" />
     <ClInclude Include="sceneObject.h" />
-    <ClInclude Include="Slots.h" />
-    <ClInclude Include="SlotsLocura.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="slots.h" />
+    <ClInclude Include="slotsInsanity.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="tutorial.h" />
+    <ClInclude Include="ui.h" />
+    <ClInclude Include="vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Award.cpp" />
-    <ClCompile Include="Baccarat.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Cards.cpp" />
-    <ClCompile Include="Carrete.cpp" />
-    <ClCompile Include="HUD.cpp" />
-    <ClCompile Include="PlayerEconomy.cpp" />
-    <ClCompile Include="Text.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="award.cpp" />
+    <ClCompile Include="baccarat.cpp" />
+    <ClCompile Include="baccaratBet.cpp" />
+    <ClCompile Include="baccaratBlackjack.cpp" />
+    <ClCompile Include="baccaratFlip.cpp" />
+    <ClCompile Include="barraVida.cpp" />
+    <ClCompile Include="battleManager.cpp" />
+    <ClCompile Include="button.cpp" />
+    <ClCompile Include="card.cpp" />
+    <ClCompile Include="carrete.cpp" />
+    <ClCompile Include="celda.cpp" />
+    <ClCompile Include="baccaratInsanityManager.cpp" />
+    <ClCompile Include="dialogueBox.cpp" />
+    <ClCompile Include="EscenaTutorial.cpp" />
+    <ClCompile Include="fighter.cpp" />
+    <ClCompile Include="hud.cpp" />
+    <ClCompile Include="marblesInsanity.cpp" />
+    <ClCompile Include="Mesa.cpp" />
+    <ClCompile Include="pauseState.cpp" />
+    <ClCompile Include="peleas.cpp" />
+    <ClCompile Include="playerEconomy.cpp" />
+    <ClCompile Include="rouletteChoose.cpp" />
+    <ClCompile Include="scythe.cpp" />
+    <ClCompile Include="sdlUtils.cpp" />
+    <ClCompile Include="slotsNormal.cpp" />
+    <ClCompile Include="soundManager.cpp" />
+    <ClCompile Include="text.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Marbles.cpp" />
-    <ClCompile Include="MatrizSlots.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="marbles.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="roulette.cpp" />
+    <ClCompile Include="rouletteScene.cpp" />
     <ClCompile Include="sceneObject.cpp" />
-    <ClCompile Include="Slots.cpp" />
-    <ClCompile Include="SlotsLocura.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="slotsInsanity.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="tutorial.cpp" />
+    <ClCompile Include="ui.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

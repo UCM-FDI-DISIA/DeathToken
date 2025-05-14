@@ -1,50 +1,26 @@
-#include "checkML.h"
-#include "Player.h"
-#include "Texture.h"
+ï»¿#include "checkML.h"
+#include "player.h"
+#include "texture.h"
+#include "menu.h"
 
-
-// Se crea el jugador leyendo de archivo su posición y vidas
-Player::Player(GameState* g, Point2D<> pos, Texture* texture)
-	:sceneObject(g, pos, texture), texture(texture)
+// Se crea el jugador leyendo de archivo su posiciÃ³n y vidas
+Player::Player(GameState* g, Point2D<> pos, Texture* texture, Menu* men)
+	:sceneObject(g, pos, texture), texture(texture), menu(men),locura(false)
 {
-	w = Game::WIN_WIDTH / 14;
-	h = Game::WIN_HEIGHT / 7;
+	w = (int)((125.0f / 1980.f) * Game::WIN_WIDTH);
+	h = (int)((125.0f / 1080.0f) * Game::WIN_HEIGHT);
 }
 
 void Player::render() const {
-	SDL_Rect render = getRenderRect();
+	SDL_Rect render = getCollisionRect();
 	if (speed.getX() < 0) {
 		texture->renderFrame(render, 0, 0);
 	}
 	else {
 		texture->renderFrame(render, 0, 0, SDL_FLIP_HORIZONTAL);
 	}
-
 }
-
-// Actualización y colisiones del personaje
-void Player::update() {
-	if (speed.getX() == SPEED_MAG && pos.getX() < Game::WIN_WIDTH - w) {//el por diez sobra es pq ahora esta mal puesto el width
-		pos.setX(pos.getX() + speed.getX());
-	}
-
-	if (speed.getX() == -SPEED_MAG && pos.getX() > 0) {
-		pos.setX(pos.getX() + speed.getX());
-	}
-
-	if (speed.getY() == SPEED_MAG && pos.getY() < Game::WIN_HEIGHT) {
-		pos.setY(pos.getY() + speed.getY());
-	}
-
-	if (speed.getY() == -SPEED_MAG && pos.getY() > 0 + h) {
-		pos.setY(pos.getY() + speed.getY());
-	}
-}
-
-Collision Player::hit(const SDL_Rect& rect, Collision::Target target) {
-	return NO_COLLISION;
-}
-// Recibe el input y establece la nueva dirección de movimiento (solo salta si está en el suelo)
+// Recibe el input y establece la nueva direcciÃ³n de movimiento (solo salta si estÃ¡ en el suelo)
 void Player::handleEvent(const SDL_Event& evento) {
 	if (evento.type == SDL_KEYDOWN) {
 		switch (evento.key.keysym.sym) {
@@ -69,7 +45,7 @@ void Player::handleEvent(const SDL_Event& evento) {
 			break;
 		}
 	}
-	else if (evento.type == SDL_KEYUP && evento.key.keysym.sym != SDLK_SPACE) { speed.setX(0); speed.setY(0); }
+	else  { speed.setX(0); speed.setY(0); }
 }
 
 //cojo el rect del player para hacer colisiones con botones
@@ -80,4 +56,35 @@ SDL_Rect Player::getRect() const {
 	rect.w = w;//ancho
 	rect.h = h;//alto
 	return rect;
+}
+void Player::collision(vector<SDL_Rect> obstaculos) {
+
+	SDL_Rect collision;
+
+	int fixY = 0;
+	int fixX = 0;
+	SDL_Rect playerRect = getCollisionRect();
+	// Recorre cada uno de los limites y comprueba las colisiones
+	for (int i = 0; i < obstaculos.size(); ++i) {
+		// Si la velocidad en Y es distinta de 0, mueve el rect provisional del jugador (playerRect) y comprueba si estÃ¡ colisionando. Luego restaura la posiciÃ³n
+		if (speed.getY() != 0) {
+			playerRect.y += speed.getY(); //* multiplicarlo por delta time;
+			int fix = 0;
+			if (SDL_IntersectRect(&playerRect, &obstaculos[i], &collision))
+				fix = collision.h * (speed.getY() > 0 ? 1 : -1);
+			fixY += fix;
+			playerRect.y -= speed.getY();
+		}
+		// hacemos lo mismo con la velocidad en x
+		if (speed.getX() != 0) {
+			playerRect.x += speed.getX();
+			int fix = 0;
+			if (SDL_IntersectRect(&playerRect, &obstaculos[i], &collision))
+				fix = collision.w * (speed.getX() > 0 ? 1 : -1);
+			fixX += fix;
+			playerRect.x -= speed.getX();
+		}
+	}
+	pos += {speed.getX() - fixX, speed.getY() - fixY};
+
 }

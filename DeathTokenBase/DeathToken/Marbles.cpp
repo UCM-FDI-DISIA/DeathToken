@@ -1,18 +1,19 @@
-#include "Marbles.h"
-#include "Game.h"	
+#include "marbles.h"
+#include "game.h"	
 #include <iostream>
-#include <random>
 
-Marbles::Marbles(Game* game) : GameState(game), texture(game->getTexture(MARBLESBACK)),
-	marbles( { 0,0,0,0 }),
-	ui( new UIMarbles(this, game, this)),
+Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
+	marbles({ 0,0,0,0 }),
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
 	game->getTexture(BLUEMARBLE),
-	game->getTexture(YELLOWMARBLE) })
-	{
+	game->getTexture(YELLOWMARBLE) }),
+	bInsanity (false)
+{
+	ui = new UIMarbles(this, game, this);
 	Marbles::marblesButtonCreation();
 	hud = new HUDBet(this);
 }
+
 Marbles::~Marbles() {
 	
 	HUDManager::popGame();
@@ -23,15 +24,25 @@ void  Marbles::generateMarbles() {
 	//En un vector voy metiendo aleatoriamente +1, representando ROJO/VERDE/AZUL/AMARILLO
 	marbles = { 0,0,0,0 };
 	drawnMarbles.clear();
+
+	std::vector<int> validColors;
+
+	for (int i = 0; i < blockedMarble.size(); i++) {
+		if (blockedMarble[i] == 0) {
+			validColors.push_back(i);
+		}
+	}
+
 	int pos = 1;
 	SDL_Rect auxBox;
-	for (int i = 0; i < 3; i++) {
-		std::uniform_int_distribution<> distrib(0, 3);
-		int color = distrib(game->getGen());
 
-		//int color = rand() % 4; // usáis "rand" (que es C) y luego la lib de C++. Usad solo la de C++.
+	std::uniform_int_distribution<>distrib(0,(int) validColors.size() - 1);
+
+	for (int i = 0; i < 3; i++) {
+		int color = validColors[distrib(game->getGen())];
+
 		marbles[color]++;
-		auxBox.x = Game::WIN_WIDTH / 4 * pos;
+		auxBox.x = Game::WIN_WIDTH /4 * pos;
 		auxBox.y = Game::WIN_HEIGHT/  6;
 		auxBox.w = (int)(124.0 / 1920.0 * Game::WIN_WIDTH);
 		auxBox.h = (int)(124.0 / 1080.0 * Game::WIN_HEIGHT);
@@ -69,12 +80,8 @@ int  Marbles::checkBets() {
 			}
 		}
 		
-
 		if (won|| wonTriple) {
-			moneyWin += typeBet.moneyBet * typeBet.multiplier;
-		}
-		else {
-			//moneyWin -= typeBet.moneyBet;
+			moneyWin += (int) typeBet.moneyBet * typeBet.multiplier;
 		}
 		turnMoneyBet += typeBet.moneyBet;
 	}
@@ -90,12 +97,17 @@ void Marbles::startRound() {
 	if (moneyWin > 0) {
 		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
 	}
+	else {
+		PlayerEconomy::setBet(0);
+		hud->refresh();
+	}
 	
 	clearBets();
 }
 void Marbles::update() {
 	
 	GameState::update();
+	
 }
 
 void Marbles::render() const {
@@ -104,8 +116,11 @@ void Marbles::render() const {
 	for (const auto& marble : drawnMarbles) {
 		marble.first->render(marble.second); 
 	}
+	
+
 }
 void  Marbles::marblesButtonCreation() {
+
 	//Botones cuadrados para las apuestas de 1 color / BUTTONMARBLES1
 	
 	//ROJO
@@ -174,22 +189,37 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 		multiplier = 20;
 		break;
 	}
-	ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
-	marbleButtons.push_back(btnMarbles);
-	addObjects(marbleButtons.back());
-	addEventListener(marbleButtons.back());
-	btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() { newBet(NCMarbles, multiplier, moneyBet, btnMarbles); });
+	bool bloqueado = false;
+	for (int i = 0; i < NCMarbles.size(); i++) {
+		if (NCMarbles[i] > 0 && blockedMarble[i] == 1) {
+			bloqueado = true;
+			break;
+		}
+	}
+
+	if (!bloqueado) {
+		ButtonMarbles* btnMarbles = new ButtonMarbles(this, game, ui, x, y, width, height, texture, textureC, type, NCMarbles);
+		marbleButtons.push_back(btnMarbles);
+		addObjects(marbleButtons.back());
+		addEventListener(marbleButtons.back());
+		btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() {
+			newBet(NCMarbles, multiplier, moneyBet, btnMarbles);
+			});
+	}
+	
 }
 
-void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, int moneyBet, ButtonMarbles* btnMarbles) {
+void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, long long moneyBet, ButtonMarbles* btnMarbles) {
 	
-	moneyBet = btnMarbles->getBet();
+	moneyBet = ui->currentChipValue();
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
+
 }
 
 void Marbles::clearBets() {
+	blockedMarble = { 0,0,0,0 };
 	betsHistory = bets;
 	bets.clear();
 	for (auto i : marbleButtons)
@@ -205,4 +235,9 @@ void Marbles::repeat()
 	{
 		i->repeat();
 	}
+}
+
+void Marbles::setBlockedMarble(std::vector<int> blocked)
+{
+	blockedMarble = blocked;
 }

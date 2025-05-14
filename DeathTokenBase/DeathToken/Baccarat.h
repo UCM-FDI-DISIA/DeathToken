@@ -3,11 +3,12 @@
 #include <vector>
 #include <map>
 #include "gameState.h"
-#include "UI.h"
-#include "Texture.h"
-#include "EventHandler.h"
-#include "Button.h"
-#include "Cards.h"
+#include "ui.h"
+#include "texture.h"
+#include "eventHandler.h"
+#include "button.h"
+#include "card.h"
+#include "award.h"
 using namespace std;
 
 struct Mat {
@@ -21,6 +22,7 @@ protected:
 	struct Bet {
 		int multiplier = 0;
 		int moneyBet = 0;
+		int betType = 0;
 	};
 	UIBaccarat* ui;
 
@@ -29,13 +31,21 @@ protected:
 	std::vector<ButtonBaccarat*> bacButtons;
 	int moneyBet;
 
-	Cards* player1;
-	Cards* player2;
-	Cards* player3;
-	Cards* banker1;
-	Cards* banker2;
-	Cards* banker3;
+	Card* player1;
+	Card* player2;
+	Card* player3;
+	Card* banker1;
+	Card* banker2;
+	Card* banker3;
 	Texture* texture;
+	Texture* smoke;
+	int frame = 0;
+	int animInCard = 0;
+	bool thirdPlayerMove = false;
+	bool thirdBankerMove = false;
+	bool goForWin = false;
+	SDL_Rect sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
+	float animTime;
 	Mat mat;
 	vector<int> cardsVec;
 	HUDBet* hud;
@@ -45,9 +55,11 @@ protected:
 	const int xTwo = 2;
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
+	bool bankerBet = false, playerBet = false, tieBet = false, cardAnim = false;
 	//bool locura; global?
 public:
-	Baccarat(Game* game);
+	bool hasWon = false;
+	Baccarat(Game* game, bool bJ = false);
 	virtual ~Baccarat() {
 		HUDManager::popGame();
 		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
@@ -56,24 +68,25 @@ public:
 		//for (auto& b : bacButtons) {
 		//	delete b;  // Libera cada botón
 		//}
-		
+
 	};
 	void handleEvent(const SDL_Event& event) override;
-	void clearDeck();
+	virtual void clearDeck();
 	void update() override;
 	void render() const override;
-	void handCards();
+	virtual void handCards();
 	void handThird();
 	void bankThird();
 	int generateRnd();
-	Cards* createCard(int a, int b, int rot, int frame);
-	void addCards();
+	Card* createCard(int a, int b, int rot, int frame);
+	virtual void addCards();
 	void win();
+	void showTutorial() override { ui->OnInfo(); };//IMPORTANTE PARA QUE SALGA EL TUTORIAL AL PRINCIPIO
 
 	//metodos apuestas
-	void createBaccaratButton(int x, int y, int width, int height, int multiplier);
-	void newBet(int multiplier, int moneyBet, ButtonBaccarat* btnBaccarat);
+	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
+	void newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat);
 	void clearBets();
 	void repeat();
-	void startRound();
+	virtual void startRound();
 };

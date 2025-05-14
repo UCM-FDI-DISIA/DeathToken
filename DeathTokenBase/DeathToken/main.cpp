@@ -2,7 +2,7 @@
 #include <iostream>
 #include "checkML.h"
 
-#include "Game.h"
+#include "game.h"
 
 using namespace std;
 

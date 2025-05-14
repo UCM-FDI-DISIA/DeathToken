@@ -1,9 +1,9 @@
 #pragma once
-#include "Game.h"
+#include "game.h"
 #include "gameState.h"
-#include "EventHandler.h"
-#include "Texture.h"
-#include "PlayerEconomy.h"
+#include "eventHandler.h"
+#include "texture.h"
+#include "playerEconomy.h"
 #include <functional>
 #include <string>
 
@@ -14,12 +14,14 @@ class UI;
 class Button : public GameObject, public EventHandler {
 protected:
 	Texture* text;
+	Texture* textC;
 	SDL_Rect box;
 	Callback cb;
 	bool hover;
+	bool clicked;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*);
-	virtual ~Button(){}
+	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr);
+	virtual ~Button() {}
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event&) override;
@@ -34,12 +36,9 @@ class ButtonUI : public Button
 {
 protected:
 	SDL_Rect boxB;
-	bool clicked;
-	Texture* textC;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
-	~ButtonUI(){}
-	void update() override;
+	~ButtonUI() {}
 	void render() const override;
 };
 
@@ -63,7 +62,7 @@ protected:
 	};
 public:
 	ButtonBet(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*);
-	~ButtonBet(){}
+	~ButtonBet() {}
 	TextureName showChip();
 	void clear();
 	void repeat();
@@ -85,16 +84,14 @@ protected:
 	int id;
 	int value;
 	int values[3];
-	bool slot;
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
 		int v0, int v1, int v2, Texture*, Texture*, Texture*);
-	~ButtonChip(){}
+	~ButtonChip() {}
 	void setOnUse(const bool& val);
 	void changePage(const int& n);
 	void update() override;
 	void render() const override;
-	void setSlot();
 	int getValue();
 };
 
@@ -107,10 +104,21 @@ protected:
 	std::vector<int> NCMarbles;
 public:
 	ButtonMarbles(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*, int type, std::vector<int>);
-	~ButtonMarbles(){}
+	~ButtonMarbles() {}
 	void render() const override;
-	void handleEvent( const SDL_Event& event) override;
+	void handleEvent(const SDL_Event& event) override;
 };
+
+//MARBLESINSANITY
+class ButtonMarblesInsanity : public ButtonUI {
+protected:
+public:
+	ButtonMarblesInsanity(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, bool acertado, std::vector<int> discardMarble);
+	~ButtonMarblesInsanity() {}
+	void render() const override;
+	void handleEvent(const SDL_Event& event) override;
+};
+
 //BACCARAT
 class ButtonBaccarat : public ButtonBet
 {
@@ -119,7 +127,36 @@ protected:
 	std::vector<int> NCBaccarat;
 public:
 	ButtonBaccarat(GameState*, Game* game, UI* ui, int x, int y, int w, int h);
-	~ButtonBaccarat(){}
+	~ButtonBaccarat() {}
 	void render() const override;
-	void handleEvent( const SDL_Event& event) override;
+	void handleEvent(const SDL_Event& event) override;
+	void repeatDoubleBet() { currentBet = betHistory * 2; };
+};
+//SLOTS
+class ButtonSlots : public ButtonBet
+{
+public:
+	ButtonSlots(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text);
+	~ButtonSlots() {}
+	void render() const override;
+	virtual void handleEvent(const SDL_Event& event) override;
+};
+//Peleas
+class ButtonPeleas : public ButtonSlots
+{
+public:
+	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text) {}
+	void handleEvent(const SDL_Event& event) override;
+};
+
+//EscenaTutorial
+class EscenaTutorial;
+class ButtonTutorial:public ButtonBet {
+private:
+	EscenaTutorial* _tut;
+public:
+	ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text,EscenaTutorial* tut);
+	~ButtonTutorial();
+	void render() const override;
+	virtual void handleEvent(const SDL_Event& event) override;
 };

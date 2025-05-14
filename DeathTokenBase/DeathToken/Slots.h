@@ -1,33 +1,26 @@
 #pragma once
 #include "gameState.h"
-#include "Texture.h"
 #include "Button.h"
-#include "Carrete.h"
-#include "checkML.h"
-#include "UI.h"
-
-#include <iostream>
-#include <unordered_map>
-
-
+#include "ui.h"
 
 class Slots : public GameState {
 protected:
-	constexpr static int N_COLUM = 3;
-	constexpr static int TAM_CELDA = 150;
-	constexpr static int DISTANCIA_BOTON = TAM_CELDA * 3 + 50;
-	constexpr static int TAM_BOTON = 100;
+	virtual int getResult() = 0;
+	long long bet;
+	std::vector<int> multiplicadores = { 2,3,5,10,50,80,150 };
+	ButtonSlots* btnBet;
 
-	vector<Carrete*> carretes;
-	int comprobanteIndice;
-	vector<int> multiplicadores = { 2,3,10,30,90,150,3000 };
-	unordered_map<int, int> puntuaciones;
 	UISlots* ui;
 
+	HUDBet* hud;
 public:
-	Slots(Game*);
-	~Slots();
-	void update() override;
-	void render() const override;
-	void iniciarGiro();
+	inline Slots(Game* g) : GameState(g), ui(new UISlots(this, g, this)), hud(new HUDBet(this)), bet(0), btnBet()
+		{ hud->refresh(); }
+	virtual void iniciarGiro() = 0;
+	inline void setBetTurno(long long n) { bet = n; }
+	inline void clear() {
+		btnBet->clear();
+		PlayerEconomy::setBet(0);
+		hud->refresh();
+	}
 };

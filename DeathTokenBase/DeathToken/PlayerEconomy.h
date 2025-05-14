@@ -11,10 +11,10 @@ private:
 public:
 	static void EconomyInitialize(bool savedGame = false);
 	//Getters
-	static int getBlueSouls();
-	static int getRedSouls();
+	static long long getBlueSouls();
+	static long long getRedSouls();
 	static int getInsanity();
-	static int getBet();
+	static long long getBet();
 	//Setters
 	static void setBlueSouls(long long blueSouls);
 	static void setRedSouls(long long redSouls);
