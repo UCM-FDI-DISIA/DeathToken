@@ -3,14 +3,13 @@
 #include "firebase/database.h"
 class FirebaseUtils
 {
-private:
+
+public:
 	struct userData {
 		std::string nombre;
 		int fichas;
 		int almas;
-		
 	};
-public:
 	static int currentId;
 	static std::string name;
 	static long long chips;
@@ -21,5 +20,7 @@ public:
 	static void RegisterUser(std::string name);
 	static void SaveState(int chipsN, int soulsN);
 	static std::vector<userData> getRanking();
+	static void CleanCorruptUsers();
+
 };
 

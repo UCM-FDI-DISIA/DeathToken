@@ -1,6 +1,7 @@
 #include "pauseState.h"
 #include "game.h"
 #include "menu.h"
+#include "ranking.h"
 
 PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior(other), texture(game->getTexture(PAUSE))
 {
@@ -24,14 +25,13 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
 	
-	//BOTON DE IVAN
-	/*rank = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 6, (Game::WIN_HEIGHT / 3)+ (Game::WIN_HEIGHT / 6) - Game::WIN_HEIGHT / 8,
+	rank = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 6, (Game::WIN_HEIGHT / 3)+ (Game::WIN_HEIGHT / 6) - Game::WIN_HEIGHT / 8,
 		Game::WIN_WIDTH / 3, Game::WIN_HEIGHT / 4, game->getTexture(RANK));
 	addObjects(rank);
 	addEventListener(rank);
-	menu->connect([this, game]() {
-		
-		});*/
+	rank->connect([this, game]() {
+		game->pushState(new Ranking(game, anterior));
+		});
 }
 
 PauseState::~PauseState()

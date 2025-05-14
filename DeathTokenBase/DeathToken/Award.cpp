@@ -54,13 +54,13 @@ std::string Award::getWinMessage(int multiplier) {
 	if (multiplier <= 20) return "EPIC WIN";
 	return "ESTAS LOCOOO";
 }
-inline int Award::relativeX(const float& n)
+ int Award::relativeX(const float& n)
 {
 	int m = (int)((n / 1920.0f) * Game::WIN_WIDTH);
 	return m;
 }
 
-inline int
+ int
 Award::relativeY(const float& n)
 {
 	int m = (int)((n / 1080.0f) * Game::WIN_HEIGHT);

@@ -1,0 +1,66 @@
+#include "firebaseUtils.h"
+#include "ranking.h"
+#include "game.h"
+#include "SDL.h"
+#include <cctype>
+using namespace std;
+
+Ranking::Ranking(Game* game, GameState* lastState) : GameState(game), state(lastState), background(game->getTexture(BLACKFOND))
+{
+    background->modAlfa(200);
+
+	vector<FirebaseUtils::userData> ranking = FirebaseUtils::getRanking();
+
+    Text* title = new Text(state, game->getTypo(RANKINGT),
+        relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 6.0f),
+        relativeX(2.0f), relativeY(1.0f),
+        Text::CENTRO);
+    title->setMessage(" RANKING DE JUGADORES ");
+    this->addObjects(title);
+    
+    int startY = relativeY(Game::WIN_HEIGHT / 6 + 200);
+    int stepY = relativeY(150);
+    for (int i = 0; i < ranking.size(); ++i) {
+        auto& user = ranking[i];
+
+        string msg = to_string(i + 1) + ". " + (user.nombre) + "FICHAS: " + to_string(user.fichas) + "ALMAS: " + to_string(user.almas);
+        for (char& c : msg) {
+            c = std::toupper(static_cast<unsigned char>(c));
+        }
+        Text* line = new Text(state, game->getTypo(RANKINGN),
+            relativeX(Game::WIN_WIDTH/2),(startY + i * stepY),
+            relativeX(0), relativeY(1),
+            Text::CENTRO);
+       
+        line->setMessage(msg);
+        this->addObjects(line);
+    }
+
+    ui = new UIRanking(this, game);
+
+}
+
+void Ranking::render() const
+{
+	state->render();
+    background->render();
+	GameState::render();
+}
+
+void Ranking::update()
+{
+    ui->update();
+}
+
+ int Ranking::relativeX(const float& n)
+{
+	int m = (int)((n / 1920.0f) * Game::WIN_WIDTH);
+	return m;
+}
+
+ int
+Ranking::relativeY(const float& n)
+{
+	int m = (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+	return m;
+}

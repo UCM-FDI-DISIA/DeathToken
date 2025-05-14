@@ -226,6 +226,7 @@
     <ClCompile Include="pauseState.cpp" />
     <ClCompile Include="peleas.cpp" />
     <ClCompile Include="playerEconomy.cpp" />
+    <ClCompile Include="ranking.cpp" />
     <ClCompile Include="rouletteChoose.cpp" />
     <ClCompile Include="scythe.cpp" />
     <ClCompile Include="sdlUtils.cpp" />

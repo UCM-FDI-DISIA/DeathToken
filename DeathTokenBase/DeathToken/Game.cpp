@@ -215,8 +215,13 @@ vector<Game::TextureSpec> Game::loadTextures() {
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
+	int y = (int)((125 / 1920.0f) * WIN_WIDTH);
+	int z = (int)((75 / 1920.0f) * WIN_WIDTH);
+
 	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", x));
+	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf",y));
+	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", z));
 	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
@@ -335,8 +340,10 @@ void Game::stop() { while (!empty()) popState(); }
 void Game::startDatabase()
 {
 	FirebaseUtils::StartFirebase();
-	FirebaseUtils::RegisterUser("tongo");
-	FirebaseUtils::SaveState(12, 43);
+	FirebaseUtils::CleanCorruptUsers(); 
+
+	FirebaseUtils::RegisterUser("Danisakis");
+	//FirebaseUtils::SaveState(12, 43);
 }
 
 bool Game::loadFightersFromJSON(const string& filename)

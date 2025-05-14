@@ -29,15 +29,14 @@ void FirebaseUtils::StartFirebase()
 
 void FirebaseUtils::DeleteFirebaseUtils()
 {
-	//db->PurgeOutstandingWrites();
 
 	if (db != nullptr) {
-        db = nullptr;
+		delete db;
     }
 
     if (app != nullptr) {
-        app = nullptr;
-    }
+		delete app;
+	}
 }
 
 void FirebaseUtils::RegisterUser(std::string name)
@@ -151,6 +150,35 @@ std::vector<FirebaseUtils::userData> FirebaseUtils::getRanking()
 
 	return ranking;
 
+}
+
+void FirebaseUtils::CleanCorruptUsers()
+{
+	if (db == nullptr) return;
+
+	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
+	firebase::Future<firebase::database::DataSnapshot> future = usuariosRef.GetValue();
+
+	while (future.status() == firebase::kFutureStatusPending) {
+		SDL_Delay(10);
+	}
+
+	const firebase::database::DataSnapshot& snapshot = *future.result();
+
+	for (const auto& child : snapshot.children()) {
+		std::string key = child.key();
+		auto data = child.value().map();
+
+		bool hasNombre = data["nombre"].is_string();
+		bool hasFichas = data["fichas"].is_int64();
+		bool hasAlmas = data["almas"].is_int64();
+		bool hasLocura = data["locura"].is_bool();
+
+		if (!(hasNombre && hasFichas && hasAlmas && hasLocura)) {
+			// Eliminar el usuario corrupto
+			dbref.Child("usuarios").Child(key).RemoveValue();
+		}
+	}
 }
 
 

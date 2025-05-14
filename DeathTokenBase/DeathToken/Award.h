@@ -5,7 +5,6 @@
 #include "text.h"
 #include <string>
 
-class Marbles;
 class Award : public GameState
 {
 private:
@@ -22,10 +21,11 @@ private:
 	int cSize = 20;
 public:
 	Award(Game* game, GameState* lastState, long long bet, long long mWin);
+	~Award() {};
 	void render()const  override;
 	void update() override;
 	std::string getWinMessage(int multiplier);
-	inline int relativeX(const float& n);
-	inline int relativeY(const float& n);
+	 int relativeX(const float& n);
+	 int relativeY(const float& n);
 };
 

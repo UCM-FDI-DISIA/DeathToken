@@ -216,6 +216,8 @@ enum TextureName {
 enum TypoName {
 	GRAND_CASINO,
 	AWARD,
+	RANKINGT,
+	RANKINGN,
 	FIGHTS_BIG,
 	FIGHTS_SMALL,
 	NUM_TYPO

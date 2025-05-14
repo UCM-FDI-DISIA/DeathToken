@@ -267,6 +267,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="firebaseUtils.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="EscenaTutorial.cpp">
       <Filter>Archivos de origen</Filter>
@@ -281,6 +282,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="pauseState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ranking.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
