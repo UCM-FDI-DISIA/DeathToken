@@ -1,4 +1,5 @@
 #include "scythe.h"
+#include "finalMenu.h"
 
 scythe::scythe(Game* game, PlayerEconomy* eco) : GameState(game), eco(eco), ui(new UIScythe(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG))
 {
@@ -29,7 +30,7 @@ void scythe::render() const
 void scythe::buyScythe()
 {
 	if (eco->getRedSouls() >= 200) {
-		//PUSH VICTORY
-		cout << "WIN" << endl;
+		game->stop();
+		game->pushState(new FinalMenu(game, true));
 	}
 }

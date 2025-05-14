@@ -2,7 +2,7 @@
 #include "menu.h"
 #include "game.h"
 #include "player.h"
-
+#include "finalMenu.h"
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
@@ -133,32 +133,37 @@ void Menu::render() const {
 }
 
 void Menu::update() {//detecto interseciones player/button
-	GameState::update();
+	if (PlayerEconomy::getBlueSouls() <= 0) {
+		game->stop();
+		game->pushState(new FinalMenu(game, false));
+	}
+	else {
+		GameState::update();
 
-	ghost->collision(obstaculos);
+		ghost->collision(obstaculos);
 
-	SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
+		SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
 
-	SDL_Rect _slot = slots->getCollisionRect();
-	bool intersectSlots = SDL_HasIntersection(&playerRect, &_slot);
-	slots->setHover(intersectSlots);
+		SDL_Rect _slot = slots->getCollisionRect();
+		bool intersectSlots = SDL_HasIntersection(&playerRect, &_slot);
+		slots->setHover(intersectSlots);
 
-	SDL_Rect _baccarat = baccarat->getCollisionRect();
-	bool intersectBaccarat = SDL_HasIntersection(&playerRect, &_baccarat);
-	baccarat->setHover(intersectBaccarat);
+		SDL_Rect _baccarat = baccarat->getCollisionRect();
+		bool intersectBaccarat = SDL_HasIntersection(&playerRect, &_baccarat);
+		baccarat->setHover(intersectBaccarat);
 
-	SDL_Rect _marbles = marbles->getCollisionRect();
-	bool intersectMarbles = SDL_HasIntersection(&playerRect, &_marbles);
-	marbles->setHover(intersectMarbles);
+		SDL_Rect _marbles = marbles->getCollisionRect();
+		bool intersectMarbles = SDL_HasIntersection(&playerRect, &_marbles);
+		marbles->setHover(intersectMarbles);
 
-	SDL_Rect _fights = fights->getCollisionRect();
-	bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
-	fights->setHover(intersectFights);
+		SDL_Rect _fights = fights->getCollisionRect();
+		bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
+		fights->setHover(intersectFights);
 
-	SDL_Rect _roulette = roulette->getCollisionRect();
-	bool intersectRoulette = SDL_HasIntersection(&playerRect, &_roulette);
-	roulette->setHover(intersectRoulette);
-
+		SDL_Rect _roulette = roulette->getCollisionRect();
+		bool intersectRoulette = SDL_HasIntersection(&playerRect, &_roulette);
+		roulette->setHover(intersectRoulette);
+	}
 }
 
 //para que cuando intersecten player y button de a entre y entre en el boton
