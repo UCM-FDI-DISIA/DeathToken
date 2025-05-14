@@ -1,9 +1,10 @@
 #include "button.h"
 #include "ui.h"
 #include "marbles.h"
+#include "EscenaTutorial.h"
 
-Button::Button(GameState* g, int x, int y, int w, int h, Texture* t,Texture* tC)
-	: GameObject(g), text(t),textC(tC), hover(false), clicked(false)
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
+	: GameObject(g), text(t), textC(tC), hover(false), clicked(false)
 {
 	box.x = x;
 	box.y = y;
@@ -44,7 +45,7 @@ void Button::handleEvent(const SDL_Event& event) {
 		}
 	}
 	//si player encima de button y presiono enter entra
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {//return es enter
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) { //return es enter
 		if (hover)
 		{
 			cb();
@@ -539,5 +540,48 @@ void ButtonSlots::render() const {
 	if (currentBet > 0)
 	{
 		currentText->render(chipSpace);
+	}
+}
+void ButtonPeleas::handleEvent(const SDL_Event& event) {
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ButtonSlots::ui->currentChipValue();
+		if (currentBet + chip <= PlayerEconomy::getBlueSouls())
+		{
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			PlayerEconomy::addBet(chip);
+			HUDManager::getHudBet()->refresh();
+		}
+		cb();
+	}
+}
+ButtonTutorial::ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text, EscenaTutorial* tut) :ButtonBet(gS, game, ui, x, y, w, h, text, NULL), _tut(tut) {}
+ButtonTutorial::~ButtonTutorial() { delete _tut; }
+void ButtonTutorial::render() const {
+	if (text != nullptr) {
+		text->render(box);
+	}
+	if (currentBet > 0)
+	{
+		currentText->render(chipSpace);
+	}
+}
+void ButtonTutorial::handleEvent(const SDL_Event& event) {
+	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
+	{
+		int chip = ui->currentChipValue();
+		if (currentBet + chip <= PlayerEconomy::getBlueSouls() && _tut->getFase() == 1 && !_tut->itIsInDIalog())
+		{
+			_tut->apuesta();
+			currentBet += chip;
+			lastChipSprite = "UICHIP" + std::to_string(chip);
+			currentText = game->getTexture(showChip());
+			HUDManager::applyBet(chip);
+			PlayerEconomy::setBet(currentBet);
+			HUDManager::getHudBet()->refresh();			
+		}
+		cb();
 	}
 }

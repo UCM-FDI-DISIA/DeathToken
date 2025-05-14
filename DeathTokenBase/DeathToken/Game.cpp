@@ -1,6 +1,7 @@
 #include "game.h"
 #include "json.hpp"
-#include "menu.h"
+#include "EscenaTutorial.h"
+#include "Menu.h"
 #include "pauseState.h"
 #include "finalMenu.h"
 #include "sdlutils.h"
@@ -31,7 +32,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "baccarat/Blackjack_bg2.png", 1, 1 });
 	v.push_back(TextureSpec{ "baccarat/BaccaratFlip__mask.png", 1, 1 });
 	v.push_back(TextureSpec{ "baccarat/barajaBaccarat.png", 14, 1 });
-	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_baccarat_cut.png", 14, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bf.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bj.png", 1, 1 });
+	v.push_back(TextureSpec{ "baccarat/Bb.png", 1, 1 });
 	///
 	v.push_back(TextureSpec{ "DeathTokenToken.png", 1, 1 });
 	v.push_back(TextureSpec{ "map/Casino_marbles_cut.png", 1, 1 });
@@ -188,11 +192,23 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/rouletteAnim47.png",1,1 });
 
 	v.push_back(TextureSpec{ "roulette/rouletteAnim48.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/RecompensasRoulette.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/RecompensasRouletteInsanity.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/ChooseDemon.png",1,1 });
+	v.push_back(TextureSpec{ "baccarat/smoke.png",9,1 });
 
-	v.push_back(TextureSpec{ "Menus/pause.png",1,1 });
-	v.push_back(TextureSpec{ "Menus/back.png",1,1 });
-	v.push_back(TextureSpec{ "Menus/menu.png",1,1 });
-	v.push_back(TextureSpec{ "Menus/rank.png",1,1 });
+	v.push_back(TextureSpec{ "menus/pause.png",1,1 });
+	v.push_back(TextureSpec{ "menus/back.png",1,1 });
+	v.push_back(TextureSpec{ "menus/menu.png",1,1 });
+	v.push_back(TextureSpec{ "menus/rank.png",1,1 });
+
+	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1 });
+	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
+
+	v.push_back(TextureSpec{ "menus/GoodText.png",1,1 });
+	v.push_back(TextureSpec{ "menus/GoodEnding.png",1,1 });
+	v.push_back(TextureSpec{ "menus/BadText.png",1,1 });
+	v.push_back(TextureSpec{ "menus/BadEnding.png",1,1 });
 
 	v.push_back(TextureSpec{ "Menus/GoodText.png",1,1 });
 	v.push_back(TextureSpec{ "Menus/GoodEnding.png",1,1 });
@@ -241,11 +257,13 @@ Game::Game() {
 	TTF_Init();
 	fonts = loadFonts();
 
-	if (loadFightersFromJSON("peleadores.json") && loadMatchupsFromJSON("../DeathToken/matchups.json")) {
+	if (loadFightersFromJSON("../assets/jsons/peleadores.json") && loadMatchupsFromJSON("../assets/jsons/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
 	}
+	/*EscenaTutorial* tutorial = new EscenaTutorial(this);
+	pushState(tutorial);*/
 	Menu* menu = new Menu(this);
 	pushState(menu);
 	//SEMILLA DE NUMEROS ALEATORIOS
@@ -280,16 +298,19 @@ void Game::run() {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+			{
 				stop();
+			}
 			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
 				if (!pause)
 				{
-					push(new PauseState(this,gameStates.top().get()));
+					push(new PauseState(this, gameStates.top().get()));
 					pause = true;//si la pausa esta en true no se puede abrir otra
 				}
 			}
-			else
+			else {
 				handleEvent(event);
+			}
 		}
 
 		// Tiempo que se ha tardado en ejecutar lo anterior

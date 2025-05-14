@@ -138,6 +138,8 @@ public:
 	UITutorial(GameState* gS, Game* game, size_t tam);
 
 	void OnExit();
+	ButtonUI* downArrow();
+	ButtonUI* upArrow();
 };
 
 class Peleas;
@@ -157,4 +159,14 @@ protected:
 	Peleas* _peleas;
 	ButtonUI* autoText;
 	ButtonUI* historial;
+};
+
+class EscenaTutorial;
+class UIEscenaTutorial :public UI {
+protected:
+	EscenaTutorial* escenaTutorial;
+	std::vector<ButtonBet*> bets;
+public:
+	UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut);
+	void OnGo() override;
 };

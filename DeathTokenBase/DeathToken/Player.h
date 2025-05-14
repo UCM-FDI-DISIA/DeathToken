@@ -5,7 +5,7 @@
 class Menu;
 class Player : public sceneObject, public EventHandler {
 private:
-	static constexpr int SPEED_MAG = 15;
+	static constexpr int SPEED_MAG = 30;
 	Menu* menu;
 	Texture* texture;
 	bool locura;
@@ -18,5 +18,5 @@ public:
 	void handleEvent(const SDL_Event& evento) override;
 	SDL_Rect getRect() const;//rect player
 	bool getLocura() const { return locura; }
-	void move(vector<SDL_Rect>);
+	void collision(vector<SDL_Rect>);
 };

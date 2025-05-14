@@ -1,4 +1,5 @@
-﻿#include "battleManager.h"
+﻿#include "award.h"
+#include "battleManager.h"
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
@@ -40,42 +41,47 @@ Peleas::Peleas(Game* game)
 	, fighter1bar(nullptr)
 	, fighter2bar(nullptr)
 	, ui(new UIPeleas(game, this))
+	, bet(new HUDBet(this))
+	, bet1(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA1X* Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
+	, bet2(new ButtonPeleas(this, game, ui, static_cast<int>(APUESTA2X* Game::WIN_WIDTH), static_cast<int>((CUOTAY + ESPACIO * 2.5f)* Game::WIN_HEIGHT), 200, 200, nullptr))
 	, state(FSState::CARDS)
+	, apuesta1(0)
+	, apuesta2(0)
 {
 	_battleM = new BattleManager(dialog, game);
 
 	_battleM->StartBattle();
-nombre1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
+	nombre1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
 
-nombre2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
+	nombre2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>(NOMBRESY * Game::WIN_HEIGHT));
 
-Cuota1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
+	Cuota1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
 
-Cuota2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
+	Cuota2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>(CUOTAY * Game::WIN_HEIGHT));
 
-Animo1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
+	Animo1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
 
-Animo2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
+	Animo2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO) * Game::WIN_HEIGHT));
 
-Apuesta1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
+	Apuesta1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA1X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 
-Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
-    static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
-    static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
+	Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
+		static_cast<int>(APUESTA2X * Game::WIN_WIDTH),
+		static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 	nombre1->showMessage(_battleM->getFigther1().getName());
 	nombre2->showMessage(_battleM->getFigther2().getName());
 
@@ -88,6 +94,23 @@ Apuesta2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_BIG),
 	Apuesta2->showMessage("Apuesta: ");
 
 	addEventListener((EventHandler*)dialog);
+	addEventListener(bet1);
+	addEventListener(bet2);
+	addObjects(bet1);
+	addObjects(bet2);
+	bet->refresh();
+}
+
+void Peleas::setCards() {
+	// Mostrar los valores formateados
+	nombre1->showMessage(_battleM->getFigther1().getName(), true);
+	nombre2->showMessage(_battleM->getFigther2().getName(), true);
+	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())), true);
+	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())), true);
+	Animo1->showMessage("Animo: " + _battleM->getFigther1().getStringMindset(), true);
+	Animo2->showMessage("Animo: " + _battleM->getFigther2().getStringMindset(), true);
+	Apuesta1->showMessage("Apuesta: ", true);
+	Apuesta2->showMessage("Apuesta: ", true);
 }
 
 void Peleas::StartBattle()
@@ -97,13 +120,12 @@ void Peleas::StartBattle()
 	}
 	state = FSState::FIGHT;
 	SDL_RenderClear(game->getRenderer());
-	dialog->SetX(Game::WIN_WIDTH / 3);
-	dialog->SetY(3 * Game::WIN_HEIGHT / 4);
-	dialog->SetW(Game::WIN_WIDTH / 3);
-	dialog->ResetHistory();
+	dialog->setX(Game::WIN_WIDTH / 3);
+	dialog->setY(3 * Game::WIN_HEIGHT / 4);
+	dialog->setWidth(Game::WIN_WIDTH / 3);
+	dialog->resetHistory();
 	// Configuración de las barras de vida
 	SDL_Renderer* renderer = game->getRenderer();
-
 
 	// Barra de vida del luchador 1 (izquierda)
 	int barWidth = Game::WIN_WIDTH / 3;
@@ -186,8 +208,11 @@ Peleas::render() const {
 	GameState::render();
 }
 
-int lastUpdate = 0;
-SDL_Event event;
+namespace Variables_Peleas {
+	int lastUpdate = 0;
+}
+
+
 
 void
 Peleas::update() {
@@ -198,19 +223,37 @@ Peleas::update() {
 		break;
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
-			_battleM->Update(static_cast<float>(currentTime - lastUpdate));
+			_battleM->Update(static_cast<float>(currentTime - Variables_Peleas::lastUpdate));
 			fighter1bar->establecerValor(_battleM->getFigther1().getHealth());
 			fighter2bar->establecerValor(_battleM->getFigther2().getHealth());
-			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()),(_battleM->getFigther1().getMaxHealth()));
-			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()),(_battleM->getFigther2().getMaxHealth()));
+			fighter1bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther1().getHealth()), (_battleM->getFigther1().getMaxHealth()));
+			fighter2bar->updateColorBasedOnHealth(static_cast<float>(_battleM->getFigther2().getHealth()), (_battleM->getFigther2().getMaxHealth()));
 		}
-		
+		else {
+			if (apuesta1 > 0 && _battleM->getFigther1().isAlive()) {
+				game->push(new Award(game, this, apuesta1, static_cast<long>(apuesta1 * _battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility()))));
+			}
+			else if (apuesta2 > 0) {
+				game->push(new Award(game, this, apuesta2, static_cast<long>(apuesta2 * _battleM->getFigther2().getOdds(_battleM->getFigther1().getAbility()))));
+			}
+			state = FSState::CARDS;
+			_battleM->StartBattle();
+			dialog->resetHistory();
+			setCards();
+			bet1->clear();
+			bet2->clear();
+			bet->update();
+			bet->refresh();
+		}
+
 		break;
 	default:
 		break;
 	}
-	dialog->update(static_cast<float>(currentTime - lastUpdate));
-	lastUpdate = currentTime;
+	apuesta1 = bet1->getBet();
+	apuesta2 = bet2->getBet();
+	dialog->update(static_cast<float>(currentTime - Variables_Peleas::lastUpdate));
+	Variables_Peleas::lastUpdate = currentTime;
 	GameState::update();
 
 }

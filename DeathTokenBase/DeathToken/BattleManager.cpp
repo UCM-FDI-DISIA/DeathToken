@@ -67,8 +67,8 @@ void BattleManager::StartBattle()
 
 void BattleManager::Update(float deltaTime)
 {
-	if (dialog->passNextState() || currentState == BattleState::START) {
-		dialog->BattleStatePass(); // Reiniciamos el temporizador
+	if (dialog->shouldAdvanceState() || currentState == BattleState::START) {
+		dialog->resetDialogStateFlag(); // Reiniciamos el temporizador
 
 		switch (currentState) {
 		case BattleState::START:
@@ -183,3 +183,4 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 		}
 	}
 }
+
