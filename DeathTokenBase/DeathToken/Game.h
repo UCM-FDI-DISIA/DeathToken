@@ -214,7 +214,9 @@ enum TextureName {
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
-	GRAND_CASINO,
+	GRAND_CASINO1,
+	GRAND_CASINO2,
+	GRAND_CASINO3,
 	AWARD,
 	RANKINGT,
 	RANKINGN,
@@ -268,6 +270,10 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint FONTSMALLSIZE = 28;
 	static constexpr uint FONTBIGSIZE = 32;
+	static constexpr uint CASINOSIZE1 = 50;
+	static constexpr uint CASINOSIZE2 = 40;
+	static constexpr uint CASINOSIZE3 = 30;
+
 	Game();
 	~Game();
 	void run();

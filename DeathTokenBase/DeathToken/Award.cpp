@@ -11,14 +11,14 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 	//Mirar el virtualTimer
 
 
-	text = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 5.0f), relativeX((float)wSize), relativeX((float)cSize), Text::CENTRO);
+	text = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 5.0f), relativeX((float)cSize), Text::CENTRO);
 	if (betG != 0) {
 	long long multi = mWinG / betG;
 		text->setMessage(getWinMessage((int)multi));
 	}
 	this->addObjects(text);
 
-	winText = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 2.0f), relativeX((float)nSize), relativeX((float)cSize), Text::CENTRO);
+	winText = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 2.0f), relativeX((float)cSize), Text::CENTRO);
 	winText->setMessage("0");
 	this->addObjects(winText);
 }
@@ -32,6 +32,7 @@ void Award::update() {
 		startTime = SDL_GetTicks();
 	}
 	else if (SDL_GetTicks() - startTime >= 1000) {
+		if (HUDManager::getHudLobby())
 		HUDManager::applyWinBet(currentWin);
 		game->pop(); // Regresar al estado anterior
 	}

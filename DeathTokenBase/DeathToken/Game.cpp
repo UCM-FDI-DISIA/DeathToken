@@ -207,7 +207,6 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1});
 	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
-
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -218,7 +217,9 @@ vector<TTF_Font*> Game::loadFonts() {
 	int y = (int)((125 / 1920.0f) * WIN_WIDTH);
 	int z = (int)((50 / 1920.0f) * WIN_WIDTH);
 
-	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", CASINOSIZE1));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", CASINOSIZE2));
+	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", CASINOSIZE3));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", x));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf",y));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", z));
@@ -246,7 +247,7 @@ Game::Game() {
 	startDatabase();
 
 	vector<TextureSpec> textureSpec = loadTextures();
-	std::string textureRoot = "assets/images/";
+	std::string textureRoot = "../assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures.push_back(new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
@@ -256,7 +257,7 @@ Game::Game() {
 	TTF_Init();
 	fonts = loadFonts();
 
-	if (loadFightersFromJSON("assets/jsons/peleadores.json") && loadMatchupsFromJSON("assets/jsons/matchups.json")) {
+	if (loadFightersFromJSON("../assets/jsons/peleadores.json") && loadMatchupsFromJSON("../assets/jsons/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG

@@ -6,6 +6,7 @@
 class HUD : public GameObject
 {
 protected:
+	GameState* gS;
 	long long& balance = PlayerEconomy::blueSouls;
 	long long& redSouls = PlayerEconomy::redSouls;
 	long long& bet = PlayerEconomy::bet;
@@ -13,8 +14,8 @@ protected:
 	Text* balanceText;
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
-	long long getNumberSize(long long n);
-	long long getNumberY(long long n);
+	int getNumberSize(long long n);
+	int getNumberY(long long n);
 public:
 	HUD(GameState* gS);
 	virtual void refresh();
@@ -47,11 +48,15 @@ class HUDManager
 private:
 	static HUDBet* currentHudBet;
 	static HUDLobby* currentHudLobby;
+	static bool rouletteSwitch;
 public:
 	static HUDBet* getHudBet() { return currentHudBet; };
 	static void setHudBet(HUDBet* hudBet) { currentHudBet = hudBet; };
 	static HUDLobby* getHudLobby() { return currentHudLobby; };
-	static void setHudLobby(HUDLobby* hudLobby) { currentHudLobby = hudLobby; };
+	static void setHudLobby(HUDLobby* hudLobby) {
+		currentHudLobby = hudLobby;
+		rouletteSwitch = !rouletteSwitch;
+	};
 	static void applyBet(int bet);
 	static void resetBet();
 	static void applyWinBet(long long win);
