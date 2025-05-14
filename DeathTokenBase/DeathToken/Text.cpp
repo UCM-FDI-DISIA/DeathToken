@@ -2,7 +2,7 @@
 #include "game.h"
 #include <iostream>
 
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
     x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
@@ -11,7 +11,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alig
     font = typo;
     message = "";
 }
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
     x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
 {
@@ -20,7 +20,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color text
     font = typo;
     message = "";
 }
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
     x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
@@ -29,7 +29,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSiz
     font = typo;
     message = "";
 }
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize,
     SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor(outlineColor),
     x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
@@ -73,11 +73,6 @@ void
 Text::setColor(int red, int green, int blue, int alpha)
 {
     textColor = SDL_Color(red, green, blue, alpha);
-}
-void
-Text::setSize(int size)
-{
-    TTF_SetFontSize(font, size);
 }
 void
 Text::setOutlineColor(int red, int green, int blue, int alpha)
