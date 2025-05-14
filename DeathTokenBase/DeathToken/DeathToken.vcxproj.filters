@@ -140,6 +140,7 @@
     </ClInclude>
     <ClInclude Include="firebaseUtils.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="EscenaTutorial.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
