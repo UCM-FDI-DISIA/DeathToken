@@ -69,6 +69,8 @@ void
 PlayerEconomy::addInsanity(int insanity)
 {
 	PlayerEconomy::insanity += insanity;
+	if (PlayerEconomy::insanity > 10)
+		PlayerEconomy::insanity = 10;
 }
 void
 PlayerEconomy::addBet(long long bet)

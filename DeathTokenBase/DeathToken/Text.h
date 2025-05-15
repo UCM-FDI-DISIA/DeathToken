@@ -38,7 +38,6 @@ protected:
 
     int x;
     int y;
-    int size;
     int outlineSize;
 
     SDL_Color textColor;

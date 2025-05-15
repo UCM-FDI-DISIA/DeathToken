@@ -205,6 +205,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1});
 	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
+
+	v.push_back(TextureSpec{ "ui/hud/insanityFrame_white.png",1,1 });
+	v.push_back(TextureSpec{ "ui/hud/insanityFrame_yellow.png",1,1 });
+	v.push_back(TextureSpec{ "ui/hud/insanitySlot.png",1,1 });
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }

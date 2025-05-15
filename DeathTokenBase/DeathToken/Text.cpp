@@ -4,7 +4,7 @@
 
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-    x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
@@ -13,7 +13,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, Alignment alignment)
 }
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
-    x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
@@ -22,7 +22,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, SDL_Color textColor, Ali
 }
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-    x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
@@ -32,7 +32,7 @@ Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize, Alignme
 Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize,
     SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor(outlineColor),
-    x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();

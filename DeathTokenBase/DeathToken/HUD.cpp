@@ -52,6 +52,16 @@ HUD::HUD(GameState* gS) : GameObject(gS), gS(gS)
 						   relativeX((float)3.0f), Text::DERECHA);
 	balanceText->setMessage(std::to_string(balance));
 	gS->addObjectsUI(balanceText);
+
+	insanityFrameW = gS->getGame()->getTexture(INSANITYFRAMEW);
+	insanityFrameY = gS->getGame()->getTexture(INSANITYFRAMEY);
+	insanitySlot = gS->getGame()->getTexture(INSANITYSLOT);
+
+	for (uint i = 0u; i < 10u; i++)
+	{
+		insanityRectsH[i] = SDL_Rect(1525 + (i * 31), 230, 335, 115);
+		insanityRectsV[i] = SDL_Rect(1635, 337 - (i * 31), 335, 115);
+	}
 }
 void
 HUD::refresh()
@@ -62,7 +72,7 @@ HUD::refresh()
 	balanceText->render();
 }
 
-HUDLobby::HUDLobby(GameState* gS) : HUD(gS)
+HUDLobby::HUDLobby(GameState* gS, bool roulette) : HUD(gS)
 {
 	redSoulsDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600), relativeY((float)150),
 								relativeX((float)3), Text::DERECHA);
@@ -73,7 +83,7 @@ HUDLobby::HUDLobby(GameState* gS) : HUD(gS)
 	redSoulsText->setMessage(std::to_string(redSouls));
 	gS->addObjectsUI(redSoulsText);
 
-	HUDManager::setHudLobby(this);
+	HUDManager::setHudLobby(this, roulette);
 }
 void
 HUDLobby::refresh()
@@ -85,7 +95,41 @@ HUDLobby::refresh()
 	redSoulsText->render();
 }
 
-HUDBet::HUDBet(GameState* gS) : HUD(gS)
+void HUDLobby::render() const
+{
+	if (!HUDManager::getRouletteSwitch())
+	{
+		if (insanity < 1)
+		{
+			insanityFrameW->render(insanityRectsV[0], 270.0);
+		}
+		else
+		{
+			insanityFrameY->render(insanityRectsV[0], 270.0);
+			for (int i = 0; i < insanity; i++)
+			{
+				insanitySlot->render(insanityRectsV[i], 270.0);
+			}
+		}
+	}
+	else
+	{
+		if (insanity < 1)
+		{
+			insanityFrameW->render(insanityRectsH[0]);
+		}
+		else
+		{
+			insanityFrameY->render(insanityRectsH[0]);
+			for (int i = 0; i < insanity; i++)
+			{
+				insanitySlot->render(insanityRectsH[i]);
+			}
+		}
+	}
+}
+
+HUDBet::HUDBet(GameState* gS, bool verticalInsanity) : HUD(gS), verticalInsanity(verticalInsanity)
 {
  	betDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600), relativeY((float)150),
 						   relativeX((float)3), Text::DERECHA);
@@ -108,6 +152,40 @@ HUDBet::refresh()
 	betText->render();
 }
 
+void HUDBet::render() const
+{
+	if (!verticalInsanity)
+	{
+		if (insanity < 1)
+		{
+			insanityFrameW->render(insanityRectsH[0]);
+		}
+		else
+		{
+			insanityFrameY->render(insanityRectsH[0]);
+			for (int i = 0; i < insanity; i++)
+			{
+				insanitySlot->render(insanityRectsH[i]);
+			}
+		}
+	}
+	else
+	{
+		if (insanity < 1)
+		{
+			insanityFrameW->render(insanityRectsV[0], 270.0);
+		}
+		else
+		{
+			insanityFrameY->render(insanityRectsV[0], 270.0);
+			for (int i = 0; i < insanity; i++)
+			{
+				insanitySlot->render(insanityRectsV[i], 270.0);
+			}
+		}
+	}
+}
+
 HUDBet* HUDManager::currentHudBet = nullptr;
 HUDLobby* HUDManager::currentHudLobby = nullptr;
 bool HUDManager::rouletteSwitch = true;
@@ -116,7 +194,10 @@ HUDManager::applyBet(int bet)
 {
 	PlayerEconomy::addBet(bet);
 	PlayerEconomy::subtractBlueSouls(bet);
-	currentHudBet->refresh();
+	if (!rouletteSwitch)
+		currentHudBet->refresh();
+	else
+		currentHudLobby->refresh();
 }
 void HUDManager::resetBet()
 {
@@ -132,7 +213,10 @@ HUDManager::applyWinBet(long long win)
 {
 	PlayerEconomy::addBlueSouls(win);
 	PlayerEconomy::setBet(0);
-	currentHudBet->refresh();
+	if (!rouletteSwitch)
+		currentHudBet->refresh();
+	else
+		currentHudLobby->refresh();
 }
 
 void HUDManager::popGame()
