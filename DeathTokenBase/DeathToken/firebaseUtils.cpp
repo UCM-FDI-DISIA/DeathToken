@@ -1,5 +1,6 @@
 #include "FirebaseUtils.h"
 #include <SDL_timer.h>
+#include "PlayerEconomy.h"
 static firebase::App* app;
 static firebase::database::Database* db;
 static firebase::database::DatabaseReference dbref;
@@ -42,11 +43,11 @@ void FirebaseUtils::DeleteFirebaseUtils()
 void FirebaseUtils::RegisterUser(std::string name)
 {
 	//Hago esto porque si se borra un usuario desde firebase, desde el vs lo guarda en cache o 
-	if (db != nullptr) {
+	/*if (db != nullptr) {
 		db->GoOffline();
 		SDL_Delay(5000);
 		db->GoOnline();
-	}
+	}*/
 	//referencia a la tabla "usuarios"
 	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
 
@@ -97,7 +98,13 @@ void FirebaseUtils::RegisterUser(std::string name)
 	usuario.map()["locura"] = insanity;
 
 	//añadir datos a la base de datos
-	dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
+	firebase::Future<void> result = dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
+	while (result.status() == firebase::kFutureStatusPending) {
+		SDL_Delay(10);
+	}
+	PlayerEconomy::setBlueSouls(chips);
+	PlayerEconomy::setRedSouls(souls);
+	PlayerEconomy::setInsanity(insanity);
 }
 
 void FirebaseUtils::SaveState(int chipsN, int soulsN, int insanityN)
@@ -107,7 +114,10 @@ void FirebaseUtils::SaveState(int chipsN, int soulsN, int insanityN)
 	usuarioU.map()["almas"] = soulsN;
 	usuarioU.map()["locura"] = insanityN;
 
-	dbref.Child("usuarios").Child(std::to_string(currentId)).UpdateChildren(usuarioU);
+	firebase::Future<void> result = dbref.Child("usuarios").Child(std::to_string(currentId)).UpdateChildren(usuarioU);
+	while (result.status() == firebase::kFutureStatusPending) {
+		SDL_Delay(10);
+	}
 }
 
 std::vector<FirebaseUtils::userData> FirebaseUtils::getRanking()

@@ -224,10 +224,12 @@ vector<TTF_Font*> Game::loadFonts() {
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
 	int y = (int)((125 / 1920.0f) * WIN_WIDTH);
 	int z = (int)((50 / 1920.0f) * WIN_WIDTH);
+	int t = (int)((100 / 1920.0f) * WIN_WIDTH);
 
 	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE1));
 	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE2));
 	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE3));
+	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", t));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", x));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf",y));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", z));
@@ -240,7 +242,7 @@ vector<TTF_Font*> Game::loadFonts() {
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("Death Token 1x01",
+	window = SDL_CreateWindow("Death Token",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		WIN_WIDTH,

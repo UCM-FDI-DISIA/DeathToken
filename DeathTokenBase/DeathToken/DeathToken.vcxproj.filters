@@ -162,6 +162,9 @@
     <ClInclude Include="mainMenu.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="inputBox.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp">
@@ -291,12 +294,15 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ranking.cpp">
-    <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="finalMenu.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="mainMenu.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="inputBox.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

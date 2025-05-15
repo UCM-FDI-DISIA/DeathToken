@@ -174,6 +174,7 @@
     <ClInclude Include="firebaseUtils.h" />
     <ClInclude Include="finalMenu.h" />
     <ClInclude Include="hud.h" />
+    <ClInclude Include="inputBox.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="marblesInsanity.h" />
     <ClInclude Include="Mesa.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="firebaseUtils.cpp" />
     <ClCompile Include="finalMenu.cpp" />
     <ClCompile Include="hud.cpp" />
+    <ClCompile Include="inputBox.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="marblesInsanity.cpp" />
     <ClCompile Include="Mesa.cpp" />
