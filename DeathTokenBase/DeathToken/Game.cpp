@@ -255,7 +255,7 @@ Game::Game() {
 	startDatabase();
 
 	vector<TextureSpec> textureSpec = loadTextures();
-	std::string textureRoot = "../assets/images/";
+	std::string textureRoot = "assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures.push_back(new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
@@ -265,7 +265,7 @@ Game::Game() {
 	TTF_Init();
 	fonts = loadFonts();
 
-	if (loadFightersFromJSON("../assets/jsons/peleadores.json") && loadMatchupsFromJSON("../assets/jsons/matchups.json")) {
+	if (loadFightersFromJSON("assets/jsons/peleadores.json") && loadMatchupsFromJSON("assets/jsons/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
