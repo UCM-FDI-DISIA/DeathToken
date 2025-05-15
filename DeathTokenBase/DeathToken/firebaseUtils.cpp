@@ -79,13 +79,21 @@ void FirebaseUtils::RegisterUser(std::string name)
 
 	int maxId = 0;
 	//recorre todos los id para luego asignar id+1 al usuario nuevo
-	for (auto& child : snapshot.children()) {
-		int id = std::stoi(child.key());
-		if (id > maxId) {
-			maxId = id;
+	int idLibre = 0;
+	bool idEncontrado = false;
+
+	while (!idEncontrado) {
+		idEncontrado = true;
+		for (const auto& child : snapshot.children()) {
+			int idExistente = std::stoi(child.key());
+			if (idExistente == idLibre) {
+				idLibre++;
+				idEncontrado = false;
+				break;
+			}
 		}
 	}
-	currentId = maxId + 1;
+	currentId = idLibre;
 	chips = 2000;
 	souls = 0;
 	insanity = 0;
