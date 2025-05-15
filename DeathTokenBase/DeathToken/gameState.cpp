@@ -35,7 +35,7 @@ void GameState::deleteSpecificGO(GameObject* obj)//Elimina el objeto de la lista
 {
 	for (auto& o : gameObjects) {
 		if (o == obj) {
-			erase(gameObjects, obj);
+			gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), obj), gameObjects.end());
 			return;
 		}
 	}
@@ -45,7 +45,7 @@ void GameState::deleteSpecificEH(EventHandler* obj)//Elimina el objeto de la lis
 {
 	for (auto& o : eventHandlers) {
 		if (o == obj) {
-			erase(eventHandlers, obj);
+			eventHandlers.erase(std::remove(eventHandlers.begin(), eventHandlers.end(), obj), eventHandlers.end());
 			return;
 		}
 	}

@@ -1,16 +1,18 @@
-﻿#include "game.h"
+#include <iostream>
+#include "FirebaseUtils.h"
+#include "game.h"
 #include "json.hpp"
 #include "mainMenu.h"
 #include "pauseState.h"
 #include "sdlutils.h"
 #include "SoundManager.h"
 #include <vector>
-#include <iostream>
 #include <string>
 using namespace std;
 
 int Game::WIN_WIDTH = 0;
 int Game::WIN_HEIGHT = 0;
+
 
 using json = nlohmann::json;
 
@@ -238,6 +240,9 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "Items/Champagne.png", 1, 1 });
 	v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
 
+	v.push_back(TextureSpec{ "ui/hud/insanityFrame_white.png",1,1 });
+	v.push_back(TextureSpec{ "ui/hud/insanityFrame_yellow.png",1,1 });
+	v.push_back(TextureSpec{ "ui/hud/insanitySlot.png",1,1 });
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -245,8 +250,17 @@ vector<Game::TextureSpec> Game::loadTextures() {
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
-	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	int y = (int)((125 / 1920.0f) * WIN_WIDTH);
+	int z = (int)((50 / 1920.0f) * WIN_WIDTH);
+	int t = (int)((100 / 1920.0f) * WIN_WIDTH);
+
+	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE1));
+	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE2));
+	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE3));
+	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", t));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", x));
+	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf",y));
+	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", z));
 	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
@@ -256,7 +270,7 @@ vector<TTF_Font*> Game::loadFonts() {
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("Death Token 1x01",
+	window = SDL_CreateWindow("Death Token",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		WIN_WIDTH,
@@ -268,6 +282,8 @@ Game::Game() {
 		throw "Error cargando SDL";
 	inicializa(window);
 	// Carga las texturas
+	startDatabase();
+
 	vector<TextureSpec> textureSpec = loadTextures();
 	std::string textureRoot = "assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
@@ -343,6 +359,8 @@ Game::~Game() {
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+
+	FirebaseUtils::DeleteFirebaseUtils();
 	TTF_Quit();
 	// Desactiva la SDL
 	SDL_Quit();
@@ -363,8 +381,8 @@ void Game::run() {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-			{
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
+				FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity());
 				stop();
 			}
 			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
@@ -403,6 +421,12 @@ void Game::pop() {
 	popState();
 }
 void Game::stop() { while (!empty()) popState(); }
+
+void Game::startDatabase()
+{
+	FirebaseUtils::StartFirebase();
+	FirebaseUtils::CleanFirebase();
+}
 
 bool Game::loadFightersFromJSON(const string& filename)
 {

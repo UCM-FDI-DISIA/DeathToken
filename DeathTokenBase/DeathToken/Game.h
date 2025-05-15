@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "gameStateMachine.h"
-
 #include "fighter.h"
 #include "HUD.h"
 #include "texture.h"
@@ -203,11 +202,22 @@ enum TextureName {
 	PELEASCHAMPAGNE,
 
 	PELEASROUND,
-	NUM_TEXTURES  // Truco C++: número de texturas definidas
+	 // Truco C++: número de texturas definidas
+	//
+	INSANITYFRAMEW,
+	INSANITYFRAMEY,
+	INSANITYSLOT,
+	//
+	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
-	GRAND_CASINO,
+	GRAND_CASINO1,
+	GRAND_CASINO2,
+	GRAND_CASINO3,
+	MENUT,
 	AWARD,
+	RANKINGT,
+	RANKINGN,
 	FIGHTS_BIG,
 	FIGHTS_SMALL,
 	NUM_TYPO
@@ -256,6 +266,10 @@ public:
 	static constexpr uint FRAME_RATE = 50;
 	static constexpr uint FONTSMALLSIZE = 28;
 	static constexpr uint FONTBIGSIZE = 32;
+	static constexpr uint CASINOSIZE1 = 50;
+	static constexpr uint CASINOSIZE2 = 40;
+	static constexpr uint CASINOSIZE3 = 30;
+
 	Game();
 	~Game();
 	void run();
@@ -266,6 +280,7 @@ public:
 	void replace(GameState*);
 	void pop();
 	void stop();
+	void startDatabase();
 
 	inline void setPause(bool p) {
 		pause = p;

@@ -92,7 +92,7 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 
 	_ui = new UIEscenaTutorial(this, g, this);
 
-	_hud = new HUDBet(this);
+	_hud = new HUDBet(this, false);
 
 	float w = Game::WIN_WIDTH * (200.0f / 1920.0f);
 	float h = Game::WIN_HEIGHT * (200.0f / 1080.0f);

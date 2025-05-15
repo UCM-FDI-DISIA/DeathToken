@@ -139,7 +139,10 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="inputBox.h">
-    <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="firebaseUtils.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="EscenaTutorial.h">
       <Filter>Archivos de encabezado</Filter>
@@ -196,6 +199,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="scythe.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="inputBox.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -311,6 +317,9 @@
     <ClCompile Include="inputBox.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="firebaseUtils.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="EscenaTutorial.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -336,6 +345,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="pauseState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ranking.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="finalMenu.cpp">
@@ -364,5 +376,8 @@
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_mixer.dll" />
     <None Include="SDL2_ttf.dll" />
+    <ClCompile Include="inputBox.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

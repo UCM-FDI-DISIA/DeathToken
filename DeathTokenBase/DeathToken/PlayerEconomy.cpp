@@ -1,4 +1,6 @@
+#include "firebaseUtils.h"
 #include "playerEconomy.h"
+#include "HUD.h"
 
 //Inicialización máquina
 long long PlayerEconomy::blueSouls = 0;
@@ -11,9 +13,9 @@ PlayerEconomy::EconomyInitialize(bool savedGame)
 {
 	if (!savedGame)
 	{
-		blueSouls = 2000;
-		redSouls = 0;
-		insanity = 0;
+		blueSouls = FirebaseUtils::chips;
+		redSouls = FirebaseUtils::souls;
+		insanity = FirebaseUtils::insanity;
 		bet = 0;
 	}
 }
@@ -69,6 +71,8 @@ void
 PlayerEconomy::addInsanity(int insanity)
 {
 	PlayerEconomy::insanity += insanity;
+	if (PlayerEconomy::insanity > 10)
+		PlayerEconomy::insanity = 10;
 }
 void
 PlayerEconomy::addBet(long long bet)

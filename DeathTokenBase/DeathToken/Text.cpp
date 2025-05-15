@@ -2,42 +2,46 @@
 #include "game.h"
 #include <iostream>
 
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-      x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = typo;
     message = "";
 }
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, SDL_Color textColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor({ 0, 0, 0, 0 }),
-      x(x), y(y), size(size), outlineSize(0), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(0), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = typo;
     message = "";
 }
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize, Alignment alignment)
     : GameObject(gS), textColor({ 255, 255, 255, 255 }), outlineColor({ 0, 0, 0, 0 }),
-    x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = typo;
     message = "";
 }
-Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
-           SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
+Text::Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize,
+    SDL_Color textColor, SDL_Color outlineColor, Alignment alignment)
     : GameObject(gS), textColor(textColor), outlineColor(outlineColor),
-      x(x), y(y), size(size), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
+    x(x), y(y), outlineSize(outlineSize), alignment(alignment), boxWidth(0)
 {
     TTF_SetFontOutline(font, 2);
     renderer = gS->getGame()->getRenderer();
     font = typo;
     message = "";
+}
+void Text::setFont(TTF_Font* newFont)
+{
+    font = newFont;
 }
 void
 Text::setPos(int x, int y)
@@ -68,17 +72,18 @@ Text::eraseMessage()
 void
 Text::setColor(int red, int green, int blue, int alpha)
 {
-    textColor = SDL_Color(red, green, blue, alpha);
-}
-void
-Text::setSize(int size)
-{
-    TTF_SetFontSize(font, size);
+    textColor.r = red;
+    textColor.g = green;
+    textColor.b = blue;
+    textColor.a = alpha;
 }
 void
 Text::setOutlineColor(int red, int green, int blue, int alpha)
 {
-    outlineColor = SDL_Color(red, green, blue, alpha);
+    outlineColor.r = red;
+    outlineColor.g = green;
+    outlineColor.b = blue;
+    outlineColor.a = alpha;
 }
 void
 Text::setWidth(int width)
@@ -99,7 +104,7 @@ Text::render() const
     SDL_Rect textRect;
     SDL_Rect outlineRect;
     createTextRects(textRect, outlineRect, textSurface, outlineSurface);
-    
+
     SDL_RenderCopy(renderer, outlineTexture, nullptr, &outlineRect);
     SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
 

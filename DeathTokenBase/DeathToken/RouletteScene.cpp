@@ -5,7 +5,7 @@ RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), 
 	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE), eco);
 	addObjects(roul);
 	hudMenu = HUDManager::getHudLobby();
-	hud = new HUDLobby(this);
+	hud = new HUDLobby(this, true);
 	arrowTex = game->getTexture(ROULETTEARROW);
 	rouletteFrame = game->getTexture(ROULETTEFRAME);
 }

@@ -23,7 +23,7 @@ public:
 	}
 	virtual void iniciarGiro() = 0; //Metodo que inicia el juego
 	inline void setBetTurno(long long n) { bet = n; } // Asigna la apuesta
-	inline void clear() { //Metodo para vaciar el botón de apuestas y aplicar la actual
+	inline void clear() { //Metodo para vaciar el botï¿½n de apuestas y aplicar la actual
 		btnBet->clear();
 		PlayerEconomy::setBet(0);
 		hud->refresh();

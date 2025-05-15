@@ -39,7 +39,7 @@ void Tutorial::render() const {
 	anterior->render();
 
 	//capa negra translucida
-	SDL_Rect black(0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT);
+	SDL_Rect black{ 0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT };
 	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_MUL);
 	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 170);
 	SDL_RenderFillRect(game->getRenderer(), &black);

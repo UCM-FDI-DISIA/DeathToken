@@ -66,6 +66,7 @@ public:
 };
 class Marbles;
 class UIMarbles :public   UIChips {
+protected:
 	Marbles* marbles;
 	std::vector<ButtonBet*> bets;
 public:
@@ -80,6 +81,7 @@ public:
 
 class MarblesInsanity;
 class UIMarblesInsanity : public UIChips {
+protected:
 	MarblesInsanity* marblesI;
 	std::vector<ButtonBet*> bets;
 public:
@@ -90,6 +92,19 @@ public:
 	void OnInfo() override;
 };
 
+class Ranking;
+class UIRanking  {
+protected:
+	GameState* gS;
+	Game* game;
+	ButtonUI* exit;
+	Ranking* ranking;
+public:
+	UIRanking(GameState* gS, Game* game);
+	void OnExit();
+	void render() const;
+	void update();
+};
 
 class Baccarat;
 class UIBaccarat :public   UIChips {

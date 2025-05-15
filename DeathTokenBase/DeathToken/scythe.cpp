@@ -12,7 +12,7 @@ scythe::scythe(Game* game, PlayerEconomy* eco) : GameState(game), eco(eco), ui(n
 	buyButton->connect([this, eco]() { buyScythe();});
 
 	hudMenu = HUDManager::getHudLobby();
-	hud = new HUDLobby(this);
+	hud = new HUDLobby(this, true);
 }
 
 void scythe::update()
