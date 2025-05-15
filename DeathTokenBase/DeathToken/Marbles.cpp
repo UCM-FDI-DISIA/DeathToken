@@ -13,8 +13,7 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),b
 {
 	ui = new UIMarbles(this, game, this);
 	Marbles::marblesButtonCreation();
-	hud = new HUDBet(this);
-
+	hud = new HUDBet(this, false);
 }
 
 Marbles::~Marbles() {

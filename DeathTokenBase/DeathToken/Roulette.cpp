@@ -302,7 +302,7 @@ void Roulette::update() {
 				cout << "LOCURA" << endl;
 				animTime = (float)SDL_GetTicks();
 				i = 0;
-				eco->setInsanity(5);
+				eco->addInsanity(10);
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
 				|| rot >= 79.2f && rot < 86.4f || rot >= 115.2f && rot < 122.4f

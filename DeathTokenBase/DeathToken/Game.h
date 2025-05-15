@@ -181,6 +181,11 @@ enum TextureName {
 	TUTORIALSLOTS,
 	TUTORIALSLOTSLOC,
 
+	//
+	INSANITYFRAMEW,
+	INSANITYFRAMEY,
+	INSANITYSLOT,
+	//
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

@@ -20,7 +20,7 @@ public:
 	RouletteScene(Game* g, PlayerEconomy* eco);
 	virtual ~RouletteScene() {
 		delete ui; 
-		HUDManager::setHudLobby(hudMenu);
+		HUDManager::setHudLobby(hudMenu, true);
 		hudMenu->refresh();
 	};
 	void handleEvent(const SDL_Event& event) override;

@@ -14,7 +14,7 @@ class scythe : public GameState
 public:
 	scythe(Game* game, PlayerEconomy* eco);
 	~scythe() {
-		HUDManager::setHudLobby(hudMenu);
+		HUDManager::setHudLobby(hudMenu, true);
 		hudMenu->refresh();
 	};
 

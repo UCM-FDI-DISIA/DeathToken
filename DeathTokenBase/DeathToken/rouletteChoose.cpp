@@ -17,7 +17,7 @@ rouletteChoose::rouletteChoose(Game* game, PlayerEconomy* eco) : GameState(game)
 	roulette->connect([this, eco]() { chooseGame(new RouletteScene(getGame(), eco));});
 
 	hudMenu = HUDManager::getHudLobby();
-	hud = new HUDLobby(this);
+	hud = new HUDLobby(this, true);
 
 	demon = game->getTexture(CHOOSEDEMON);
 }

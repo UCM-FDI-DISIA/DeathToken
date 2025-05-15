@@ -104,7 +104,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		addEventListener(ghost);
 	}
 
-	hud = new HUDLobby(this);
+	hud = new HUDLobby(this, false);
 
 }
 Menu::~Menu() {
