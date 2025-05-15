@@ -2,7 +2,7 @@
 #include "menu.h"
 #include "game.h"
 #include "player.h"
-
+#include "finalMenu.h"
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)), baccaratState(nullptr) {
 	addEventListener(this);
@@ -27,7 +27,15 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)),
 	slots = new Button(this, (Game::WIN_WIDTH * 7 / 8) - (Game::WIN_WIDTH / 9) / 2, (Game::WIN_HEIGHT * 3 / 4), Game::WIN_WIDTH / 9, Game::WIN_HEIGHT / 9, game->getTexture(SLOTSBUT));
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new SlotsNormal(getGame()));});
+	slots->connect([this]() { slotsState = new SlotsNormal(getGame());
+		gameChanger(slotsState);
+		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			tutorialSlots = false;
+			slotsState->showTutorial();
+		}
+	});
+	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
@@ -65,6 +73,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)),
 void Menu::gameChanger(GameState* juego) {
 	if (eco->getInsanity() > 0)
 	{
+		GameState* old = juego;
 		if (typeid(*juego) == typeid(Baccarat)) {
 			delete juego;
 			juego = new BaccaratInsanityManager(getGame());
@@ -72,11 +81,16 @@ void Menu::gameChanger(GameState* juego) {
 		else if (typeid(*juego) == typeid(Marbles)) {
 			delete juego;
 			juego = new MarblesInsanity(getGame());
-
 		}
 		else if (typeid(*juego) == typeid(SlotsNormal)) {
 			delete juego;
 			juego = new SlotsInsanity(getGame());
+			slotsState = juego;
+			if (tutorialSlotsLocura)
+			{
+				tutorialSlots = true;
+				tutorialSlotsLocura = false;
+			}
 		}
 		else if (typeid(*juego) == typeid(Peleas)) {
 			delete juego;
@@ -94,14 +108,37 @@ void Menu::render() const {
 }
 
 void Menu::update() {//detecto interseciones player/button
-	GameState::update();
+	if (PlayerEconomy::getBlueSouls() <= 0) {
+		game->stop();
+		game->pushState(new FinalMenu(game, false));
+	}
+	else {
+		GameState::update();
 
-	SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
+		ghost->collision(obstaculos);
 
-	baccarat->Button::getHover() = baccarat->playerHovered(playerRect);
-	slots->Button::getHover() = slots->playerHovered(playerRect);
-	marbles->Button::getHover() = marbles->playerHovered(playerRect);
-	fights->Button::getHover() = fights->playerHovered(playerRect);
+		SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
+
+		SDL_Rect _slot = slots->getCollisionRect();
+		bool intersectSlots = SDL_HasIntersection(&playerRect, &_slot);
+		slots->setHover(intersectSlots);
+
+		SDL_Rect _baccarat = baccarat->getCollisionRect();
+		bool intersectBaccarat = SDL_HasIntersection(&playerRect, &_baccarat);
+		baccarat->setHover(intersectBaccarat);
+
+		SDL_Rect _marbles = marbles->getCollisionRect();
+		bool intersectMarbles = SDL_HasIntersection(&playerRect, &_marbles);
+		marbles->setHover(intersectMarbles);
+
+		SDL_Rect _fights = fights->getCollisionRect();
+		bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
+		fights->setHover(intersectFights);
+
+		SDL_Rect _roulette = roulette->getCollisionRect();
+		bool intersectRoulette = SDL_HasIntersection(&playerRect, &_roulette);
+		roulette->setHover(intersectRoulette);
+	}
 }
 
 //para que cuando intersecten player y button de a entre y entre en el boton

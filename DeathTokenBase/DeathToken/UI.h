@@ -59,11 +59,13 @@ protected:
 	ButtonUI* erase;
 	ButtonUI* info;
 	std::vector<ButtonBet*> bets;
+	bool locura;
 public:
 	UISlots(GameState*, Game*, Slots*);
 	void OnGo() override;
 	void OnErase();
 	void OnInfo();
+	inline void setLocura(bool l) { locura = l; }
 };
 class Marbles;
 class UIMarbles :public   UIChips {
