@@ -16,6 +16,7 @@ private:
 	Texture* background;
 	Text* text;
 	Text* winText;
+	Text* soulText;
 	long long currentWin;
 	int wSize = 200;
 	int nSize = 300;

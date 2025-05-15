@@ -203,7 +203,7 @@ enum TextureName {
 	PELEASCHAMPAGNE,
 
 	PELEASROUND,
-	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
+	NUM_TEXTURES  // Truco C++: número de texturas definidas
 };
 enum TypoName {
 	GRAND_CASINO,
@@ -224,7 +224,7 @@ struct Matchup {
 class Game : public GameStateMachine {
 
 private:
-	// Ventana de la SDL (se destruir� en el destructor)
+	// Ventana de la SDL (se destruirá en el destructor)
 	SDL_Window* window = nullptr;
 	// Renderizador de la SDL (para dibujar)
 	SDL_Renderer* renderer = nullptr;
