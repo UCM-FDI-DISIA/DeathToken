@@ -1,7 +1,6 @@
 #include "game.h"
 #include "json.hpp"
-#include "mainMenu.h"
-#include "pauseState.h"
+#include "menu.h"
 #include "sdlutils.h"
 #include <iostream>
 #include <string>
@@ -215,24 +214,9 @@ vector<Game::TextureSpec> Game::loadTextures()
 
   v.push_back(TextureSpec{ "roulette/rouletteAnim48.png", 1, 1 });
 
-	v.push_back(TextureSpec{ "menus/pause.png",1,1 });
-	v.push_back(TextureSpec{ "menus/back.png",1,1 });
-	v.push_back(TextureSpec{ "menus/menu.png",1,1 });
-	v.push_back(TextureSpec{ "menus/rank.png",1,1 });
-
-	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1 });
-	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
-
-	v.push_back(TextureSpec{ "menus/GoodText.png",1,1 });
-	v.push_back(TextureSpec{ "menus/GoodEnding.png",1,1 });
-	v.push_back(TextureSpec{ "menus/BadText.png",1,1 });
-	v.push_back(TextureSpec{ "menus/BadEnding.png",1,1 });
-
-	v.push_back(TextureSpec{ "tutorial/Tutorial_slots.png",1,1 });
-	v.push_back(TextureSpec{ "tutorial/Tutorial_slots_locura.png",1,1 });
-
-	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
-	return v;
+  if (v.size() != NUM_TEXTURES)
+    throw "Texturas sin índice, error al cargar";
+  return v;
 }
 
 vector<TTF_Font*> Game::loadFonts()
@@ -358,23 +342,14 @@ void Game::run()
     render();  // Dibuja los objetos en la venta
     SDL_RenderPresent(renderer);
 
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-			{
-				stop();
-			}
-			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
-				if (!pause)
-				{
-					push(new PauseState(this, gameStates.top().get()));
-					pause = true;//si la pausa esta en true no se puede abrir otra
-				}
-			}
-			else {
-				handleEvent(event);
-			}
-		}
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+      if (event.type == SDL_QUIT ||
+          (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+        stop();
+      else
+        handleEvent(event);
+    }
 
     // Tiempo que se ha tardado en ejecutar lo anterior
     uint32_t frameTime = SDL_GetTicks() - frameStart;
@@ -421,8 +396,8 @@ bool Game::loadFightersFromJSON(const string& filename)
     std::cout << "No se pudo abrir el archivo de peleadores." << endl;
 #endif  // DEBUG
 
-		return false;
-	}
+    return false;
+  }
 
   json j;
   file >> j;
@@ -445,8 +420,8 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 #ifdef DEBUG
     cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
-		return false;
-	}
+    return false;
+  }
 
   try {
     json j;
@@ -457,8 +432,8 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 #ifdef DEBUG
       cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
-			return false;
-		}
+      return false;
+    }
 
     // Procesar el JSON y cargar los enfrentamientos
     for (auto& item : j["matchups"]) {
@@ -472,14 +447,14 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 #ifdef DEBUG
         cout << "Índice de peleador inválido." << endl;
 #endif
-				continue;
-			}
+        continue;
+      }
 
-			Matchup matchup;
-			matchup.fighter1 = fighters[id1];
-			matchup.fighter2 = fighters[id2];
-			matchup.advantageFighterIndex = advantageFighterIndex;
-			matchup.battleDescription = battleDescription;
+      Matchup matchup;
+      matchup.fighter1 = fighters[id1];
+      matchup.fighter2 = fighters[id2];
+      matchup.advantageFighterIndex = advantageFighterIndex;
+      matchup.battleDescription = battleDescription;
 
       battleQueue.push_back(matchup);
     }

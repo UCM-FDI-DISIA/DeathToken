@@ -30,14 +30,9 @@ class Menu : public GameState, EventHandler
 	//Booleanos para activar el tutorial al entrar por primera vez al juego
 	bool tutorialBaccarat = true;
 	bool tutorialSlots = true;
-	bool tutorialSlotsLocura = true;
 	bool tutorialFights = true;
 	bool tutorialMarbles = true;
 	GameState* baccaratState;
-	GameState* slotsState;
-	GameState* marbleState;
-	vector<SDL_Rect> obstaculos;
-	vector<Mesa*> juegos;
 
 	HUDLobby* hud;
 	PlayerEconomy* eco;

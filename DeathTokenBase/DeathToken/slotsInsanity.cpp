@@ -7,10 +7,8 @@ using namespace std;
 
 SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
 {
-	ui->setLocura(true);
-
-	float x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 50) / 1920.0f) * (N_COLUM / 2.0f));
-	float y = Game::WIN_HEIGHT * (70 / 1080.0f);
+	float x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
+	float y = Game::WIN_HEIGHT * (50 / 1080.0f);
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
 	for (int i = 0; i < N_COLUM; ++i) {
@@ -102,7 +100,7 @@ int SlotsInsanity::getNext() {
 }
 
 int SlotsInsanity::checkBoard() const {
-	// Revisiï¿½n filas y columnas
+	// Revisión filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -115,7 +113,7 @@ int SlotsInsanity::checkBoard() const {
 			}
 		}
 	}
-	// Revisiï¿½n diagonales principales
+	// Revisión diagonales principales
 	for (int i = 0; i < N_COLUM - 2; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -124,7 +122,7 @@ int SlotsInsanity::checkBoard() const {
 			}
 		}
 	}
-	// Revisiï¿½n diagonales secundarias
+	// Revisión diagonales secundarias
 	for (int i = N_COLUM - 1; i > 1; --i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
