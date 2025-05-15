@@ -261,6 +261,7 @@ Peleas::update() {
 	switch (state)
 	{
 	case FSState::CARDS:
+		bet->refresh();
 		break;
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
