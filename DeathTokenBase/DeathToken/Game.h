@@ -179,6 +179,8 @@ enum TextureName {
 	GOODENDIMG,
 	BADENDTEXT,
 	BADENDIMG,
+	TUTORIALSLOTS,
+	TUTORIALSLOTSLOC,
 
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
