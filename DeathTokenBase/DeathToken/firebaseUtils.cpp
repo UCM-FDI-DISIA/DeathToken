@@ -70,14 +70,15 @@ void FirebaseUtils::RegisterUser(std::string name)
 		if (nomrbeeq == name) {
 			currentId = std::stoi(child.key());
 			chips = data["fichas"].int64_value();
+			if (chips == 0) {
+				chips = 2000;
+			}
 			souls = data["almas"].int64_value();
 			insanity = data["locura"].int64_value();
 			return;
 		}
 	}
 	
-
-	int maxId = 0;
 	//recorre todos los id para luego asignar id+1 al usuario nuevo
 	int idLibre = 0;
 	bool idEncontrado = false;
