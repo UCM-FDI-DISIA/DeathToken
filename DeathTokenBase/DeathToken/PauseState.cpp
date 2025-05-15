@@ -2,6 +2,7 @@
 #include "game.h"
 #include "menu.h"
 #include "ranking.h"
+#include "mainMenu.h"
 
 PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior(other), texture(game->getTexture(PAUSE))
 {
@@ -21,7 +22,7 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 	addEventListener(menu);
 	menu->connect([this, game]() {
 		game->stop(); // Pop de pausa y el juego actual
-		game->pushState(new Menu(game));
+		game->pushState(new MainMenu(game));
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
 	

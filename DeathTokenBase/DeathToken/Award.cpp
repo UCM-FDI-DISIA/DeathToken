@@ -13,7 +13,7 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 
 	text = new Text(state, game->getTypo(AWARD), relativeX((float)Game::WIN_WIDTH / 2.0f), relativeY((float)Game::WIN_HEIGHT / 5.0f), relativeX((float)cSize), Text::CENTRO);
 	if (betG != 0) {
-	long long multi = mWinG / betG;
+		long long multi = mWinG / betG;
 		text->setMessage(getWinMessage((int)multi));
 	}
 	this->addObjects(text);
@@ -27,7 +27,12 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 void Award::update() {
 	//Tendra que contar el tiempo para que despues de 5 segundos de mostrar el mensaje vuelva a la escena anterior
 	if (currentWin < mWinG) {
-		currentWin += min((long long)10, mWinG - currentWin);
+		if (mWinG < 500) {
+			currentWin += std::min((long long)10, mWinG - currentWin);
+		}
+		else {
+			currentWin += std::min((long long)100, mWinG - currentWin);
+		}
 		winText->setMessage(std::to_string(currentWin));
 		startTime = SDL_GetTicks();
 	}

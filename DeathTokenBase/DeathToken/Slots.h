@@ -7,7 +7,7 @@ class Slots : public GameState {
 protected:
 	virtual int getResult() = 0;
 	long long bet;
-	std::vector<int> multiplicadores = { 2,3,5,10,50,80,150 };
+	std::vector<int> multiplicadores = { 2,3,5,10,50,80,120 };
 	ButtonSlots* btnBet;
 
 	UISlots* ui;
@@ -23,4 +23,5 @@ public:
 		PlayerEconomy::setBet(0);
 		hud->refresh();
 	}
+	inline virtual void showTutorial() override { ui->OnInfo(); }
 };

@@ -2,8 +2,7 @@
 #include "FirebaseUtils.h"
 #include "game.h"
 #include "json.hpp"
-#include "EscenaTutorial.h"
-#include "Menu.h"
+#include "mainMenu.h"
 #include "pauseState.h"
 #include "sdlutils.h"
 #include <vector>
@@ -200,13 +199,22 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/ChooseDemon.png",1,1 });
 	v.push_back(TextureSpec{ "baccarat/smoke.png",9,1 });
 
-	v.push_back(TextureSpec{ "Menus/pause.png",1,1 });
-	v.push_back(TextureSpec{ "Menus/back.png",1,1 });
-	v.push_back(TextureSpec{ "Menus/menu.png",1,1 });
-	v.push_back(TextureSpec{ "Menus/rank.png",1,1 });
+	v.push_back(TextureSpec{ "menus/pause.png",1,1 });
+	v.push_back(TextureSpec{ "menus/back.png",1,1 });
+	v.push_back(TextureSpec{ "menus/menu.png",1,1 });
+	v.push_back(TextureSpec{ "menus/rank.png",1,1 });
 
-	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1});
+	v.push_back(TextureSpec{ "escenaTutorial/FlechasManos.png",2,1 });
 	v.push_back(TextureSpec{ "escenaTutorial/PiedraPapelTijera.png",3,1 });
+
+	v.push_back(TextureSpec{ "menus/GoodText.png",1,1 });
+	v.push_back(TextureSpec{ "menus/GoodEnding.png",1,1 });
+	v.push_back(TextureSpec{ "menus/BadText.png",1,1 });
+	v.push_back(TextureSpec{ "menus/BadEnding.png",1,1 });
+
+	v.push_back(TextureSpec{ "tutorial/Tutorial_slots.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_slots_locura.png",1,1 });
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -247,7 +255,7 @@ Game::Game() {
 	startDatabase();
 
 	vector<TextureSpec> textureSpec = loadTextures();
-	std::string textureRoot = "assets/images/";
+	std::string textureRoot = "../assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures.push_back(new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
@@ -257,14 +265,13 @@ Game::Game() {
 	TTF_Init();
 	fonts = loadFonts();
 
-	if (loadFightersFromJSON("assets/jsons/peleadores.json") && loadMatchupsFromJSON("assets/jsons/matchups.json")) {
+	if (loadFightersFromJSON("../assets/jsons/peleadores.json") && loadMatchupsFromJSON("../assets/jsons/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
 	}
-	/*EscenaTutorial* tutorial = new EscenaTutorial(this);
-	pushState(tutorial);*/
-	Menu* menu = new Menu(this);
+	
+	MainMenu* menu = new MainMenu(this);
 	pushState(menu);
 
 	//SEMILLA DE NUMEROS ALEATORIOS
@@ -307,12 +314,13 @@ void Game::run() {
 			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
 				if (!pause)
 				{
-					push(new PauseState(this,gameStates.top().get()));
+					push(new PauseState(this, gameStates.top().get()));
 					pause = true;//si la pausa esta en true no se puede abrir otra
 				}
 			}
-			else
+			else {
 				handleEvent(event);
+			}
 		}
 
 		// Tiempo que se ha tardado en ejecutar lo anterior
@@ -357,7 +365,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 #endif // DEBUG
 
 		return false;
-}
+	}
 
 	json j;
 	file >> j;
@@ -381,7 +389,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
 		return false;
-}
+	}
 
 	try {
 		json j;
@@ -393,7 +401,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-	}
+		}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -408,12 +416,12 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 				cout << "Índice de peleador inválido." << endl;
 #endif
 				continue;
-		}
+			}
 
 			Matchup matchup;
-				matchup.fighter1 = fighters[id1];
-				matchup.fighter2 = fighters[id2];
-				matchup.advantageFighterIndex = advantageFighterIndex;
+			matchup.fighter1 = fighters[id1];
+			matchup.fighter2 = fighters[id2];
+			matchup.advantageFighterIndex = advantageFighterIndex;
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);

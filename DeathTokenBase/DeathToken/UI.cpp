@@ -123,7 +123,7 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 }
 
 
-UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot)
+UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot), locura(false)
 {
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
 	gS->addObjects(erase);
@@ -146,7 +146,14 @@ UISlots::OnGo() {
 void
 UISlots::OnInfo()
 {
-
+	std::vector<Texture*> tut;
+	if (locura) {
+		tut.push_back(game->getTexture(TUTORIALSLOTSLOC));
+	}
+	else {
+		tut.push_back(game->getTexture(TUTORIALSLOTS));
+	}
+	game->push(new Tutorial(game, gS, tut));
 }
 void
 UISlots::OnErase() {

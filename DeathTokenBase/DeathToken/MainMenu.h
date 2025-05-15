@@ -7,14 +7,11 @@
 
 class MainMenu : public GameState{
 private:
-	Texture* portada;
-	Button* level1;
-	Button* level2;
+	Texture* back;
+	//Input para Ivan
 	Button* salir;
+	Button* begin;
 public:
 	MainMenu(Game*);
 	void render() const override;
-	void lvl1() const;
-	void lvl2() const;
-	void exit() const;
 };

@@ -2,7 +2,7 @@
 #include "menu.h"
 #include "game.h"
 #include "player.h"
-
+#include "finalMenu.h"
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
@@ -61,7 +61,14 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(SLOTSBUT), (int)wBut, (int)hBut);
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { gameChanger(new SlotsNormal(getGame())); });
+	slots->connect([this]() { slotsState = new SlotsNormal(getGame());
+		gameChanger(slotsState);
+		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			tutorialSlots = false;
+			slotsState->showTutorial();
+		}
+	});
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
 	//Widht, height, position marbles button
@@ -108,16 +115,23 @@ Menu::~Menu() {
 void Menu::gameChanger(GameState* juego) {
 	if (eco->getInsanity() > 0)
 	{
+		GameState* old = juego;
 		if (typeid(*juego) == typeid(Baccarat)) {
 			juego = new BaccaratInsanityManager(getGame());
 		}
 		else if (typeid(*juego) == typeid(Marbles)) {
 			juego = new MarblesInsanity(getGame());
-
 		}
 		else if (typeid(*juego) == typeid(SlotsNormal)) {
 			juego = new SlotsInsanity(getGame());
+			slotsState = juego;
+			if (tutorialSlotsLocura)
+			{
+				tutorialSlots = true;
+				tutorialSlotsLocura = false;
+			}
 		}
+		delete old;
 		/*else if (typeid(*juego) == typeid(PeleasReanimadas)) {
 
 		}*/
@@ -133,32 +147,37 @@ void Menu::render() const {
 }
 
 void Menu::update() {//detecto interseciones player/button
-	GameState::update();
+	if (PlayerEconomy::getBlueSouls() <= 0) {
+		game->stop();
+		game->pushState(new FinalMenu(game, false));
+	}
+	else {
+		GameState::update();
 
-	ghost->collision(obstaculos);
+		ghost->collision(obstaculos);
 
-	SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
+		SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
 
-	SDL_Rect _slot = slots->getCollisionRect();
-	bool intersectSlots = SDL_HasIntersection(&playerRect, &_slot);
-	slots->setHover(intersectSlots);
+		SDL_Rect _slot = slots->getCollisionRect();
+		bool intersectSlots = SDL_HasIntersection(&playerRect, &_slot);
+		slots->setHover(intersectSlots);
 
-	SDL_Rect _baccarat = baccarat->getCollisionRect();
-	bool intersectBaccarat = SDL_HasIntersection(&playerRect, &_baccarat);
-	baccarat->setHover(intersectBaccarat);
+		SDL_Rect _baccarat = baccarat->getCollisionRect();
+		bool intersectBaccarat = SDL_HasIntersection(&playerRect, &_baccarat);
+		baccarat->setHover(intersectBaccarat);
 
-	SDL_Rect _marbles = marbles->getCollisionRect();
-	bool intersectMarbles = SDL_HasIntersection(&playerRect, &_marbles);
-	marbles->setHover(intersectMarbles);
+		SDL_Rect _marbles = marbles->getCollisionRect();
+		bool intersectMarbles = SDL_HasIntersection(&playerRect, &_marbles);
+		marbles->setHover(intersectMarbles);
 
-	SDL_Rect _fights = fights->getCollisionRect();
-	bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
-	fights->setHover(intersectFights);
+		SDL_Rect _fights = fights->getCollisionRect();
+		bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
+		fights->setHover(intersectFights);
 
-	SDL_Rect _roulette = roulette->getCollisionRect();
-	bool intersectRoulette = SDL_HasIntersection(&playerRect, &_roulette);
-	roulette->setHover(intersectRoulette);
-
+		SDL_Rect _roulette = roulette->getCollisionRect();
+		bool intersectRoulette = SDL_HasIntersection(&playerRect, &_roulette);
+		roulette->setHover(intersectRoulette);
+	}
 }
 
 //para que cuando intersecten player y button de a entre y entre en el boton
