@@ -2,6 +2,9 @@
 #include "baccarat.h"
 class BaccaratBet : public Baccarat
 {
+	ButtonBaccarat* btnBaccarattie;
+	ButtonBaccarat* btnBaccaratplayer;
+	ButtonBaccarat* btnBaccaratbanker;
 	Button* bet = nullptr;
 	Button* stop = nullptr;
 	bool buttonsOn = false;

@@ -58,7 +58,8 @@ void Baccarat::clearDeck() {
 }
 
 void Baccarat::update() {//para que las cartas se muevan enun futuro
-	GameState::update();
+	if (mat.player.size() == 0 && mat.player.size() == 0)
+		GameState::update();
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		frame++;
