@@ -7,11 +7,10 @@
 #include "InputBox.h"
 #include <vector>
 
-const Uint32 TIEMPO_PRESENTACION = 3000;
-const Uint32 TIEMPO_COMPARACION = 2000;
-const Uint32 TIEMPO_SIGUIENTE_RONDA = 2500;
-const Uint32 TIEMPO_FINAL_OBJETO = 4000;
-
+const Uint32 TIEMPO_PRESENTACION = 3000;   
+const Uint32 TIEMPO_COMPARACION = 2000;     
+const Uint32 TIEMPO_SIGUIENTE_RONDA = 2500; 
+const Uint32 TIEMPO_FINAL_OBJETO = 4000;   
 struct Ronda {
   int intentoJugador;
   int intentoRival;
@@ -29,6 +28,7 @@ private:
   enum class State {
     PRESENTACION,
     INPUT_JUGADOR,
+    ESPERA_RIVAL,
     COMPARACION,
     SIGUIENTE_RONDA,
     FINAL_OBJETO,
@@ -44,16 +44,18 @@ private:
   State currentState;
   InputBox* inputJugador;
   DialogueBox* descripcionBox;
-  DialogueBox* rondaBox;      // Nueva caja para rondas
-  DialogueBox* resultadoBox;  // Caja solo para resultados
+  DialogueBox* resultadoBox;
   GeneraPrecios generadorPrecios;
   InfoObjeto objetoActual;
 
   std::vector<Ronda> rondasActuales;
   int rondasRestantesObjeto;
   int rondasTotales;
+  int precioReal;
+  int guessRival;
+
   Uint32 stateStartTime;
   int lastUpdate;
 };
 
-#endif
+#endif  
