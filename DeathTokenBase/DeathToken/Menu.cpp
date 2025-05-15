@@ -60,8 +60,6 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)),
 	 delete eco;
 	 texture = nullptr;
 	 hud = nullptr;
-	 if(baccaratState)
-	 delete baccaratState;
 }
 
 void Menu::gameChanger(GameState* juego) {
