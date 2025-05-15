@@ -17,7 +17,7 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 	
 	inputNombre = new InputBox(g->getRenderer(), g->getTypo(MENUT), (Game::WIN_WIDTH / 2)-525 ,
 		_y-(int)(Game::WIN_HEIGHT * (250 / 1080.0f)),true,false,(1050), 100);
-	inputNombre->setMaxLength(8);
+	inputNombre->setMaxLength(10);
 	inputNombre->setActive(true);
 	inputNombre->showMessage("ESCRIBE TU NOMBRE");
 	addEventListener(inputNombre);

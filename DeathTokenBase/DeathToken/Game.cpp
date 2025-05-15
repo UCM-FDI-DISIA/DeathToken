@@ -354,8 +354,6 @@ void Game::startDatabase()
 {
 	FirebaseUtils::StartFirebase();
 	FirebaseUtils::CleanFirebase();
-
-	FirebaseUtils::RegisterUser("Dios");
 }
 
 bool Game::loadFightersFromJSON(const string& filename)

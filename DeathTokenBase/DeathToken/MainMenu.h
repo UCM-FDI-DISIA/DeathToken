@@ -14,6 +14,7 @@ private:
 	Button* begin;
 public:
 	MainMenu(Game*);
+	~MainMenu() { delete inputNombre; }
 	void render() const override;
 
 };
