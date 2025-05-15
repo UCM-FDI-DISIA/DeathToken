@@ -13,11 +13,9 @@ protected:
 	constexpr static float TAM_CELDA = 210;
 	constexpr static float TAM_BOTON = 150;
 
-	std::vector<Carrete*> carretes;
-	int comprobanteIndice;
+	std::vector<Carrete*> carretes; // vector con los tres carretes que conforman la maquina
+	int comprobanteIndice; // Indice para saber cuando se han parado los tres carretes
 	
-	int getResult() override { return 0; }
-
 public:
 
 	SlotsNormal(Game*);
