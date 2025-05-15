@@ -139,21 +139,26 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="inputBox.h">
+    <ClInclude Include="EscenaTutorial.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="peleasInsanity.h">
+    <ClInclude Include="Mesa.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GeneraPrecios.h">
+    <ClInclude Include="rouletteChoose.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Behaviour.h">
+    <ClInclude Include="scythe.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Cards.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="EscenaTutorial.h">
+    <ClInclude Include="pauseState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="finalMenu.h">
@@ -294,18 +299,23 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="inputBox.cpp">
+    <ClCompile Include="EscenaTutorial.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="PeleasInsanity.cpp">
+    <ClCompile Include="Mesa.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="GeneraPrecios.cpp">
+    <ClCompile Include="rouletteChoose.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Cards.cpp">
+    <ClCompile Include="scythe.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="EscenaTutorial.cpp">
+    <ClCompile Include="pauseState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="finalMenu.cpp">
