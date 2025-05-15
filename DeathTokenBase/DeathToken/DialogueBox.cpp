@@ -256,7 +256,7 @@ void DialogueBox::update(float deltaTime) {
 /* Renderiza la caja de diálogo y su contenido                     */
 /*******************************************************************/
 void DialogueBox::render() const {
-	if (!visible) return;
+	if (!visible || !displayedText.empty()) return;
 
 	// Configura transparencia
 	int transparent = transparente ? SDL_ALPHA_TRANSPARENT : 255;
