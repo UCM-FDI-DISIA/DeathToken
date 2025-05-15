@@ -185,9 +185,9 @@ ButtonChip::update()
 	}
 	if (hover && !onUse) {
 		ui->changeChip(id);
-		if (slot){
-			 PlayerEconomy::setBet(ui->currentChipValue());
-			 HUDManager::getHudBet()->refresh();
+		if (slot) {
+			PlayerEconomy::setBet(ui->currentChipValue());
+			HUDManager::getHudBet()->refresh();
 		}
 	}
 	else if (!clicked && hover && !slot && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)))
@@ -456,7 +456,7 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 	}
 }
 //MARBLESINSANITY
-ButtonMarblesInsanity::ButtonMarblesInsanity(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC,bool acertado, std::vector<int> discardMarble) :  ButtonUI(g, x, y, w, h, t, tC)
+ButtonMarblesInsanity::ButtonMarblesInsanity(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, bool acertado, std::vector<int> discardMarble) : ButtonUI(g, x, y, w, h, t, tC)
 {
 
 }
@@ -476,7 +476,7 @@ void ButtonMarblesInsanity::handleEvent(const SDL_Event& event)
 //BACCARAT
 ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h)
 	: ButtonBet(gS, game, ui, x, y, w, h, NULL, NULL)
-{	
+{
 }
 
 void
@@ -507,6 +507,12 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 	{
 		cb();
 	}
+}
+
+void ButtonBaccarat::setPos(int x, int y)
+{
+	box.x = x;
+	box.y = y;
 }
 
 //colision player button

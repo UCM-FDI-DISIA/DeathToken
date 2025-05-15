@@ -27,7 +27,8 @@ void BaccaratBlackjack::render() const {
 }
 
 void BaccaratBlackjack::update() {
-	GameState::update();
+	if (mat.player.size() == 0 && mat.player.size() == 0)
+		GameState::update();
 	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
 	if (width < Game::WIN_WIDTH && height < Game::WIN_HEIGHT && animOn) {
 		width += Game::WIN_WIDTH / 50;
