@@ -338,8 +338,8 @@ Game::Game() {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
 
-	if (loadFightersFromJSON("peleadores.json") &&
-		loadMatchupsFromJSON("DeathToken/matchups.json")) {
+	if (loadFightersFromJSON("assets/jsons/peleadores.json") &&
+		loadMatchupsFromJSON("assets/jsons/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
