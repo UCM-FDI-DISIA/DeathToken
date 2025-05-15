@@ -1,8 +1,10 @@
 #pragma once
 #include <random>
 #include <string>
+#include "Game.h"
 
 struct InfoObjeto {
+  TextureName tex;
   std::string nombre;
   std::string descripcionRango;
   std::string descripcionModificador;

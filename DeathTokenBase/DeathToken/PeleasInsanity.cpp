@@ -2,40 +2,48 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+
 PeleasInsanity::PeleasInsanity(Game* game)
   : GameState(game)
   , currentState(State::PRESENTACION)
   , inputJugador(new InputBox(game->getRenderer(),
                               game->getTypo(FIGHTS_SMALL),
-                              static_cast<int>(Game::WIN_WIDTH / 3),
+                              static_cast<int>(Game::WIN_WIDTH / 2 - 150),
                               static_cast<int>(3 * Game::WIN_HEIGHT / 4),
                               true,
-                              false,
+                              true,
                               400,
                               180))
   , descripcionBox(new DialogueBox(game->getRenderer(),
                                    game->getTypo(FIGHTS_SMALL),
-                                   static_cast<int>(Game::WIN_WIDTH / 4),
-                                   static_cast<int>(Game::WIN_HEIGHT / 4),
+                                   170,
+                                   275,
                                    true,
                                    true,
-                                   500,
+                                   275,
                                    200))
+  , rondaBox(new DialogueBox(game->getRenderer(),  // Nueva caja de rondas
+                             game->getTypo(FIGHTS_SMALL),
+                             1605,
+                             110,
+                             true,
+                             true,
+                             300,
+                             175))
   , resultadoBox(new DialogueBox(game->getRenderer(),
                                  game->getTypo(FIGHTS_SMALL),
-                                 static_cast<int>(Game::WIN_WIDTH / 4),
-                                 static_cast<int>(Game::WIN_HEIGHT / 2),
+                                 1605,
+                                 275,
                                  true,
                                  true,
-                                 500,
-                                 200))
-  , rondasRestantesObjeto(3)
-  , rondasTotales(0)
+                                 300,
+                                 400))
 {
   generarNuevoObjeto();
   inputJugador->setMaxLength(4);
   addEventListener(inputJugador);
   addEventListener(descripcionBox);
+  addEventListener(rondaBox);
   addEventListener(resultadoBox);
 }
 
@@ -45,30 +53,32 @@ void PeleasInsanity::generarNuevoObjeto()
 
   resetearCajasDialogo();
   objetoActual = generadorPrecios.generarObjeto();
+
+  // Asegurar rango válido
+  if (objetoActual.minRango >= objetoActual.maxRango) {
+    objetoActual.maxRango = objetoActual.minRango + 1;
+    std::cerr << "Error: Rango inválido. Corregido a [" << objetoActual.minRango
+              << "-" << objetoActual.maxRango << "]" << std::endl;
+  }
+
   rondasActuales.clear();
   rondasRestantesObjeto = 3;
 
-  // Mover el debug después de generar el objeto
-  std::cout << "Rango: [" << objetoActual.minRango << "-"
-            << objetoActual.maxRango << "]\n"
-            << "Precio Real: " << objetoActual.precioReal << "\n"
-            << "Descripción: " << objetoActual.descripcionRango << "\n"
-            << "Modificador: " << objetoActual.descripcionModificador
-            << std::endl;
-
   std::string descripcion = objetoActual.descripcionRango + "\n" +
-                            objetoActual.descripcionModificador + "\n" +
-                            "Rango: [" + std::to_string(objetoActual.minRango) +
-                            "-" + std::to_string(objetoActual.maxRango) + "]";
+                            objetoActual.descripcionModificador + "\n";
 
+  // Mostrar en cajas separadas
   descripcionBox->showMessage(descripcion, true);
-  resultadoBox->showMessage("Ronda 1/3 - Introduce tu guess", true);
+  resultadoBox->showMessage("Preparado para empezar", true);  // Mensaje inicial
+  rondaBox->showMessage("Ronda 1/3", true);  // Nueva caja de rondas
+
   inputJugador->showMessage("");
 }
 
 void PeleasInsanity::resetearCajasDialogo()
 {
   descripcionBox->resetHistory();
+  rondaBox->resetHistory();
   resultadoBox->resetHistory();
   inputJugador->clearInput();
 }
@@ -78,7 +88,21 @@ void PeleasInsanity::render() const
   SDL_Rect fondoRect = { 0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT };
   game->getTexture(PELEASLOCURAFONDO)->render(fondoRect);
 
+  SDL_Rect objetoRect = { static_cast<int>(Game::WIN_WIDTH / 2 - 235),
+                          static_cast<int>(Game::WIN_HEIGHT / 4 + 140),
+                          300,
+                          300 };
+  game->getTexture(objetoActual.tex)->render(objetoRect);
+
+  SDL_Rect boardRect = { 100, 200, 440, 294 };
+  game->getTexture(PELEASBOARD)->render(boardRect);
+  SDL_Rect roundBoard = {
+    static_cast<int>(1550), static_cast<int>(40), 300, 175
+  };
+  game->getTexture(PELEASROUND)->render(roundBoard);
+
   descripcionBox->render();
+  rondaBox->render();  // Renderizar caja de rondas
   resultadoBox->render();
 
   if (currentState == State::INPUT_JUGADOR) {
@@ -93,24 +117,13 @@ void PeleasInsanity::update()
   Uint32 currentTime = SDL_GetTicks();
   float deltaTime = (currentTime - lastUpdate) / 1000.0f;
 
-  // Debug: Mostrar estado actual
-  static State previousState = State::PRESENTACION;
-  if (previousState != currentState) {
-    std::cout << "--- Cambio de estado: " << static_cast<int>(previousState)
-              << " -> " << static_cast<int>(currentState) << std::endl;
-    previousState = currentState;
-  }
-
   descripcionBox->update(deltaTime);
+  rondaBox->update(deltaTime);
   resultadoBox->update(deltaTime);
 
   switch (currentState) {
     case State::PRESENTACION:
-      std::cout << "[PRESENTACION] Mostrando nuevo objeto. Tiempo restante: "
-                << 2000 - (currentTime - stateStartTime) << "ms" << std::endl;
       if (currentTime - stateStartTime >= TIEMPO_PRESENTACION) {
-        std::cout << ">>> Transición a INPUT_JUGADOR (tiempo completado)"
-                  << std::endl;
         currentState = State::INPUT_JUGADOR;
         inputJugador->setActive(true);
         stateStartTime = currentTime;
@@ -118,11 +131,8 @@ void PeleasInsanity::update()
       break;
 
     case State::INPUT_JUGADOR:
-      std::cout << "[INPUT_JUGADOR] Esperando entrada..." << std::endl;
       inputJugador->update(deltaTime);
       if (!inputJugador->getActive()) {
-        std::cout << ">>> Input recibido: " << inputJugador->getMessage()
-                  << std::endl;
         Ronda nuevaRonda;
         try {
           nuevaRonda.intentoJugador = std::stoi(inputJugador->getMessage());
@@ -130,8 +140,9 @@ void PeleasInsanity::update()
         catch (...) {
           nuevaRonda.intentoJugador = 0;
         }
+        // En el caso State::INPUT_JUGADOR
 
-       float desviacion;
+        float desviacion;
         if (rondasRestantesObjeto == 3) {
           desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.15f;
         }
@@ -144,6 +155,7 @@ void PeleasInsanity::update()
 
         std::normal_distribution<float> distRival(objetoActual.precioReal,
                                                   desviacion);
+
         nuevaRonda.intentoRival =
           std::clamp(static_cast<int>(distRival(generadorPrecios.gen)),
                      objetoActual.minRango,
@@ -155,47 +167,35 @@ void PeleasInsanity::update()
       break;
 
     case State::COMPARACION:
-      std::cout << "[COMPARACION] Procesando resultados. Tiempo restante: "
-                << 1000 - (currentTime - stateStartTime) << "ms" << std::endl;
       if (currentTime - stateStartTime >= TIEMPO_COMPARACION) {
         calcularResultadoRonda();
         auto& ronda = rondasActuales.back();
 
-        std::cout << "Resultado Ronda:"
-                  << "\n  Jugador: " << ronda.intentoJugador
-                  << " (Diff: " << ronda.diferenciaJugador << ")"
-                  << "\n  Rival: " << ronda.intentoRival
-                  << " (Diff: " << ronda.diferenciaRival << ")" << std::endl;
-
         std::stringstream resultado;
-        resultado << "Ronda " << (3 - rondasRestantesObjeto + 1) << "/3\n";
-        resultado << "Tú: " << rondasActuales.back().intentoJugador << "\n";
-        resultado << "Rival: " << rondasActuales.back().intentoRival << "\n";
-        resultado << "Diferencia: " << rondasActuales.back().diferenciaJugador;
+        resultado << "Tu: " << ronda.intentoJugador << "\n";
+        resultado << "Rival: " << ronda.intentoRival << "\n";
+        resultado << "Dif. Tú: " << ronda.diferenciaJugador << "\n";
+        resultado << "Dif. Rival: " << ronda.diferenciaRival;
 
-        resultadoBox->resetHistory();
         resultadoBox->showMessage(resultado.str(), true);
 
         if (--rondasRestantesObjeto > 0) {
-          std::cout << ">>> Quedan " << rondasRestantesObjeto
-                    << " rondas. Transición a SIGUIENTE_RONDA" << std::endl;
           currentState = State::SIGUIENTE_RONDA;
         }
         else {
-          std::cout << ">>> Última ronda completada. Transición a FINAL_OBJETO"
-                    << std::endl;
           currentState = State::FINAL_OBJETO;
         }
         stateStartTime = currentTime;
+
+        // Actualizar caja de rondas
+        std::string rondaMsg =
+          "Ronda " + std::to_string(3 - rondasRestantesObjeto) + "/3";
+        rondaBox->showMessage(rondaMsg, true);
       }
       break;
 
     case State::SIGUIENTE_RONDA:
-      std::cout << "[SIGUIENTE_RONDA] Preparando ronda. Tiempo restante: "
-                << 2000 - (currentTime - stateStartTime) << "ms" << std::endl;
       if (currentTime - stateStartTime >= TIEMPO_SIGUIENTE_RONDA) {
-        std::cout << ">>> Transición a INPUT_JUGADOR (nueva ronda)"
-                  << std::endl;
         prepararSiguienteRonda();
         currentState = State::INPUT_JUGADOR;
         stateStartTime = currentTime;
@@ -203,20 +203,13 @@ void PeleasInsanity::update()
       break;
 
     case State::FINAL_OBJETO:
-      std::cout << "[FINAL_OBJETO] Determinando ganador. Tiempo restante: "
-                << 3000 - (currentTime - stateStartTime) << "ms" << std::endl;
       if (currentTime - stateStartTime >= TIEMPO_FINAL_OBJETO) {
-        std::cout << ">>> Resultado final del objeto:" << std::endl;
         determinarGanadorObjeto();
         if (++rondasTotales < 3) {
-          std::cout << ">>> Iniciando nuevo objeto (" << rondasTotales
-                    << "/3). Transición a PRESENTACION" << std::endl;
           generarNuevoObjeto();
           currentState = State::PRESENTACION;
         }
         else {
-          std::cout << ">>> Juego completado. Transición a FINAL_JUEGO"
-                    << std::endl;
           currentState = State::FINAL_JUEGO;
         }
         stateStartTime = currentTime;
@@ -227,6 +220,7 @@ void PeleasInsanity::update()
   lastUpdate = currentTime;
   GameState::update();
 }
+
 void PeleasInsanity::calcularResultadoRonda()
 {
   auto& ronda = rondasActuales.back();
@@ -236,16 +230,9 @@ void PeleasInsanity::calcularResultadoRonda()
 
 void PeleasInsanity::prepararSiguienteRonda()
 {
-  std::string mensaje =
-    "Ronda " + std::to_string(3 - rondasRestantesObjeto + 1) + "/3\n";
-  mensaje += "Nuevo intento - Precio entre [" +
-             std::to_string(objetoActual.minRango) + "-" +
-             std::to_string(objetoActual.maxRango) + "]";
-
-  resultadoBox->resetHistory();
-  resultadoBox->showMessage(mensaje, true);
   inputJugador->clearInput();
   inputJugador->setActive(true);
+  resultadoBox->resetHistory();
 }
 
 void PeleasInsanity::determinarGanadorObjeto()
@@ -257,14 +244,11 @@ void PeleasInsanity::determinarGanadorObjeto()
     totalRival += ronda.diferenciaRival;
   }
 
-  std::string resultadoFinal = "Objeto terminado!\nPrecio real: " +
-                               std::to_string(objetoActual.precioReal) + "\n";
-  resultadoFinal +=
-    "Tu diferencia total: " + std::to_string(totalJugador) + "\n";
-  resultadoFinal += "Diferencia rival: " + std::to_string(totalRival) + "\n";
-  resultadoFinal +=
-    (totalJugador < totalRival) ? "¡Ganas este objeto!" : "¡El rival gana!";
+  std::string resultadoFinal =
+    "Precio real: " + std::to_string(objetoActual.precioReal) +
+    "\n\nDif. Total Tú: " + std::to_string(totalJugador) +
+    "\nDif. Total Rival: " + std::to_string(totalRival) + "\n\n" +
+    ((totalJugador < totalRival) ? "¡GANASTE!" : "¡PERDISTE!");
 
-  resultadoBox->resetHistory();
   resultadoBox->showMessage(resultadoFinal, true);
 }
