@@ -1,4 +1,4 @@
-﻿#include "game.h"
+#include "game.h"
 #include "json.hpp"
 #include "mainMenu.h"
 #include "pauseState.h"
