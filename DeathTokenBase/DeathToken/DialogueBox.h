@@ -137,6 +137,9 @@ public:
 
 	// Resetea flag de estado (para nuevo texto)
 	inline void resetDialogStateFlag() { nextState = false; }
+
+	inline bool isTextVisible() const { return visible && (charIndex < message.size() || completedTextTime < DialogueBoxConstants::NEXT_DIALOGUE_DELAY); }
+
 #pragma endregion
 
 protected:

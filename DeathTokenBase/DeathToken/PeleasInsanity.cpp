@@ -1,11 +1,13 @@
 ﻿#include "PeleasInsanity.h"
 #include <algorithm>
 #include <iostream>
+#include <random>  // Asegúrate que incluya <random> para std::normal_distribution y std::clamp
 #include <sstream>
 
 PeleasInsanity::PeleasInsanity(Game* game)
   : GameState(game)
   , currentState(State::PRESENTACION)
+  , mostrarTextoResultado(false)
   , inputJugador(new InputBox(game->getRenderer(),
                               game->getTypo(FIGHTS_SMALL),
                               static_cast<int>(Game::WIN_WIDTH / 2 - 150),
@@ -22,7 +24,7 @@ PeleasInsanity::PeleasInsanity(Game* game)
                                    true,
                                    275,
                                    200))
-  , rondaBox(new DialogueBox(game->getRenderer(),  // Nueva caja de rondas
+  , rondaBox(new DialogueBox(game->getRenderer(),
                              game->getTypo(FIGHTS_SMALL),
                              1605,
                              110,
@@ -32,12 +34,14 @@ PeleasInsanity::PeleasInsanity(Game* game)
                              175))
   , resultadoBox(new DialogueBox(game->getRenderer(),
                                  game->getTypo(FIGHTS_SMALL),
-                                 1605,
-                                 275,
+                                 790,
+                                 475,
                                  true,
                                  true,
-                                 300,
-                                 400))
+                                 400,
+                                 375))
+  , partidaTerminada(false)
+  , ganador("") 
 {
   generarNuevoObjeto();
   inputJugador->setMaxLength(4);
@@ -46,7 +50,13 @@ PeleasInsanity::PeleasInsanity(Game* game)
   addEventListener(rondaBox);
   addEventListener(resultadoBox);
 }
-
+PeleasInsanity::~PeleasInsanity()
+{
+  delete inputJugador;
+  delete descripcionBox;
+  delete rondaBox;
+  delete resultadoBox;
+}
 void PeleasInsanity::generarNuevoObjeto()
 {
   std::cout << "\n=== GENERANDO NUEVO OBJETO ===" << std::endl;
@@ -54,7 +64,6 @@ void PeleasInsanity::generarNuevoObjeto()
   resetearCajasDialogo();
   objetoActual = generadorPrecios.generarObjeto();
 
-  // Asegurar rango válido
   if (objetoActual.minRango >= objetoActual.maxRango) {
     objetoActual.maxRango = objetoActual.minRango + 1;
     std::cerr << "Error: Rango inválido. Corregido a [" << objetoActual.minRango
@@ -63,15 +72,14 @@ void PeleasInsanity::generarNuevoObjeto()
 
   rondasActuales.clear();
   rondasRestantesObjeto = 3;
+  partidaTerminada = false;
+  ganador = "";
 
-  std::string descripcion = objetoActual.descripcionRango + "\n" +
-                            objetoActual.descripcionModificador + "\n";
-
-  // Mostrar en cajas separadas
+  std::string descripcion = "[Categoría] " + objetoActual.descripcionRango +
+                            "\n[Estado] " + objetoActual.descripcionModificador;
   descripcionBox->showMessage(descripcion, true);
-  resultadoBox->showMessage("Preparado para empezar", true);  // Mensaje inicial
-  rondaBox->showMessage("Ronda 1/3", true);  // Nueva caja de rondas
 
+  rondaBox->showMessage("Ronda 1/3", true);
   inputJugador->showMessage("");
 }
 
@@ -96,13 +104,20 @@ void PeleasInsanity::render() const
 
   SDL_Rect boardRect = { 100, 200, 440, 294 };
   game->getTexture(PELEASBOARD)->render(boardRect);
-  SDL_Rect roundBoard = {
-    static_cast<int>(1550), static_cast<int>(40), 300, 175
-  };
+
+  SDL_Rect roundBoard = { 1550, 40, 300, 175 };
   game->getTexture(PELEASROUND)->render(roundBoard);
 
+  SDL_Rect prizeBoard = { 1580, 670, 300, 400 };
+  game->getTexture(PELEASLOCURAPRECIO)->render(prizeBoard);
+
+  if (resultadoBox->isTextVisible()) {
+    SDL_Rect resultBoard = { 700, 200, 400, 600 };
+    game->getTexture(PELEASLOCURARESULTS)->render(resultBoard);
+  }
+
   descripcionBox->render();
-  rondaBox->render();  // Renderizar caja de rondas
+  rondaBox->render();
   resultadoBox->render();
 
   if (currentState == State::INPUT_JUGADOR) {
@@ -140,37 +155,53 @@ void PeleasInsanity::update()
         catch (...) {
           nuevaRonda.intentoJugador = 0;
         }
-        // En el caso State::INPUT_JUGADOR
 
         float desviacion;
-        if (rondasRestantesObjeto == 3) {
+        if (rondasRestantesObjeto == 3)
           desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.15f;
-        }
-        else if (rondasRestantesObjeto == 2) {
+        else if (rondasRestantesObjeto == 2)
           desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.07f;
-        }
-        else {
+        else
           desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.02f;
-        }  // <--- ¡Aquí faltaba esta llave de cierre!
 
         std::normal_distribution<float> distRival(objetoActual.precioReal,
                                                   desviacion);
-
         nuevaRonda.intentoRival =
           std::clamp(static_cast<int>(distRival(generadorPrecios.gen)),
                      objetoActual.minRango,
                      objetoActual.maxRango);
+
         rondasActuales.push_back(nuevaRonda);
-        currentState = State::COMPARACION;
+        calcularResultadoRonda();
+
+        // Comprobamos si alguien adivinó el precio exacto
+        if (nuevaRonda.intentoJugador == objetoActual.precioReal) {
+          partidaTerminada = true;
+          ganador = "¡GANASTE!";
+          mostrarTextoResultado = false;
+          currentState = State::FINAL_OBJETO;
+          stateStartTime = currentTime;
+          return;  // Salir para no seguir con el flujo normal
+        }
+        if (nuevaRonda.intentoRival == objetoActual.precioReal) {
+          partidaTerminada = true;
+          ganador = "¡PERDISTE!";
+          mostrarTextoResultado = false;
+          currentState = State::FINAL_OBJETO;
+          stateStartTime = currentTime;
+          return;
+        }
+
+        currentState = State::MOSTRAR_RESULTADO_RONDA;
+        mostrarTextoResultado = false;  // Reiniciar el flag
         stateStartTime = currentTime;
       }
       break;
 
-    case State::COMPARACION:
-      if (currentTime - stateStartTime >= TIEMPO_COMPARACION) {
-        calcularResultadoRonda();
+    case State::MOSTRAR_RESULTADO_RONDA:
+      if (!mostrarTextoResultado) {
+        // Mostrar el mensaje inmediatamente al entrar en el estado
         auto& ronda = rondasActuales.back();
-
         std::stringstream resultado;
         resultado << "Tu: " << ronda.intentoJugador << "\n";
         resultado << "Rival: " << ronda.intentoRival << "\n";
@@ -178,7 +209,10 @@ void PeleasInsanity::update()
         resultado << "Dif. Rival: " << ronda.diferenciaRival;
 
         resultadoBox->showMessage(resultado.str(), true);
-
+        mostrarTextoResultado = true;
+        stateStartTime = currentTime;
+      }
+      else if (currentTime - stateStartTime >= TIEMPO_RESULTADO_MOSTRADO) {
         if (--rondasRestantesObjeto > 0) {
           currentState = State::SIGUIENTE_RONDA;
         }
@@ -186,17 +220,16 @@ void PeleasInsanity::update()
           currentState = State::FINAL_OBJETO;
         }
         stateStartTime = currentTime;
-
-        // Actualizar caja de rondas
-        std::string rondaMsg =
-          "Ronda " + std::to_string(3 - rondasRestantesObjeto) + "/3";
-        rondaBox->showMessage(rondaMsg, true);
       }
       break;
 
     case State::SIGUIENTE_RONDA:
       if (currentTime - stateStartTime >= TIEMPO_SIGUIENTE_RONDA) {
         prepararSiguienteRonda();
+        rondaBox->resetHistory();
+        std::string rondaMsg =
+          "Ronda " + std::to_string(4 - rondasRestantesObjeto) + "/3";
+        rondaBox->showMessage(rondaMsg, true);
         currentState = State::INPUT_JUGADOR;
         stateStartTime = currentTime;
       }
@@ -205,12 +238,17 @@ void PeleasInsanity::update()
     case State::FINAL_OBJETO:
       if (currentTime - stateStartTime >= TIEMPO_FINAL_OBJETO) {
         determinarGanadorObjeto();
-        if (++rondasTotales < 3) {
-          generarNuevoObjeto();
-          currentState = State::PRESENTACION;
+        if (!partidaTerminada) {
+          if (++rondasTotales < 3) {
+            generarNuevoObjeto();
+            currentState = State::PRESENTACION;
+          }
+          else {
+            currentState = State::FINAL_JUEGO;
+          }
         }
         else {
-          currentState = State::FINAL_JUEGO;
+          currentState = State::FINAL_JUEGO;  // Si alguien ganó, termina juego
         }
         stateStartTime = currentTime;
       }
@@ -237,6 +275,15 @@ void PeleasInsanity::prepararSiguienteRonda()
 
 void PeleasInsanity::determinarGanadorObjeto()
 {
+  if (partidaTerminada) {
+    // Ya hay ganador por adivinar el precio
+    std::string resultadoFinal =
+      "Precio real: " + std::to_string(objetoActual.precioReal) + "\n\n" +
+      ganador;
+    resultadoBox->showMessage(resultadoFinal, true);
+    return;
+  }
+
   int totalJugador = 0;
   int totalRival = 0;
   for (const auto& ronda : rondasActuales) {

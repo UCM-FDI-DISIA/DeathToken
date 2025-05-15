@@ -1,6 +1,7 @@
 #include "GeneraPrecios.h"
 #include "Game.h"
 #include <algorithm>
+#include <random>
 
 GeneraPrecios::GeneraPrecios()
   : gen(std::random_device{}())
@@ -17,69 +18,59 @@ InfoObjeto GeneraPrecios::generarObjeto()
 
 void GeneraPrecios::determinarRango(InfoObjeto& objeto)
 {
-  std::uniform_int_distribution<int> distTipo(0, 4);
+  std::uniform_int_distribution<int> distTipo(0, 2);
+  std::uniform_int_distribution<int> distTex(0, 4);
 
-  // Asignar textura según tipo de objeto
+  // Lista de texturas posibles
+  static const std::vector<TextureName> texturas = {
+    PELEASGRAMOPHONE, PELEASLAMP, PELEASPERFUME, PELEASPHONE, PELEASCHAMPAGNE
+  };
+
+  // Selecciona una textura aleatoria
+  objeto.tex = texturas[distTex(gen)];
+
+  objeto.tex = texturas[distTipo(gen) % texturas.size()];
   switch (distTipo(gen)) {
     case 0:
-      objeto.descripcionRango = "Objeto común de baja calidad";
-      objeto.minRango = 50;
-      objeto.maxRango = 150;
-      objeto.tex = PELEASLAMP;  
+      objeto.descripcionRango = "Único en el mundo";
+      objeto.minRango = 100;
+      objeto.maxRango = 200;
       break;
     case 1:
-      objeto.descripcionRango = "Objeto histórico valioso";
-      objeto.minRango = 300;
-      objeto.maxRango = 800;
-      objeto.tex = PELEASGRAMOPHONE;
+      objeto.descripcionRango = "Exclusivo";
+      objeto.minRango = 50;
+      objeto.maxRango = 100;
       break;
     case 2:
-      objeto.descripcionRango = "Artículo coidiciado históricamente";
-      objeto.minRango = 500;
-      objeto.maxRango = 2000;
-      objeto.tex = PELEASCHAMPAGNE;
-      break;
-    case 3:
-      objeto.descripcionRango = "Objeto deseado por los más expertos";
-      objeto.minRango = 1000;
-      objeto.maxRango = 5000;
-      objeto.tex = PELEASPHONE;
-      break;
-
-      case 4:
-      objeto.descripcionRango = "Reliquia Milenaria";
-      objeto.minRango = 4000;
-      objeto.maxRango = 7500;
-      objeto.tex = PELEASPHONE;
+      objeto.descripcionRango = "Mundano";
+      objeto.minRango = 10;
+      objeto.maxRango = 50;
       break;
   }
 }
-
 void GeneraPrecios::aplicarModificador(InfoObjeto& objeto)
 {
-  std::uniform_real_distribution<float> distMod(0.0f, 1.0f);
-  float mod = distMod(gen);
+  std::uniform_int_distribution<int> distEstado(0, 3);
 
-  if (mod < 0.2f) {
-    objeto.descripcionModificador = "en estado deplorable";
-    objeto.precioReal =
-      objeto.minRango + (int)((objeto.maxRango - objeto.minRango) * 0.1f);
+  switch (distEstado(gen)) {
+    case 0:
+      objeto.descripcionModificador = "Perfecto Estado";
+      objeto.precioReal =
+        objeto.maxRango - (objeto.maxRango - objeto.minRango) * 0.1;
+      break;
+    case 1:
+      objeto.descripcionModificador = "Bien Conservado";
+      objeto.precioReal = (objeto.maxRango + objeto.minRango) / 2;
+      break;
+    case 2:
+      objeto.descripcionModificador = "Visiblemente Desgastado";
+      objeto.precioReal =
+        objeto.minRango + (objeto.maxRango - objeto.minRango) * 0.3;
+      break;
+    case 3:
+      objeto.descripcionModificador = "Deplorable";
+      objeto.precioReal =
+        objeto.minRango + (objeto.maxRango - objeto.minRango) * 0.1;
+      break;
   }
-  else if (mod < 0.5f) {
-    objeto.descripcionModificador = "en mal estado";
-    objeto.precioReal =
-      objeto.minRango + (int)((objeto.maxRango - objeto.minRango) * 0.3f);
-  }
-  else if (mod < 0.8f) {
-    objeto.descripcionModificador = "en condiciones promedio";
-    objeto.precioReal = (objeto.minRango + objeto.maxRango) / 2;
-  }
-  else {
-    objeto.descripcionModificador = "en estado excepcional";
-    objeto.precioReal =
-      objeto.maxRango - (int)((objeto.maxRango - objeto.minRango) * 0.2f);
-  }
-
-  objeto.precioReal =
-    std::clamp(objeto.precioReal, objeto.minRango, objeto.maxRango);
 }

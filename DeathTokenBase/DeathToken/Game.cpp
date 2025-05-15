@@ -148,6 +148,8 @@ vector<Game::TextureSpec> Game::loadTextures()
   v.push_back(TextureSpec{ "Fighters/potape.png", 1, 1 });  // TEXTURE_POTAPE
 
   v.push_back(TextureSpec{ "RingLocura.png", 1, 1 });
+  v.push_back(TextureSpec{ "Precios.png", 1, 1 });
+  v.push_back(TextureSpec{ "Results.png", 1, 1 });
   v.push_back(TextureSpec{ "Board.png", 1, 1 });
 
   v.push_back(TextureSpec{ "Items/Gramophone.png", 1, 1 });
