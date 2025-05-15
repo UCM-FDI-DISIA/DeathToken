@@ -1,24 +1,10 @@
 ﻿#include "gameState.h"
 
 GameState::~GameState() {
-	for (GameObject* object : gameObjects) {
+	for (GameObject* object : gameObjects)
 		delete object;
-	}
-	
-	for (GameObject* object : gameObjectsUI) {
+	for (GameObject* object : gameObjectsUI)
 		delete object;
-		object = nullptr;
-	}
-
-	for (EventHandler* handler : eventHandlers) {
-		handler = nullptr;
-	}
-
-	gameObjects.clear();
-	gameObjectsUI.clear();
-	eventHandlers.clear();
-
-	game = nullptr;
 }
 void GameState::update() {
 	for (GameObject* object : gameObjects)

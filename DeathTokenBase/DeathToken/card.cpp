@@ -7,8 +7,8 @@ Card::Card(GameState* game, int frame, Point2D<> pos, double angle) :
 	frame(frame),
 	angle(angle)
 {
-	w = Game::WIN_WIDTH / 20;
-	h = Game::WIN_HEIGHT / 8;
+	w = Game::WIN_WIDTH / 20; //96px
+	h = Game::WIN_HEIGHT / 8; //135px
 }
 
 void Card::render() const {

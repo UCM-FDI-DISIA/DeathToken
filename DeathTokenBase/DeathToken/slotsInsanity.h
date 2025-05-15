@@ -7,7 +7,7 @@ class Celda;
 class SlotsInsanity : public Slots {
 private:
 	constexpr static int N_COLUM = 4;
-	constexpr static int TAM_CELDA = 200;
+	constexpr static int TAM_CELDA = 180;
 	std::vector<std::vector<Celda*>> mat;
 
 	const std::vector<int> frecuencias = { 8,7,6,5,4,3,3 };
@@ -25,7 +25,7 @@ private:
 	int getResult() override { return 0; }
 public:
 	SlotsInsanity(Game*);
-	~SlotsInsanity() {}
+	~SlotsInsanity() { HUDManager::popGame(); }
 	void update() override;
 	void render() const override;
 	int getNext();

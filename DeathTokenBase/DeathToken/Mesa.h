@@ -1,27 +1,28 @@
 #pragma once
 #include "sceneObject.h"
 #include "EventHandler.h"
-#include "Behaviour.h"
+#include <functional>
+
+using Callback = std::function<void()>;
 
 class Game;
-
+class Menu;
 class Mesa : public sceneObject, public EventHandler {
 private:
 	bool hover;
 	Texture* texture;
-	Game* _game;
-	Behaviour comportamiento;
-	int indexGame;
+	Player* player;
+	Callback cb;
 
 public:
-	Mesa(GameState*, Vector2D<>, Texture*, int, int, int,Game*);
-	~Mesa() { texture = nullptr;};
+	Mesa(GameState*, Vector2D<>, Texture*, int, int);
+	~Mesa() { texture = nullptr; };
 	void render() const;
 	void update() override;
 	void handleEvent(const SDL_Event& evento) override;
-	Collision hit(const SDL_Rect&, Collision::Target) override;
-	Behaviour getComportamiento() const { return comportamiento; }
 	bool getHover() const { return hover; }
-	void inGame(bool in) { hover = in; }
+	void setHover(bool hov) { hover = hov; };
+	Callback getCallback() { return cb; };
 	SDL_Rect getRect() const;
+	void connect(Callback);
 };

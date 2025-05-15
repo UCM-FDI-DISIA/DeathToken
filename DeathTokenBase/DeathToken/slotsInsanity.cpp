@@ -7,8 +7,10 @@ using namespace std;
 
 SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
 {
-	float x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * (N_COLUM / 2.0f));
-	float y = Game::WIN_HEIGHT * (50 / 1080.0f);
+	ui->setLocura(true);
+
+	float x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 50) / 1920.0f) * (N_COLUM / 2.0f));
+	float y = Game::WIN_HEIGHT * (70 / 1080.0f);
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
 	for (int i = 0; i < N_COLUM; ++i) {
@@ -20,11 +22,9 @@ SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turno
 	}
 	resultante = vectorAleatorio();
 
-	float w = Game::WIN_WIDTH * (150.0f / 1920.0f);
-	float h = Game::WIN_HEIGHT * (150.0f / 1080.0f);
-	x = Game::WIN_WIDTH * (0.5f - (TAM_CELDA / 1920.0f) * ((N_COLUM / 2.0f) + 1));
-	y = Game::WIN_HEIGHT * 0.5f - h / 2;
-	btnBet = new ButtonSlots(this, game, ui, int(x), (int)y, (int)w, (int)h, game->getTexture(CELDA));
+	x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 20) / 1920.0f) * ((N_COLUM / 2.0f) + 1.0f));
+	y = Game::WIN_HEIGHT * 0.5f;
+	btnBet = new ButtonSlots(this, game, ui, int(x), (int)y, (int)celdaX, (int)celdaY, game->getTexture(BETSLOTS));
 	addObjects(btnBet);
 	addEventListener(btnBet);
 }
@@ -58,7 +58,10 @@ void SlotsInsanity::update() {
 		}
 		if (full || line != -1) {
 			if (line != -1) {
-				if (!turnoPlayer) { game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line])); }
+				if (!turnoPlayer) {
+					game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line]));
+				}
+				bet = 0;
 				jugando = false;
 				turnoPlayer = true;
 			}
@@ -75,11 +78,13 @@ void SlotsInsanity::render() const {
 	r.x = r.y = 0;
 	r.h = Game::WIN_HEIGHT;
 	r.w = Game::WIN_WIDTH;
-	game->getTexture(MARBLESBACK)->render(r);
+	game->getTexture(SLOTSFONDO)->render(r);
 
-	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
-	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
-	SDL_Rect box((int)(Game::WIN_WIDTH / 2 + celdaX * (N_COLUM / 2.0f) + (20 / 1920.0f) * Game::WIN_WIDTH), (int)(Game::WIN_HEIGHT / 2 - celdaY), (int)celdaX, (int)celdaY);
+	SDL_Rect box;
+	box.w = (int)(Game::WIN_WIDTH * (TAM_CELDA / 1920.0f));
+	box.h = (int)(Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f));
+	box.x = (int)(Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 20) / 1920.0f) * ((N_COLUM / 2.0f) + 1.0f)));
+	box.y = (int)(Game::WIN_HEIGHT * 0.5f - box.h * 1.5f);
 	if (turnoPlayer) { game->getTexture(CELDA)->render(box); }
 	else { game->getTexture(CELDA)->render(box, { 170,230,255 }); }
 
@@ -139,7 +144,7 @@ void SlotsInsanity::IA() {
 		bool placed = false;
 		for (int i = 0; i < N_COLUM; ++i) {
 			for (int j = 0; j < N_COLUM; ++j) {
-				if (mat[i][j]->getElem() != -1) {
+				if (mat[i][j]->getElem() == -1) {
 					mat[i][j]->setElem(resultante[indice]);
 					int linea = checkBoard();
 					if (linea == -1) {

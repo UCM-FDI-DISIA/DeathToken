@@ -22,10 +22,13 @@
  */
 class GameStateMachine
 {
+protected:
 	// Pila (como las de EDA) de punteros inteligentes a estados del juego
 	std::stack<std::shared_ptr<GameState>> gameStates;
 
 public:
+
+
 	~GameStateMachine();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
