@@ -245,10 +245,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 vector<TTF_Font*> Game::loadFonts() {
 	vector<TTF_Font*> v;
 	int x = (int)((200 / 1920.0f) * WIN_WIDTH);
-	v.push_back(TTF_OpenFont("../assets/typo/Grand_Casino.otf", FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/typo/Magnificent Serif.ttf", x));
-	v.push_back(TTF_OpenFont("../assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
-	v.push_back(TTF_OpenFont("../assets/Candice/CANDY.TTF", FONTSMALLSIZE));
+	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", x));
+	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
+	v.push_back(TTF_OpenFont("assets/Candice/CANDY.TTF", FONTSMALLSIZE));
 	if (v.size() != NUM_TYPO) throw "Fonts sin índice, error al cargar";
 	return v;
 };
@@ -269,7 +269,7 @@ Game::Game() {
 	inicializa(window);
 	// Carga las texturas
 	vector<TextureSpec> textureSpec = loadTextures();
-	std::string textureRoot = "../assets/images/";
+	std::string textureRoot = "assets/images/";
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 		textures.push_back(new Texture(renderer,
 			(textureRoot + textureSpec[i].name).c_str(),
@@ -290,40 +290,40 @@ Game::Game() {
 	soundManager.ajustarVolumenEfectos(50);
 
 	if (!soundManager.cargarSonido(
-		"../assets/sonido/Generales/PresionaBotonPeleas.wav",
+		"assets/sonido/Generales/PresionaBotonPeleas.wav",
 		"PresionaBotonPeleas",
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
 
 	if (!soundManager.cargarSonido(
-		"../assets/sonido/Generales/PresionaBotonCanicas.wav",
+		"assets/sonido/Generales/PresionaBotonCanicas.wav",
 		"PresionaBotonCanicas",
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
 
 	if (!soundManager.cargarSonido(
-		"../assets/sonido/Generales/PresionaBotonBaccarat.wav",
+		"assets/sonido/Generales/PresionaBotonBaccarat.wav",
 		"PresionaBotonBaccarat",
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
 	if (!soundManager.cargarSonido(
-		"../assets/sonido/Generales/PresionaBotonSlots.wav",
+		"assets/sonido/Generales/PresionaBotonSlots.wav",
 		"PresionaBotonSlots",
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
 
-	if (!soundManager.cargarSonido("../assets/sonido/Ruleta/RuletaSonido.wav",
+	if (!soundManager.cargarSonido("assets/sonido/Ruleta/RuletaSonido.wav",
 		"RuletaSonido",
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}
 
 	if (loadFightersFromJSON("peleadores.json") &&
-		loadMatchupsFromJSON("../DeathToken/matchups.json")) {
+		loadMatchupsFromJSON("DeathToken/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG

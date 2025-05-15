@@ -139,18 +139,26 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="inputBox.h">
+    <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="EscenaTutorial.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="peleasInsanity.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="Mesa.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GeneraPrecios.h">
+    <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="rouletteChoose.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Behaviour.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="scythe.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -158,6 +166,8 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="EscenaTutorial.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="pauseState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -299,22 +309,32 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="inputBox.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="EscenaTutorial.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="PeleasInsanity.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="Mesa.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="GeneraPrecios.cpp">
+    <Filter>Archivos de origen</Filter>
+      </ClCompile>
     <ClCompile Include="rouletteChoose.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Cards.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="scythe.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="EscenaTutorial.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="pauseState.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
