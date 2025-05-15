@@ -1,5 +1,4 @@
 #include "GeneraPrecios.h"
-#include "Game.h"
 #include <algorithm>
 #include <random>
 
@@ -32,7 +31,7 @@ void GeneraPrecios::determinarRango(InfoObjeto& objeto)
   objeto.tex = texturas[distTipo(gen) % texturas.size()];
   switch (distTipo(gen)) {
     case 0:
-      objeto.descripcionRango = "Único en el mundo";
+      objeto.descripcionRango = "ï¿½nico en el mundo";
       objeto.minRango = 100;
       objeto.maxRango = 200;
       break;
