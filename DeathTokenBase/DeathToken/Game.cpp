@@ -3,6 +3,7 @@
 #include "mainMenu.h"
 #include "pauseState.h"
 #include "sdlutils.h"
+#include "SoundManager.h"
 #include <vector>
 #include <iostream>
 #include <string>
@@ -277,8 +278,52 @@ Game::Game() {
 
 	TTF_Init();
 	fonts = loadFonts();
+	// CARGA DE SONIDOS
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	if (!soundManager.inicializar(44100, 2, 2048)) {
+		std::cerr << "Error initializing SoundManager" << std::endl;
+		SDL_Quit();
+	}
+	/*if (!soundManager.cargarSonido("../assets/sonido/TralaleroTralala.wav", "EntrarJuego",SoundManager::EFECTO)) {
+		  std::cerr << "Error al cargar el sonido de la entrarjuego." << std::endl;
+	  }*/
+	soundManager.ajustarVolumenEfectos(50);
 
-	if (loadFightersFromJSON("../assets/jsons/peleadores.json") && loadMatchupsFromJSON("../assets/jsons/matchups.json")) {
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Generales/PresionaBotonPeleas.wav",
+		"PresionaBotonPeleas",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Generales/PresionaBotonCanicas.wav",
+		"PresionaBotonCanicas",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Generales/PresionaBotonBaccarat.wav",
+		"PresionaBotonBaccarat",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Generales/PresionaBotonSlots.wav",
+		"PresionaBotonSlots",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido("../assets/sonido/Ruleta/RuletaSonido.wav",
+		"RuletaSonido",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (loadFightersFromJSON("peleadores.json") &&
+		loadMatchupsFromJSON("../DeathToken/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG

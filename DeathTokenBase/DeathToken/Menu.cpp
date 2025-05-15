@@ -131,7 +131,7 @@ void Menu::gameChanger(GameState* juego) {
 				tutorialSlotsLocura = false;
 			}
 		}
-		else if (typeid(*juego) == typeid(PeleasInsanity)) {
+		else if (typeid(*juego) == typeid(Peleas)) {
 			juego = new PeleasInsanity(getGame());
 		}
 		delete old;
