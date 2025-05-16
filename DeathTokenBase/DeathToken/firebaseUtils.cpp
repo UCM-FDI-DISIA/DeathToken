@@ -1,9 +1,10 @@
 #include "FirebaseUtils.h"
 #include <SDL_timer.h>
 #include "PlayerEconomy.h"
-static firebase::App* app;
-static firebase::database::Database* db;
-static firebase::database::DatabaseReference dbref;
+firebase::App* FirebaseUtils::app = nullptr;
+firebase::database::Database* FirebaseUtils::db = nullptr;
+firebase::database::DatabaseReference FirebaseUtils::dbref;
+bool FirebaseUtils::initialized = false;
 
 int FirebaseUtils::currentId = -1;
 std::string FirebaseUtils::name = "";
@@ -13,6 +14,8 @@ int FirebaseUtils::insanity = 0;
 
 void FirebaseUtils::StartFirebase()
 {
+	if (initialized) return;
+
 	//leer usuarios y ponerlos en una tabla
 	firebase::AppOptions options; 
 
@@ -22,22 +25,25 @@ void FirebaseUtils::StartFirebase()
 	options.set_database_url("https://deathtoken-default-rtdb.firebaseio.com");
 
 	app = firebase::App::Create(options);
-	if (app == nullptr) { return ; }
+	if (!app) { return ; }
 
 	db = firebase::database::Database::GetInstance(app);
 	dbref = db->GetReference();
+	initialized = true;
+
 }
 
 void FirebaseUtils::DeleteFirebaseUtils()
 {
+	if (!initialized) return;
 
-	if (db != nullptr) {
+	if (app) {
 		delete db;
-    }
-
-    if (app != nullptr) {
 		delete app;
+		
 	}
+
+	initialized = false;
 }
 
 void FirebaseUtils::RegisterUser(std::string name)
