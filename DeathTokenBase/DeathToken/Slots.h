@@ -21,7 +21,7 @@ public:
 		delete ui;
 		HUDManager::popGame();
 	}
-	virtual void iniciarGiro() = 0; //Metodo que inicia el juego
+	virtual bool iniciarGiro() = 0; //Metodo que inicia el juego
 	inline void setBetTurno(long long n) { bet = n; } // Asigna la apuesta
 	inline void clear() { //Metodo para vaciar el bot�n de apuestas y aplicar la actual
 		btnBet->clear();

@@ -31,5 +31,5 @@ public:
 	int getNext();
 	inline bool getJugando() { return jugando; }
 
-	void iniciarGiro() override;
+	bool iniciarGiro() override;
 };

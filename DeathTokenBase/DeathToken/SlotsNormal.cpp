@@ -101,7 +101,7 @@ void SlotsNormal::render() const {
 	// render de los gameObjects
 	GameState::render();
 }
-void SlotsNormal::iniciarGiro() {
+bool SlotsNormal::iniciarGiro() {
 	// Comprueba que todos los carretes estén parados para iniciar
 	bool girar = false;
 	for (Carrete* c : carretes) {
@@ -112,5 +112,9 @@ void SlotsNormal::iniciarGiro() {
 		for (Carrete* c : carretes) {
 			c->iniciarGiro();
 		}
+		return true;
+	}
+	else {
+		return false;
 	}
 }

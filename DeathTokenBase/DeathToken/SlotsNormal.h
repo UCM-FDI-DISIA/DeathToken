@@ -22,5 +22,5 @@ public:
 	~SlotsNormal();
 	void update() override;
 	void render() const override;
-	void iniciarGiro() override;
+	bool iniciarGiro() override;
 };

@@ -138,9 +138,10 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 void
 UISlots::OnGo() {
 	if (PlayerEconomy::getBet() != 0) {
-		slots->setBetTurno(PlayerEconomy::getBet());
-		slots->clear();
-		slots->iniciarGiro();
+		if (slots->iniciarGiro()) {
+			slots->setBetTurno(PlayerEconomy::getBet());
+			slots->clear();
+		}
 	}
 }
 void

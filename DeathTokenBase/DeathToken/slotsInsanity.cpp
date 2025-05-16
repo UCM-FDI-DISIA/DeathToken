@@ -196,10 +196,14 @@ void SlotsInsanity::ClearBoard() {
 	}
 }
 // Si no se está jugando ya, se cede el primer turno al jugador
-void SlotsInsanity::iniciarGiro() {
+bool SlotsInsanity::iniciarGiro() {
 	if (!jugando && PlayerEconomy::getInsanity() > 0) {
 		turnoPlayer = true;
 		PlayerEconomy::subtractInsanity(1);
 		jugando = true;
+		return true;
+	}
+	else {
+		return false;
 	}
 }
