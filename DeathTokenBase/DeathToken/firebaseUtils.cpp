@@ -42,12 +42,7 @@ void FirebaseUtils::DeleteFirebaseUtils()
 
 void FirebaseUtils::RegisterUser(std::string name)
 {
-	//Hago esto porque si se borra un usuario desde firebase, desde el vs lo guarda en cache o 
-	/*if (db != nullptr) {
-		db->GoOffline();
-		SDL_Delay(5000);
-		db->GoOnline();
-	}*/
+	FirebaseUtils::CleanFirebase();
 	//referencia a la tabla "usuarios"
 	firebase::database::DatabaseReference usuariosRef = dbref.Child("usuarios");
 
@@ -190,13 +185,23 @@ void FirebaseUtils::CleanFirebase()
 		std::string key = child.key();
 		auto datos = child.value().map();
 
+		if (!datos.contains("nombre")) {
+			firebase::Future<void> result = dbref.Child("usuarios").Child(key).RemoveValue();
+			while (result.status() == firebase::kFutureStatusPending) {
+				SDL_Delay(10);
+			}
+		}
+
 		bool nombreB = datos["nombre"].is_string();
 		bool fichasB = datos["fichas"].is_int64();
 		bool almasB = datos["almas"].is_int64();
 		bool locuraB = datos["locura"].is_int64();
 
 		if (!(nombreB && fichasB && almasB && locuraB)) {
-			dbref.Child("usuarios").Child(key).RemoveValue();
+			firebase::Future<void> result = dbref.Child("usuarios").Child(key).RemoveValue();
+			while (future.status() == firebase::kFutureStatusPending) {
+				SDL_Delay(10);
+			}
 		}
 	}
 }
