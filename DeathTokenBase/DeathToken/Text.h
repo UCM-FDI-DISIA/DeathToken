@@ -17,7 +17,7 @@ public:
     //Constructora para usar contorno con colores, si no se especifica alineamiento a la izquierda
     Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize,
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
-    virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
+    virtual ~Text() { renderer = nullptr; };
     void setFont(TTF_Font* newFont);
     void setPos(int x, int y);
     std::string getMessage();
