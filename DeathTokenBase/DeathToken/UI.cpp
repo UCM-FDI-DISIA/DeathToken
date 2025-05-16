@@ -242,6 +242,7 @@ void UIBaccarat::OnGo() {
 }
 
 void UIBaccarat::OnErase() {
+	HUDManager::resetBet();
 	baccarat->clearBets();
 }
 
