@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "FirebaseUtils.h"
 #include "game.h"
 #include "json.hpp"
@@ -312,10 +312,12 @@ Game::Game() {
 		std::cerr << "Error initializing SoundManager" << std::endl;
 		SDL_Quit();
 	}
-	/*if (!soundManager.cargarSonido("../assets/sonido/TralaleroTralala.wav", "EntrarJuego",SoundManager::EFECTO)) {
-		  std::cerr << "Error al cargar el sonido de la entrarjuego." << std::endl;
-	  }*/
 	soundManager.ajustarVolumenEfectos(50);
+	if (!soundManager.cargarSonido("assets/sonido/Generales/PresionaBoton.wav",
+		"PresionaBoton",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
 
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/PresionaBotonPeleas.wav",
@@ -346,6 +348,57 @@ Game::Game() {
 
 	if (!soundManager.cargarSonido("assets/sonido/Ruleta/RuletaSonido.wav",
 		"RuletaSonido",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido("assets/sonido/Generales/MarblesIntro.wav",
+		"MarblesIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido("assets/sonido/Generales/BaccaratIntro.wav",
+		"BaccaratIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido("assets/sonido/Generales/Fights.wav",
+		"FightsIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotsIntro.wav",
+		"SlotsIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+
+	if (!soundManager.cargarSonido("assets/sonido/Generales/StaticVinyl.mp3",
+		"Static",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+	if (!soundManager.cargarSonido("assets/sonido/Generales/PokerChips.wav",
+		"ChipPlaced",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotSpin.wav",
+		"SlotSpin",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotChoose.wav",
+		"SlotChoose",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido del Button." << std::endl;
+	}
+	if (!soundManager.cargarSonido(
+		"assets/sonido/Tutoriales/PasaPaginaTutorial.wav",
+		"PasaPag",
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 	}

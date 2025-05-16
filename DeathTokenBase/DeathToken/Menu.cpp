@@ -1,8 +1,9 @@
 ﻿#include "checkML.h"
-#include "menu.h"
-#include "game.h"
-#include "player.h"
 #include "finalMenu.h"
+#include "game.h"
+#include "menu.h"
+#include "player.h"
+#include "soundManager.h"
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
@@ -47,6 +48,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(baccarat);
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("BaccaratIntro");
 		gameChanger(baccaratState = new Baccarat(getGame()));
 		if (tutorialBaccarat && eco->getInsanity() == 0)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
@@ -61,13 +64,16 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(SLOTSBUT), (int)wBut, (int)hBut);
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { slotsState = new SlotsNormal(getGame());
-	gameChanger(slotsState);
-	if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
-	{
-		tutorialSlots = false;
-		slotsState->showTutorial();
-	}
+	slots->connect([this]() {
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("SlotsIntro");
+		slotsState = new SlotsNormal(getGame());
+		gameChanger(slotsState);
+		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			tutorialSlots = false;
+			slotsState->showTutorial();
+		}
 		});
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
@@ -78,7 +84,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
+	marbles->connect([this]() { 
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("MarblesIntro");
+		gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -86,7 +95,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
+	fights->connect([this]() {
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("FightsIntro");
+		gameChanger(new Peleas(getGame())); });
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
 	//Widht, height, position roulette button
@@ -95,7 +107,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	roulette = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(ROULETTEBUT), (int)wBut, (int)hBut);
 	addObjects(roulette);
 	addEventListener(roulette);
-	roulette->connect([this]() { gameChanger(new rouletteChoose(getGame(), eco)); });
+	roulette->connect([this]() { 
+		gameChanger(new rouletteChoose(getGame(), eco)); });
 	obstaculos.push_back(cambiarColisiones(roulette->getCollisionRect()));
 
 	if (ghost == nullptr) {

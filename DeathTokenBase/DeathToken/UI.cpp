@@ -1,14 +1,15 @@
-#include "ui.h"
+﻿#include "baccarat.h"
+#include "EscenaTutorial.h"
 #include "game.h"
 #include "marbles.h"
-#include "slots.h"
-#include "baccarat.h"
-#include "rouletteScene.h"
-#include "rouletteChoose.h"
 #include "marblesInsanity.h"
-#include "tutorial.h"
 #include "peleas.h"
-#include "EscenaTutorial.h"
+#include "rouletteChoose.h"
+#include "rouletteScene.h"
+#include "slots.h"
+#include "soundManager.h"
+#include "tutorial.h"
+#include "ui.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -72,6 +73,8 @@ UI::relativeY(const float& n)
 void
 UI::OnExit()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	if (!onBet) game->pop();
 }
 void
@@ -138,6 +141,8 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(s
 void
 UISlots::OnGo() {
 	if (PlayerEconomy::getBet() != 0) {
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("PresionaBotonSlots");
 		slots->setBetTurno(PlayerEconomy::getBet());
 		slots->clear();
 		slots->iniciarGiro();
@@ -157,27 +162,37 @@ UISlots::OnInfo()
 }
 void
 UISlots::OnErase() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	HUDManager::resetBet();
 	slots->clear();
 }
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
 void UIMarbles::OnGo() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBotonCanicas");
 	marbles->startRound();
 }
 
 void UIMarbles::OnErase() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	HUDManager::resetBet();
 	marbles->clearBets();
 }
 
 void UIMarbles::OnRepeat()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	marbles->repeat();
 }
 
 void UIMarbles::OnInfo()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	std::vector<Texture*> baccaratTutorial = {
 	game->getTexture(TUTORIALMARBLES)
 	};
@@ -187,11 +202,15 @@ void UIMarbles::OnInfo()
 //MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
 void UIMarblesInsanity::OnGo() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBotonCanicas");
 	marblesI->StartRoundTrickster();
 }
 
 void UIMarblesInsanity::OnInfo()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	std::vector<Texture*> baccaratTutorial = {
 	game->getTexture(TUTORIALMARBLESINSANITY)
 	};
@@ -220,6 +239,8 @@ UIRanking::UIRanking(GameState* gS, Game* game) : gS(gS), game(game)
 }
 void UIRanking::OnExit()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	game->pop();
 }
 
@@ -238,6 +259,8 @@ UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(
 
 void UIBaccarat::OnExit()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	UI::OnExit();
 	isBlackJack = false;
 	isBet = false;
@@ -245,22 +268,30 @@ void UIBaccarat::OnExit()
 }
 
 void UIBaccarat::OnGo() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBotonBaccarat");
 	baccarat->startRound();
 }
 
 void UIBaccarat::OnErase() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	HUDManager::resetBet();
 	baccarat->clearBets();
 }
 
 void UIBaccarat::OnRepeat()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	baccarat->repeat();
 }
 
 void
 UIBaccarat::OnInfo()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
 	if (isBlackJack) {
 		OnInfoBlackJack();
@@ -284,6 +315,8 @@ UIBaccarat::OnInfo()
 
 void UIBaccarat::OnInfoBlackJack()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	std::vector<Texture*> BlackJackTutorial = {
 	game->getTexture(TUTORIALJ1),
 	game->getTexture(TUTORIALJ2),
@@ -295,6 +328,8 @@ void UIBaccarat::OnInfoBlackJack()
 
 void UIBaccarat::OnInfoBet()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	std::vector<Texture*> baccaratBetTutorial = {
 		game->getTexture(TUTORIALB1),
 		game->getTexture(TUTORIAL2),
@@ -306,6 +341,8 @@ void UIBaccarat::OnInfoBet()
 
 void UIBaccarat::OnInfoFlip()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	std::vector<Texture*> baccaratFlipTutorial = {
 		game->getTexture(TUTORIALF1),
 		game->getTexture(TUTORIAL2),
@@ -338,6 +375,8 @@ UITutorial::relativeY(const float& n)
 }
 
 void UITutorial::OnExit() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	game->pop();
 }
 
@@ -372,6 +411,8 @@ ButtonUI* UITutorial::upArrow()
 }
 // UI PELEAS
 void UIPeleas::OnGo() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBotonPeleas");
 	_peleas->StartBattle();
 }
 
@@ -400,11 +441,15 @@ UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS
 
 void UIRoulette::OnExit()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	game->pop();
 }
 
 void UIRoulette::OnGo()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("RuletaSonido");
 	rouletteS->throwRoulette();
 }
 
@@ -412,6 +457,8 @@ UIEscenaTutorial::UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut) 
 
 void UIEscenaTutorial::OnGo() {
 	if (PlayerEconomy::getBet() != 0 && escenaTutorial->getFase() == 2 && !escenaTutorial->itIsInDIalog()) {
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("PresionaBoton");
 		escenaTutorial->setBetTurno(PlayerEconomy::getBet());
 		escenaTutorial->clear();
 		escenaTutorial->iniciaJuego();
@@ -443,6 +490,8 @@ UIRouletteChoose::UIRouletteChoose(GameState* gS, Game* game, rouletteChoose* ro
 
 void UIRouletteChoose::OnExit()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	game->pop();
 }
 
@@ -466,6 +515,8 @@ UIScythe::UIScythe(GameState* gS, Game* game, scythe* rouletteC) : gS(gS), game(
 
 void UIScythe::OnExit()
 {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("PresionaBoton");
 	game->pop();
 }
 
