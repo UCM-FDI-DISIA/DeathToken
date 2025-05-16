@@ -6,6 +6,8 @@
 #include "pauseState.h"
 #include "sdlutils.h"
 #include "SoundManager.h"
+#include "MainMenu.h"
+#include "finalMenu.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -344,7 +346,7 @@ Game::Game() {
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif // DEBUG
 	}
-	
+
 	MainMenu* menu = new MainMenu(this);
 	pushState(menu);
 
@@ -385,7 +387,8 @@ void Game::run() {
 				FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity());
 				stop();
 			}
-			else if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)) {
+			else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p &&
+				typeid(*gameStates.top()) != typeid(MainMenu) && typeid(*gameStates.top()) != typeid(FinalMenu)) {
 				if (!pause)
 				{
 					push(new PauseState(this, gameStates.top().get()));
