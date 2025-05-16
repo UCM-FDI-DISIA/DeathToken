@@ -129,10 +129,16 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/Demoniosenala.png",1,1 });
+	v.push_back(TextureSpec{ "roulette/rouletteArrow.png",1,1 });
+	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
-	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_baccarat.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_bet.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_flip.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marbles.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
@@ -201,6 +207,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/RecompensasRouletteInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/ChooseDemon.png",1,1 });
 	v.push_back(TextureSpec{ "baccarat/smoke.png",9,1 });
+	v.push_back(TextureSpec{ "baccarat/counter.png",10,1 });
 
 	v.push_back(TextureSpec{ "menus/pause.png",1,1 });
 	v.push_back(TextureSpec{ "menus/back.png",1,1 });
@@ -440,7 +447,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 #endif // DEBUG
 
 		return false;
-	}
+}
 
 	json j;
 	file >> j;
@@ -464,7 +471,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
 		return false;
-	}
+}
 
 	try {
 		json j;
@@ -476,7 +483,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-		}
+	}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -491,12 +498,12 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 				cout << "Índice de peleador inválido." << endl;
 #endif
 				continue;
-			}
+		}
 
 			Matchup matchup;
-			matchup.fighter1 = fighters[id1];
-			matchup.fighter2 = fighters[id2];
-			matchup.advantageFighterIndex = advantageFighterIndex;
+				matchup.fighter1 = fighters[id1];
+				matchup.fighter2 = fighters[id2];
+				matchup.advantageFighterIndex = advantageFighterIndex;
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);

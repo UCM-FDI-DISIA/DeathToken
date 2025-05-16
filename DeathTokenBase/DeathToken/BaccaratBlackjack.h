@@ -21,10 +21,9 @@ class BaccaratBlackjack : public Baccarat
 	float time = 0;
 	float actual = 0;
 	bool animOn = true;
-	bool timeForWin = false;
-	float tiempo = 0;
 public:
 	BaccaratBlackjack(Game* game);
+	virtual ~BaccaratBlackjack() {};
 	void update() override;
 	void render() const override;
 	void victory();
@@ -35,5 +34,6 @@ public:
 	void startRound() override;
 	int totalCards(vector<int>);
 	void clearDeck() override;
+	void showTutorial() override {  };
 };
 

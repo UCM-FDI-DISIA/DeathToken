@@ -112,12 +112,20 @@ class UIBaccarat :public   UIChips {
 	std::vector<ButtonBet*> bets;
 public:
 	UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat);
-
+	void OnExit();
 	void OnGo() override;
 	void OnErase() override;
 	void OnRepeat() override;
 	void OnInfo() override;
+	void OnInfoBlackJack();
+	void OnInfoBet();
+	void OnInfoFlip();
+	
+	bool isBlackJack = false;
+	bool isBet = false;
+	bool isFlip = false;
 };
+
 
 class RouletteScene;
 class UIRoulette {

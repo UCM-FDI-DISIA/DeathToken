@@ -161,4 +161,5 @@ public:
 	~ButtonTutorial();
 	void render() const override;
 	virtual void handleEvent(const SDL_Event& event) override;
+	void setPos(int x, int y);
 };

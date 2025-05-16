@@ -236,6 +236,14 @@ void UIRanking::update() {
 //BACCARAT UI
 UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
 
+void UIBaccarat::OnExit()
+{
+	UI::OnExit();
+	isBlackJack = false;
+	isBet = false;
+	isFlip = false;
+}
+
 void UIBaccarat::OnGo() {
 	baccarat->startRound();
 }
@@ -254,13 +262,57 @@ void
 UIBaccarat::OnInfo()
 {
 	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
-	std::vector<Texture*> baccaratTutorial = {
-	game->getTexture(TUTORIAL1),
-	game->getTexture(TUTORIAL2),
-	game->getTexture(TUTORIAL3)
+	if (isBlackJack) {
+		OnInfoBlackJack();
+	}
+	else if (isBet) {
+		OnInfoBet();
+	}
+	else if (isFlip) {
+		OnInfoFlip();
+	}
+	else {
+		std::vector<Texture*> baccaratTutorial = {
+		game->getTexture(TUTORIAL1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+		};
+		game->push(new Tutorial(game, gS, baccaratTutorial));
+	}
+}
+
+void UIBaccarat::OnInfoBlackJack()
+{
+	std::vector<Texture*> BlackJackTutorial = {
+	game->getTexture(TUTORIALJ1),
+	game->getTexture(TUTORIALJ2),
+	game->getTexture(TUTORIALJ3)
 
 	};
-	game->push(new Tutorial(game, gS, baccaratTutorial));
+	game->push(new Tutorial(game, gS, BlackJackTutorial));
+}
+
+void UIBaccarat::OnInfoBet()
+{
+	std::vector<Texture*> baccaratBetTutorial = {
+		game->getTexture(TUTORIALB1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratBetTutorial));
+}
+
+void UIBaccarat::OnInfoFlip()
+{
+	std::vector<Texture*> baccaratFlipTutorial = {
+		game->getTexture(TUTORIALF1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratFlipTutorial));
 }
 
 //Tutorial

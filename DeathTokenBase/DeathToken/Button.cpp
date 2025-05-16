@@ -186,6 +186,10 @@ ButtonChip::update()
 	}
 	if (hover && !onUse) {
 		ui->changeChip(id);
+		if (slot) {
+			PlayerEconomy::setBet(ui->currentChipValue());
+			HUDManager::getHudBet()->refresh();
+		}
 	}
 	else if (!clicked && hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)))
 	{
@@ -503,6 +507,12 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 	{
 		cb();
 	}
+}
+
+void ButtonBaccarat::setPos(int x, int y)
+{
+	box.x = x;
+	box.y = y;
 }
 
 //colision player button
