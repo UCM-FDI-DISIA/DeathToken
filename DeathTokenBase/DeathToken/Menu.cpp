@@ -57,7 +57,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	obstaculos.push_back(cambiarColisiones(baccarat->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 3.5;
-	xBut = Game::WIN_WIDTH * 3.0 / 4.75; yBut = Game::WIN_HEIGHT / 1.7 + Game::WIN_HEIGHT / 4.0;
+	xBut = Game::WIN_WIDTH * 3.0 / 4.75; yBut = Game::WIN_HEIGHT / 1.4f + Game::WIN_HEIGHT / 4.0;
 	slots = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(SLOTSBUT), (int)wBut, (int)hBut);
 	addObjects(slots);
 	addEventListener(slots);
@@ -82,7 +82,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
-	xBut = Game::WIN_WIDTH * 3.0 / 15.5; yBut = Game::WIN_HEIGHT / 1.7 + Game::WIN_HEIGHT / 4.0;
+	xBut = Game::WIN_WIDTH * 3.0 / 15.5; yBut = Game::WIN_HEIGHT / 1.4f + Game::WIN_HEIGHT / 4.0;
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);
 	addObjects(fights);
 	addEventListener(fights);
