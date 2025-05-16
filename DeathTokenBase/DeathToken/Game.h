@@ -214,6 +214,9 @@ enum TextureName {
 	//
 	COUNTER,
 	SCYTHE,
+	PORTADA,
+	INICIAR,
+	SALIR,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

@@ -254,6 +254,9 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "baccarat/counter.png",10,1 });
 	v.push_back(TextureSpec{ "roulette/scythe.png",1,1 });
+	v.push_back(TextureSpec{ "portada.png",1,1 });
+	v.push_back(TextureSpec{ "menus/iniciar.png",1,1 });
+	v.push_back(TextureSpec{ "menus/salir.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
