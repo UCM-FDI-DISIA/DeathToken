@@ -44,22 +44,6 @@ void BaccaratFlip::startRound()
 			segunda = extraVals[1];
 			primera = extraVals[0];
 			Baccarat::startRound();
-
-
-			//reposicionar las caratas
-
-
-			//player3->frame = 14;//inicializamos invisible
-			//banker3->frame = 14;
-			//handCards();
-			////eleccion frame cartas
-			//player1->frame = mat.player[0];
-			//banker1->frame = mat.banker[0];
-			//player2->frame = mat.player[1];
-			//banker2->frame = mat.banker[1];
-
-			//handThird();//reparte tercera
-			//clearDeck();
 		}
 	}
 }
@@ -159,7 +143,6 @@ void BaccaratFlip::deckButton()
 
 void BaccaratFlip::clearDeck()
 {
-	std::cout << "CLEARING DECK\n";
 	Baccarat::clearDeck();
 	flips = 0;
 	active = false;

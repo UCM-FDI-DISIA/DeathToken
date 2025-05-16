@@ -117,10 +117,13 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteArrow.png",1,1 });
+	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
-	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_baccarat.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_blackjack.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marbles.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
