@@ -1,5 +1,7 @@
-#include "baccarat.h"
+#include "ui.h"
 #include "EscenaTutorial.h"
+#include "SoundManager.h"
+#include "baccarat.h"
 #include "game.h"
 #include "marbles.h"
 #include "marblesInsanity.h"
@@ -7,9 +9,7 @@
 #include "rouletteChoose.h"
 #include "rouletteScene.h"
 #include "slots.h"
-#include "SoundManager.h"
 #include "tutorial.h"
-#include "ui.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game)
@@ -28,9 +28,7 @@ UI::UI(GameState* gS, Game* game)
                       game->getTexture(UIEXITCLCK));
   gS->addObjects(exit);
   gS->addEventListener(exit);
-  exit->connect([this]() {
-    OnExit();
-  });
+  exit->connect([this]() { OnExit(); });
 
   go = new ButtonUI(gS,
                     relativeX(1697.0f),
@@ -97,7 +95,7 @@ UI::UI(GameState* gS, Game* game)
                             game->getTexture(UICHIP2),
                             game->getTexture(UICHIP50),
                             game->getTexture(UICHIP1000));
-  gS->addObjectsUI(chips[1]);
+  gS->addObjects(chips[1]);
   gS->addEventListener(chips[1]);
   chips[1]->connect([this]() {});
 
@@ -114,7 +112,7 @@ UI::UI(GameState* gS, Game* game)
                             game->getTexture(UICHIP5),
                             game->getTexture(UICHIP100),
                             game->getTexture(UICHIP2000));
-  gS->addObjectsUI(chips[2]);
+  gS->addObjects(chips[2]);
   gS->addEventListener(chips[2]);
   chips[2]->connect([this]() {});
 
@@ -131,18 +129,21 @@ UI::UI(GameState* gS, Game* game)
                             game->getTexture(UICHIP10),
                             game->getTexture(UICHIP200),
                             game->getTexture(UICHIP5000));
-  gS->addObjectsUI(chips[3]);
+  gS->addObjects(chips[3]);
   gS->addEventListener(chips[3]);
   chips[3]->connect([this]() {});
 }
+
 inline int UI::relativeX(const float& n)
 {
   return (int)((n / 1920.0f) * Game::WIN_WIDTH);
 }
+
 inline int UI::relativeY(const float& n)
 {
   return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
 }
+
 void UI::OnExit()
 {
   auto& soundManager = SoundManager::obtenerInstancia();
@@ -150,16 +151,19 @@ void UI::OnExit()
   if (!onBet)
     game->pop();
 }
+
 void UI::changeChip(const int& id)
 {
   chips[chipOnUse]->setOnUse(false);
   chipOnUse = id;
   chips[chipOnUse]->setOnUse(true);
 }
+
 int UI::currentChipValue()
 {
   return chips[chipOnUse]->getValue();
 }
+
 void UI::OnArrow(const bool& left)
 {
   int aux = chipPage;
@@ -189,23 +193,6 @@ UIChips::UIChips(GameState* gS, Game* game)
   gS->addEventListener(erase);
   erase->connect([this]() { OnErase(); });
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
-	gS->addObjectsUI(erase);
-	gS->addEventListener(erase);
-	erase->connect([this]() { OnErase(); });
-
-	info = new ButtonUI(gS, relativeX(1377.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
-	gS->addObjectsUI(info);
-	gS->addEventListener(info);
-	info->connect([this]() { OnInfo(); });
-
-	repeat = new ButtonUI(gS, relativeX(1537.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIREPEAT), game->getTexture(UIREPEATCLCK));
-	gS->addObjectsUI(repeat);
-	gS->addEventListener(repeat);
-	repeat->connect([this]() { OnRepeat(); });
-=======
   info = new ButtonUI(gS,
                       relativeX(1377.0f),
                       relativeY(905.0f),
@@ -217,19 +204,6 @@ UIChips::UIChips(GameState* gS, Game* game)
   gS->addEventListener(info);
   info->connect([this]() { OnInfo(); });
 
-=======
-  info = new ButtonUI(gS,
-                      relativeX(1377.0f),
-                      relativeY(905.0f),
-                      relativeX(126.0f),
-                      relativeY(126.0f),
-                      game->getTexture(UIINFO),
-                      game->getTexture(UIINFOCLCK));
-  gS->addObjects(info);
-  gS->addEventListener(info);
-  info->connect([this]() { OnInfo(); });
-
->>>>>>> Stashed changes
   repeat = new ButtonUI(gS,
                         relativeX(1537.0f),
                         relativeY(905.0f),
@@ -240,10 +214,6 @@ UIChips::UIChips(GameState* gS, Game* game)
   gS->addObjects(repeat);
   gS->addEventListener(repeat);
   repeat->connect([this]() { OnRepeat(); });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 UISlots::UISlots(GameState* gS, Game* game, Slots* slot)
@@ -251,18 +221,6 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot)
   , slots(slot)
   , locura(false)
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
-	gS->addObjectsUI(erase);
-	gS->addEventListener(erase);
-	erase->connect([this]() { OnErase(); });
-
-	info = new ButtonUI(gS, relativeX(1550.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
-	gS->addObjectsUI(info);
-	gS->addEventListener(info);
-	info->connect([this]() { OnInfo(); });
-=======
   erase = new ButtonUI(gS,
                        relativeX(50.0f),
                        relativeY(905.0f),
@@ -272,25 +230,8 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot)
                        game->getTexture(UIERASECLCK));
   gS->addObjects(erase);
   gS->addEventListener(erase);
-  erase->connect([this]() {
-    OnErase();
-  });
+  erase->connect([this]() { OnErase(); });
 
-=======
-  erase = new ButtonUI(gS,
-                       relativeX(50.0f),
-                       relativeY(905.0f),
-                       relativeX(126.0f),
-                       relativeY(126.0f),
-                       game->getTexture(UIERASE),
-                       game->getTexture(UIERASECLCK));
-  gS->addObjects(erase);
-  gS->addEventListener(erase);
-  erase->connect([this]() {
-    OnErase();
-  });
-
->>>>>>> Stashed changes
   info = new ButtonUI(gS,
                       relativeX(1550.0f),
                       relativeY(905.0f),
@@ -301,11 +242,8 @@ UISlots::UISlots(GameState* gS, Game* game, Slots* slot)
   gS->addObjects(info);
   gS->addEventListener(info);
   info->connect([this]() { OnInfo(); });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
+
 void UISlots::OnGo()
 {
   if (PlayerEconomy::getBet() != 0) {
@@ -316,6 +254,7 @@ void UISlots::OnGo()
     slots->iniciarGiro();
   }
 }
+
 void UISlots::OnInfo()
 {
   std::vector<Texture*> tut;
@@ -327,6 +266,7 @@ void UISlots::OnInfo()
   }
   game->push(new Tutorial(game, gS, tut));
 }
+
 void UISlots::OnErase()
 {
   auto& soundManager = SoundManager::obtenerInstancia();
@@ -340,6 +280,7 @@ UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles)
   , marbles(marbles)
 {
 }
+
 void UIMarbles::OnGo()
 {
   auto& soundManager = SoundManager::obtenerInstancia();
@@ -371,7 +312,6 @@ void UIMarbles::OnInfo()
   game->push(new Tutorial(game, gS, baccaratTutorial));
 }
 
-//MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS,
                                      Game* game,
                                      MarblesInsanity* marblesI)
@@ -379,6 +319,7 @@ UIMarblesInsanity::UIMarblesInsanity(GameState* gS,
   , marblesI(marblesI)
 {
 }
+
 void UIMarblesInsanity::OnGo()
 {
   auto& soundManager = SoundManager::obtenerInstancia();
@@ -400,66 +341,17 @@ void UIMarblesInsanity::render() const
   info->render();
   go->render();
 }
+
 void UIMarblesInsanity::update()
 {
   info->update();
   go->update();
-<<<<<<< Updated upstream
 }
 
-
-
-//RankingUI
-UIRanking::UIRanking(GameState* gS, Game* game) : gS(gS), game(game)
-{
-	exit = new ButtonUI(gS, (int)((50.0f / 1920.0f) * Game::WIN_WIDTH), (int)((49.0f / 1080.0f) * Game::WIN_HEIGHT), (int)((126.0f / 1920.0f) * Game::WIN_WIDTH), (int)((126.0f / 1080.0f) * Game::WIN_HEIGHT), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjectsUI(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-}
-void UIRanking::OnExit()
-{
-	game->pop();
-}
-
-void UIRanking::render() const
-{
-
-	exit->render();
-}
-void UIRanking::update() {
-
-	exit->update();
-}
-
-//BACCARAT UI
-<<<<<<< Updated upstream
-UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
-
-void UIBaccarat::OnExit()
-{
-	UI::OnExit();
-	isBlackJack = false;
-	isBet = false;
-	isFlip = false;
-}
-
-void UIBaccarat::OnGo() {
-	baccarat->startRound();
-=======
-=======
-}
-
-//BACCARAT UI
->>>>>>> Stashed changes
 UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat)
   : UIChips(gS, game)
   , baccarat(baccarat)
 {
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 void UIBaccarat::OnGo()
@@ -486,110 +378,18 @@ void UIBaccarat::OnRepeat()
 
 void UIBaccarat::OnInfo()
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
-	if (isBlackJack) {
-		OnInfoBlackJack();
-	}
-	else if (isBet) {
-		OnInfoBet();
-	}
-	else if (isFlip) {
-		OnInfoFlip();
-	}
-	else {
-		std::vector<Texture*> baccaratTutorial = {
-		game->getTexture(TUTORIAL1),
-		game->getTexture(TUTORIAL2),
-		game->getTexture(TUTORIAL3)
-
-		};
-		game->push(new Tutorial(game, gS, baccaratTutorial));
-	}
-}
-
-void UIBaccarat::OnInfoBlackJack()
-{
-	std::vector<Texture*> BlackJackTutorial = {
-	game->getTexture(TUTORIALJ1),
-	game->getTexture(TUTORIALJ2),
-	game->getTexture(TUTORIALJ3)
-
-	};
-	game->push(new Tutorial(game, gS, BlackJackTutorial));
-}
-
-void UIBaccarat::OnInfoBet()
-{
-	std::vector<Texture*> baccaratBetTutorial = {
-		game->getTexture(TUTORIALB1),
-		game->getTexture(TUTORIAL2),
-		game->getTexture(TUTORIAL3)
-
-	};
-	game->push(new Tutorial(game, gS, baccaratBetTutorial));
-}
-
-void UIBaccarat::OnInfoFlip()
-{
-	std::vector<Texture*> baccaratFlipTutorial = {
-		game->getTexture(TUTORIALF1),
-		game->getTexture(TUTORIAL2),
-		game->getTexture(TUTORIAL3)
-
-	};
-	game->push(new Tutorial(game, gS, baccaratFlipTutorial));
-=======
   auto& soundManager = SoundManager::obtenerInstancia();
   soundManager.reproducirEfecto("PresionaBoton");
-  //EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
   std::vector<Texture*> baccaratTutorial = { game->getTexture(TUTORIAL1),
                                              game->getTexture(TUTORIAL2),
-                                             game->getTexture(TUTORIAL3)
-
-  };
+                                             game->getTexture(TUTORIAL3) };
   game->push(new Tutorial(game, gS, baccaratTutorial));
->>>>>>> Stashed changes
-=======
-  auto& soundManager = SoundManager::obtenerInstancia();
-  soundManager.reproducirEfecto("PresionaBoton");
-  //EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
-  std::vector<Texture*> baccaratTutorial = { game->getTexture(TUTORIAL1),
-                                             game->getTexture(TUTORIAL2),
-                                             game->getTexture(TUTORIAL3)
-
-  };
-  game->push(new Tutorial(game, gS, baccaratTutorial));
->>>>>>> Stashed changes
 }
 
-//Tutorial
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-UITutorial::UITutorial(GameState* gS, Game* game, size_t tam) : gS(gS), game(game), totalPages(tam) {
-	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjectsUI(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-}
-
-inline int
-UITutorial::relativeX(const float& n)
-=======
-=======
->>>>>>> Stashed changes
 UITutorial::UITutorial(GameState* gS, Game* game, size_t tam)
   : gS(gS)
   , game(game)
   , totalPages(tam)
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 {
   exit = new ButtonUI(gS,
                       relativeX(50.0f),
@@ -605,49 +405,13 @@ UITutorial::UITutorial(GameState* gS, Game* game, size_t tam)
     soundManager.reproducirEfecto("PresionaBoton");
     OnExit();
   });
-
-  //falta la flecha de volver atras
-  //if (totalPages > 0) {
-  //	/*Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-  //	if (tutorial->getPage() < totalPages)
-  //	{*/
-  //	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-  //	gS->addObjects(arrowNext);
-  //	gS->addEventListener(arrowNext);
-  //	//}
-  //	arrowNext->connect([this, gS, game]() {
-  //		Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-  //		if (tutorial) {
-  //			tutorial->nextPage();
-  //			if (tutorial->getPage() > 0 && !arrow)
-  //			{
-  //				/*if (tutorial->getPage() == totalPages) {
-
-  //				}*/
-  //				arrow = true;
-  //				arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-  //				gS->addObjects(arrowBack);
-  //				gS->addEventListener(arrowBack);
-  //				//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
-  //				arrowBack->connect([this, gS]() {
-  //					Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-  //					if (tutorial) {
-  //						tutorial->previousPage();
-  //						/*if (tutorial->getPage() == 0) {
-
-  //						}*/
-  //					}
-  //					});
-  //			}
-  //		}
-  //		});
-  //}
 }
 
 inline int UITutorial::relativeX(const float& n)
 {
   return (int)((n / 1920.0f) * Game::WIN_WIDTH);
 }
+
 inline int UITutorial::relativeY(const float& n)
 {
   return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
@@ -662,14 +426,6 @@ void UITutorial::OnExit()
 
 ButtonUI* UITutorial::downArrow()
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	gS->addObjectsUI(arrowNext);
-	gS->addEventListener(arrowNext);
-=======
-=======
->>>>>>> Stashed changes
   arrowNext = new ButtonUI(gS,
                            relativeX(897.0f),
                            relativeY(963.5f),
@@ -679,10 +435,6 @@ ButtonUI* UITutorial::downArrow()
                            game->getTexture(UIARROWDCLCK));
   gS->addObjects(arrowNext);
   gS->addEventListener(arrowNext);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
   arrowNext->connect([this]() {
     Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
@@ -695,14 +447,6 @@ ButtonUI* UITutorial::downArrow()
 
 ButtonUI* UITutorial::upArrow()
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-	gS->addObjectsUI(arrowBack);
-	gS->addEventListener(arrowBack);
-=======
-=======
->>>>>>> Stashed changes
   arrowBack = new ButtonUI(gS,
                            relativeX(897.0f),
                            relativeY(880.5f),
@@ -712,10 +456,6 @@ ButtonUI* UITutorial::upArrow()
                            game->getTexture(UIARROWUCLCK));
   gS->addObjects(arrowBack);
   gS->addEventListener(arrowBack);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
   arrowBack->connect([this]() {
     Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
@@ -725,7 +465,7 @@ ButtonUI* UITutorial::upArrow()
   });
   return arrowBack;
 }
-// UI PELEAS
+
 void UIPeleas::OnGo()
 {
   auto& soundManager = SoundManager::obtenerInstancia();
@@ -733,33 +473,11 @@ void UIPeleas::OnGo()
   _peleas->StartBattle();
 }
 
-inline int UIRoulette::relativeX(const float& n)
-{
-  return (int)((n / 1920.0f) * Game::WIN_WIDTH);
-}
-
-inline int UIRoulette::relativeY(const float& n)
-{
-  return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
-}
-
 UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS)
   : gS(gS)
   , game(game)
   , rouletteS(rouletteS)
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjectsUI(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-
-	go = new ButtonUI(gS, relativeX(1697.0f), relativeY(858.0f), relativeX(173.0f), relativeY(173.0f), game->getTexture(UIGO), game->getTexture(UIGOCLCK));
-	gS->addObjectsUI(go);
-	gS->addEventListener(go);
-	go->connect([this]() { OnGo(); });
-=======
   exit = new ButtonUI(gS,
                       relativeX(50.0f),
                       relativeY(49.0f),
@@ -771,19 +489,6 @@ UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS)
   gS->addEventListener(exit);
   exit->connect([this]() { OnExit(); });
 
-=======
-  exit = new ButtonUI(gS,
-                      relativeX(50.0f),
-                      relativeY(49.0f),
-                      relativeX(126.0f),
-                      relativeY(126.0f),
-                      game->getTexture(UIEXIT),
-                      game->getTexture(UIEXITCLCK));
-  gS->addObjects(exit);
-  gS->addEventListener(exit);
-  exit->connect([this]() { OnExit(); });
-
->>>>>>> Stashed changes
   go = new ButtonUI(gS,
                     relativeX(1697.0f),
                     relativeY(858.0f),
@@ -793,13 +498,7 @@ UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS)
                     game->getTexture(UIGOCLCK));
   gS->addObjects(go);
   gS->addEventListener(go);
-  go->connect([this]() {
-    OnGo();
-  });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+  go->connect([this]() { OnGo(); });
 }
 
 void UIRoulette::OnExit()
@@ -811,8 +510,8 @@ void UIRoulette::OnExit()
 
 void UIRoulette::OnGo()
 {
-      auto& soundManager = SoundManager::obtenerInstancia();
-    soundManager.reproducirEfecto("RuletaSonido");
+  auto& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("RuletaSonido");
   rouletteS->throwRoulette();
 }
 
@@ -820,21 +519,6 @@ UIEscenaTutorial::UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut)
   : UI(gS, g)
   , escenaTutorial(tut)
 {
-<<<<<<< Updated upstream
-=======
-}
-
-void UIEscenaTutorial::OnGo()
-{
-  if (PlayerEconomy::getBet() != 0 && escenaTutorial->getFase() == 2 &&
-      !escenaTutorial->itIsInDIalog()) {
-    auto& soundManager = SoundManager::obtenerInstancia();
-    soundManager.reproducirEfecto("PresionaBoton");
-    escenaTutorial->setBetTurno(PlayerEconomy::getBet());
-    escenaTutorial->clear();
-    escenaTutorial->iniciaJuego();
-  }
->>>>>>> Stashed changes
 }
 
 void UIEscenaTutorial::OnGo()
@@ -848,20 +532,11 @@ void UIEscenaTutorial::OnGo()
     escenaTutorial->iniciaJuego();
   }
 }
+
 void UIEscenaTutorial::OnExit()
 {
-	PlayerEconomy::setBlueSouls(escenaTutorial->getSaldo());
-	game->pop();
-}
-
-inline int UIRouletteChoose::relativeX(const float& n)
-{
-  return (int)((n / 1920.0f) * Game::WIN_WIDTH);
-}
-
-inline int UIRouletteChoose::relativeY(const float& n)
-{
-  return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
+  PlayerEconomy::setBlueSouls(escenaTutorial->getSaldo());
+  game->pop();
 }
 
 UIRouletteChoose::UIRouletteChoose(GameState* gS,
@@ -871,15 +546,6 @@ UIRouletteChoose::UIRouletteChoose(GameState* gS,
   , game(game)
   , rouletteC(rouletteC)
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjectsUI(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-=======
-=======
->>>>>>> Stashed changes
   exit = new ButtonUI(gS,
                       relativeX(50.0f),
                       relativeY(49.0f),
@@ -890,10 +556,6 @@ UIRouletteChoose::UIRouletteChoose(GameState* gS,
   gS->addObjects(exit);
   gS->addEventListener(exit);
   exit->connect([this]() { OnExit(); });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 void UIRouletteChoose::OnExit()
@@ -903,30 +565,11 @@ void UIRouletteChoose::OnExit()
   game->pop();
 }
 
-inline int UIScythe::relativeX(const float& n)
-{
-  return (int)((n / 1920.0f) * Game::WIN_WIDTH);
-}
-
-inline int UIScythe::relativeY(const float& n)
-{
-  return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
-}
-
-UIScythe::UIScythe(GameState* gS, Game* game, scythe* rouletteC)
+UIScythe::UIScythe(GameState* gS, Game* game, scythe* scytheObj)
   : gS(gS)
   , game(game)
-  , s(s)
+  , s(scytheObj)
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjectsUI(exit);
-	gS->addEventListener(exit);
-	exit->connect([this]() { OnExit(); });
-=======
-=======
->>>>>>> Stashed changes
   exit = new ButtonUI(gS,
                       relativeX(50.0f),
                       relativeY(49.0f),
@@ -937,10 +580,6 @@ UIScythe::UIScythe(GameState* gS, Game* game, scythe* rouletteC)
   gS->addObjects(exit);
   gS->addEventListener(exit);
   exit->connect([this]() { OnExit(); });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 void UIScythe::OnExit()
@@ -949,5 +588,3 @@ void UIScythe::OnExit()
   soundManager.reproducirEfecto("PresionaBoton");
   game->pop();
 }
-
-
