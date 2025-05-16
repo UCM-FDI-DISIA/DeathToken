@@ -32,15 +32,12 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		Carrete* c = carretes[i];
 		button->connect([this, c] {
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 			if (c->getParada()) {
 				++comprobanteIndice;
 				c->pararGiro(); // Para el giro si no esta parado 
 			}
 			});
 =======
-=======
->>>>>>> Stashed changes
 	auto& soundManager = SoundManager::obtenerInstancia();
 	soundManager.reproducirEfecto("SlotChoose");
 
@@ -52,9 +49,6 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		canalSonidoGiro = -1; 
 	}
 });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 	}
 
@@ -123,7 +117,6 @@ void SlotsNormal::render() const {
 	GameState::render();
 }
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 void SlotsNormal::iniciarGiro() {
 	// Comprueba que todos los carretes estén parados para iniciar
 	bool girar = false;
@@ -137,8 +130,6 @@ void SlotsNormal::iniciarGiro() {
 		}
 	}
 =======
-=======
->>>>>>> Stashed changes
 void SlotsNormal::iniciarGiro()
 {
   bool girar = false;
@@ -152,8 +143,5 @@ void SlotsNormal::iniciarGiro()
     auto& soundManager = SoundManager::obtenerInstancia();
     canalSonidoGiro = soundManager.reproducirEfectoCanalEsp("SlotSpin", -1, 0);
   }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 }
