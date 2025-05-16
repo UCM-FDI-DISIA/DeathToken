@@ -361,6 +361,10 @@ Game::~Game() {
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+	}
+	for (TTF_Font* font : fonts) {
+		TTF_CloseFont(font);
+	}
 
 	FirebaseUtils::DeleteFirebaseUtils();
 	TTF_Quit();

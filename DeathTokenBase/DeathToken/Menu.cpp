@@ -109,7 +109,6 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 }
 Menu::~Menu() {
 	delete eco;
-
 }
 
 void Menu::gameChanger(GameState* juego) {

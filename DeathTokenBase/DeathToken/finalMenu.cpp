@@ -51,6 +51,9 @@ void FinalMenu::update() {
 	}
 }
 void FinalMenu::render() const {
+	SDL_Rect r (0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT);
+	game->getTexture(BLACKFOND)->render(r);
+
 	text->render(rectT);
 	image->render(rectI);
 	if (show) {

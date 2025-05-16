@@ -107,17 +107,17 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 {
 
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
-	gS->addObjects(erase);
+	gS->addObjectsUI(erase);
 	gS->addEventListener(erase);
 	erase->connect([this]() { OnErase(); });
 
 	info = new ButtonUI(gS, relativeX(1377.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
-	gS->addObjects(info);
+	gS->addObjectsUI(info);
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 
 	repeat = new ButtonUI(gS, relativeX(1537.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIREPEAT), game->getTexture(UIREPEATCLCK));
-	gS->addObjects(repeat);
+	gS->addObjectsUI(repeat);
 	gS->addEventListener(repeat);
 	repeat->connect([this]() { OnRepeat(); });
 }
@@ -126,12 +126,12 @@ UIChips::UIChips(GameState* gS, Game* game) : UI(gS, game)
 UISlots::UISlots(GameState* gS, Game* game, Slots* slot) : UI(gS, game), slots(slot), locura(false)
 {
 	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
-	gS->addObjects(erase);
+	gS->addObjectsUI(erase);
 	gS->addEventListener(erase);
 	erase->connect([this]() { OnErase(); });
 
 	info = new ButtonUI(gS, relativeX(1550.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
-	gS->addObjects(info);
+	gS->addObjectsUI(info);
 	gS->addEventListener(info);
 	info->connect([this]() { OnInfo(); });
 }
@@ -214,7 +214,7 @@ void UIMarblesInsanity::update() {
 UIRanking::UIRanking(GameState* gS, Game* game) : gS(gS), game(game)
 {
 	exit = new ButtonUI(gS, (int)((50.0f / 1920.0f) * Game::WIN_WIDTH), (int)((49.0f / 1080.0f) * Game::WIN_HEIGHT), (int)((126.0f / 1920.0f) * Game::WIN_WIDTH), (int)((126.0f / 1080.0f) * Game::WIN_HEIGHT), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
+	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
 }
@@ -267,7 +267,7 @@ UIBaccarat::OnInfo()
 
 UITutorial::UITutorial(GameState* gS, Game* game, size_t tam) : gS(gS), game(game), totalPages(tam) {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
+	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
 
@@ -327,7 +327,7 @@ void UITutorial::OnExit() {
 ButtonUI* UITutorial::downArrow()
 {
 	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	gS->addObjects(arrowNext);
+	gS->addObjectsUI(arrowNext);
 	gS->addEventListener(arrowNext);
 
 	arrowNext->connect([this]() {
@@ -342,7 +342,7 @@ ButtonUI* UITutorial::downArrow()
 ButtonUI* UITutorial::upArrow()
 {
 	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-	gS->addObjects(arrowBack);
+	gS->addObjectsUI(arrowBack);
 	gS->addEventListener(arrowBack);
 
 	arrowBack->connect([this]() {
@@ -371,12 +371,12 @@ inline int UIRoulette::relativeY(const float& n)
 UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS(gS), game(game), rouletteS(rouletteS)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
+	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
 
 	go = new ButtonUI(gS, relativeX(1697.0f), relativeY(858.0f), relativeX(173.0f), relativeY(173.0f), game->getTexture(UIGO), game->getTexture(UIGOCLCK));
-	gS->addObjects(go);
+	gS->addObjectsUI(go);
 	gS->addEventListener(go);
 	go->connect([this]() { OnGo(); });
 }
@@ -419,7 +419,7 @@ inline int UIRouletteChoose::relativeY(const float& n)
 UIRouletteChoose::UIRouletteChoose(GameState* gS, Game* game, rouletteChoose* rouletteC) : gS(gS), game(game), rouletteC(rouletteC)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
+	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
 }
@@ -442,7 +442,7 @@ inline int UIScythe::relativeY(const float& n)
 UIScythe::UIScythe(GameState* gS, Game* game, scythe* rouletteC) : gS(gS), game(game), s(s)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
+	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
 }

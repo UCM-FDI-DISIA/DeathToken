@@ -21,6 +21,7 @@ Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, 
 	resultante = vectorAleatorio();
 }
 Carrete:: ~Carrete() {
+	deleteCarrete();
 	iconos = nullptr;
 }
 
