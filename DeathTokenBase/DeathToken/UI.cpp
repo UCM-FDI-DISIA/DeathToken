@@ -208,6 +208,31 @@ void UIMarblesInsanity::update() {
 	go->update();
 }
 
+
+
+//RankingUI
+UIRanking::UIRanking(GameState* gS, Game* game) : gS(gS), game(game)
+{
+	exit = new ButtonUI(gS, (int)((50.0f / 1920.0f) * Game::WIN_WIDTH), (int)((49.0f / 1080.0f) * Game::WIN_HEIGHT), (int)((126.0f / 1920.0f) * Game::WIN_WIDTH), (int)((126.0f / 1080.0f) * Game::WIN_HEIGHT), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
+	gS->addObjects(exit);
+	gS->addEventListener(exit);
+	exit->connect([this]() { OnExit(); });
+}
+void UIRanking::OnExit()
+{
+	game->pop();
+}
+
+void UIRanking::render() const
+{
+	
+	exit->render();
+}
+void UIRanking::update() {
+	
+	exit->update();
+}
+
 //BACCARAT UI
 UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
 
@@ -420,3 +445,5 @@ void UIScythe::OnExit()
 {
 	game->pop();
 }
+
+

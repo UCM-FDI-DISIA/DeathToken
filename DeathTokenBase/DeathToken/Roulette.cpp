@@ -241,7 +241,6 @@ void Roulette::update() {
 				|| rot >= 165.6f && rot < 172.8f || rot >= 219.6f && rot < 226.8f
 				|| rot >= 248.4f && rot < 255.6f || rot >= 298.8f && rot < 306.0f
 				|| rot >= 334.8f && rot < 342.0f) {
-				cout << "-10 ALMA ROJA" << endl;
 				eco->addRedSouls(-10);
 			}
 			else if (rot >= 7.2f && rot < 14.4f || rot >= 18.0f && rot < 25.2f
@@ -253,7 +252,6 @@ void Roulette::update() {
 				|| rot >= 270.0f && rot < 277.2f || rot >= 284.4f && rot < 291.6f
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
-				cout << "20 ALMA ROJA" << endl;
 				eco->addRedSouls(20);
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
@@ -261,7 +259,6 @@ void Roulette::update() {
 				|| rot >= 151.2f && rot < 158.4f || rot >= 187.2f && rot < 194.4f
 				|| rot >= 226.8f && rot < 234.0f || rot >= 262.8f && rot < 270.0f
 				|| rot >= 356.4f && rot <= 360.0f) {
-				cout << "1 ALMA ROJA" << endl;
 				eco->addRedSouls(1);
 			}
 			else if (rot >= 36.0f && rot < 43.2f || rot >= 72.0f && rot < 79.2f
@@ -273,13 +270,10 @@ void Roulette::update() {
 				|| rot >= 277.2f && rot < 284.4f || rot >= 291.6f && rot < 298.8f
 				|| rot >= 313.2f && rot < 320.4f || rot >= 327.6f && rot < 334.8f
 				|| rot >= 349.2f && rot < 356.4f) {
-				cout << "NADA" << endl;
 			}
 			else if (rot >= 180.0f && rot < 187.2f) {
-				cout << "MUERTE" << endl;
 			}
 			else if (rot >= 172.8f && rot < 180.0f) {
-				cout << "GUADAÑA" << endl;
 			}
 		}
 		else {
@@ -288,7 +282,6 @@ void Roulette::update() {
 				|| rot >= 165.6f && rot < 172.8f || rot >= 219.6f && rot < 226.8f
 				|| rot >= 248.4f && rot < 255.6f || rot >= 298.8f && rot < 306.0f
 				|| rot >= 334.8f && rot < 342.0f) {
-				cout << "NADA" << endl;
 			}
 			else if (rot >= 7.2f && rot < 14.4f || rot >= 18.0f && rot < 25.2f
 				|| rot >= 32.4 && rot < 36.0f || rot >= 50.4f && rot < 57.6f
@@ -299,17 +292,15 @@ void Roulette::update() {
 				|| rot >= 270.0f && rot < 277.2f || rot >= 284.4f && rot < 291.6f
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
-				cout << "LOCURA" << endl;
 				animTime = (float)SDL_GetTicks();
 				i = 0;
-				eco->setInsanity(5);
+				eco->addInsanity(10);
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
 				|| rot >= 79.2f && rot < 86.4f || rot >= 115.2f && rot < 122.4f
 				|| rot >= 151.2f && rot < 158.4f || rot >= 187.2f && rot < 194.4f
 				|| rot >= 226.8f && rot < 234.0f || rot >= 262.8f && rot < 270.0f
 				|| rot >= 356.4f && rot <= 360.0f) {
-				cout << "1 ALMA ROJA" << endl;
 				eco->addRedSouls(1);
 			}
 			else if (rot >= 36.0f && rot < 43.2f || rot >= 72.0f && rot < 79.2f

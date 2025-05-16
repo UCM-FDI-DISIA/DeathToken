@@ -2,6 +2,8 @@
 #include "game.h"	
 #include <iostream>
 
+
+
 Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
 	marbles({ 0,0,0,0 }),
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
@@ -11,7 +13,7 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),b
 {
 	ui = new UIMarbles(this, game, this);
 	Marbles::marblesButtonCreation();
-	hud = new HUDBet(this);
+	hud = new HUDBet(this, false);
 }
 
 Marbles::~Marbles() {

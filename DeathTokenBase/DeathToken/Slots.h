@@ -13,7 +13,7 @@ protected:
 	UISlots* ui; // Ui del juego
 	HUDBet* hud; // Hud
 public:
-	inline Slots(Game* g) : GameState(g), ui(new UISlots(this, g, this)), hud(new HUDBet(this)), bet(0), btnBet() // Crea el UI y el Hud
+	inline Slots(Game* g) : GameState(g), ui(new UISlots(this, g, this)), hud(new HUDBet(this,true)), bet(0), btnBet() // Crea el UI y el Hud
 	{
 		hud->refresh(); //Actualiza el hud al entrar
 	}
@@ -23,7 +23,7 @@ public:
 	}
 	virtual void iniciarGiro() = 0; //Metodo que inicia el juego
 	inline void setBetTurno(long long n) { bet = n; } // Asigna la apuesta
-	inline void clear() { //Metodo para vaciar el botón de apuestas y aplicar la actual
+	inline void clear() { //Metodo para vaciar el botï¿½n de apuestas y aplicar la actual
 		btnBet->clear();
 		PlayerEconomy::setBet(0);
 		hud->refresh();

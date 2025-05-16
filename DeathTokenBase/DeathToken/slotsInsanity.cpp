@@ -116,7 +116,7 @@ int SlotsInsanity::getNext() {
 }
 //Metodo que compruba si hay tres en raya. Devuelve el id del icono que forma la línea
 int SlotsInsanity::checkBoard() const {
-	// Revisión filas y columnas
+	// Revisiï¿½n filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -129,7 +129,7 @@ int SlotsInsanity::checkBoard() const {
 			}
 		}
 	}
-	// Revisión diagonales principales
+	// Revisiï¿½n diagonales principales
 	for (int i = 0; i < N_COLUM - 2; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -138,7 +138,7 @@ int SlotsInsanity::checkBoard() const {
 			}
 		}
 	}
-	// Revisión diagonales secundarias
+	// Revisiï¿½n diagonales secundarias
 	for (int i = N_COLUM - 1; i > 1; --i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&

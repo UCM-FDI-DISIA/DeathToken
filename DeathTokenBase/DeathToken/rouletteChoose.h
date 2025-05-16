@@ -18,7 +18,7 @@ public:
 	rouletteChoose(Game* game, PlayerEconomy* eco);
 	~rouletteChoose() {
 		delete ui;
-		HUDManager::setHudLobby(hudMenu);
+		HUDManager::setHudLobby(hudMenu, false);
 		hudMenu->refresh();
 	};
 

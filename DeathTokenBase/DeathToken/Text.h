@@ -9,22 +9,22 @@ class Text : public GameObject {
 public:
     enum Alignment { IZQUIERDA, DERECHA, CENTRO };
     //Constructora sencilla, texto blanco, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, Alignment alignment = IZQUIERDA);
+    Text(GameState* gS, TTF_Font* typo, int x, int y, Alignment alignment = IZQUIERDA);
     //Constructora para color, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, SDL_Color textColor, Alignment alignment = IZQUIERDA);
+    Text(GameState* gS, TTF_Font* typo, int x, int y, SDL_Color textColor, Alignment alignment = IZQUIERDA);
     //Constructora para usar contorno, relleno blanco y contorno negro, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize, Alignment alignment = IZQUIERDA);
+    Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize, Alignment alignment = IZQUIERDA);
     //Constructora para usar contorno con colores, si no se especifica alineamiento a la izquierda
-    Text(GameState* gS, TTF_Font* typo, int x, int y, int size, int outlineSize,
+    Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize,
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
     virtual ~Text() { renderer = nullptr; TTF_CloseFont(font); };
+    void setFont(TTF_Font* newFont);
     void setPos(int x, int y);
     std::string getMessage();
     void setMessage(const std::string& message);
     void addMessage(const std::string& message);
     void eraseMessage();
     void setColor(int red, int green, int blue, int alpha);
-    void setSize(int size);
     void setOutlineColor(int red, int green, int blue, int alpha);
     //Para cajas de texto, por defecto el ancho es infinito (no habrá saltos de línea automáticos)
     void setWidth(int width);
@@ -38,7 +38,6 @@ protected:
 
     int x;
     int y;
-    int size;
     int outlineSize;
 
     SDL_Color textColor;
