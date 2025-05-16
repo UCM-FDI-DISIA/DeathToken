@@ -5,7 +5,7 @@ rouletteChoose::rouletteChoose(Game* game, PlayerEconomy* eco) : GameState(game)
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 4, hBut = Game::WIN_HEIGHT / 4,
 		xBut = Game::WIN_WIDTH / 3 - wBut * 3 / 4, yBut = Game::WIN_HEIGHT / 2 - hBut / 2;
-	guadanya = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(BACCARATBUT));
+	guadanya = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(SCYTHE));
 	addEventListener(guadanya);
 	addObjects(guadanya);
 	guadanya->connect([this, eco]() { chooseGame(new scythe(getGame(), eco));});

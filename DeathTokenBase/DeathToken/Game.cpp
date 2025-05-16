@@ -129,7 +129,6 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/Demoniosenala.png",1,1 });
-	v.push_back(TextureSpec{ "roulette/rouletteArrow.png",1,1 });
 	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
@@ -207,7 +206,6 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/RecompensasRouletteInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/ChooseDemon.png",1,1 });
 	v.push_back(TextureSpec{ "baccarat/smoke.png",9,1 });
-	v.push_back(TextureSpec{ "baccarat/counter.png",10,1 });
 
 	v.push_back(TextureSpec{ "menus/pause.png",1,1 });
 	v.push_back(TextureSpec{ "menus/back.png",1,1 });
@@ -224,6 +222,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "tutorial/Tutorial_slots.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_slots_locura.png",1,1 });
+
 	v.push_back(
 		TextureSpec{ "Fighters/skeletor.png", 1, 1 });  // TEXTURE_SKELETOR
 	v.push_back(
@@ -240,18 +239,22 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "RingLocura.png", 1, 1 });
 	v.push_back(TextureSpec{ "Precios.png", 1, 1 });
 	v.push_back(TextureSpec{ "Results.png", 1, 1 });
-	v.push_back(TextureSpec{ "Board.png", 1, 1 });
 
+	v.push_back(TextureSpec{ "Board.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Gramophone.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Lamp.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Perfume.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Phone.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Champagne.png", 1, 1 });
-	v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
 
+	v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/hud/insanityFrame_white.png",1,1 });
 	v.push_back(TextureSpec{ "ui/hud/insanityFrame_yellow.png",1,1 });
 	v.push_back(TextureSpec{ "ui/hud/insanitySlot.png",1,1 });
+
+	v.push_back(TextureSpec{ "baccarat/counter.png",10,1 });
+	v.push_back(TextureSpec{ "roulette/scythe.png",1,1 });
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }

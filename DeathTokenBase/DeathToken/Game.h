@@ -213,6 +213,7 @@ enum TextureName {
 	INSANITYSLOT,
 	//
 	COUNTER,
+	SCYTHE,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
