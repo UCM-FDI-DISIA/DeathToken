@@ -20,8 +20,9 @@ private:
 	int wSize = 200;
 	int nSize = 300;
 	int cSize = 20;
+
 public:
-	Award(Game* game, GameState* lastState, long long bet, long long mWin);
+	Award(Game* game, GameState* lastState, long long bet, long long mWin, bool locura = false);
 	~Award() {};
 	void render()const  override;
 	void update() override;

@@ -2,7 +2,7 @@
 #include "game.h"
 #include "SDL.h"
 
-Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
+Award::Award(Game* game, GameState* lastState, long long bet, long long mWin, bool locura)
 	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)), currentWin(0) {
 
 	background->modAlfa(140);
@@ -25,7 +25,7 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin)
 
 	soulText = new Text(state, game->getTypo(AWARD), Game::WIN_WIDTH / 2.0f, relativeY((float)Game::WIN_HEIGHT / 6.0f) * 5,  relativeX((float)cSize), Text::CENTRO);
 
-	if (PlayerEconomy::getInsanity() > 0) {
+	if (locura) {
 		std::string souls = std::to_string(multi) + " SOULS";
 		soulText->setMessage(souls);
 		soulText->setColor(255, 70, 70, 255);

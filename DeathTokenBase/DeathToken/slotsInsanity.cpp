@@ -66,7 +66,7 @@ void SlotsInsanity::update() {
 			// En caso de linea, si acaba de jugar el jugador (!turnoPlayer, porque ya habrá cedido el turno a la IA), se muestra la recompensa
 			if (line != -1) {
 				if (!turnoPlayer) {
-					game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line]));
+					game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line], true));
 				}
 				bet = 0; //reset de la apuesta
 				jugando = false; //se para el juego
@@ -116,7 +116,7 @@ int SlotsInsanity::getNext() {
 }
 //Metodo que compruba si hay tres en raya. Devuelve el id del icono que forma la línea
 int SlotsInsanity::checkBoard() const {
-	// Revisiï¿½n filas y columnas
+	// Revision filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -129,7 +129,7 @@ int SlotsInsanity::checkBoard() const {
 			}
 		}
 	}
-	// Revisiï¿½n diagonales principales
+	// Revision diagonales principales
 	for (int i = 0; i < N_COLUM - 2; ++i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -138,7 +138,7 @@ int SlotsInsanity::checkBoard() const {
 			}
 		}
 	}
-	// Revisiï¿½n diagonales secundarias
+	// Revision diagonales secundarias
 	for (int i = N_COLUM - 1; i > 1; --i) {
 		for (int j = 0; j < N_COLUM - 2; ++j) {
 			if (mat[i][j]->getElem() != -1 &&
@@ -160,7 +160,7 @@ void SlotsInsanity::IA() {
 			for (int j = 0; j < N_COLUM; ++j) {
 				if (mat[i][j]->getElem() == -1) { //Comprobación de vacía
 					mat[i][j]->setElem(resultante[indice]);
-					int linea = checkBoard(); 
+					int linea = checkBoard();
 					if (linea == -1) { //No se ha conseguido línea
 						mat[i][j]->setElem(-1); //Se vacia la casilla que se ha probado y se prueba la siguiente
 					}
@@ -197,8 +197,9 @@ void SlotsInsanity::ClearBoard() {
 }
 // Si no se está jugando ya, se cede el primer turno al jugador
 void SlotsInsanity::iniciarGiro() {
-	if (!jugando) {
+	if (!jugando && PlayerEconomy::getInsanity() > 0) {
 		turnoPlayer = true;
+		PlayerEconomy::subtractInsanity(1);
+		jugando = true;
 	}
-	jugando = true;
 }
