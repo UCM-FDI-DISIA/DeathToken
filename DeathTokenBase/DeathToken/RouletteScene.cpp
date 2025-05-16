@@ -1,17 +1,12 @@
 #include "rouletteScene.h"
 
 RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRoulette(this, game, this)), eco(eco), rouletteBG(game->getTexture(ROULETTEBG)) {
-	addEventListener(this);
 	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE), eco);
 	addObjects(roul);
 	hudMenu = HUDManager::getHudLobby();
 	hud = new HUDLobby(this, true);
 	arrowTex = game->getTexture(ROULETTEARROW);
 	rouletteFrame = game->getTexture(ROULETTEFRAME);
-}
-
-void RouletteScene::handleEvent(const SDL_Event& event) {
-
 }
 
 void RouletteScene::update() {

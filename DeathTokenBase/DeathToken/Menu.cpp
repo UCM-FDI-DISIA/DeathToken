@@ -113,7 +113,7 @@ Menu::~Menu() {
 }
 
 void Menu::gameChanger(GameState* juego) {
-	if (eco->getInsanity() > 0)
+	if (eco->getInsanity() > 0 && typeid(*juego) != typeid(rouletteChoose))
 	{
 		GameState* old = juego;
 		if (typeid(*juego) == typeid(Baccarat)) {

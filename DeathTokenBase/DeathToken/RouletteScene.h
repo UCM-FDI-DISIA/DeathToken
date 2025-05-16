@@ -4,7 +4,7 @@
 #include "eventHandler.h"
 #include "ui.h"
 
-class RouletteScene : public GameState, public EventHandler
+class RouletteScene : public GameState
 {
 	Roulette* roul;
 	Texture* rouletteBG;
@@ -23,7 +23,6 @@ public:
 		HUDManager::setHudLobby(hudMenu, true);
 		hudMenu->refresh();
 	};
-	void handleEvent(const SDL_Event& event) override;
 	void throwRoulette();
 	void update() override;
 	void render() const override;
