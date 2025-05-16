@@ -197,6 +197,7 @@ enum TextureName {
 	//
 	ROULETTEANIM48,
 	SMOKE,
+	COUNTER,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

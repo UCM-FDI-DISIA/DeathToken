@@ -2,7 +2,7 @@
 #include "game.h"
 #include <random>
 
-Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), smoke(game->getTexture(SMOKE)), ui(new UIBaccarat(this, game, this)) {
+Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), smoke(game->getTexture(SMOKE)), counter(game->getTexture(COUNTER)), ui(new UIBaccarat(this, game, this)) {
 	addEventListener(this);
 	addCards();
 	//Buttons
@@ -46,6 +46,7 @@ void Baccarat::render() const {
 	if (cardAnim) {
 		smoke->renderFrame(sm, 0, frame);
 	}
+	counter->renderFrame(ct, 0, ctFrame);
 }
 
 void Baccarat::clearDeck() {
@@ -68,6 +69,10 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 			if (animInCard == 0)
 			{
 				player1->frame = mat.player[0];
+				if (mat.player[0] > 9)
+					ctFrame = 0;
+				else
+					ctFrame = mat.player[0];
 			}
 			else if (animInCard == 1)
 			{
@@ -76,6 +81,11 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 			else if (animInCard == 2)
 			{
 				player2->frame = mat.player[1];
+				if (mat.player[1] <= 9)
+				{
+					ctFrame += mat.player[1];
+					ctFrame = ctFrame % 10;
+				}
 			}
 			else if (animInCard == 3)
 			{
@@ -113,6 +123,11 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 		if (player3->position().getX() <= (int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81))
 		{
 			thirdPlayerMove = false;
+			if (mat.player[2] <= 9)
+			{
+				ctFrame += mat.player[2];
+				ctFrame = ctFrame % 10;
+			}
 			goForWin = true;
 		}
 	}
@@ -324,6 +339,7 @@ void Baccarat::startRound() {
 		handCards();
 		cardAnim = true;
 		animTime = SDL_GetTicks();
+		ctFrame = 14;
 	}
 
 }
