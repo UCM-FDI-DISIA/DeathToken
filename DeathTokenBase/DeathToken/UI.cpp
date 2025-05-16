@@ -225,16 +225,24 @@ void UIRanking::OnExit()
 
 void UIRanking::render() const
 {
-	
+
 	exit->render();
 }
 void UIRanking::update() {
-	
+
 	exit->update();
 }
 
 //BACCARAT UI
 UIBaccarat::UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat) : UIChips(gS, game), baccarat(baccarat) {}
+
+void UIBaccarat::OnExit()
+{
+	UI::OnExit();
+	isBlackJack = false;
+	isBet = false;
+	isFlip = false;
+}
 
 void UIBaccarat::OnGo() {
 	baccarat->startRound();
@@ -254,13 +262,57 @@ void
 UIBaccarat::OnInfo()
 {
 	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
-	std::vector<Texture*> baccaratTutorial = {
-	game->getTexture(TUTORIAL1),
-	game->getTexture(TUTORIAL2),
-	game->getTexture(TUTORIAL3)
+	if (isBlackJack) {
+		OnInfoBlackJack();
+	}
+	else if (isBet) {
+		OnInfoBet();
+	}
+	else if (isFlip) {
+		OnInfoFlip();
+	}
+	else {
+		std::vector<Texture*> baccaratTutorial = {
+		game->getTexture(TUTORIAL1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+		};
+		game->push(new Tutorial(game, gS, baccaratTutorial));
+	}
+}
+
+void UIBaccarat::OnInfoBlackJack()
+{
+	std::vector<Texture*> BlackJackTutorial = {
+	game->getTexture(TUTORIALJ1),
+	game->getTexture(TUTORIALJ2),
+	game->getTexture(TUTORIALJ3)
 
 	};
-	game->push(new Tutorial(game, gS, baccaratTutorial));
+	game->push(new Tutorial(game, gS, BlackJackTutorial));
+}
+
+void UIBaccarat::OnInfoBet()
+{
+	std::vector<Texture*> baccaratBetTutorial = {
+		game->getTexture(TUTORIALB1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratBetTutorial));
+}
+
+void UIBaccarat::OnInfoFlip()
+{
+	std::vector<Texture*> baccaratFlipTutorial = {
+		game->getTexture(TUTORIALF1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratFlipTutorial));
 }
 
 //Tutorial
@@ -270,43 +322,8 @@ UITutorial::UITutorial(GameState* gS, Game* game, size_t tam) : gS(gS), game(gam
 	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
-
-	//falta la flecha de volver atras
-	//if (totalPages > 0) {
-	//	/*Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-	//	if (tutorial->getPage() < totalPages)
-	//	{*/
-	//	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	//	gS->addObjects(arrowNext);
-	//	gS->addEventListener(arrowNext);
-	//	//}
-	//	arrowNext->connect([this, gS, game]() {
-	//		Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-	//		if (tutorial) {
-	//			tutorial->nextPage();
-	//			if (tutorial->getPage() > 0 && !arrow)
-	//			{
-	//				/*if (tutorial->getPage() == totalPages) {
-
-	//				}*/
-	//				arrow = true;
-	//				arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-	//				gS->addObjects(arrowBack);
-	//				gS->addEventListener(arrowBack);
-	//				//ESTE SALE SEGUN EL CURRENT PAGE AHORA NO SE ME OCURRE COMO PASARLO
-	//				arrowBack->connect([this, gS]() {
-	//					Tutorial* tutorial = dynamic_cast<Tutorial*>(gS);
-	//					if (tutorial) {
-	//						tutorial->previousPage();
-	//						/*if (tutorial->getPage() == 0) {
-
-	//						}*/
-	//					}
-	//					});
-	//			}
-	//		}
-	//		});
-	//}
+	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
+	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
 }
 
 inline int

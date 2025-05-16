@@ -129,10 +129,15 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "roulette/roulette.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteLocura.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/Demoniosenala.png",1,1 });
+	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_baccarat.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_baccarat.png",1,1 });
-	//
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_baccarat.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_bet.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_flip.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marbles.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
@@ -217,6 +222,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 
 	v.push_back(TextureSpec{ "tutorial/Tutorial_slots.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_slots_locura.png",1,1 });
+
 	v.push_back(
 		TextureSpec{ "Fighters/skeletor.png", 1, 1 });  // TEXTURE_SKELETOR
 	v.push_back(
@@ -233,18 +239,22 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "RingLocura.png", 1, 1 });
 	v.push_back(TextureSpec{ "Precios.png", 1, 1 });
 	v.push_back(TextureSpec{ "Results.png", 1, 1 });
-	v.push_back(TextureSpec{ "Board.png", 1, 1 });
 
+	v.push_back(TextureSpec{ "Board.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Gramophone.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Lamp.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Perfume.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Phone.png", 1, 1 });
 	v.push_back(TextureSpec{ "Items/Champagne.png", 1, 1 });
-	v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
 
+	v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/hud/insanityFrame_white.png",1,1 });
 	v.push_back(TextureSpec{ "ui/hud/insanityFrame_yellow.png",1,1 });
 	v.push_back(TextureSpec{ "ui/hud/insanitySlot.png",1,1 });
+
+	v.push_back(TextureSpec{ "baccarat/counter.png",10,1 });
+	v.push_back(TextureSpec{ "roulette/scythe.png",1,1 });
+
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
 }
@@ -444,7 +454,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 #endif // DEBUG
 
 		return false;
-	}
+}
 
 	json j;
 	file >> j;
@@ -468,7 +478,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
 		return false;
-	}
+}
 
 	try {
 		json j;
@@ -480,7 +490,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-		}
+	}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -495,12 +505,12 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 				cout << "Índice de peleador inválido." << endl;
 #endif
 				continue;
-			}
+		}
 
 			Matchup matchup;
-			matchup.fighter1 = fighters[id1];
-			matchup.fighter2 = fighters[id2];
-			matchup.advantageFighterIndex = advantageFighterIndex;
+				matchup.fighter1 = fighters[id1];
+				matchup.fighter2 = fighters[id2];
+				matchup.advantageFighterIndex = advantageFighterIndex;
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);

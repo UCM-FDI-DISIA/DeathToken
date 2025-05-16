@@ -16,6 +16,7 @@ public:
 	~scythe() {
 		HUDManager::setHudLobby(hudMenu, true);
 		hudMenu->refresh();
+		delete ui;
 	};
 
 	void update() override;

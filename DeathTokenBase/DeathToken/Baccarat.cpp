@@ -2,7 +2,7 @@
 #include "game.h"
 #include <random>
 
-Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), smoke(game->getTexture(SMOKE)), ui(new UIBaccarat(this, game, this)) {
+Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getTexture(BACMAT)), smoke(game->getTexture(SMOKE)), counter(game->getTexture(COUNTER)), counterB(game->getTexture(COUNTER)), ui(new UIBaccarat(this, game, this)) {
 	addEventListener(this);
 	addCards();
 	//Buttons
@@ -46,6 +46,8 @@ void Baccarat::render() const {
 	if (cardAnim) {
 		smoke->renderFrame(sm, 0, frame);
 	}
+	counter->renderFrame(ct, 0, ctFrame);
+	counterB->renderFrame(ctB, 0, ctFrameB);
 }
 
 void Baccarat::clearDeck() {
@@ -58,7 +60,8 @@ void Baccarat::clearDeck() {
 }
 
 void Baccarat::update() {//para que las cartas se muevan enun futuro
-	GameState::update();
+	if (mat.player.size() == 0 && mat.player.size() == 0)
+		GameState::update();
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		frame++;
@@ -67,18 +70,36 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 			if (animInCard == 0)
 			{
 				player1->frame = mat.player[0];
+				if (mat.player[0] > 9)
+					ctFrame = 0;
+				else
+					ctFrame = mat.player[0];
 			}
 			else if (animInCard == 1)
 			{
 				banker1->frame = mat.banker[0];
+				if (mat.banker[0] > 9)
+					ctFrameB = 0;
+				else
+					ctFrameB = mat.banker[0];
 			}
 			else if (animInCard == 2)
 			{
 				player2->frame = mat.player[1];
+				if (mat.player[1] <= 9)
+				{
+					ctFrame += mat.player[1];
+					ctFrame = ctFrame % 10;
+				}
 			}
 			else if (animInCard == 3)
 			{
 				banker2->frame = mat.banker[1];
+				if (mat.banker[1] <= 9)
+				{
+					ctFrameB += mat.banker[1];
+					ctFrameB = ctFrameB % 10;
+				}
 			}
 		}
 		if (frame == 9 && animInCard < 3) {
@@ -112,6 +133,11 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 		if (player3->position().getX() <= (int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81))
 		{
 			thirdPlayerMove = false;
+			if (mat.player[2] <= 9)
+			{
+				ctFrame += mat.player[2];
+				ctFrame = ctFrame % 10;
+			}
 			goForWin = true;
 		}
 	}
@@ -120,6 +146,11 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 		if (banker3->position().getX() >= (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5))
 		{
 			thirdBankerMove = false;
+			if (mat.banker[2] <= 9)
+			{
+				ctFrameB += mat.banker[2];
+				ctFrameB = ctFrameB % 10;
+			}
 			goForWin = true;
 		}
 	}
@@ -127,6 +158,27 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 	{
 		win();
 		goForWin = false;
+	}
+	if (timeForWin) {
+		float dt = SDLUtils::getDeltaTime();
+		tiempo += dt;
+		if (tiempo > 3)
+		{
+			timeForWin = false;
+			tiempo = 0;
+			playerBet = false;
+			bankerBet = false;
+			tieBet = false;
+			player1->frame = 0;
+			player2->frame = 0;
+			banker1->frame = 0;
+			banker2->frame = 0;
+			banker3->frame = 14;
+			player3->frame = 14;
+			ctFrame = 14;
+			ctFrameB = 14;
+			clearDeck();//borramos mazo repartido
+		}
 	}
 }
 
@@ -156,14 +208,12 @@ void Baccarat::handThird() {//reparte la tercera segun las normas
 		player3->frame = rndNum;
 		bankThird();
 	}
-	else if (playerComb == 6 || playerComb == 7) {
-		if (bankerComb < 6) {
-			rndNum = generateRnd();
-			mat.banker.push_back(rndNum);
-			cardsVec.push_back(rndNum);
-			thirdBankerMove = true;
-			banker3->frame = rndNum;
-		}
+	else if (playerComb == 6 && bankerComb < 6 || playerComb == 7 && bankerComb < 6) {
+		rndNum = generateRnd();
+		mat.banker.push_back(rndNum);
+		cardsVec.push_back(rndNum);
+		thirdBankerMove = true;
+		banker3->frame = rndNum;
 	}
 	else {
 		goForWin = true;
@@ -216,7 +266,6 @@ void Baccarat::win() {
 		if (mat.banker[i] > 9) mat.banker[i] = 0;
 		bankerComb += mat.banker[i];
 	}
-	clearDeck();//borramos mazo repartido
 	playerComb = playerComb % 10;
 	bankerComb = bankerComb % 10;
 
@@ -259,13 +308,8 @@ void Baccarat::win() {
 		game->push(new Award(game, (GameState*)this, totalBet, totalBet * multi));
 		hasWon = true;
 	}
-
-	playerBet = false;
-	bankerBet = false;
-	tieBet = false;
-	PlayerEconomy::setBet(0);
-	hud->refresh();
 	clearBets();
+	timeForWin = true;
 }
 
 //APUESTAS
@@ -296,16 +340,19 @@ void Baccarat::clearBets() {
 
 void Baccarat::repeat()
 {
-	bets = betsHistory;
-	int currentBet = 0;
-	for (int i = 0; i < bets.size(); i++) {
-		currentBet += bets[i].moneyBet;
-	}
-	for (auto i : bacButtons)
+	if (mat.player.size() == 0 && mat.player.size() == 0)
 	{
-		i->repeat();
+		bets = betsHistory;
+		int currentBet = 0;
+		for (int i = 0; i < bets.size(); i++) {
+			currentBet += bets[i].moneyBet;
+		}
+		for (auto i : bacButtons)
+		{
+			i->repeat();
+		}
+		HUDManager::applyBet(currentBet);
 	}
-	HUDManager::applyBet(currentBet);
 }
 
 void Baccarat::startRound() {

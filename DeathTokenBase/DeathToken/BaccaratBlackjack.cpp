@@ -1,7 +1,9 @@
 #include "baccaratBlackjack.h"
-#include "SDLUtils.h"
+
 
 BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)) {
+	ui->isBlackJack = true;
+
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);
 }
 
@@ -27,7 +29,8 @@ void BaccaratBlackjack::render() const {
 }
 
 void BaccaratBlackjack::update() {
-	GameState::update();
+	if (mat.player.size() == 0 && mat.player.size() == 0)
+		GameState::update();
 	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
 	if (width < Game::WIN_WIDTH && height < Game::WIN_HEIGHT && animOn) {
 		width += Game::WIN_WIDTH / 50;
@@ -78,7 +81,6 @@ void BaccaratBlackjack::victory() {
 	}
 
 	timeForWin = true;
-	//clearDeck();
 }
 
 void BaccaratBlackjack::startRound() {
@@ -90,7 +92,7 @@ void BaccaratBlackjack::startRound() {
 		player1->frame = mat.player[0];
 		banker1->frame = mat.banker[0];
 		player2->frame = mat.player[1];
-		//banker2->frame = mat.banker[1];
+		
 		askCards();
 	}
 }
@@ -130,7 +132,6 @@ void BaccaratBlackjack::bancaAI() {
 			cardsVec.push_back(rndNum);
 		}
 	}
-
 }
 
 int BaccaratBlackjack::totalCards(vector<int> askedCards) {

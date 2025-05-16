@@ -22,6 +22,10 @@ public:
 	static void SaveState(int chipsN, int soulsN, int insanityN);
 	static std::vector<userData> getRanking();
 	static void CleanFirebase();
-
+private:
+	static firebase::App* app;
+	static firebase::database::Database* db;
+	static firebase::database::DatabaseReference dbref;
+	static bool initialized;
 };
 

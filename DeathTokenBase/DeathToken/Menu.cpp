@@ -48,7 +48,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
 		gameChanger(baccaratState = new Baccarat(getGame()));
-		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		if (tutorialBaccarat && eco->getInsanity() == 0)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			tutorialBaccarat = false;
 			baccaratState->showTutorial();
@@ -62,13 +62,13 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(slots);
 	addEventListener(slots);
 	slots->connect([this]() { slotsState = new SlotsNormal(getGame());
-		gameChanger(slotsState);
-		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
-		{
-			tutorialSlots = false;
-			slotsState->showTutorial();
-		}
-	});
+	gameChanger(slotsState);
+	if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+	{
+		tutorialSlots = false;
+		slotsState->showTutorial();
+	}
+		});
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
 	//Widht, height, position marbles button
@@ -134,7 +134,7 @@ void Menu::gameChanger(GameState* juego) {
 			juego = new PeleasInsanity(getGame());
 		}
 		delete old;
-		
+
 	}
 	game->push(juego);
 

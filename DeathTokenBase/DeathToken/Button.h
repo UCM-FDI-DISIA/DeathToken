@@ -133,6 +133,7 @@ public:
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 	void repeatDoubleBet() { currentBet = betHistory * 2; };
+	void setPos(int x, int y);
 };
 //SLOTS
 class ButtonSlots : public ButtonBet

@@ -9,6 +9,7 @@
 #include "button.h"
 #include "card.h"
 #include "award.h"
+#include "SDLUtils.h"
 using namespace std;
 
 struct Mat {
@@ -39,12 +40,18 @@ protected:
 	Card* banker3;
 	Texture* texture;
 	Texture* smoke;
+	Texture* counter;
+	Texture* counterB;
 	int frame = 0;
+	int ctFrame = 14;
+	int ctFrameB = 14;
 	int animInCard = 0;
 	bool thirdPlayerMove = false;
 	bool thirdBankerMove = false;
 	bool goForWin = false;
 	SDL_Rect sm = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3 - Game::WIN_WIDTH / 40), (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 8 - Game::WIN_HEIGHT / 16), Game::WIN_WIDTH / 10, Game::WIN_HEIGHT / 4 };
+	SDL_Rect ct = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3) + Game::WIN_WIDTH / 40, (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 5.4), Game::WIN_WIDTH / 40, Game::WIN_HEIGHT / 16 };
+	SDL_Rect ctB = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 5.4) , Game::WIN_WIDTH / 40, Game::WIN_HEIGHT / 16 };
 	float animTime;
 	Mat mat;
 	vector<int> cardsVec;
@@ -55,7 +62,8 @@ protected:
 	const int xTwo = 2;
 	const int xEight = 8;
 	int clave = 0;//para verla apuesta que es
-	bool bankerBet = false, playerBet = false, tieBet = false, cardAnim = false;
+	float tiempo = 0;
+	bool bankerBet = false, playerBet = false, tieBet = false, cardAnim = false, timeForWin = false;;
 	//bool locura; global?
 public:
 	bool hasWon = false;

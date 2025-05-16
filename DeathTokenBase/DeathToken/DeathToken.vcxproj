@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\Firebase\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\Firebase\libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\Firebase\libs\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,20 +138,23 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)libs\SDL2_mixer-2.8.0\include;$(SolutionDir)libs\SDL2_image\include;$(SolutionDir)libs\SDL2\include;$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\include;$(SolutionDir)libs\Firebase\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\Firebase\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\SDL2_ttf-devel-2.24.0-VC\SDL2_ttf-2.24.0\lib\x64;$(SolutionDir)libs\SDL2_image\lib;$(SolutionDir)libs\SDL2_mixer-2.8.0\lib\x64;$(SolutionDir)libs\SDL2\lib;$(SolutionDir)libs\Firebase\libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;firebase_app.lib;firebase_database.lib;firebase_storage.lib;ws2_32.lib;crypt32.lib;userenv.lib;iphlpapi.lib;kernel32.lib;psapi.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

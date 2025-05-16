@@ -19,6 +19,7 @@ class Roulette : public sceneObject
 	int i = 0;
 public:
 	Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco);
+	virtual ~Roulette() {};
 	void addSpeed(int s);
 
 	void render() const override;

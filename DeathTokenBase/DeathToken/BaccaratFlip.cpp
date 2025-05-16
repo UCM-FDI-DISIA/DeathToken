@@ -2,11 +2,11 @@
 #include "sdlUtils.h"
 
 BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)), intro(game->getTexture(FLIP)) {
+	ui->isFlip = true;
 	addCards();
-
 }
 
-//a�ade las tres cartas extra
+//anade las tres cartas extra
 void BaccaratFlip::addCards()
 {
 	Baccarat::addCards();
@@ -27,26 +27,24 @@ void BaccaratFlip::handleExtraCards()
 
 void BaccaratFlip::startRound()
 {
-	if (!animOn)
+	if (mat.player.size() == 0 && mat.player.size() == 0)
 	{
-		cardButton();
-		active = true;//ACORDARME PONER EN FALSE EN EL CLEAR DECK
-		handleExtraCards();
-		extra1->frame = 0;
-		extra2->frame = 0;
-		extra3->frame = 0;
-		Baccarat::startRound();
-		//player3->frame = 14;//inicializamos invisible
-		//banker3->frame = 14;
-		//handCards();
-		////eleccion frame cartas
-		//player1->frame = mat.player[0];
-		//banker1->frame = mat.banker[0];
-		//player2->frame = mat.player[1];
-		//banker2->frame = mat.banker[1];
-
-		//handThird();//reparte tercera
-		//clearDeck();
+		if (!animOn)
+		{
+			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); // frame 14 = invisible
+			extra2->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
+			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });//a
+			cardButton();
+			active = true;//ACORDARME PONER EN FALSE EN EL CLEAR DECK
+			handleExtraCards();
+			extra1->frame = 0;
+			extra2->frame = 0;
+			extra3->frame = 0;
+			tercera = extraVals[2];
+			segunda = extraVals[1];
+			primera = extraVals[0];
+			Baccarat::startRound();
+		}
 	}
 }
 //crea los botonees para llas cartas
@@ -55,7 +53,7 @@ void BaccaratFlip::cardButton()
 	carta1 = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 - Game::WIN_HEIGHT / 8, Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8, text);
 	addObjects(carta1);
 	addEventListener(carta1);
-	carta1->connect([this] {if (active && flips < 2) { extra1->frame = extraVals[0]; flips++; deckButton(); } chosen = 0; });
+	carta1->connect([this] {if (active && flips < 2) { extra1->frame = extraVals[0]; flips++; deckButton(); } chosen = 0;  });
 
 	carta2 = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 - Game::WIN_HEIGHT / 8, Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8, text);
 	addObjects(carta2);
@@ -77,34 +75,31 @@ void BaccaratFlip::deckButton()
 		addObjects(player);
 		addEventListener(player);
 		player->connect([this] {
-			mat.player.push_back(extraVals[chosen]);
-			/*int xPos = 0;
-			if (flips == 2) {
-				xPos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3);
-			}
-			else if (flips == 1) {
-				xPos = (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70);
-			}*/
-			int a = flips;
-			if (chosen == 0) {
-				extra1->setPos({ (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
-				deleteSpecificEH(carta1);
-				deleteSpecificGO(carta1);
-				chosen = 1;
+			if (extraVals[chosen] != -1 && extraP < 2) {
+				mat.player.push_back(extraVals[chosen]);
+				extraVals[chosen] = -1; // Marca como usada
+				int a = flips;
+				extraP++;
+				if (chosen == 0) {
+					extra1->setPos({ (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
+					deleteSpecificEH(carta1);
+					deleteSpecificGO(carta1);
+					chosen = 1;
 
-			}
-			else if (chosen == 1) {
-				extra2->setPos({ (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
-				deleteSpecificEH(carta2);
-				deleteSpecificGO(carta2);
-				chosen = 2;
+				}
+				else if (chosen == 1) {
+					extra2->setPos({ (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
+					deleteSpecificEH(carta2);
+					deleteSpecificGO(carta2);
+					chosen = 2;
 
-			}
-			else if (chosen == 2) {
-				extra3->setPos({ (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
-				deleteSpecificEH(carta3);
-				deleteSpecificGO(carta3);
-				chosen = 0;
+				}
+				else if (chosen == 2) {
+					extra3->setPos({ (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 20.70 - Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
+					deleteSpecificEH(carta3);
+					deleteSpecificGO(carta3);
+					chosen = 0;
+				}
 			}
 
 			});
@@ -113,22 +108,62 @@ void BaccaratFlip::deckButton()
 		addObjects(banker);
 		addEventListener(banker);
 		banker->connect([this] {
-			mat.banker.push_back(extraVals[chosen]);
-			if (chosen == 0) {
-				extra1->setPos({ (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
-				deleteSpecificEH(carta1);
-				deleteSpecificGO(carta1);
-				//chosen = 1;
+			if (extraVals[chosen] != -1 && extraB < 2) {
+
+				mat.banker.push_back(extraVals[chosen]);
+				extraVals[chosen] = -1; // Marca como usada
+				extraB++;
+
+				if (chosen == 0) {
+					extra1->setPos({ (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
+					deleteSpecificEH(carta1);
+					deleteSpecificGO(carta1);
+					//chosen = 1;
+				}
+				else if (chosen == 1) {
+					extra2->setPos({ (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42 + Game::WIN_WIDTH / 20), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
+					deleteSpecificEH(carta2);
+					deleteSpecificGO(carta2);
+					chosen = 2;
+
+				}
+				else if (chosen == 2) {
+					extra3->setPos({ (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42 + Game::WIN_WIDTH / 10), (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 32) });
+					deleteSpecificEH(carta3);
+					deleteSpecificGO(carta3);
+					chosen = 0;
+				}
 			}
+
 			});
+
+
 	}
 }
 
 void BaccaratFlip::clearDeck()
 {
 	Baccarat::clearDeck();
-	/*flips = 0;
-	active = false;*/
+	flips = 0;
+	active = false;
+	extraB = 0;
+	extraP = 0;
+
+	deleteSpecificGO(carta1);
+	deleteSpecificEH(carta1);
+	deleteSpecificGO(carta2);
+	deleteSpecificEH(carta2);
+	deleteSpecificGO(carta3);
+	deleteSpecificEH(carta3);
+	deleteSpecificGO(player);
+	deleteSpecificEH(player);
+	deleteSpecificGO(banker);
+	deleteSpecificEH(banker);
+	delete carta1;
+	delete carta2;
+	delete carta3;
+	delete player;
+	delete banker;
 }
 
 void BaccaratFlip::render() const {
@@ -145,7 +180,8 @@ void BaccaratFlip::render() const {
 
 void BaccaratFlip::update()
 {
-	GameState::update();
+	if (mat.player.size() == 0 && mat.player.size() == 0)
+		GameState::update();
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		frame++;
@@ -154,18 +190,36 @@ void BaccaratFlip::update()
 			if (animInCard == 0)
 			{
 				player1->frame = mat.player[0];
+				if (mat.player[0] > 9)
+					ctFrame = 0;
+				else
+					ctFrame = mat.player[0];
 			}
 			else if (animInCard == 1)
 			{
 				banker1->frame = mat.banker[0];
+				if (mat.banker[0] > 9)
+					ctFrameB = 0;
+				else
+					ctFrameB = mat.banker[0];
 			}
 			else if (animInCard == 2)
 			{
 				player2->frame = mat.player[1];
+				if (mat.player[1] <= 9)
+				{
+					ctFrame += mat.player[1];
+					ctFrame = ctFrame % 10;
+				}
 			}
 			else if (animInCard == 3)
 			{
 				banker2->frame = mat.banker[1];
+				if (mat.banker[1] <= 9)
+				{
+					ctFrameB += mat.banker[1];
+					ctFrameB = ctFrameB % 10;
+				}
 			}
 		}
 		if (frame == 9 && animInCard < 3) {
@@ -199,6 +253,12 @@ void BaccaratFlip::update()
 		if (player3->position().getX() <= (int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81))
 		{
 			thirdPlayerMove = false;
+			if (mat.player[2] <= 9)
+			{
+				ctFrame += mat.player[2];
+				ctFrame = ctFrame % 10;
+			}
+			goForWin = true;
 		}
 	}
 	if (thirdBankerMove) {
@@ -206,12 +266,39 @@ void BaccaratFlip::update()
 		if (banker3->position().getX() >= (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5))
 		{
 			thirdBankerMove = false;
+			if (mat.banker[2] <= 9)
+			{
+				ctFrameB += mat.banker[2];
+				ctFrameB = ctFrameB % 10;
+			}
+			goForWin = true;
 		}
 	}
-	if (goForWin)
+	if ((extraB + extraP == 3))
 	{
+		if (extra3->frame == 0) {
+			extra3->frame = tercera;
+		}
+		else if (extra2->frame == 0) {
+			extra2->frame = segunda;
+		}
+		else if (extra1->frame == 0) {
+			extra1->frame = primera;
+		}
+		ctFrame = 0;
+		ctFrameB = 0;
+		for (int p : mat.player) {
+			ctFrame += p;
+		}
+		for (int p : mat.banker) {
+			ctFrameB += p;
+		}
+		ctFrame = ctFrame % 10;
+		ctFrameB = ctFrameB % 10;
 		win();
 		goForWin = false;
+
+
 	}
 	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
 	if (width < Game::WIN_WIDTH && height < Game::WIN_HEIGHT && animOn) {
@@ -227,6 +314,33 @@ void BaccaratFlip::update()
 			animOn = false;
 			width = 0;
 			height = 0;
+		}
+	}
+	if (timeForWin) {
+		float dt = SDLUtils::getDeltaTime();
+		tiempo += dt;
+		if (tiempo > 3)
+		{
+			timeForWin = false;
+			tiempo = 0;
+			playerBet = false;
+			bankerBet = false;
+			tieBet = false;
+			player1->frame = 0;
+			player2->frame = 0;
+			banker1->frame = 0;
+			banker2->frame = 0;
+			banker3->frame = 14;
+			player3->frame = 14;
+			ctFrame = 14;
+			ctFrameB = 14;
+			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); // frame 14 = invisible
+			extra2->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
+			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });//a
+			extra1->frame = 0;
+			extra2->frame = 0;
+			extra3->frame = 0;
+			clearDeck();
 		}
 	}
 }

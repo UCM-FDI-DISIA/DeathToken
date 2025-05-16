@@ -26,8 +26,16 @@ private:
 	bool active = false;
 	bool animOn = true;
 	vector<int> extraVals;
+	//contadores cartas extra en cada mazo
+	int extraP = 0;
+	int extraB = 0;
+	//valor del frame de la tercera
+	int tercera;
+	int segunda;
+	int primera;
 public:
 	BaccaratFlip(Game* game);
+	virtual ~BaccaratFlip() {};
 	void addCards() override;
 	void handleExtraCards();
 	void startRound() override;
@@ -36,4 +44,5 @@ public:
 	void clearDeck() override;
 	void render() const override;
 	void update() override;
+	void showTutorial() override {};
 };

@@ -93,7 +93,7 @@ public:
 };
 
 class Ranking;
-class UIRanking  {
+class UIRanking {
 protected:
 	GameState* gS;
 	Game* game;
@@ -112,12 +112,25 @@ class UIBaccarat :public   UIChips {
 	std::vector<ButtonBet*> bets;
 public:
 	UIBaccarat(GameState* gS, Game* game, Baccarat* baccarat);
-
+	virtual ~UIBaccarat() {
+		for (ButtonBet* b : bets) {
+			delete b;
+		}
+	};
+	void OnExit();
 	void OnGo() override;
 	void OnErase() override;
 	void OnRepeat() override;
 	void OnInfo() override;
+	void OnInfoBlackJack();
+	void OnInfoBet();
+	void OnInfoFlip();
+
+	bool isBlackJack = false;
+	bool isBet = false;
+	bool isFlip = false;
 };
+
 
 class RouletteScene;
 class UIRoulette {
@@ -132,7 +145,7 @@ public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
 	UIRoulette(GameState* g, Game* game, RouletteScene* rouletteS);
-
+	virtual ~UIRoulette() {};
 	void OnExit();
 	void OnGo();
 };
@@ -149,7 +162,7 @@ public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
 	UIRouletteChoose(GameState* g, Game* game, rouletteChoose* rouletteC);
-
+	virtual ~UIRouletteChoose() {};
 	void OnExit();
 };
 
@@ -165,7 +178,7 @@ public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
 	UIScythe(GameState* g, Game* game, scythe* s);
-
+	virtual ~UIScythe() {};
 	void OnExit();
 };
 
@@ -184,7 +197,12 @@ public:
 	inline int relativeY(const float& n);
 
 	UITutorial(GameState* gS, Game* game, size_t tam);
-
+	virtual ~UITutorial() { 
+		gS->deleteSpecificEH(arrowBack); 
+		gS->deleteSpecificEH(arrowNext);
+		gS->deleteSpecificGO(arrowNext);
+		gS->deleteSpecificGO(arrowBack);
+	};
 	void OnExit();
 	ButtonUI* downArrow();
 	ButtonUI* upArrow();

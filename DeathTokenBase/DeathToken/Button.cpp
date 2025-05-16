@@ -505,6 +505,12 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 	}
 }
 
+void ButtonBaccarat::setPos(int x, int y)
+{
+	box.x = x;
+	box.y = y;
+}
+
 //colision player button
 bool Button::playerHovered(const SDL_Rect& playerRect) {
 	return SDL_HasIntersection(&playerRect, &box);//rect player y rect button

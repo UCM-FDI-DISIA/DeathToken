@@ -12,6 +12,7 @@ class BaccaratInsanityManager : public GameState
 	BaccaratBlackjack* bBJ;
 public:
 	BaccaratInsanityManager(Game* game);//textura de las cartas o que se eliga directamente en randomCard
+	virtual ~BaccaratInsanityManager() {};
 	void update() override;
 	void render() const override;
 	void randomCard();//las cartas tienen que ser botones que te llevan a la escena de cada juego, 
