@@ -8,9 +8,9 @@
 EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), hasChip(false), resultado(false), inState(false), dialog(true), index(-1), fases(0), bet(0), a(0) {
 	
 	float x = Game::WIN_WIDTH * (600.0f / 1920.0f);
-	float y = Game::WIN_HEIGHT * (680.0f / 1080.0f);
-	float cartaW = Game::WIN_WIDTH * (110.0f / 1920.0f);
-	float cartaH = Game::WIN_HEIGHT * (210.0f / 1920.0f);
+	float y = Game::WIN_HEIGHT * (600.0f / 1080.0f);
+	float cartaW = Game::WIN_WIDTH * (300.0f / 1920.0f);
+	float cartaH = Game::WIN_HEIGHT * (300.0f / 1080.0f);
 	//Botones juego
 	Button* piedra = new Button(this, (int)(x), (int)(y), (int)cartaW, (int)cartaH, game->getTexture(ICONOPPT), nullptr, 0);
 	piedra->connect([this] {
@@ -125,7 +125,7 @@ EscenaTutorial::render() const {
 	r.x = r.y = 0;
 	r.h = Game::WIN_HEIGHT;
 	r.w = Game::WIN_WIDTH;
-	game->getTexture(BLACKFOND)->render(r);
+	game->getTexture(MARBLESBACK)->render(r);
 
 	GameState::render();
 
@@ -185,15 +185,15 @@ EscenaTutorial::render() const {
 	}
 	else if (fases == 3) {
 		flechaDown.x = (600.0f / 1920.0f) * Game::WIN_WIDTH;
-		flechaDown.y = (630.0f / 1080.0f) * Game::WIN_HEIGHT;
+		flechaDown.y = (600.0f / 1080.0f) * Game::WIN_HEIGHT;
 		game->getTexture(MANOS)->renderFrame(flechaDown, 0, 1);
 
 		flechaDown.x = (900.0f / 1920.0f) * Game::WIN_WIDTH;
-		flechaDown.y = (630.0f / 1080.0f) * Game::WIN_HEIGHT;
+		flechaDown.y = (600.0f / 1080.0f) * Game::WIN_HEIGHT;
 		game->getTexture(MANOS)->renderFrame(flechaDown, 0, 1);
 
 		flechaDown.x = (1200.0f / 1920.0f) * Game::WIN_WIDTH;
-		flechaDown.y = (630.0f / 1080.0f) * Game::WIN_HEIGHT;
+		flechaDown.y = (600.0f / 1080.0f) * Game::WIN_HEIGHT;
 		game->getTexture(MANOS)->renderFrame(flechaDown, 0, 1);
 
 		_dialog4->render();

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "checkML.h"
 
@@ -9,8 +8,9 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	try {
-		Game game;
-		game.run();
+		Game* game = new Game();
+		game->run();
+		delete game;
 	}
 	catch (const std::string& msg) {
 		cerr << "Error: " << msg << endl;

@@ -271,7 +271,7 @@ vector<TTF_Font*> Game::loadFonts() {
 	v.push_back(TTF_OpenFont("assets/typo/Grand_Casino.otf", CASINOSIZE3));
 	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", t));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", x));
-	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf",y));
+	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", y));
 	v.push_back(TTF_OpenFont("assets/typo/Magnificent Serif.ttf", z));
 	v.push_back(TTF_OpenFont("assets/cute_dino_2/Cute Dino.ttf", FONTBIGSIZE));
 	v.push_back(TTF_OpenFont("assets/Candice/CANDY.TTF", FONTSMALLSIZE));
@@ -369,8 +369,12 @@ Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	// Elimina las texturas
-	for (Texture* texture : textures)
+	for (Texture* texture : textures) {
 		delete texture;
+	}
+	for (TTF_Font* font : fonts) {
+		TTF_CloseFont(font);
+	}
 
 	FirebaseUtils::DeleteFirebaseUtils();
 	TTF_Quit();
@@ -450,7 +454,7 @@ bool Game::loadFightersFromJSON(const string& filename)
 #endif // DEBUG
 
 		return false;
-}
+	}
 
 	json j;
 	file >> j;
@@ -474,7 +478,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 		cout << "No se pudo abrir el archivo de enfrentamientos." << endl;
 #endif
 		return false;
-}
+	}
 
 	try {
 		json j;
@@ -486,7 +490,7 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 			cout << "No se encuentra el campo 'matchups' en el JSON." << endl;
 #endif
 			return false;
-	}
+		}
 
 		// Procesar el JSON y cargar los enfrentamientos
 		for (auto& item : j["matchups"]) {
@@ -501,12 +505,12 @@ bool Game::loadMatchupsFromJSON(const string& filename)
 				cout << "Índice de peleador inválido." << endl;
 #endif
 				continue;
-		}
+			}
 
 			Matchup matchup;
-				matchup.fighter1 = fighters[id1];
-				matchup.fighter2 = fighters[id2];
-				matchup.advantageFighterIndex = advantageFighterIndex;
+			matchup.fighter1 = fighters[id1];
+			matchup.fighter2 = fighters[id2];
+			matchup.advantageFighterIndex = advantageFighterIndex;
 			matchup.battleDescription = battleDescription;
 
 			battleQueue.push_back(matchup);

@@ -2,7 +2,6 @@
 
 rouletteChoose::rouletteChoose(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRouletteChoose(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG))
 {
-	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 4, hBut = Game::WIN_HEIGHT / 2,
 		xBut = Game::WIN_WIDTH / 3 - wBut * 3 / 4, yBut = Game::WIN_HEIGHT / 2 - hBut / 2;
 	guadanya = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(SCYTHE));
@@ -20,6 +19,13 @@ rouletteChoose::rouletteChoose(Game* game, PlayerEconomy* eco) : GameState(game)
 	hud = new HUDLobby(this, true);
 
 	demon = game->getTexture(CHOOSEDEMON);
+
+	Text* price = new Text(this, game->getTypo(GRAND_CASINO1), (int)(Game::WIN_WIDTH * 0.75f), (int)(Game::WIN_HEIGHT * 0.8f), 5, Text::CENTRO);
+	price->setMessage("500 FICHAS");
+	this->addObjects(price);
+	Text* souls = new Text(this, game->getTypo(GRAND_CASINO1), (int)(Game::WIN_WIDTH * 0.25f), (int)(Game::WIN_HEIGHT * 0.8f), 5, Text::CENTRO);
+	souls->setMessage("200 ALMAS");
+	this->addObjects(souls);
 }
 
 void rouletteChoose::chooseGame(GameState* juego)
