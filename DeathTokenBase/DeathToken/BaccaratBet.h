@@ -18,6 +18,7 @@ class BaccaratBet : public Baccarat
 	bool betOnTie = false, betOnPlayer = false, betOnBanker = false;
 public:
 	BaccaratBet(Game* game);
+	virtual ~BaccaratBet() {};
 	void acumulate();
 	void repeatBet();
 	void update() override;

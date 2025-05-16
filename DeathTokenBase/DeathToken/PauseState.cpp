@@ -9,8 +9,8 @@
 PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior(other), texture(game->getTexture(PAUSE))
 {
 	
-	back = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 6, Game::WIN_HEIGHT / 3 - Game::WIN_HEIGHT / 8,
-		Game::WIN_WIDTH / 3, Game::WIN_HEIGHT / 4, game->getTexture(BACK));
+	back = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 12, Game::WIN_HEIGHT / 3 - Game::WIN_HEIGHT / 14,
+		Game::WIN_WIDTH / 6, Game::WIN_HEIGHT / 7, game->getTexture(BACK));
 	addObjects(back);
 	addEventListener(back);
 	back->connect([this, game]() {
@@ -18,8 +18,8 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
 	
-	menu = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 6, (Game::WIN_HEIGHT / 3)*2 - Game::WIN_HEIGHT / 8,
-		Game::WIN_WIDTH / 3, Game::WIN_HEIGHT / 4, game->getTexture(MENU));
+	menu = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 12, (Game::WIN_HEIGHT / 3)*2 - Game::WIN_HEIGHT / 14,
+		Game::WIN_WIDTH / 6, Game::WIN_HEIGHT / 7, game->getTexture(MENU));
 	addObjects(menu);
 	addEventListener(menu);
 	menu->connect([this, game]() {
@@ -29,8 +29,8 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});
 	
-	rank = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 6, (Game::WIN_HEIGHT / 3)+ (Game::WIN_HEIGHT / 6) - Game::WIN_HEIGHT / 8,
-		Game::WIN_WIDTH / 3, Game::WIN_HEIGHT / 4, game->getTexture(RANK));
+	rank = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 12, (Game::WIN_HEIGHT / 3)+ (Game::WIN_HEIGHT / 6) - Game::WIN_HEIGHT / 14,
+		Game::WIN_WIDTH / 6, Game::WIN_HEIGHT / 7, game->getTexture(RANK));
 	addObjects(rank);
 	addEventListener(rank);
 	rank->connect([this, game]() {

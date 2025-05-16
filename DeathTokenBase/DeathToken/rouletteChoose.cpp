@@ -3,7 +3,7 @@
 rouletteChoose::rouletteChoose(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRouletteChoose(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG))
 {
 	//Widht, height, position baccarat button
-	double wBut = Game::WIN_WIDTH / 4, hBut = Game::WIN_HEIGHT / 4,
+	double wBut = Game::WIN_WIDTH / 4, hBut = Game::WIN_HEIGHT / 2,
 		xBut = Game::WIN_WIDTH / 3 - wBut * 3 / 4, yBut = Game::WIN_HEIGHT / 2 - hBut / 2;
 	guadanya = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(SCYTHE));
 	addEventListener(guadanya);
@@ -36,7 +36,7 @@ void rouletteChoose::update()
 void rouletteChoose::render() const
 {
 	rouletteBG->render();
-	float w = Game::WIN_WIDTH / 3.84, h = Game::WIN_HEIGHT / 2.2815, x = Game::WIN_WIDTH / 2 - w / 2, y = Game::WIN_HEIGHT - h;
+	float w = Game::WIN_WIDTH / 3.84, h = Game::WIN_HEIGHT / 2.2815, x = Game::WIN_WIDTH / 2 - w / 1.5, y = Game::WIN_HEIGHT - h;
 	SDL_Rect d = { x, y,
 		w,  h };
 	demon->render(d);

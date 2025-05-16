@@ -35,6 +35,7 @@ private:
 	int primera;
 public:
 	BaccaratFlip(Game* game);
+	virtual ~BaccaratFlip() {};
 	void addCards() override;
 	void handleExtraCards();
 	void startRound() override;
