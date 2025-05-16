@@ -78,6 +78,21 @@ Texture::renderFrame(const SDL_Rect& rect, int row, int col) const
 }
 
 void
+Texture::renderFrame(const SDL_Rect& rect, int row, int col, SDL_Color color) const
+{
+	// Save the original color to recover it later
+	SDL_Color original;
+	SDL_GetTextureColorMod(texture, &original.r, &original.g, &original.b);
+
+	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+
+	SDL_Rect origin{ col * frameWidth, row * frameHeight, frameWidth, frameHeight };
+	SDL_RenderCopy(renderer, texture, &origin, &rect);
+
+	SDL_SetTextureColorMod(texture, original.r, original.g, original.b);
+}
+
+void
 Texture::renderFrame(const SDL_Rect& rect, int row, int col, SDL_RendererFlip flip) const
 {
 	SDL_Rect origin{ col * frameWidth, row * frameHeight, frameWidth, frameHeight };

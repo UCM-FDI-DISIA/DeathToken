@@ -19,8 +19,10 @@ protected:
 	Callback cb;
 	bool hover;
 	bool clicked;
+private:
+	int frame;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr);
+	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr, int frame = 0);
 	virtual ~Button() {}
 	void render() const override;
 	void update() override;

@@ -25,7 +25,7 @@ private:
 
 	UI* _ui;
 	HUDBet* _hud;
-	PlayerEconomy* eco;
+	int saldo;
 	ButtonBet* _bet;
 	Game* _g;	
 
@@ -55,6 +55,7 @@ public:
 	void setIndex(int i) { index = i; };
 	int getFase() { return fases; };
 	void apuesta() { hasChip = true; };
+	int getSaldo() const { return saldo; }
 
 	void showDialog1() const;
 	void showDialog2() const;

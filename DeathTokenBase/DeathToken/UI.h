@@ -29,7 +29,7 @@ public:
 	void changeChip(const int& id);
 	int currentChipValue();
 
-	void OnExit();
+	virtual void OnExit();
 	virtual void OnGo() = 0;
 };
 
@@ -217,4 +217,5 @@ protected:
 public:
 	UIEscenaTutorial(GameState* gS, Game* g, EscenaTutorial* tut);
 	void OnGo() override;
+	void OnExit() override;
 };

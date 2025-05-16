@@ -40,12 +40,9 @@ void Player::handleEvent(const SDL_Event& evento) {
 		case SDLK_UP:
 			speed.setY(-SPEED_MAG);
 			break;
-		case SDLK_ESCAPE:
-			//state->pausa();
-			break;
 		}
 	}
-	else  { speed.setX(0); speed.setY(0); }
+	else if (evento.type == SDL_KEYUP) { speed.setX(0); speed.setY(0); }
 }
 
 //cojo el rect del player para hacer colisiones con botones

@@ -27,11 +27,12 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 	addObjects(begin);
 	addEventListener(begin);
 	begin->connect([this]() {
-		
+
 		string nombre = inputNombre->getUserInput();
 		FirebaseUtils::RegisterUser(nombre);
 		if (game->getTutorial()) {
 			game->replace(new Menu(game));
+			game->push(new EscenaTutorial(game));
 			game->setTutorial(false);
 		}
 		else {

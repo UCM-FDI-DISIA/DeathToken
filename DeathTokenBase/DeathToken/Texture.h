@@ -47,6 +47,7 @@ public:
 
 	/// Render a frame to the given rectangle
 	void renderFrame(const SDL_Rect& target, int row, int col) const;
+	void renderFrame(const SDL_Rect& target, int row, int col, SDL_Color color) const;
 	/// Render a frame to the given rectangle
 	void renderFrame(const SDL_Rect& target, int row, int col, SDL_RendererFlip flip) const;
 	/// Render a frame with additional options from SDL_RenderCopyEx

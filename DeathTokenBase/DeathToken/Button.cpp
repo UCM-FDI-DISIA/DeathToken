@@ -3,8 +3,8 @@
 #include "marbles.h"
 #include "EscenaTutorial.h"
 
-Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC)
-	: GameObject(g), text(t), textC(tC), hover(false), clicked(false)
+Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, int frame)
+	: GameObject(g), text(t), textC(tC), hover(false), clicked(false), frame(frame)
 {
 	box.x = x;
 	box.y = y;
@@ -26,13 +26,13 @@ Button::update()
 void Button::render() const {
 	if (hover && textC == nullptr) {
 		SDL_Rect point(box.x, box.y, box.h, box.h);
-		text->render(box, SDL_Color(255, 255, 0));
+		text->renderFrame(box, 0, frame, SDL_Color(255, 255, 0));
 	}
 	else if (clicked && textC != nullptr) {
 		textC->render(box);
 	}
 	else {
-		text->render(box);
+		text->renderFrame(box,0, frame);
 	}
 
 }

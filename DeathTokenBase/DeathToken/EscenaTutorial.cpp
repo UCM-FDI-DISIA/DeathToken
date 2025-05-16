@@ -5,13 +5,14 @@
 #include "game.h"
 #include "sdlutils.h"
 
-EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), resultado(false), inState(false),dialog(true), index(-1), fases(0), bet(0), a(0) {
+EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), hasChip(false), resultado(false), inState(false), dialog(true), index(-1), fases(0), bet(0), a(0) {
+	
 	float x = Game::WIN_WIDTH * (600.0f / 1920.0f);
 	float y = Game::WIN_HEIGHT * (680.0f / 1080.0f);
 	float cartaW = Game::WIN_WIDTH * (110.0f / 1920.0f);
 	float cartaH = Game::WIN_HEIGHT * (210.0f / 1920.0f);
 	//Botones juego
-	Button* piedra = new Button(this, (int)(x), (int)(y), (int)cartaW, (int)cartaH, game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
+	Button* piedra = new Button(this, (int)(x), (int)(y), (int)cartaW, (int)cartaH, game->getTexture(ICONOPPT), nullptr, 0);
 	piedra->connect([this] {
 		if (!picked && startGame && !itIsInDIalog()) {
 			setIndex(0);
@@ -22,7 +23,7 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	addEventListener(piedra);
 
 	x = Game::WIN_WIDTH * (900.0f / 1920.0f);
-	Button* papel = new Button(this, (int)x, (int)y, (int)cartaW, (int)cartaH, game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
+	Button* papel = new Button(this, (int)x, (int)y, (int)cartaW, (int)cartaH, game->getTexture(ICONOPPT), nullptr, 1);
 	papel->connect([this] {
 		if (!picked && startGame && !itIsInDIalog()) {
 			setIndex(1);
@@ -33,16 +34,16 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	addEventListener(papel);
 
 	x = Game::WIN_WIDTH * (1200.0f / 1920.0f);
-	Button* tijera = new Button(this, (int)x, (int)y, (int)cartaW, (int)cartaH, game->getTexture(BTNSLOT), game->getTexture(BTNSLOTCLICK));
+	Button* tijera = new Button(this, (int)x, (int)y, (int)cartaW, (int)cartaH, game->getTexture(ICONOPPT), nullptr, 2);
 	tijera->connect([this] {
-		if (!picked && startGame  && !itIsInDIalog()) {
+		if (!picked && startGame && !itIsInDIalog()) {
 			setIndex(2);
 			picked = true;
 		}
 		});
 	addObjects(tijera);
 	addEventListener(tijera);
-	
+
 	//Interfaz
 	_dialog1 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f)) * Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f)) * Game::WIN_HEIGHT,
 		true, false, 400, 180);
@@ -53,7 +54,7 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 
 	_dialog2 = new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f)) * Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f)) * Game::WIN_HEIGHT,
 		true, false, 400, 180);
-	addEventListener((EventHandler*)_dialog1);
+	addEventListener((EventHandler*)_dialog2);
 	_dialog2->setX(Game::WIN_WIDTH * (1300.0f / 1920.0f));
 	_dialog2->setY(Game::WIN_HEIGHT * (400.0f / 1080.0f));
 	_dialog2->setWidth(Game::WIN_WIDTH / 4);
@@ -87,8 +88,8 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	_dialog6->setWidth(Game::WIN_WIDTH / 4);
 
 
-	eco = new PlayerEconomy();
-	eco->EconomyInitialize();
+	saldo = PlayerEconomy::getBlueSouls();
+	PlayerEconomy::setBlueSouls(500);
 
 	_ui = new UIEscenaTutorial(this, g, this);
 
@@ -110,7 +111,6 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	showDialog6();
 }
 EscenaTutorial::~EscenaTutorial() {
-	delete eco;
 	_dialog1 = nullptr;
 	_dialog2 = nullptr;
 	_dialog3 = nullptr;
@@ -345,14 +345,14 @@ void EscenaTutorial::update() {
 			inDialog();
 		}
 		_dialog4->update(static_cast<float>(currentTime - a));
-			break;
+		break;
 	case 4:
 		_dialog5->update(currentTime - a);
 		if (_dialog5->shouldAdvanceState()) {
 			outDialog();
 			++fases;
 		}
-		else{
+		else {
 			inDialog();
 		}
 		_dialog5->update(static_cast<float>(currentTime - a));
@@ -361,9 +361,9 @@ void EscenaTutorial::update() {
 		_dialog6->update(currentTime - a);
 		if (_dialog6->shouldAdvanceState()) {
 			outDialog();
-			eco->EconomyInitialize();
 			clear();
-			game->push(new Menu(_g));
+			PlayerEconomy::setBlueSouls(saldo);
+			game->pop();
 		}
 		else {
 			inDialog();

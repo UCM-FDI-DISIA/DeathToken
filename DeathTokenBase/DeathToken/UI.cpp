@@ -400,6 +400,12 @@ void UIEscenaTutorial::OnGo() {
 		escenaTutorial->iniciaJuego();
 	}
 }
+void UIEscenaTutorial::OnExit()
+{
+	PlayerEconomy::setBlueSouls(escenaTutorial->getSaldo());
+	game->pop();
+}
+
 inline int UIRouletteChoose::relativeX(const float& n)
 {
 	return (int)((n / 1920.0f) * Game::WIN_WIDTH);

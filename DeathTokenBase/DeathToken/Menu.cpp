@@ -105,7 +105,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	}
 
 	hud = new HUDLobby(this, false);
-
+	HUDManager::getHudLobby()->refresh();
 }
 Menu::~Menu() {
 	delete eco;
