@@ -1,5 +1,5 @@
 #include "baccaratBlackjack.h"
-#include "SDLUtils.h"
+
 
 BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)) {
 	ui->isBlackJack = true;
