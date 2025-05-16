@@ -104,8 +104,12 @@ public:
 	void OnRepeat() override;
 	void OnInfo() override;
 	void OnInfoBlackJack();
+	void OnInfoBet();
+	void OnInfoFlip();
 	
 	bool isBlackJack = false;
+	bool isBet = false;
+	bool isFlip = false;
 };
 
 

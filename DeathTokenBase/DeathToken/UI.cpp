@@ -233,6 +233,8 @@ void UIBaccarat::OnExit()
 {
 	UI::OnExit();
 	isBlackJack = false;
+	isBet = false;
+	isFlip = false;
 }
 
 void UIBaccarat::OnGo() {
@@ -252,7 +254,16 @@ void
 UIBaccarat::OnInfo()
 {
 	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
-	if (!isBlackJack) {
+	if (isBlackJack) {
+		OnInfoBlackJack();
+	}
+	else if (isBet) {
+		OnInfoBet();
+	}
+	else if (isFlip) {
+		OnInfoFlip();
+	}
+	else {
 		std::vector<Texture*> baccaratTutorial = {
 		game->getTexture(TUTORIAL1),
 		game->getTexture(TUTORIAL2),
@@ -260,9 +271,6 @@ UIBaccarat::OnInfo()
 
 		};
 		game->push(new Tutorial(game, gS, baccaratTutorial));
-	}
-	else {
-		OnInfoBlackJack();
 	}
 }
 
@@ -275,6 +283,28 @@ void UIBaccarat::OnInfoBlackJack()
 
 	};
 	game->push(new Tutorial(game, gS, BlackJackTutorial));
+}
+
+void UIBaccarat::OnInfoBet()
+{
+	std::vector<Texture*> baccaratBetTutorial = {
+		game->getTexture(TUTORIALB1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratBetTutorial));
+}
+
+void UIBaccarat::OnInfoFlip()
+{
+	std::vector<Texture*> baccaratFlipTutorial = {
+		game->getTexture(TUTORIALF1),
+		game->getTexture(TUTORIAL2),
+		game->getTexture(TUTORIAL3)
+
+	};
+	game->push(new Tutorial(game, gS, baccaratFlipTutorial));
 }
 
 //Tutorial

@@ -43,4 +43,5 @@ public:
 	void clearDeck() override;
 	void render() const override;
 	void update() override;
+	void showTutorial() override {};
 };

@@ -2,8 +2,8 @@
 #include "sdlUtils.h"
 
 BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)), intro(game->getTexture(FLIP)) {
+	ui->isFlip = true;
 	addCards();
-
 }
 
 //anade las tres cartas extra
@@ -180,7 +180,8 @@ void BaccaratFlip::render() const {
 
 void BaccaratFlip::update()
 {
-	GameState::update();
+	if (mat.player.size() == 0 && mat.player.size() == 0)
+		GameState::update();
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		frame++;
@@ -189,18 +190,36 @@ void BaccaratFlip::update()
 			if (animInCard == 0)
 			{
 				player1->frame = mat.player[0];
+				if (mat.player[0] > 9)
+					ctFrame = 0;
+				else
+					ctFrame = mat.player[0];
 			}
 			else if (animInCard == 1)
 			{
 				banker1->frame = mat.banker[0];
+				if (mat.banker[0] > 9)
+					ctFrameB = 0;
+				else
+					ctFrameB = mat.banker[0];
 			}
 			else if (animInCard == 2)
 			{
 				player2->frame = mat.player[1];
+				if (mat.player[1] <= 9)
+				{
+					ctFrame += mat.player[1];
+					ctFrame = ctFrame % 10;
+				}
 			}
 			else if (animInCard == 3)
 			{
 				banker2->frame = mat.banker[1];
+				if (mat.banker[1] <= 9)
+				{
+					ctFrameB += mat.banker[1];
+					ctFrameB = ctFrameB % 10;
+				}
 			}
 		}
 		if (frame == 9 && animInCard < 3) {
@@ -234,6 +253,12 @@ void BaccaratFlip::update()
 		if (player3->position().getX() <= (int)(Game::WIN_WIDTH / 3 - Game::WIN_WIDTH / 81))
 		{
 			thirdPlayerMove = false;
+			if (mat.player[2] <= 9)
+			{
+				ctFrame += mat.player[2];
+				ctFrame = ctFrame % 10;
+			}
+			goForWin = true;
 		}
 	}
 	if (thirdBankerMove) {
@@ -241,6 +266,12 @@ void BaccaratFlip::update()
 		if (banker3->position().getX() >= (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 20.5))
 		{
 			thirdBankerMove = false;
+			if (mat.banker[2] <= 9)
+			{
+				ctFrameB += mat.banker[2];
+				ctFrameB = ctFrameB % 10;
+			}
+			goForWin = true;
 		}
 	}
 	if ((extraB + extraP == 3))
@@ -254,6 +285,16 @@ void BaccaratFlip::update()
 		else if (extra1->frame == 0) {
 			extra1->frame = primera;
 		}
+		ctFrame = 0;
+		ctFrameB = 0;
+		for (int p : mat.player) {
+			ctFrame += p;
+		}
+		for (int p : mat.banker) {
+			ctFrameB += p;
+		}
+		ctFrame = ctFrame % 10;
+		ctFrameB = ctFrameB % 10;
 		win();
 		goForWin = false;
 
@@ -273,6 +314,33 @@ void BaccaratFlip::update()
 			animOn = false;
 			width = 0;
 			height = 0;
+		}
+	}
+	if (timeForWin) {
+		float dt = SDLUtils::getDeltaTime();
+		tiempo += dt;
+		if (tiempo > 3)
+		{
+			timeForWin = false;
+			tiempo = 0;
+			playerBet = false;
+			bankerBet = false;
+			tieBet = false;
+			player1->frame = 0;
+			player2->frame = 0;
+			banker1->frame = 0;
+			banker2->frame = 0;
+			banker3->frame = 14;
+			player3->frame = 14;
+			ctFrame = 14;
+			ctFrameB = 14;
+			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); // frame 14 = invisible
+			extra2->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
+			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });//a
+			extra1->frame = 0;
+			extra2->frame = 0;
+			extra3->frame = 0;
+			clearDeck();
 		}
 	}
 }

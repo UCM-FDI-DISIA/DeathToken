@@ -24,5 +24,6 @@ public:
 	void render() const override;
 	void didntWin();
 	void startRound() override;
+	void showTutorial() override {};//para que no salete de una el tutorial
 };
 

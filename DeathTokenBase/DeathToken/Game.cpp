@@ -124,6 +124,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_blackjack.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg2_blackjack.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg3_blackjack.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_bet.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_flip.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marbles.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_bg1_marblesInsanity.png",1,1 });
 	v.push_back(TextureSpec{ "FondoTarjetasConReglas.png", 1, 1 });
