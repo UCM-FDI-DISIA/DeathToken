@@ -68,6 +68,7 @@ Menu::Menu(Game* game)
   obstaculos.push_back(cambiarColisiones(baccarat->getCollisionRect()));
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 4.0;
 	//Baccarat button
@@ -155,6 +156,54 @@ Menu::Menu(Game* game)
 	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 =======
+=======
+  wBut = Game::WIN_WIDTH / 5.2;
+  hBut = Game::WIN_HEIGHT / 3.5;
+  xBut = Game::WIN_WIDTH * 3.0 / 4.75;
+  yBut = Game::WIN_HEIGHT / 1.7 + Game::WIN_HEIGHT / 4.0;
+  slots = new Mesa(this,
+                   { (int)xBut, (int)yBut },
+                   game->getTexture(SLOTSBUT),
+                   (int)wBut,
+                   (int)hBut);
+  addObjects(slots);
+  addEventListener(slots);
+  slots->connect([this]() {
+    auto& soundManager = SoundManager::obtenerInstancia();
+    soundManager.reproducirEfecto("SlotsIntro");
+    slotsState = new SlotsNormal(getGame());
+
+    gameChanger(slotsState);
+    if (
+      tutorialSlots)  //Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+    {
+      tutorialSlots = false;
+      slotsState->showTutorial();
+    }
+  });
+  obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
+
+  //Widht, height, position marbles button
+  wBut = Game::WIN_WIDTH / 5.2;
+  hBut = Game::WIN_HEIGHT / 4.0;
+  xBut = Game::WIN_WIDTH * 3.0 / 4.0 - Game::WIN_WIDTH / 25.0;
+  yBut = Game::WIN_HEIGHT / 4.0 + Game::WIN_HEIGHT / 4.0;
+  //Marbles button
+  marbles = new Mesa(this,
+                     { (int)xBut, (int)yBut },
+                     game->getTexture(CANICASBUT),
+                     (int)wBut,
+                     (int)hBut);
+  addObjects(marbles);
+  addEventListener(marbles);
+  marbles->connect([this]() {
+    auto& soundManager = SoundManager::obtenerInstancia();
+    soundManager.reproducirEfecto("MarblesIntro");
+    gameChanger(new Marbles(getGame(), { 0, 0, 0, 0 }));
+  });
+  obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
+
+>>>>>>> Stashed changes
   wBut = Game::WIN_WIDTH / 5.98;
   hBut = Game::WIN_HEIGHT / 3.418;
   xBut = Game::WIN_WIDTH * 3.0 / 15.5;
@@ -172,6 +221,9 @@ Menu::Menu(Game* game)
     gameChanger(new Peleas(getGame()));
   });
   obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
   //Widht, height, position roulette button
@@ -190,6 +242,7 @@ Menu::Menu(Game* game)
     [this]() { gameChanger(new rouletteChoose(getGame(), eco)); });
   obstaculos.push_back(cambiarColisiones(roulette->getCollisionRect()));
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 	if (ghost == nullptr) {
 		ghost = new Player(this, { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2, Game::WIN_HEIGHT / 2 }, game->getTexture(GHOST), this);
@@ -311,6 +364,86 @@ void Menu::update()
     bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
     fights->setHover(intersectFights);
 
+=======
+  if (ghost == nullptr) {
+    ghost = new Player(this,
+                       { Game::WIN_WIDTH / 2 - (Game::WIN_WIDTH / 10) / 2,
+                         Game::WIN_HEIGHT / 2 },
+                       game->getTexture(GHOST),
+                       this);
+    addObjects(ghost);
+    addEventListener(ghost);
+  }
+
+  hud = new HUDLobby(this);
+}
+Menu::~Menu()
+{
+  delete eco;
+}
+
+void Menu::gameChanger(GameState* juego)
+{
+  if (eco->getInsanity() > 0) {
+    GameState* old = juego;
+    if (typeid(*juego) == typeid(Baccarat)) {
+      juego = new BaccaratInsanityManager(getGame());
+    }
+    else if (typeid(*juego) == typeid(Marbles)) {
+      juego = new MarblesInsanity(getGame());
+    }
+    else if (typeid(*juego) == typeid(SlotsNormal)) {
+      juego = new SlotsInsanity(getGame());
+      slotsState = juego;
+      if (tutorialSlotsLocura) {
+        tutorialSlots = true;
+        tutorialSlotsLocura = false;
+      }
+    }
+    else if (typeid(*juego) == typeid(Peleas)) {
+      juego = new PeleasInsanity(getGame());
+    }
+    delete old;
+  }
+  game->push(juego);
+}
+
+void Menu::render() const
+{
+  texture->render();
+  GameState::render();
+}
+
+void Menu::update()
+{  //detecto interseciones player/button
+  if (PlayerEconomy::getBlueSouls() <= 0) {
+    game->stop();
+    game->pushState(new FinalMenu(game, false));
+  }
+  else {
+    GameState::update();
+
+    ghost->collision(obstaculos);
+
+    SDL_Rect playerRect = ghost->getRect();  //cojo el rect del player
+
+    SDL_Rect _slot = slots->getCollisionRect();
+    bool intersectSlots = SDL_HasIntersection(&playerRect, &_slot);
+    slots->setHover(intersectSlots);
+
+    SDL_Rect _baccarat = baccarat->getCollisionRect();
+    bool intersectBaccarat = SDL_HasIntersection(&playerRect, &_baccarat);
+    baccarat->setHover(intersectBaccarat);
+
+    SDL_Rect _marbles = marbles->getCollisionRect();
+    bool intersectMarbles = SDL_HasIntersection(&playerRect, &_marbles);
+    marbles->setHover(intersectMarbles);
+
+    SDL_Rect _fights = fights->getCollisionRect();
+    bool intersectFights = SDL_HasIntersection(&playerRect, &_fights);
+    fights->setHover(intersectFights);
+
+>>>>>>> Stashed changes
     SDL_Rect _roulette = roulette->getCollisionRect();
     bool intersectRoulette = SDL_HasIntersection(&playerRect, &_roulette);
     roulette->setHover(intersectRoulette);
