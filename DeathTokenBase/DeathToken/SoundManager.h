@@ -23,7 +23,7 @@ public:
 
 	void reproducirEfecto(const std::string& id, int repeticiones = 0);
 	void reproducirMusica(const std::string& id, int repeticiones = -1);
-	int reproducirEfectoCanalEsp(const std::string& id, int repeticiones = 0, int canal = -1);
+
 	void pausarMusica();
 	void reanudarMusica();
 	void detenerMusica();

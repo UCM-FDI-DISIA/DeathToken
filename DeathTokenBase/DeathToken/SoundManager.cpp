@@ -109,31 +109,7 @@ void SoundManager::reproducirEfecto(const std::string& id, int repeticiones)
 		Mix_PlayChannel(-1, sonido.efecto, repeticiones);
 	}
 }
-int SoundManager::reproducirEfectoCanalEsp(const std::string& id,
-                                   int repeticiones,
-                                   int canal)
-{
-  if (!listo || sonidos.find(id) == sonidos.end())
-    return -1;
 
-  Sonido& sonido = sonidos[id];
-  if (sonido.tipo != EFECTO)
-    return -1;
-
-  Mix_Chunk* efecto = nullptr;
-  if (sonido.multiVariante && !sonido.variaciones.empty()) {
-    int indice = rand() % sonido.variaciones.size();
-    efecto = sonido.variaciones[indice];
-  }
-  else if (!sonido.multiVariante) {
-    efecto = sonido.efecto;
-  }
-
-  if (!efecto)
-    return -1;
-
-  return Mix_PlayChannel(canal, efecto, repeticiones);
-}
 void SoundManager::reproducirMusica(const std::string& id, int repeticiones)
 {
 	if (!listo || sonidos.find(id) == sonidos.end())

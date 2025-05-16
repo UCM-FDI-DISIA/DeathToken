@@ -4,7 +4,6 @@
 #include "texture.h"
 #include "game.h"
 #include "award.h"
-#include "SoundManager.h"
 using namespace std;
 
 SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
@@ -31,25 +30,11 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		// callback del boton
 		Carrete* c = carretes[i];
 		button->connect([this, c] {
-<<<<<<< Updated upstream
 			if (c->getParada()) {
 				++comprobanteIndice;
 				c->pararGiro(); // Para el giro si no esta parado 
 			}
 			});
-=======
-	auto& soundManager = SoundManager::obtenerInstancia();
-	soundManager.reproducirEfecto("SlotChoose");
-
-	if (c->getParada()) ++comprobanteIndice;
-	c->pararGiro();
-
-	if (comprobanteIndice == 3 && canalSonidoGiro != -1) {
-		Mix_HaltChannel(canalSonidoGiro);
-		canalSonidoGiro = -1; 
-	}
-});
->>>>>>> Stashed changes
 	}
 
 	// Botón para añadir la apuesta
@@ -116,7 +101,6 @@ void SlotsNormal::render() const {
 	// render de los gameObjects
 	GameState::render();
 }
-<<<<<<< Updated upstream
 void SlotsNormal::iniciarGiro() {
 	// Comprueba que todos los carretes estén parados para iniciar
 	bool girar = false;
@@ -129,19 +113,4 @@ void SlotsNormal::iniciarGiro() {
 			c->iniciarGiro();
 		}
 	}
-=======
-void SlotsNormal::iniciarGiro()
-{
-  bool girar = false;
-  for (Carrete* c : carretes)
-    girar = girar || c->getParada();
-
-  if (!girar) {
-    for (Carrete* c : carretes)
-      c->iniciarGiro();
-
-    auto& soundManager = SoundManager::obtenerInstancia();
-    canalSonidoGiro = soundManager.reproducirEfectoCanalEsp("SlotSpin", -1, 0);
-  }
->>>>>>> Stashed changes
 }
