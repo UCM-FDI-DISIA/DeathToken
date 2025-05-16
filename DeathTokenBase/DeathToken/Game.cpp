@@ -8,13 +8,10 @@
 #include "SoundManager.h"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 #include "MainMenu.h"
 #include "finalMenu.h"
 #include <vector>
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 #include <iostream>
@@ -30,7 +27,6 @@ int Game::WIN_HEIGHT = 0;
 using json = nlohmann::json;
 
 // Especificación de las texturas del juego
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 vector<Game::TextureSpec> Game::loadTextures() {
@@ -111,8 +107,6 @@ vector<Game::TextureSpec> Game::loadTextures() {
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 vector<Game::TextureSpec> Game::loadTextures()
 {
   vector<Game::TextureSpec> v;
@@ -190,9 +184,6 @@ vector<Game::TextureSpec> Game::loadTextures()
   v.push_back(TextureSpec{ "ui/chips/chip_100.png", 1, 1 });
   v.push_back(TextureSpec{ "ui/chips/chip_200.png", 1, 1 });
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -215,7 +206,6 @@ vector<Game::TextureSpec> Game::loadTextures()
   v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png", 1, 1 });
   v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png", 1, 1 });
 
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
@@ -260,8 +250,6 @@ vector<Game::TextureSpec> Game::loadTextures()
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
   v.push_back(
     TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png", 1, 1 });
   v.push_back(
@@ -304,9 +292,6 @@ vector<Game::TextureSpec> Game::loadTextures()
   v.push_back(TextureSpec{ "roulette/rouletteAnim4.png", 1, 1 });
   v.push_back(TextureSpec{ "roulette/rouletteAnim5.png", 1, 1 });
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -378,7 +363,6 @@ vector<Game::TextureSpec> Game::loadTextures()
   v.push_back(TextureSpec{ "menus/BadText.png", 1, 1 });
   v.push_back(TextureSpec{ "menus/BadEnding.png", 1, 1 });
 
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 	v.push_back(TextureSpec{ "tutorial/Tutorial_slots.png",1,1 });
@@ -473,41 +457,11 @@ vector<Game::TextureSpec> Game::loadTextures()
   v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
 
 >>>>>>> Stashed changes
-=======
-  v.push_back(TextureSpec{ "tutorial/Tutorial_slots.png", 1, 1 });
-  v.push_back(TextureSpec{ "tutorial/Tutorial_slots_locura.png", 1, 1 });
-  v.push_back(
-    TextureSpec{ "Fighters/skeletor.png", 1, 1 });  // TEXTURE_SKELETOR
-  v.push_back(
-    TextureSpec{ "Fighters/romelario.png", 1, 1 });  // TEXTURE_ROMELARIO
-  v.push_back(TextureSpec{ "Fighters/alfredo.png", 1, 1 });  // TEXTURE_ALFREDO
-  v.push_back(TextureSpec{ "Fighters/boodoo.png", 1, 1 });   // TEXTURE_BOODOO
-  v.push_back(TextureSpec{ "Fighters/corneo.png", 1, 1 });   // TEXTURE_CORNEO
-  v.push_back(
-    TextureSpec{ "Fighters/mcdougald.png", 1, 1 });  // TEXTURE_MCDOUGALD
-  v.push_back(TextureSpec{
-    "Fighters/paulter_geist.png", 1, 1 });  // TEXTURE_PAULTER_GEIST
-  v.push_back(TextureSpec{ "Fighters/potape.png", 1, 1 });  // TEXTURE_POTAPE
-
-  v.push_back(TextureSpec{ "RingLocura.png", 1, 1 });
-  v.push_back(TextureSpec{ "Precios.png", 1, 1 });
-  v.push_back(TextureSpec{ "Results.png", 1, 1 });
-  v.push_back(TextureSpec{ "Board.png", 1, 1 });
-
-  v.push_back(TextureSpec{ "Items/Gramophone.png", 1, 1 });
-  v.push_back(TextureSpec{ "Items/Lamp.png", 1, 1 });
-  v.push_back(TextureSpec{ "Items/Perfume.png", 1, 1 });
-  v.push_back(TextureSpec{ "Items/Phone.png", 1, 1 });
-  v.push_back(TextureSpec{ "Items/Champagne.png", 1, 1 });
-  v.push_back(TextureSpec{ "RoundBoard.png", 1, 1 });
-
->>>>>>> Stashed changes
   if (v.size() != NUM_TEXTURES)
     throw "Texturas sin índice, error al cargar";
   return v;
 }
 
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 vector<TTF_Font*> Game::loadFonts() {
@@ -531,8 +485,6 @@ vector<TTF_Font*> Game::loadFonts() {
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 vector<TTF_Font*> Game::loadFonts()
 {
   vector<TTF_Font*> v;
@@ -545,9 +497,6 @@ vector<TTF_Font*> Game::loadFonts()
     throw "Fonts sin índice, error al cargar";
   return v;
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -576,7 +525,6 @@ Game::Game()
                                    textureSpec[i].numRows,
                                    textureSpec[i].numColumns));
 
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 Game::Game() {
@@ -615,8 +563,6 @@ Game::Game() {
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
   TTF_Init();
   fonts = loadFonts();
   // CARGA DE SONIDOS
@@ -627,9 +573,6 @@ Game::Game() {
   }
   /*if (!soundManager.cargarSonido("../assets/sonido/TralaleroTralala.wav", "EntrarJuego",SoundManager::EFECTO)) {
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -648,7 +591,6 @@ Game::Game() {
     std::cerr << "Error al cargar el sonido del Button." << std::endl;
   }
 
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 	if (!soundManager.cargarSonido(
@@ -863,91 +805,6 @@ Game::Game() {
   }
 
 >>>>>>> Stashed changes
-=======
-  if (!soundManager.cargarSonido(
-        "../assets/sonido/Generales/PresionaBotonCanicas.wav",
-        "PresionaBotonCanicas",
-        SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido(
-        "../assets/sonido/Generales/PresionaBotonBaccarat.wav",
-        "PresionaBotonBaccarat",
-        SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-  if (!soundManager.cargarSonido(
-        "../assets/sonido/Generales/PresionaBotonSlots.wav",
-        "PresionaBotonSlots",
-        SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido("../assets/sonido/Ruleta/RuletaSonido.wav",
-                                 "RuletaSonido",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/MarblesIntro.wav",
-                                 "MarblesIntro",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/BaccaratIntro.wav",
-                                 "BaccaratIntro",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/Fights.wav",
-                                 "FightsIntro",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/SlotsIntro.wav",
-                                 "SlotsIntro",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/StaticVinyl.mp3",
-                                 "Static",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/PokerChips.wav",
-                                 "ChipPlaced",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/SlotSpin.wav",
-                                 "SlotSpin",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-  if (!soundManager.cargarSonido("../assets/sonido/Generales/SlotChoose.wav",
-                                 "SlotChoose",
-                                 SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-  if (!soundManager.cargarSonido(
-        "../assets/sonido/Tutoriales/PasaPaginaTutorial.wav",
-        "PasaPag",
-        SoundManager::EFECTO)) {
-    std::cerr << "Error al cargar el sonido del Button." << std::endl;
-  }
-  if (loadFightersFromJSON("peleadores.json") &&
-      loadMatchupsFromJSON("../DeathToken/matchups.json")) {
-#ifdef DEBUG
-    cerr << "error en la carga de jsons de peleas" << endl;
-#endif  // DEBUG
-  }
-
->>>>>>> Stashed changes
   MainMenu* menu = new MainMenu(this);
   pushState(menu);
 
@@ -956,7 +813,6 @@ Game::Game() {
   gen = std::mt19937(rd());  // Inicializar con una semilla aleatoria
 }
 
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 Game::~Game() {
@@ -977,8 +833,6 @@ Game::~Game() {
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 Game::~Game()
 {
   SDL_DestroyRenderer(renderer);
@@ -990,9 +844,6 @@ Game::~Game()
   // Desactiva la SDL
   SDL_Quit();
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -1049,7 +900,6 @@ void Game::run()
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
@@ -1071,8 +921,6 @@ void Game::run()
 =======
 =======
 >>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     // Tiempo que se ha tardado en ejecutar lo anterior
     uint32_t frameTime = SDL_GetTicks() - frameStart;
     if (frameTime < Game::FRAME_RATE)
@@ -1092,9 +940,6 @@ SDL_Renderer* Game::getRenderer() const
   return renderer;
 }
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -1110,7 +955,6 @@ void Game::replace(GameState* nextState)
 void Game::pop()
 {
   popState();
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 }
 void Game::stop()
@@ -1131,14 +975,6 @@ void Game::stop()
     popState();
 >>>>>>> Stashed changes
 }
-=======
-}
-void Game::stop()
-{
-  while (!empty())
-    popState();
-}
->>>>>>> Stashed changes
 
 bool Game::loadFightersFromJSON(const string& filename)
 {
