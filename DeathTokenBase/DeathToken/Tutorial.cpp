@@ -1,5 +1,5 @@
 #include "tutorial.h"
-
+#include "SoundManager.h"
 
 Tutorial::Tutorial(Game* game, GameState* gameState, std::vector<Texture*> imagesTutorial) :
 	GameState(game), 
@@ -54,6 +54,8 @@ void Tutorial::render() const {
 
 void Tutorial::nextPage()//pag sig
 {
+  auto& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("PasaPag");
 	if (currentPage < images.size() - 1) {
 		currentPage++;
 	}
@@ -61,6 +63,8 @@ void Tutorial::nextPage()//pag sig
 
 void Tutorial::previousPage()//pag ant
 {
+  auto& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirEfecto("PasaPag");
 	if (currentPage > 0) {
 		currentPage--;
 	}
