@@ -81,16 +81,22 @@ void
 PlayerEconomy::subtractBlueSouls(long long blueSouls)
 {
 	PlayerEconomy::blueSouls -= blueSouls;
+	if (PlayerEconomy::blueSouls < 0)
+		PlayerEconomy::blueSouls = 0;
 }
 void
 PlayerEconomy::subtractRedSouls(long long redSouls)
 {
 	PlayerEconomy::redSouls -= redSouls;
+	if (PlayerEconomy::redSouls < 0)
+		PlayerEconomy::redSouls = 0;
 }
 void
 PlayerEconomy::subtractInsanity(int insanity)
 {
 	PlayerEconomy::insanity -= insanity;
+	if (PlayerEconomy::insanity < 0)
+		PlayerEconomy::insanity = 0;
 }
 void
 PlayerEconomy::subtractBet(long long bet)

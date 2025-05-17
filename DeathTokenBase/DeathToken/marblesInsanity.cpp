@@ -25,6 +25,7 @@ MarblesInsanity::~MarblesInsanity()
 	}
 	HUDManager::popGame();
 	delete uiI;
+	uiI = nullptr;
 }
 
 void MarblesInsanity::render() const
