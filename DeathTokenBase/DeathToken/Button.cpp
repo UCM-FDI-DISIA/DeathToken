@@ -527,7 +527,7 @@ ButtonSlots::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
-		if (currentBet + chip <= PlayerEconomy::getBlueSouls())
+		if (chip <= PlayerEconomy::getBlueSouls())
 		{
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
