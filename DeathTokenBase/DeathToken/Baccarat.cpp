@@ -358,6 +358,7 @@ void Baccarat::repeat()
 }
 
 void Baccarat::startRound() {
+
 	if (mat.player.size() == 0 && mat.player.size() == 0)
 	{
 		hasWon = false;

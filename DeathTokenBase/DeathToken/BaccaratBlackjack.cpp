@@ -1,7 +1,7 @@
 #include "baccaratBlackjack.h"
 
 
-BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)) {
+BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)), counterEx(game->getTexture(COUNTER)), counterBEx(game->getTexture(COUNTER)) {
 	ui->isBlackJack = true;
 
 	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);
@@ -10,8 +10,7 @@ BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(gam
 void BaccaratBlackjack::handCards() {
 	Baccarat::handCards();
 	if (totalCards(mat.player) == 21) {
-		game->push(new Award(game, (GameState*)this, 100, 400));
-		win = true;
+		victory();
 	}
 }
 
@@ -26,6 +25,10 @@ void BaccaratBlackjack::render() const {
 		SDL_RenderFillRect(game->getRenderer(), &black);
 		intro->render(title);
 	}
+	counter->renderFrame(ct, 0, ctFrame);
+	counterB->renderFrame(ctB, 0, ctFrameB);
+	counterEx->renderFrame(ctEx, 0, ctFrameEx);
+	counterBEx->renderFrame(ctBEx, 0, ctFrameBEx);
 }
 
 void BaccaratBlackjack::update() {
@@ -53,6 +56,12 @@ void BaccaratBlackjack::update() {
 
 	if (totalCards(mat.player) > 21) {
 		banker2->frame = mat.banker[1];
+		ctFrameBEx = totalCards(mat.banker);
+		if (ctFrameBEx / 10 > 0)
+		{
+			ctFrameB = ctFrameBEx / 10;
+		}
+		ctFrameBEx = ctFrameBEx % 10;
 		timeForWin = true;
 	}
 
@@ -73,7 +82,10 @@ void BaccaratBlackjack::update() {
 void BaccaratBlackjack::victory() {
 	int totalBet = 0;
 	for (int i = 0; i < bets.size(); i++) { totalBet += bets[i].moneyBet; }
-	if (totalCards(mat.player) > totalCards(mat.banker) && totalCards(mat.player) <= 21 || totalCards(mat.banker) > 21) {
+	if (totalCards(mat.player) == 21) {
+		game->push(new Award(game, (GameState*)this, totalBet, 6 * totalBet));
+	}
+	else if (totalCards(mat.player) > totalCards(mat.banker) && totalCards(mat.player) <= 21 || totalCards(mat.banker) > 21) {
 		game->push(new Award(game, (GameState*)this, totalBet, 4 * totalBet));
 	}
 	else if (totalCards(mat.banker) == totalCards(mat.player) && totalCards(mat.banker) <= 21 && totalCards(mat.player) <= 21 && !win) {
@@ -92,7 +104,25 @@ void BaccaratBlackjack::startRound() {
 		player1->frame = mat.player[0];
 		banker1->frame = mat.banker[0];
 		player2->frame = mat.player[1];
-		
+		ctFrame = totalCards(mat.player);
+		if (ctFrame / 10 > 0)
+		{
+			ctFrameEx = ctFrame / 10;
+		}
+		ctFrame = ctFrame % 10;
+		if (mat.banker[0] > 9) {
+			ctFrameBEx = 10;
+		}
+		else
+		{
+			ctFrameBEx = mat.banker[0];
+		}
+		if (ctFrameBEx / 10 > 0)
+		{
+			ctFrameB = ctFrameBEx / 10;
+		}
+		ctFrameBEx = ctFrameBEx % 10;
+
 		askCards();
 	}
 }
@@ -117,6 +147,12 @@ void BaccaratBlackjack::handOneCard() {
 		playerCardVec.push_back(createCard(playerXpos, playerYpos, 0, mat.player[mat.player.size() - 1]));
 		playerXpos -= Game::WIN_WIDTH / 30;
 		cardsVec.push_back(rndNum);
+		ctFrame = totalCards(mat.player);
+		if (ctFrame / 10 > 0)
+		{
+			ctFrameEx = ctFrame / 10;
+		}
+		ctFrame = ctFrame % 10;
 	}
 }
 
@@ -131,6 +167,12 @@ void BaccaratBlackjack::bancaAI() {
 			bankerXpos += Game::WIN_WIDTH / 30;
 			cardsVec.push_back(rndNum);
 		}
+		ctFrameBEx = totalCards(mat.banker);
+		if (ctFrameBEx / 10 > 0)
+		{
+			ctFrameB = ctFrameBEx / 10;
+		}
+		ctFrameBEx = ctFrameBEx % 10;
 	}
 }
 
@@ -174,5 +216,9 @@ void BaccaratBlackjack::clearDeck() {
 	eventHandlers.pop_back();
 	gameObjects.pop_back();
 	gameObjects.pop_back();
+	ctFrame = 14;
+	ctFrameB = 14;
+	ctFrameEx = 14;
+	ctFrameBEx = 14;
 }
 

@@ -1,4 +1,5 @@
 #include "roulette.h"
+#include "finalMenu.h"
 
 Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : SceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
 	w = Game::WIN_WIDTH / 2;
@@ -9,7 +10,7 @@ Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, Play
 void Roulette::render() const {
 	SDL_Rect rect = getRenderRect();
 	texture->render(rect, rot);
-	
+
 	recompensas->render(recompensasR);
 }
 
@@ -241,7 +242,7 @@ void Roulette::update() {
 				|| rot >= 165.6f && rot < 172.8f || rot >= 219.6f && rot < 226.8f
 				|| rot >= 248.4f && rot < 255.6f || rot >= 298.8f && rot < 306.0f
 				|| rot >= 334.8f && rot < 342.0f) {
-				eco->addRedSouls(-10);
+				eco->subtractRedSouls(10);
 			}
 			else if (rot >= 7.2f && rot < 14.4f || rot >= 18.0f && rot < 25.2f
 				|| rot >= 32.4 && rot < 36.0f || rot >= 50.4f && rot < 57.6f
@@ -272,8 +273,14 @@ void Roulette::update() {
 				|| rot >= 349.2f && rot < 356.4f) {
 			}
 			else if (rot >= 180.0f && rot < 187.2f) {
+				game->pushState(new FinalMenu(game, false));
 			}
 			else if (rot >= 172.8f && rot < 180.0f) {
+				game->pushState(new FinalMenu(game, true));
+			}
+			if (PlayerEconomy::getInsanity() > 0)
+			{
+				PlayerEconomy::subtractInsanity(1);
 			}
 		}
 		else {
@@ -314,6 +321,10 @@ void Roulette::update() {
 				|| rot >= 349.2f && rot < 356.4f) {
 				game->push(new Award(game, gS, 1, 4000));
 			}
+			if (PlayerEconomy::getInsanity() > 0)
+			{
+				PlayerEconomy::subtractInsanity(1);
+			}
 		}
 	}
 }
@@ -321,7 +332,7 @@ void Roulette::update() {
 void Roulette::addSpeed(int s) {
 	if (speed == 0)
 	{
-		eco->addBlueSouls(-500);
+		eco->subtractBlueSouls(500);
 		speed = s;
 		started = true;
 	}
