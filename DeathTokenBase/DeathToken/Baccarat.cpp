@@ -308,6 +308,8 @@ void Baccarat::win() {
 		game->push(new Award(game, (GameState*)this, totalBet, totalBet * multi));
 		hasWon = true;
 	}
+	PlayerEconomy::setBet(0);
+	hud->refresh();
 	clearBets();
 	timeForWin = true;
 }
