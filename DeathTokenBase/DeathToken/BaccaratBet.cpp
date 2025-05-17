@@ -36,6 +36,65 @@ BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getText
 		} });
 }
 
+void BaccaratBet::win() {
+	playerComb = 0, bankerComb = 0;
+
+	for (int i = 0; i < mat.player.size(); i++) {
+		if (mat.player[i] > 9) mat.player[i] = 0;
+		playerComb += mat.player[i];
+	}
+	for (int i = 0; i < mat.banker.size(); i++) {
+		if (mat.banker[i] > 9) mat.banker[i] = 0;
+		bankerComb += mat.banker[i];
+	}
+	playerComb = playerComb % 10;
+	bankerComb = bankerComb % 10;
+
+	int multi = 0;
+	if (playerComb > bankerComb) {
+		playerBet = true;
+	}
+	else if (playerComb < bankerComb) {
+		bankerBet = true;
+	}
+	else if (playerComb == bankerComb) {
+		tieBet = true;
+	}
+	int totalBet = 0;
+	for (int i = 0; i < bets.size(); i++) {
+		if (bets[i].betType == 0 && tieBet) {
+			totalBet += bets[i].moneyBet;
+			if (multi == 0)
+			{
+				multi = bets[i].multiplier;
+			}
+		}
+		else if (bets[i].betType == 1 && bankerBet) {
+			totalBet += bets[i].moneyBet;
+			if (multi == 0)
+			{
+				multi = bets[i].multiplier;
+			}
+		}
+		else if (bets[i].betType == 2 && playerBet) {
+			totalBet += bets[i].moneyBet;
+			if (multi == 0)
+			{
+				multi = bets[i].multiplier;
+			}
+		}
+	}
+
+	if (totalBet > 0) {
+		game->push(new Award(game, (GameState*)this, totalBet, totalBet * multi, true));
+		hasWon = true;
+	}
+	PlayerEconomy::setBet(0);
+	hud->refresh();
+	clearBets();
+	timeForWin = true;
+}
+
 void BaccaratBet::repeatBet() {
 	for (int i = 0; i < betsHistory.size(); i++)
 		bets[i] = { betsHistory[i].multiplier * 2, betsHistory[i].moneyBet * betsHistory[i].multiplier, betsHistory[i].betType };

@@ -6,7 +6,7 @@ BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(gam
 	int w = (int)(Game::WIN_WIDTH * (480.0f / 1920.0f));
 	int h = (int)(Game::WIN_WIDTH * (135.0f / 1920.0f));
 	int posA = (int)(Game::WIN_WIDTH * (648.0f / 1920.0f));
-	createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posA, w , h, 2, 2);
+	createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posA, w, h, 2, 2);
 }
 
 void BaccaratBlackjack::handCards() {
@@ -85,13 +85,13 @@ void BaccaratBlackjack::victory() {
 	int totalBet = 0;
 	for (int i = 0; i < bets.size(); i++) { totalBet += bets[i].moneyBet; }
 	if (totalCards(mat.player) == 21) {
-		game->push(new Award(game, (GameState*)this, totalBet, 6 * totalBet));
+		game->push(new Award(game, (GameState*)this, totalBet, 6 * totalBet, true));
 	}
 	else if (totalCards(mat.player) > totalCards(mat.banker) && totalCards(mat.player) <= 21 || totalCards(mat.banker) > 21) {
-		game->push(new Award(game, (GameState*)this, totalBet, 4 * totalBet));
+		game->push(new Award(game, (GameState*)this, totalBet, 4 * totalBet, true));
 	}
 	else if (totalCards(mat.banker) == totalCards(mat.player) && totalCards(mat.banker) <= 21 && totalCards(mat.player) <= 21 && !win) {
-		game->push(new Award(game, (GameState*)this, totalBet, totalBet));
+		game->push(new Award(game, (GameState*)this, totalBet, totalBet, true));
 	}
 
 	timeForWin = true;

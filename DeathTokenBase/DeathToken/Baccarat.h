@@ -88,7 +88,7 @@ public:
 	int generateRnd();
 	Card* createCard(int a, int b, int rot, int frame);
 	virtual void addCards();
-	void win();
+	virtual void win();
 	void showTutorial() override { ui->OnInfo(); };//IMPORTANTE PARA QUE SALGA EL TUTORIAL AL PRINCIPIO
 
 	//metodos apuestas

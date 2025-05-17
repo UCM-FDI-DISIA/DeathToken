@@ -49,4 +49,5 @@ public:
 	void render() const override;
 	void update() override;
 	void showTutorial() override {};
+	void win() override;
 };
