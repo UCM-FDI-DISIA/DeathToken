@@ -1,16 +1,24 @@
 #include "marbles.h"
-#include "game.h"	
-#include <iostream>
+#include "marblesInsanity.h"
+#include "game.h"
+#include "sdlUtils.h"
 
-
-
-Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
+Marbles::Marbles(Game* game, std::vector<int> blockedMarble, bool insanity) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
 	marbles({ 0,0,0,0 }),
-	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
-	game->getTexture(BLUEMARBLE),
-	game->getTexture(YELLOWMARBLE) }),
-	bInsanity (false)
+	RMarbles({ game->getTexture(REDMARBLEREAL),game->getTexture(GREENMARBLEREAL),
+	game->getTexture(BLUEMARBLEREAL),
+	game->getTexture(YELLOWMARBLEREAL) }),
+	tube(game->getTexture(MARBLESTUBE)),
+	slot(game->getTexture(MARBLESLOT)),
+	insanity (insanity)
 {
+	tubeRect = SDL_Rect((int)(584.0f / 1920.0f * Game::WIN_WIDTH), (int)(-155.0f / 1080.0f * Game::WIN_HEIGHT),
+						(int)(150.0f / 1920.0f * Game::WIN_WIDTH), (int)(155.0f / 1080.0f * Game::WIN_HEIGHT));
+	for (int i = 0; i < 3; i++)
+	{
+		slotRects[i] = SDL_Rect((int)(593.0f + (300 * i) / 1920.0f * Game::WIN_WIDTH), (int)(235.0f / 1080.0f * Game::WIN_HEIGHT),
+								(int)(132.0f / 1920.0f * Game::WIN_WIDTH), (int)(82.0f / 1080.0f * Game::WIN_HEIGHT));
+	}
 	ui = new UIMarbles(this, game, this);
 	Marbles::marblesButtonCreation();
 	hud = new HUDBet(this, false);
@@ -24,6 +32,9 @@ Marbles::~Marbles() {
 
 void  Marbles::generateMarbles() {
 	//En un vector voy metiendo aleatoriamente +1, representando ROJO/VERDE/AZUL/AMARILLO
+	tubeRect = SDL_Rect((int)(584.0f / 1920.0f * Game::WIN_WIDTH), (int)(-155.0f / 1080.0f * Game::WIN_HEIGHT),
+		(int)(150.0f / 1920.0f * Game::WIN_WIDTH), (int)(155.0f / 1080.0f * Game::WIN_HEIGHT));
+	animPhase = 1;
 	marbles = { 0,0,0,0 };
 	drawnMarbles.clear();
 
@@ -36,23 +47,182 @@ void  Marbles::generateMarbles() {
 	}
 
 	int pos = 1;
-	SDL_Rect auxBox;
 
 	std::uniform_int_distribution<>distrib(0,(int) validColors.size() - 1);
 
 	for (int i = 0; i < 3; i++) {
 		int color = validColors[distrib(game->getGen())];
 
+		marbleRects[i] = SDL_Rect((int)(606.0f + (300 * i) / 1920.0f * Game::WIN_WIDTH), (int)(75.0f / 1080.0f * Game::WIN_HEIGHT),
+								  (int)(107.0f / 1920.0f * Game::WIN_WIDTH), (int)(107.0f / 1080.0f * Game::WIN_HEIGHT));
 		marbles[color]++;
-		auxBox.x = Game::WIN_WIDTH /4 * pos;
-		auxBox.y = Game::WIN_HEIGHT/  6;
-		auxBox.w = (int)(124.0 / 1920.0 * Game::WIN_WIDTH);
-		auxBox.h = (int)(124.0 / 1080.0 * Game::WIN_HEIGHT);
 		
-		drawnMarbles.push_back({ RMarbles[color], auxBox });
+		drawnMarbles.push_back({ RMarbles[color], marbleRects[i]});
 		pos++;
 	}
 	pos = 0;
+	ui->setOnBet(true);
+}
+void Marbles::marblesAnim()
+{
+	if (ui->getOnBet())
+	{
+		float dt = SDLUtils::getDeltaTime();
+		switch (animPhase)
+		{
+		case 1:
+		{
+			static int height = 0;
+
+			int maxHeight = 150;
+
+			if (height < maxHeight)
+			{
+				int aux = 350 * dt;
+				tubeRect.y += aux;
+				height += aux;
+			}
+			else {
+				height = 0;
+				tubeRect.y = (int)(-5.0f / 1080.0f * Game::WIN_HEIGHT);
+				animPhase++;
+			}
+		}
+		break;
+		case 2:
+		{
+			static int height = 0;
+
+			int maxHeight = 100;
+
+			if (height < maxHeight)
+			{
+				int aux = 300 * dt;
+				marbleRects[0].y += aux;
+				height += aux;
+			}
+			else {
+				height = 0;
+				marbleRects[0].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				animPhase++;
+			}
+		}
+			break;
+		case 3:
+		{
+			static int move = 0;
+
+			int maxMove = 300;
+
+			if (move < maxMove)
+			{
+				int aux = 350 * dt;
+				tubeRect.x += aux;
+				move += aux;
+			}
+			else {
+				move = 0;
+				(int)((593.0f + (300 * 1)) / 1920.0f * Game::WIN_WIDTH);
+				animPhase++;
+			}
+		}
+			break;
+		case 4:
+		{
+			static int height = 0;
+
+			int maxHeight = 100;
+
+			if (height < maxHeight)
+			{
+				int aux = 300 * dt;
+				marbleRects[1].y += aux;
+				height += aux;
+			}
+			else {
+				height = 0;
+				marbleRects[1].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				animPhase++;
+			}
+		}
+			break;
+		case 5:
+		{
+			static int move = 0;
+
+			int maxMove = 300;
+
+			if (move < maxMove)
+			{
+				int aux = 350 * dt;
+				tubeRect.x += aux;
+				move += aux;
+			}
+			else {
+				move = 0;
+				tubeRect.x = (int)((593.0f + (300 * 2)) / 1920.0f * Game::WIN_WIDTH);
+				animPhase++;
+			}
+		}
+			break;
+		case 6:
+		{
+			static int height = 0;
+
+			int maxHeight = 100;
+
+			if (height < maxHeight)
+			{
+				int aux = 300 * dt;
+				marbleRects[2].y += aux;
+				height += aux;
+			}
+			else {
+				height = 0;
+				marbleRects[2].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				animPhase++;
+			}
+		}
+			break;
+		case 7:
+		{
+			static int height = 0;
+
+			int maxHeight = -155;
+
+			if (height > maxHeight)
+			{
+				int aux = -350 * dt;
+				tubeRect.y += aux;
+				height += aux;
+			}
+			else {
+				height = 0;
+				betManagement();
+				ui->setOnBet(false);
+			}
+		}
+			break;
+		default:
+			break;
+		}
+	}
+}
+void Marbles::betManagement()
+{
+	long long moneyWin = checkBets();//Comparar canicas con apuesta
+	//Segun la apuesta porX al dinero metido
+
+	if (moneyWin > 0) {
+		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
+	}
+	else {
+		PlayerEconomy::setBet(0);
+		hud->refresh();
+	}
+
+	clearBets();
+	betDone = true;
 }
 int  Marbles::checkBets() {
 	int moneyWin = 0;
@@ -93,32 +263,44 @@ int  Marbles::checkBets() {
 
 void Marbles::startRound() {
 	generateMarbles();//Se generar las canicas aleatorias
-	long long moneyWin = checkBets();//Comparar canicas con apuesta
-	//Segun la apuesta porX al dinero metido
-
-	if (moneyWin > 0) {
-		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
-	}
-	else {
-		PlayerEconomy::setBet(0);
-		hud->refresh();
-	}
-	
-	clearBets();
 }
 void Marbles::update() {
 	
 	GameState::update();
+	marblesAnim();
+	if (betDone && insanity)
+	{
+		if (PlayerEconomy::getInsanity() > 0)
+		{
+			render();
+			SDL_RenderPresent(game->getRenderer());
+			SDL_Delay(2000);
+			game->pop();
+			game->push(new MarblesInsanity(game));
+		}
+		else
+		{
+			render();
+			SDL_RenderPresent(game->getRenderer());
+			SDL_Delay(2000);
+			game->pop();
+			game->push(new Marbles(game, {0, 0, 0, 0}, false));
+		}
+	}
 	
 }
 
 void Marbles::render() const {
 	texture->render();
 	GameState::render();
-	for (const auto& marble : drawnMarbles) {
-		marble.first->render(marble.second); 
+	for (int i = 0; i < (animPhase / 2); i++) {
+		drawnMarbles[i].first->render(drawnMarbles[i].second);
 	}
-	
+	for (int i = 0; i < 3; i++)
+	{
+		slot->render(slotRects[i]);
+	}
+	tube->render(tubeRect);
 
 }
 void  Marbles::marblesButtonCreation() {
@@ -237,6 +419,7 @@ void Marbles::repeat()
 	{
 		i->repeat();
 	}
+	hud->refresh();
 }
 
 void Marbles::setBlockedMarble(std::vector<int> blocked)

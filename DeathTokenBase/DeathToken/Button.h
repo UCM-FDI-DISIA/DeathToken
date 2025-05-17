@@ -19,16 +19,17 @@ protected:
 	Callback cb;
 	bool hover;
 	bool clicked;
-private:
-	int frame;
+	bool perma = false;
 public:
-	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr, int frame = 0);
-	virtual ~Button() {}
+	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr);
+	virtual ~Button() { text = nullptr; textC = nullptr; };
 	void render() const override;
 	void update() override;
+	void updatePerma();
 	void handleEvent(const SDL_Event&) override;
 	void connect(Callback);
 	bool playerHovered(const SDL_Rect& playerRect);
+	bool getPermaState() { return perma; };
 	//getters para mantener private los atributos pero poder acceder desde menu
 	Callback getCallback() { return cb; };
 	bool& getHover() { return hover; };
@@ -40,7 +41,8 @@ protected:
 	SDL_Rect boxB;
 public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
-	~ButtonUI() {}
+	~ButtonUI() override = default;
+	void movePos(int x, int y);
 	void render() const override;
 };
 
@@ -64,7 +66,7 @@ protected:
 	};
 public:
 	ButtonBet(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*);
-	~ButtonBet() {}
+	~ButtonBet() override {};
 	TextureName showChip();
 	void clear();
 	void repeat();
@@ -89,7 +91,7 @@ protected:
 public:
 	ButtonChip(GameState*, UI* ui, int x, int y, int w, int h, int id,
 		int v0, int v1, int v2, Texture*, Texture*, Texture*);
-	~ButtonChip() {}
+	~ButtonChip() override {};
 	void setOnUse(const bool& val);
 	void changePage(const int& n);
 	void update() override;
@@ -106,7 +108,7 @@ protected:
 	std::vector<int> NCMarbles;
 public:
 	ButtonMarbles(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture*, Texture*, int type, std::vector<int>);
-	~ButtonMarbles() {}
+	~ButtonMarbles() override {}
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 };
@@ -129,7 +131,7 @@ protected:
 	std::vector<int> NCBaccarat;
 public:
 	ButtonBaccarat(GameState*, Game* game, UI* ui, int x, int y, int w, int h);
-	~ButtonBaccarat() {}
+	~ButtonBaccarat() override {};
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 	void repeatDoubleBet() { currentBet = betHistory * 2; };
@@ -140,7 +142,7 @@ class ButtonSlots : public ButtonBet
 {
 public:
 	ButtonSlots(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text);
-	~ButtonSlots() {}
+	~ButtonSlots() override {};
 	void render() const override;
 	virtual void handleEvent(const SDL_Event& event) override;
 };
@@ -159,7 +161,7 @@ private:
 	EscenaTutorial* _tut;
 public:
 	ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text,EscenaTutorial* tut);
-	~ButtonTutorial();
+	~ButtonTutorial() override;
 	void render() const override;
 	virtual void handleEvent(const SDL_Event& event) override;
 };

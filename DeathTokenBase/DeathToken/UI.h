@@ -24,6 +24,8 @@ protected:
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
+	bool getOnBet() { return onBet; };
+	void setOnBet(bool onBet) { this->onBet = onBet; };
 	UI(GameState* g, Game* game);
 
 	void changeChip(const int& id);
@@ -188,8 +190,6 @@ protected:
 	GameState* gS;
 	Game* game;
 	ButtonUI* exit;
-	ButtonUI* arrowNext;
-	ButtonUI* arrowBack;
 	size_t totalPages;//pags totales tuto
 	bool arrow = false;
 public:
@@ -197,12 +197,6 @@ public:
 	inline int relativeY(const float& n);
 
 	UITutorial(GameState* gS, Game* game, size_t tam);
-	virtual ~UITutorial() { 
-		gS->deleteSpecificEH(arrowBack); 
-		gS->deleteSpecificEH(arrowNext);
-		gS->deleteSpecificGO(arrowNext);
-		gS->deleteSpecificGO(arrowBack);
-	};
 	void OnExit();
 	ButtonUI* downArrow();
 	ButtonUI* upArrow();

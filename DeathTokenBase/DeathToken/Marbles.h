@@ -23,15 +23,22 @@ protected:
 	std::vector<int> marbles;
 	std::map<int, Bet> bets;
 	std::map<int, Bet> betsHistory;
+	Texture* tube;
+	SDL_Rect tubeRect;
+	Texture* slot;
+	SDL_Rect slotRects[3];
+	SDL_Rect marbleRects[3];
 	std::vector<Texture*> RMarbles;
-	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
+	std::vector<std::pair<Texture*, SDL_Rect&>> drawnMarbles;
 	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
+	bool betDone = false;
 	long long moneyBet;
 	long long turnMoneyBet;
 	int clave = 0;
+	int animPhase = 1;
 
-	bool bInsanity;
+	bool insanity;
 	std::vector<int> blockedMarble;
 
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
@@ -45,12 +52,14 @@ protected:
 	double marginW = (10.0 / 1920.0) * Game::WIN_WIDTH;
 	double marginH = (10.0 / 1080.0) * Game::WIN_WIDTH;
 public:
-	Marbles(Game* game, std::vector<int> blockedMarble);
+	Marbles(Game* game, std::vector<int> blockedMarble, bool insanity);
 	virtual ~Marbles();
 	void render() const override;
 	void update() override;
 
-	void  generateMarbles();
+	void generateMarbles();
+	void marblesAnim();
+	void betManagement();
 	int checkBets();
 	void startRound();
 	void createMarbleButton(int x, int y, int width, int height, Texture*, Texture*, int type, std::vector<int> NCMarbles);

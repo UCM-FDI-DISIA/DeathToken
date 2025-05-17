@@ -35,7 +35,8 @@ void GameState::deleteSpecificGO(GameObject* obj)//Elimina el objeto de la lista
 {
 	for (auto& o : gameObjects) {
 		if (o == obj) {
-			gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), obj), gameObjects.end());
+			erase(gameObjects, obj);
+			delete obj;
 			return;
 		}
 	}

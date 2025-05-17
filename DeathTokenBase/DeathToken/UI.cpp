@@ -164,7 +164,10 @@ UISlots::OnErase() {
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
 void UIMarbles::OnGo() {
-	marbles->startRound();
+	if (!onBet)
+	{
+		marbles->startRound();
+	}
 }
 
 void UIMarbles::OnErase() {
@@ -188,7 +191,11 @@ void UIMarbles::OnInfo()
 //MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
 void UIMarblesInsanity::OnGo() {
-	marblesI->StartRoundTrickster();
+	if (!go->getPermaState())
+	{
+		marblesI->StartRoundTrickster();
+		PlayerEconomy::subtractInsanity(1);
+	}
 }
 
 void UIMarblesInsanity::OnInfo()
@@ -203,10 +210,12 @@ void UIMarblesInsanity::render() const
 {
 	info->render();
 	go->render();
+	exit->render();
 }
 void UIMarblesInsanity::update() {
 	info->update();
-	go->update();
+	go->updatePerma();
+	exit->update();
 }
 
 
@@ -344,8 +353,8 @@ void UITutorial::OnExit() {
 
 ButtonUI* UITutorial::downArrow()
 {
-	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
-	gS->addObjectsUI(arrowNext);
+	ButtonUI* arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
+	gS->addObjects(arrowNext);
 	gS->addEventListener(arrowNext);
 
 	arrowNext->connect([this]() {
@@ -359,8 +368,8 @@ ButtonUI* UITutorial::downArrow()
 
 ButtonUI* UITutorial::upArrow()
 {
-	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
-	gS->addObjectsUI(arrowBack);
+	ButtonUI* arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
+	gS->addObjects(arrowBack);
 	gS->addEventListener(arrowBack);
 
 	arrowBack->connect([this]() {

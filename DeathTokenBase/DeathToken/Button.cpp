@@ -23,6 +23,22 @@ Button::update()
 	int mouseState = SDL_GetMouseState(NULL, NULL);
 	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
 }
+void Button::updatePerma()
+{
+	if (!perma)
+	{
+		SDL_Point point;
+		SDL_GetMouseState(&point.x, &point.y);
+
+		// Comprueba si el ratón está sobre el rectángulo
+		hover = SDL_PointInRect(&point, &box);
+		// Comprueba si se está haciendo click
+		int mouseState = SDL_GetMouseState(NULL, NULL);
+		clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
+		if (clicked)
+			perma = true;
+	}
+}
 void Button::render() const {
 	if (hover && textC == nullptr) {
 		SDL_Rect point(box.x, box.y, box.h, box.h);
@@ -62,6 +78,14 @@ ButtonUI::ButtonUI(GameState* g, int x, int y, int w, int h, Texture* t, Texture
 	boxB.y = (int)(y - (h * 0.05f));
 	boxB.w = (int)(w * 1.1f);
 	boxB.h = (int)(h * 1.1f);
+}
+void ButtonUI::movePos(int x, int y)
+{
+	box.x += x;
+	box.y += y;
+
+	boxB.x += x;
+	boxB.y += y;
 }
 void
 ButtonUI::render() const
@@ -114,6 +138,7 @@ void
 ButtonBet::repeat()
 {
 	currentBet = betHistory;
+	HUDManager::applyBet(betHistory);
 }
 int
 ButtonBet::getBet()

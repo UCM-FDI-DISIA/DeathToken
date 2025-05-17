@@ -17,7 +17,10 @@ public:
     //Constructora para usar contorno con colores, si no se especifica alineamiento a la izquierda
     Text(GameState* gS, TTF_Font* typo, int x, int y, int outlineSize,
          SDL_Color textColor, SDL_Color outlineColor, Alignment alignment = IZQUIERDA);
-    virtual ~Text() { renderer = nullptr; };
+    virtual ~Text() {
+        renderer = nullptr;
+        font = nullptr;
+    };
     void setFont(TTF_Font* newFont);
     void setPos(int x, int y);
     std::string getMessage();
@@ -26,7 +29,7 @@ public:
     void eraseMessage();
     void setColor(int red, int green, int blue, int alpha);
     void setOutlineColor(int red, int green, int blue, int alpha);
-    //Para cajas de texto, por defecto el ancho es infinito (no habrá saltos de línea automáticos)
+    //Para cajas de texto, por defecto el ancho es infinito (no habrï¿½ saltos de lï¿½nea automï¿½ticos)
     void setWidth(int width);
     void update() override {};
     void render() const override;

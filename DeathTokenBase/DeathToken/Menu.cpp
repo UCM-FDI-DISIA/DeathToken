@@ -78,7 +78,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 })); });
+	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 }, false)); });
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -90,7 +90,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
 	//Widht, height, position roulette button
-	wBut = Game::WIN_WIDTH / 4.33; hBut = Game::WIN_HEIGHT / 3.967;
+	wBut = Game::WIN_WIDTH / 3.549; hBut = Game::WIN_HEIGHT / 3.967;
 	xBut = Game::WIN_WIDTH / 2.0 - wBut / 2; yBut = Game::WIN_HEIGHT * (200.0 / 1080.0);
 	roulette = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(ROULETTEBUT), (int)wBut, (int)hBut);
 	addObjects(roulette);
