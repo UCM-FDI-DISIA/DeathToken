@@ -20,14 +20,13 @@ protected:
 	std::vector<ButtonChip*> chips;
 	int chipOnUse;
 	void OnArrow(const bool& left);
-
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
 	bool getOnBet() { return onBet; };
 	void setOnBet(bool onBet) { this->onBet = onBet; };
 	UI(GameState* g, Game* game);
-
+	virtual ~UI() = default;
 	void changeChip(const int& id);
 	int currentChipValue();
 
@@ -49,6 +48,7 @@ protected:
 
 public:
 	UIChips(GameState* gS, Game* game);
+	virtual ~UIChips() = default;
 };
 class Slots;
 class UISlots : public UI
@@ -85,9 +85,9 @@ class MarblesInsanity;
 class UIMarblesInsanity : public UIChips {
 protected:
 	MarblesInsanity* marblesI;
-	std::vector<ButtonBet*> bets;
 public:
 	UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marbles);
+	~UIMarblesInsanity() override = default;
 	void OnGo() override;
 	void render() const;
 	void update();

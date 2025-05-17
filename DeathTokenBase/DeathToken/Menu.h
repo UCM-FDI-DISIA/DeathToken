@@ -47,7 +47,7 @@ class Menu : public GameState
 public:
 	Menu(Game* game);
 	virtual ~Menu();
-	void gameChanger(GameState* juego);
+	GameState* gameSelec(int id);
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event);//para colisiones con button

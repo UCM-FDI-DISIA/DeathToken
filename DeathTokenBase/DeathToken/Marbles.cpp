@@ -265,9 +265,8 @@ void Marbles::startRound() {
 	generateMarbles();//Se generar las canicas aleatorias
 }
 void Marbles::update() {
-	
 	GameState::update();
-	marblesAnim();
+	
 	if (betDone && insanity)
 	{
 		if (PlayerEconomy::getInsanity() > 0)
@@ -287,6 +286,7 @@ void Marbles::update() {
 			game->push(new Marbles(game, {0, 0, 0, 0}, false));
 		}
 	}
+	marblesAnim();
 	
 }
 
@@ -387,7 +387,8 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 		addObjects(marbleButtons.back());
 		addEventListener(marbleButtons.back());
 		btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() {
-			newBet(NCMarbles, multiplier, moneyBet, btnMarbles);
+			if(!ui->getOnBet())
+				newBet(NCMarbles, multiplier, moneyBet, btnMarbles);
 			});
 	}
 	

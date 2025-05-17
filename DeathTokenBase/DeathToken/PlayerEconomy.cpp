@@ -2,12 +2,12 @@
 #include "playerEconomy.h"
 #include "hud.h"
 
-//Inicialización máquina
+//Inicializaciï¿½n mï¿½quina
 long long PlayerEconomy::blueSouls = 0;
 long long PlayerEconomy::redSouls = 0;
 int PlayerEconomy::insanity = 0;
 long long PlayerEconomy::bet = 0;
-//Inicialización funcional
+//Inicializaciï¿½n funcional
 void
 PlayerEconomy::EconomyInitialize(bool savedGame)
 {
@@ -83,16 +83,22 @@ void
 PlayerEconomy::subtractBlueSouls(long long blueSouls)
 {
 	PlayerEconomy::blueSouls -= blueSouls;
+	if (PlayerEconomy::blueSouls < 0)
+		PlayerEconomy::blueSouls = 0;
 }
 void
 PlayerEconomy::subtractRedSouls(long long redSouls)
 {
 	PlayerEconomy::redSouls -= redSouls;
+	if (PlayerEconomy::redSouls < 0)
+		PlayerEconomy::redSouls = 0;
 }
 void
 PlayerEconomy::subtractInsanity(int insanity)
 {
 	PlayerEconomy::insanity -= insanity;
+	if (PlayerEconomy::insanity < 0)
+		PlayerEconomy::insanity = 0;
 }
 void
 PlayerEconomy::subtractBet(long long bet)

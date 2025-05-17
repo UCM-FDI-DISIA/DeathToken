@@ -47,9 +47,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(baccarat);
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
-		gameChanger(baccaratState = new Baccarat(getGame()));
-		if (tutorialBaccarat && eco->getInsanity() == 0)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		baccaratState = gameSelec(0);
+		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
+			getGame()->push(baccaratState);
 			tutorialBaccarat = false;
 			baccaratState->showTutorial();
 		}
@@ -61,14 +62,15 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(SLOTSBUT), (int)wBut, (int)hBut);
 	addObjects(slots);
 	addEventListener(slots);
-	slots->connect([this]() { slotsState = new SlotsNormal(getGame());
-	gameChanger(slotsState);
-	if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
-	{
-		tutorialSlots = false;
-		slotsState->showTutorial();
-	}
-		});
+	slots->connect([this]() {
+    slotsState = gameSelec(1);
+    if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+    {
+        getGame()->push(slotsState);
+        tutorialSlots = false;
+        slotsState->showTutorial();
+    }
+    });
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
 	//Widht, height, position marbles button
@@ -78,7 +80,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { gameChanger(new Marbles(getGame(), { 0,0,0,0 }, false)); });
+	marbles->connect([this]() { getGame()->push(gameSelec(2)); });
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -86,7 +88,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { gameChanger(new Peleas(getGame())); });
+	fights->connect([this]() { getGame()->push(gameSelec(3)); });
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
 	//Widht, height, position roulette button
@@ -95,7 +97,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	roulette = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(ROULETTEBUT), (int)wBut, (int)hBut);
 	addObjects(roulette);
 	addEventListener(roulette);
-	roulette->connect([this]() { gameChanger(new rouletteChoose(getGame(), eco)); });
+	roulette->connect([this]() { getGame()->push(new rouletteChoose(getGame(), eco)); });
 	obstaculos.push_back(cambiarColisiones(roulette->getCollisionRect()));
 
 	if (ghost == nullptr) {
@@ -111,33 +113,46 @@ Menu::~Menu() {
 	delete eco;
 }
 
-void Menu::gameChanger(GameState* juego) {
-	if (eco->getInsanity() > 0 && typeid(*juego) != typeid(rouletteChoose))
+GameState*
+Menu::gameSelec(int id) {
+	GameState* game = nullptr;
+	if (eco->getInsanity() == 0)
 	{
-		GameState* old = juego;
-		if (typeid(*juego) == typeid(Baccarat)) {
-			juego = new BaccaratInsanityManager(getGame());
+		switch (id)
+		{
+		case 0:
+			game = new Baccarat(getGame());
+			break;
+		case 1:
+			game = new SlotsNormal(getGame());
+			break;
+		case 2:
+			game = new Marbles(getGame(), { 0,0,0,0 }, false);
+			break;
+		case 3:
+			game = new Peleas(getGame());
+			break;
 		}
-		else if (typeid(*juego) == typeid(Marbles)) {
-			juego = new MarblesInsanity(getGame());
-		}
-		else if (typeid(*juego) == typeid(SlotsNormal)) {
-			juego = new SlotsInsanity(getGame());
-			slotsState = juego;
-			if (tutorialSlotsLocura)
-			{
-				tutorialSlots = true;
-				tutorialSlotsLocura = false;
-			}
-		}
-		else if (typeid(*juego) == typeid(Peleas)) {
-			juego = new PeleasInsanity(getGame());
-		}
-		delete old;
-
 	}
-	game->push(juego);
-
+	else
+	{
+		switch (id)
+		{
+		case 0:
+			game = new BaccaratInsanityManager(getGame());
+			break;
+		case 1:
+			game = new SlotsInsanity(getGame());
+			break;
+		case 2:
+			game = new MarblesInsanity(getGame());
+			break;
+		case 3:
+			game = new Peleas(getGame());
+			break;
+		}
+	}
+	return game;
 }
 
 void Menu::render() const {

@@ -25,6 +25,7 @@ MarblesInsanity::~MarblesInsanity()
 	}
 	HUDManager::popGame();
 	delete uiI;
+	uiI = nullptr;
 }
 
 void MarblesInsanity::render() const
@@ -83,6 +84,7 @@ void MarblesInsanity::update()
 	}
 	else {
 		elapsedTime = 0.0f;
+		height = 0;
 		for (auto btn : trileroButtons) {
 			btn->update();
 
