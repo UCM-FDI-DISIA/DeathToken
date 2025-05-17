@@ -3,8 +3,10 @@
 
 BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)), counterEx(game->getTexture(COUNTER)), counterBEx(game->getTexture(COUNTER)) {
 	ui->isBlackJack = true;
-
-	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + Game::WIN_HEIGHT/10, Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 8, 2, 2);
+	int w = (int)(Game::WIN_WIDTH * (480.0f / 1920.0f));
+	int h = (int)(Game::WIN_WIDTH * (135.0f / 1920.0f));
+	int posA = (int)(Game::WIN_WIDTH * (648.0f / 1920.0f));
+	createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posA, w , h, 2, 2);
 }
 
 void BaccaratBlackjack::handCards() {

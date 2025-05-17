@@ -3,7 +3,7 @@
 
 BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getTexture(BET)) {
 	ui->isBet = true;
-	btnBaccarattie = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8);
+	btnBaccarattie = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 , Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 8);
 	bacButtons.push_back(btnBaccarattie);
 	addObjects(bacButtons.back());
 	addEventListener(bacButtons.back());
