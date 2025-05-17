@@ -7,7 +7,7 @@
 <summary> Descripción del juego </summary>
 
 ## Descripción del juego
-Death Token consiste en una colección de juegos de casino en los cual tendrás que probar suerte para conseguir el mayor número de fichas y así mejorar y acercarte al objetivo final. Cada juego tendrá su mecánica en la que tendrás que jugar con cartas, manejar apuestas y desarrollar apuestas ganadoras. Podrás hacer uso además de una ruleta de la suerte  que te otorgue potenciadores y te ayude a obtener mejores beneficios. Uno de ellos será el **Modo Locura**, en el que cada juego se verá modificado con un giro inesperado. Si consigues ganar en este modo, otendrás un token especial llamado **alma roja**, que, consiguiendo suficientes, será el que te permita adquirir la victoria.
+Death Token consiste en una colección de juegos de casino en los cual tendrás que probar suerte para conseguir el mayor número de fichas y así mejorar y acercarte al objetivo final. Cada juego tendrá su mecánica en la que tendrás que jugar con cartas, manejar apuestas y desarrollar apuestas ganadoras. Podrás hacer uso además de una ruleta de la suerte que te otorgue potenciadores y te ayude a obtener mejores beneficios. Uno de ellos será el **Modo Locura**, en el que cada juego se verá modificado con un giro inesperado. Si consigues ganar en este modo, otendrás un token especial llamado **alma roja**, que, consiguiendo suficientes, será el que te permita adquirir la victoria.
 </details>
 
 <details>
@@ -15,12 +15,12 @@ Death Token consiste en una colección de juegos de casino en los cual tendrás 
 
 ## Jugabilidad
 ### Victoria/Derrota
-El objetivo del jugador es convertir su alma errante en la Muerte. Para ello, tendrá que conseguir suficientes fichas rojas para comprar la **Guadaña de la Muerte** o conseguirla en la ruleta del Casino.
+El objetivo del jugador es convertir su alma errante en la Muerte. Para ello, tendrá que conseguir suficientes fichas rojas (200) para comprar la **Guadaña de la Muerte** o conseguirla en la ruleta del Casino.
 
-Por el contrario, si el jugador pierde todas sus fichas de juego entra en bancarrota y pierde el juego.
+Por el contrario, si el jugador pierde todas sus fichas de juego entra en bancarrota y pierde el juego (te devuelve al menú inicial).
 
 ### Controles
-Para poder moverse en los menús y el mapa se usará el **joystick**, en mando, o **WASD**, en teclado, el movimiento será cartesiano (x,y). Para seleccionar se usará el botón **“B”** (XBox)/**“X”** (PlayStation)/**Click Izquierdo o Espacio**. Y la **cruceta** o las **flechas** para poder aumentar o disminuir la apuesta. 
+Para poder moverse en los menús y el mapa se usarán las **flechas** o **WASD**, en teclado, el movimiento será cartesiano (x,y). Para seleccionar se usará la tecla **“E”**. Para las apuestas y demás botones en los juego se usará el click izquierdo del ratón.
 ### Cámara
 En el **lobby**, la cámara mostrará un plano amplio **cenital** similar al de juegos como Pokémon o The Binding of Isaac para poder visualizar tanto al jugador como a la multitud de juegos que le rodean.
 
@@ -29,13 +29,13 @@ En los diferentes **juegos**, se mostrará un **plano frontal** de los mismos (V
 [Vista de la ruleta](https://github.com/user-attachments/assets/f2737f54-3456-4d6c-8e47-5358e3c03781)
 
 ### Ciclo de juego y menús
-El jugador iniciará el juego y se le presentará un **menú de inicio** donde aparecerá el título y unos botones para iniciar el juego y otro para salir, que brillarán verde cuando estén seleccionados. Al iniciar se verá una animación de apertura de puertas y accederás al interior del casino.
-Al entrar, el jugador con **sprite de fantasma** se encontrará en mitad de un **lobby con cuatro mesas de juegos** repartidas por el salón, junto con una **ruleta** con premios arriba a la izquierda y un stand en el extremo superior con **la Guadaña**.
+El jugador iniciará el juego y se le presentará un **menú de inicio** donde aparecerá el título, una caja de texto para registrar tú usuario y unos botones para iniciar el juego y otro para salir, que brillarán amarillo cuando estén seleccionados. Al iniciar accederás al interior del casino.
+Al entrar, el jugador con **sprite de fantasma** se encontrará en mitad de un **lobby con cuatro mesas de juegos** repartidas por el salón, junto con una **ruleta**.
 
-Inicialmente el jugador iniciará con **500 fichas** con las que apostar. El jugador se moverá por la zona y seleccionará el juego que quiere, acercándose a alguna de estas mesas, que se marcará con un reborde blanco indicando que puede seleccionarse.
+Inicialmente el jugador iniciará con **2000 fichas** con las que apostar. El jugador se moverá por la zona y seleccionará el juego que quiere, acercándose a alguna de estas mesas, que se marcará con brillo amarillo indicando que puede seleccionarse.
 Una vez finalizado el juego, el jugador puede salir del juego con **más monedas** si gana (multiplicando la apuesta por el **multiplicador obtenido**) o **perdiendo las monedas apostadas** si ha perdido. Cuando haya salido del juego podrá ir a la **ruleta**, moviéndose por el escenario y seleccionarla. En ella el jugador podrá **gastar fichas** a cambio de tiradas en las que podrá obtener **recompensas** que le ayuden a avanzar (o incluso lo perjudiquen).
 
-En el momento en el que el jugador **consigue la “milestone”** ganará la partida, en el que se verá en una **pantalla de victoria** cómo se ha convertido en la nueva Muerte; **si pierde todas las monedas** la perderá y se verá una pantalla de **Game Over** con su alma errante vagando por el infierno. En cualquiera de las dos, podrá volver al inicio pulsando cualquier botón.
+En el momento en el que el jugador **consigue la “milestone”** ganará la partida, en el que se verá en una **pantalla de victoria** cómo se ha convertido en la nueva Muerte; **si pierde todas las monedas** la perderá y se verá una pantalla de **Game Over** con su alma errante vagando por el infierno. En cualquiera de las dos, podrá volver al inicio pulsando el botón de menú.
 
 </details>
 
@@ -47,9 +47,9 @@ En el momento en el que el jugador **consigue la “milestone”** ganará la pa
   <summary> Sistema de fichas y ruleta </summary>
 	
 ### Sistema de fichas y Ruleta
-En cada juego podrás apostar una cantidad de **fichas básicas**, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas **10.000** podrás realizar un **tiro en la Ruleta**, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
+En cada juego podrás apostar una cantidad de **fichas básicas**, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas **500** podrás realizar un **tiro en la Ruleta**, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
 
-Las **fichas rojas o almas** son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de **200** de estas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
+Las **fichas y almas** son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de **200** almas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
 
 La Ruleta contará con 2 modos, igual que el resto de juegos:
 Modo normal:
@@ -71,11 +71,9 @@ Modo locura:
 <summary> Locura </summary>
 	
 ### Locura
-La locura es una mecánica que hará que se modifiquen los juegos, permitiendo un cambio drástico en la jugabilidad. Esta se implementará mediante una barra que irá incrementando con cada partida que juegues (también afectada por el resultado de la ruleta). Tras un spin de la ruleta existirá la posibilidad de conseguir locura. Una vez conseguida, se podrán invertir **5 jugadas** con locura en los juegos o en la ruleta.
-Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido.
-Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas.
+La locura es una mecánica que hará que se modifiquen los juegos, permitiendo un cambio drástico en la jugabilidad. Tras un spin de la ruleta existirá la posibilidad de conseguir locura. Una vez conseguida, se podrán invertir **10 jugadas** con locura en los juegos o en la ruleta.
+Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido además de fichas.
 
-Además por cada victoria el jugador recibirá una cantidad de **almas rojas** correspondiente al **multiplicador obtenido**.
 </details>
 
 <details>
@@ -85,8 +83,7 @@ Además por cada victoria el jugador recibirá una cantidad de **almas rojas** c
 #### Slots: 
 Utiliza la mecánica de los slots tradicionales: inicias con una apuesta y si consigues que tres figuras se alineen horizontalmente recuperarás el dinero multiplicado por la combinación ganadora.
 
-Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibujos (número 6, telaraña, calavera, ojo, gato negro, diablillo, murciélago). El jugador activará la máquina pulsando en una palanca y las tres columnas empezarán a dar vueltas dan con una animación ‘cartoon’ donde las opciones rotan rápidamente. El jugador parará las columnas de izquierda a derecha con el botón correspondiente. Si se ha conseguido alguna alienación, las celdas involucradas brillarán en amarillo y se mostrará en mitad de la pantalla el multiplicador obtenido.
-
+Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibujos (número 6, telaraña, calavera, ojo, gato negro, diablillo, murciélago). El jugador activará la máquina pulsando en una palanca y las tres columnas empezarán a dar vueltas dan con una animación ‘cartoon’ donde las opciones rotan rápidamente. El jugador parará las columnas de izquierda a derecha con el botón correspondiente. Si se ha conseguido alguna alienación, se obtendrán las recompensas.
 Valores a apostar:
 - 10, 20, 50
 
@@ -129,12 +126,11 @@ Las recompensas de las apuestas serán:
 		
 #### Modo Locura:
 
-Habrá una carta en la que saldrá un número aleatorio del uno al cuatro, dependiendo del número, se implementará una nueva mecánica al juego la cual afectará a las apuestas:
+De forma aleatoria podrás jugar a 3 juegos diferentes, siendo dos de éstos una modificación del Baccarat:
 
-1. Cambio de cartas: Una vez repartidas las dos cartas para la banca y para el jugador, se cambiara la segunda carta del jugador por la segunda carta de la banca antes de darles la vuelta.
-2. Dobles: si el jugador gana, gana el doble , si pierde, pierde el doble.
-3. Tercera carta obligatoria: se repartirá la tercera carta a la vez que las otras dos de forma que tanto la banca como el jugador jugarán con tres cartas de golpe y no habrá una cuarta.
-4. Acumulacion: en caso de que el jugador gane, tendrá que decidir si sigue apostando o termina la partida. Si sigue apostando, estará obligado a hacerlo con el dinero ganado en la anterior ronda, en caso de ganar la siguiente, sus ganancias no serán por dos sino por cuatro, y así sucesivamente. Pero si pierde, perderá todo lo ganado. En caso de ganar cinco veces seguidas se triplicara el multiplicador de apuesta en vez de duplicarlo, esto ocurrirá con cada cinco victorias.
+**1. BlackJack:** juego clásico del blackjack con una única apuesta a que ganas tú contra el banker. Consiste en ir pidiendo cartas hasta conseguir que su suma se acerque más a 21.
+**2. BaccaratFlipper:** modificación del Baccarat en la que te saldrán otras 3 cartas aleatorias. Debes darle la vuelta a dos, la tercera permanecerá bocabajo. Una vez dadas la vuelta, deberás elegir si ponerlas en el montón del player o del banker teniendo en cuenta que siempre tendrás que dar una a cada uno, la tercera al que prefieras. El resto del juego es como el Baccarat.
+**3.BaccaratBet:** modificación del Baccarat en la que en caso de que el jugador gane, tendrá que decidir si sigue apostando o termina la partida. Si sigue apostando, estará obligado a hacerlo con el dinero ganado en la anterior ronda, en caso de ganar la siguiente, sus ganancias no serán por dos sino por cuatro, y así sucesivamente. Pero si pierde, perderá todo lo ganado.
 
 #### Canicas:
 Se sacarán de un saco 3 bolas de colores. El objetivo del juego consiste en predecir de qué color van a salir las bolas de colores. Los colores son rojo, cian, verde y amarillo. Para decidir la apuesta, abajo de la pantalla habrá diferentes fichas con una cantidad de apuesta(10, 20, 50 etc). Una vez seleccionada se pondrá en las diferentes casillas que el jugador quiera depositar la apuesta, estas casillas serán 4 casillas con 1 bola de cada color, 10 casillas con combinaciones de 2 colores y 20 casillas de combinaciones de 3 colores. Cuando ya se acabe la apuesta, se verán como salen 3 bolas de colores, revelando que combinación de colores es la ganadora. Si el jugador ha ganado, recibirá un mensaje de cuántas fichas ha obtenido.
@@ -199,7 +195,7 @@ En el menú de pausa habrá un botón de Clasificación donde se mostrará, las 
 Todos los **botones** del juego funcionarán de la misma manera:
 al pasar el cursor por encima cambiarán a un color determinado más brillante y al hacer click en ellos, se encogerán de tamaño para luego dar paso a su acción determinada.
 
-En todas las pantallas del juego aparecerá siempre un **indicador** en la esquina superior izquierda con una ficha de poker al lado y a continuación la cantidad de **fichas** que tenga el jugador, y al lado, de la misma manera, aparecerá un **contador de almas**, pero con un símbolo de alma roja. La **barra de Locura**, de color morado, estará debajo de los contadores de ficha, y cuando se llene y se active el modo locura se volverá amarilla.
+En todas las pantallas del juego aparecerá siempre un **indicador** en la esquina superior derecha con la cantidad de **fichas** que tenga el jugador, y debajo, de la misma manera, aparecerá un **contador de almas**. La **barra de Locura**, de color amarillo, estará debajo de los contadores de ficha, y cuando se active el modo locura se llenará.
 
 Las imágenes a continuación se corresponden con una idea de cómo se va a visualizar la interfaz y el juego.
 
