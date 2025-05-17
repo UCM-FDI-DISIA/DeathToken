@@ -8,14 +8,16 @@ private:
 
 	Texture* texture;
 	bool gameFinish;
+	std::vector<Texture*> CMarbles;
 	std::vector<ButtonMarblesInsanity*> trileroButtons;
 	std::vector<int> dColor;
 	int posColor;
-	std::vector<Texture*> CMarbles;
 
 	SDL_Rect wMarble;
 	int wMarbleI;
 	bool wMarbleShow;
+
+	HUDBet* hud;
 
 public:
 	MarblesInsanity(Game* game);
@@ -23,10 +25,8 @@ public:
 	void render() const override;
 	void update() override;
 	void StartRoundTrickster();
-	void discardMarble(int x, int y, int widht, int height,bool marble,std::vector<int> color);
+	void discardMarble(bool marble);
 	void createTricksterButtons();
-	void createButtonT(int x, int y, int widht, int height, Texture* texture, Texture* textureC, bool marble, std::vector<int> marbleColor);
-
-
+	void createButtonT(int x, int y, int width, int height, Texture* texture, Texture* textureC, bool marble, std::vector<int> marbleColor);
 };
 

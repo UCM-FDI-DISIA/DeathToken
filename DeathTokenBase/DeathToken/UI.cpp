@@ -180,7 +180,11 @@ void UIMarbles::OnInfo()
 //MarblesInsanityUI
 UIMarblesInsanity::UIMarblesInsanity(GameState* gS, Game* game, MarblesInsanity* marblesI) : UIChips(gS, game), marblesI(marblesI) {}
 void UIMarblesInsanity::OnGo() {
-	marblesI->StartRoundTrickster();
+	if (!go->getPermaState())
+	{
+		marblesI->StartRoundTrickster();
+		PlayerEconomy::subtractInsanity(1);
+	}
 }
 
 void UIMarblesInsanity::OnInfo()
@@ -195,10 +199,12 @@ void UIMarblesInsanity::render() const
 {
 	info->render();
 	go->render();
+	exit->render();
 }
 void UIMarblesInsanity::update() {
 	info->update();
-	go->update();
+	go->updatePerma();
+	exit->update();
 }
 
 //BACCARAT UI

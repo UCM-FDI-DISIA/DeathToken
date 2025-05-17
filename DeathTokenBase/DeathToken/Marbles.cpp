@@ -1,13 +1,14 @@
 #include "marbles.h"
+#include "marblesInsanity.h"
 #include "game.h"	
 #include <iostream>
 
-Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
+Marbles::Marbles(Game* game, std::vector<int> blockedMarble, bool insanity) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
 	marbles({ 0,0,0,0 }),
 	RMarbles({ game->getTexture(REDMARBLE),game->getTexture(GREENMARBLE),
 	game->getTexture(BLUEMARBLE),
 	game->getTexture(YELLOWMARBLE) }),
-	bInsanity (false)
+	insanity (insanity)
 {
 	ui = new UIMarbles(this, game, this);
 	Marbles::marblesButtonCreation();
@@ -103,10 +104,30 @@ void Marbles::startRound() {
 	}
 	
 	clearBets();
+	betDone = true;
 }
 void Marbles::update() {
 	
 	GameState::update();
+	if (betDone && insanity)
+	{
+		if (PlayerEconomy::getInsanity() > 0)
+		{
+			render();
+			SDL_RenderPresent(game->getRenderer());
+			SDL_Delay(2000);
+			game->pop();
+			game->push(new MarblesInsanity(game));
+		}
+		else
+		{
+			render();
+			SDL_RenderPresent(game->getRenderer());
+			SDL_Delay(2000);
+			game->pop();
+			game->push(new Marbles(game, {0, 0, 0, 0}, false));
+		}
+	}
 	
 }
 
@@ -235,6 +256,7 @@ void Marbles::repeat()
 	{
 		i->repeat();
 	}
+	hud->refresh();
 }
 
 void Marbles::setBlockedMarble(std::vector<int> blocked)

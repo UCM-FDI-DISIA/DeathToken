@@ -4,16 +4,18 @@
 #include "game.h"	
 
 MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->getTexture(MARBLESBACK)), gameFinish(false), dColor({ 0,0,0,0 }) {
-	CMarbles.push_back(game->getTexture(REDMARBLE));
-	CMarbles.push_back(game->getTexture(GREENMARBLE));
-	CMarbles.push_back(game->getTexture(BLUEMARBLE));
-	CMarbles.push_back(game->getTexture(YELLOWMARBLE));
+	CMarbles.push_back(game->getTexture(REDMARBLEREAL));
+	CMarbles.push_back(game->getTexture(GREENMARBLEREAL));
+	CMarbles.push_back(game->getTexture(BLUEMARBLEREAL));
+	CMarbles.push_back(game->getTexture(YELLOWMARBLEREAL));
 	uiI = new UIMarblesInsanity(this, game, this);
 	wMarbleI = -1;
 	wMarble = { 0,0,0,0 };
 	wMarbleShow = false;
 	gameFinish = false;
 	posColor = -1;
+
+	hud = new HUDBet(this, false);
 }
 
 MarblesInsanity::~MarblesInsanity()
@@ -21,42 +23,62 @@ MarblesInsanity::~MarblesInsanity()
 	for (auto btn : trileroButtons) {
 		delete btn;
 	}
+	HUDManager::popGame();
 	delete uiI;
 }
 
 void MarblesInsanity::render() const
 {
-
-	if(!gameFinish){
+	if (!gameFinish) {
 		//render del trilero
 		texture->render();
 		for (auto btn : trileroButtons) {
 			btn->render();
-			
+
 		}
 		uiI->render();
 	}
 	else {
-
-	texture->render();
-	if (wMarbleShow) {
+		texture->render();
 		CMarbles[wMarbleI]->render(wMarble);
+		for (auto btn : trileroButtons) {
+			btn->render();
+
+		}
+		uiI->render();
 	}
-	}
+	hud->render();
 }
 
 void MarblesInsanity::update()
 {
 	static float elapsedTime = 0.0f;
+	static int height = 0;
+
+	int maxHeight = -100;
 
 	if (gameFinish) {
 		float dt = SDLUtils::getDeltaTime();
 		elapsedTime += dt;
 
-		if (elapsedTime >= 3.0f) {
+		if (elapsedTime >= 4.0f) {
 			elapsedTime = 0.0f;
 			game->pop();
-			game->push(new Marbles(game,dColor));
+			game->push(new Marbles(game,dColor, true));
+		}
+		else
+		{
+			if (height > maxHeight)
+			{
+				int aux = (int)(dt * -100);
+				for (auto i : trileroButtons)
+				{
+					i->movePos(0, aux);
+				}
+				height += aux;
+
+			}
+			
 		}
 	}
 	else {
@@ -91,50 +113,44 @@ void MarblesInsanity::createTricksterButtons()
 		std::vector<int> marbleColor = { 0, 0, 0, 0 };
 		if (i ==posColor) {
 			marbleColor = dColor;
-			createButtonT((Game::WIN_WIDTH / 4 * i)+ (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(211.0 / 1920.0 * Game::WIN_WIDTH), (int)(212.0 / 1080.0 * Game::WIN_HEIGHT),
+			createButtonT((Game::WIN_WIDTH / 4 * i)+ (int)(300.0 / 1920.0 * Game::WIN_WIDTH), (int)(400.0 / 1080.0 * Game::WIN_HEIGHT), (int)(211.0 / 1920.0 * Game::WIN_WIDTH), (int)(212.0 / 1080.0 * Game::WIN_HEIGHT),
 				game->getTexture(CUP), game->getTexture(CUP), true, marbleColor);
 		}
 		else {
 			
-			createButtonT((Game::WIN_WIDTH / 4 * i) + (int)(300.0 / 1920.0 * Game::WIN_WIDTH), Game::WIN_HEIGHT / 2, (int)(211.0 / 1920.0 * Game::WIN_WIDTH), (int)(212.0 / 1080.0 * Game::WIN_HEIGHT),
+			createButtonT((Game::WIN_WIDTH / 4 * i) + (int)(300.0 / 1920.0 * Game::WIN_WIDTH), (int)(400.0 / 1080.0 * Game::WIN_HEIGHT), (int)(211.0 / 1920.0 * Game::WIN_WIDTH), (int)(212.0 / 1080.0 * Game::WIN_HEIGHT),
 				game->getTexture(CUP), game->getTexture(CUP), false, marbleColor);
-			
-
 		}
-		
-			
 	}
 }
 
-void MarblesInsanity::createButtonT(int x, int y, int widht, int height, Texture* texture, Texture* textureC, bool marble, std::vector<int> marbleColor)
+void MarblesInsanity::createButtonT(int x, int y, int width, int height, Texture* texture, Texture* textureC, bool marble, std::vector<int> marbleColor)
 {
-	ButtonMarblesInsanity* btnTrickster = new ButtonMarblesInsanity(this, x, y, widht, height, texture, textureC, marble, marbleColor);
+	ButtonMarblesInsanity* btnTrickster = new ButtonMarblesInsanity(this, x, y, width, height, texture, textureC, marble, marbleColor);
 	trileroButtons.push_back(btnTrickster);
 	addEventListener(btnTrickster);
-	btnTrickster->connect([this,x,y,widht,height,marble,marbleColor]() { discardMarble(x,y, widht, height,marble,marbleColor); });
-
-}
-
-void MarblesInsanity::discardMarble(int x,int y,int widht,int height, bool marble,std::vector<int> color)
-{
-	if (marble) {
-		wMarbleShow = true;
-		wMarble.x = x;
-		wMarble.y = y;
-		wMarble.w = widht;
-		wMarble.h = height;
-		for (int i= 0; i < color.size(); i++) {
-			if (color[i] == 1) {
+	btnTrickster->connect([this,x,y,width,height,marble,marbleColor]() { discardMarble(marble); });
+	if (marble)
+	{
+		wMarble.x = x + (int)(52.0 / 1920.0 * Game::WIN_WIDTH);
+		wMarble.y = y + (int)(95.0 / 1080.0 * Game::WIN_HEIGHT);
+		wMarble.w = (int)(107.0 / 1920.0 * Game::WIN_WIDTH);
+		wMarble.h = (int)(107.0 / 1080.0 * Game::WIN_HEIGHT);
+		for (int i = 0; i < marbleColor.size(); i++) {
+			if (marbleColor[i] == 1) {
 				wMarbleI = i;
 			}
 		}
-		gameFinish = true;
 	}
-	else {
+
+}
+
+void MarblesInsanity::discardMarble(bool marble)
+{
+	if (!marble) {
 		dColor = { 0,0,0,0 };
-		gameFinish = true;
 	}
-	
+	gameFinish = true;
 }
 
 

@@ -27,11 +27,12 @@ protected:
 	std::vector<std::pair<Texture*, SDL_Rect>> drawnMarbles;
 	std::vector<ButtonMarbles*> marbleButtons;
 	bool play = false;
+	bool betDone = false;
 	long long moneyBet;
 	long long turnMoneyBet;
 	int clave = 0;
 
-	bool bInsanity;
+	bool insanity;
 	std::vector<int> blockedMarble;
 
 	double PosPW1 = (118.0 / 1920.0) * Game::WIN_WIDTH;
@@ -45,7 +46,7 @@ protected:
 	double marginW = (10.0 / 1920.0) * Game::WIN_WIDTH;
 	double marginH = (10.0 / 1080.0) * Game::WIN_WIDTH;
 public:
-	Marbles(Game* game, std::vector<int> blockedMarble);
+	Marbles(Game* game, std::vector<int> blockedMarble, bool insanity);
 	virtual ~Marbles();
 	void render() const override;
 	void update() override;

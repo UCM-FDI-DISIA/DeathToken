@@ -39,7 +39,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "map/Casino_slots_cut.png", 1, 1 });
 	v.push_back(TextureSpec{ "map/Casino_marbles_cut.png", 1, 1 });
 	v.push_back(TextureSpec{ "map/Casino_ring_cut.png", 1, 1 });
-	v.push_back(TextureSpec{ "map/Casino_roulette_cut.png", 1, 1 });
+	v.push_back(TextureSpec{ "map/Casino_roulette_cut_new.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/Exit.png", 1, 1 });
 	v.push_back(TextureSpec{ "ui/Exit_HV.png", 1, 1 });
 	///
@@ -107,6 +107,10 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/marbles/3_1_NoFill_Clicked_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_MRB.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/4_3_NoFill_Clicked_MRB.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/redMarble.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/greenMarble.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/blueMarble.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/yellowMarble.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon.png",1,1 });
 
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/RedMarbleIcon_sm.png",1,1 });
@@ -117,6 +121,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	//
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/YellowMarbleIcon.png",1,1 });
 	v.push_back(TextureSpec{ "ui/marbles/marble_icons/YellowMarbleIcon_sm.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/Marbles_tube.png",1,1 });
+	v.push_back(TextureSpec{ "marbles/Marbles_slot.png",1,1 });
 	v.push_back(TextureSpec{ "marbles/cup.png",1,1 });
 	v.push_back(TextureSpec{ "blackFont.png",1,1 });
 	v.push_back(TextureSpec{ "roulette/rouletteBG.png",1,1 });
@@ -273,6 +279,9 @@ Game::~Game() {
 	// Elimina las texturas
 	for (Texture* texture : textures)
 		delete texture;
+
+	for (TTF_Font* font : fonts)
+		TTF_CloseFont(font);
 	TTF_Quit();
 	// Desactiva la SDL
 	SDL_Quit();
