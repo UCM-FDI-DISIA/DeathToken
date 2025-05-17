@@ -1,4 +1,5 @@
 #include "hud.h"
+#include "game.h"
 
 inline int
 HUD::relativeX(const float& n)
@@ -42,15 +43,15 @@ int HUD::getNumberY(long long n)
 }
 HUD::HUD(GameState* gS) : GameObject(gS), gS(gS)
 {
-	
+
 	gS->addObjectsUI(this);
 
 	balanceDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600.0f), relativeY((float)70.0f),
-							   relativeX((float)3.0f), Text::DERECHA);
+		relativeX((float)3.0f), Text::DERECHA);
 	balanceDescText->setMessage("SALDO");
 	gS->addObjectsUI(balanceDescText);
 	balanceText = new Text(gS, gS->getGame()->getTypo((TypoName)getNumberSize(balance)), relativeX((float)1870.0f), relativeY((float)70.0f + getNumberY(balance)),
-						   relativeX((float)3.0f), Text::DERECHA);
+		relativeX((float)3.0f), Text::DERECHA);
 	balanceText->setMessage(std::to_string(balance));
 	gS->addObjectsUI(balanceText);
 
@@ -60,8 +61,15 @@ HUD::HUD(GameState* gS) : GameObject(gS), gS(gS)
 
 	for (uint i = 0u; i < 10u; i++)
 	{
-		insanityRectsH[i] = SDL_Rect(1525 + (i * 31), 230, 335, 115);
-		insanityRectsV[i] = SDL_Rect(1635, 337 - (i * 31), 335, 115);
+		int x = (int)(Game::WIN_WIDTH * ((1525 + i * 31) / 1920.0f));
+		int y = (int)(Game::WIN_HEIGHT * (230 / 1080.0f));
+		int w = (int)(Game::WIN_WIDTH * (335 / 1920.0f));
+		int h = (int)(Game::WIN_HEIGHT * (115 / 1080.0f));
+		insanityRectsH[i] = SDL_Rect(x, y, w, h);
+
+		x = (int)(Game::WIN_WIDTH * (1635 / 1920.0f));
+		y = (int)(Game::WIN_HEIGHT * ((337 - i * 31) / 1080.0f));
+		insanityRectsV[i] = SDL_Rect(x, y, w, h);
 	}
 }
 void
@@ -76,11 +84,11 @@ HUD::refresh()
 HUDLobby::HUDLobby(GameState* gS, bool roulette) : HUD(gS)
 {
 	redSoulsDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600), relativeY((float)150),
-								relativeX((float)3), Text::DERECHA);
+		relativeX((float)3), Text::DERECHA);
 	redSoulsDescText->setMessage("ALMAS");
 	gS->addObjectsUI(redSoulsDescText);
 	redSoulsText = new Text(gS, gS->getGame()->getTypo((TypoName)getNumberSize(redSouls)), relativeX((float)1870), relativeY((float)150 + getNumberY(redSouls)),
-							relativeX((float)3), Text::DERECHA);
+		relativeX((float)3), Text::DERECHA);
 	redSoulsText->setMessage(std::to_string(redSouls));
 	gS->addObjectsUI(redSoulsText);
 
@@ -132,12 +140,12 @@ void HUDLobby::render() const
 
 HUDBet::HUDBet(GameState* gS, bool verticalInsanity) : HUD(gS), verticalInsanity(verticalInsanity)
 {
- 	betDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600), relativeY((float)150),
-						   relativeX((float)3), Text::DERECHA);
+	betDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600), relativeY((float)150),
+		relativeX((float)3), Text::DERECHA);
 	betDescText->setMessage("APUESTA");
 	gS->addObjectsUI(betDescText);
 	betText = new Text(gS, gS->getGame()->getTypo((TypoName)getNumberSize(bet)), relativeX((float)1870), relativeY((float)150 + getNumberY(bet)),
-					   relativeX((float)3), Text::DERECHA);
+		relativeX((float)3), Text::DERECHA);
 	betText->setMessage(std::to_string(bet));
 	gS->addObjectsUI(betText);
 

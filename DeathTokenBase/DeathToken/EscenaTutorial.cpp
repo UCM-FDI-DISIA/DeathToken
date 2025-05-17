@@ -118,6 +118,7 @@ EscenaTutorial::~EscenaTutorial() {
 	_dialog5 = nullptr;
 	_dialog6 = nullptr;
 	_g = nullptr;
+	delete _ui;
 }
 void
 EscenaTutorial::render() const {
