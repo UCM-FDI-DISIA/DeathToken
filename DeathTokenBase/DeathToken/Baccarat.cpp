@@ -6,11 +6,16 @@ Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getText
 	addEventListener(this);
 	addCards();
 	//Buttons
+	int w = (int)(Game::WIN_WIDTH * (450.0f / 1920.0f));
+	int h = (int)(Game::WIN_WIDTH * (135.0f / 1920.0f));
+	int posT = (int)(Game::WIN_WIDTH * (370.0f / 1920.0f));
+	int posP = (int)(Game::WIN_WIDTH * (740.0f / 1920.0f));
+	int posB = (int)(Game::WIN_WIDTH * (555.0f / 1920.0f));
 	if (!bJ)
 	{
-		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 8, 0);//x8 apuesta
-		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 6, 2, 1);//x2 apuesta
-		createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);//x2 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posT, w, h, 8, 0);//x8 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posB, w, h, 2, 1);//x2 apuesta
+		createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posP, w, h, 2, 2);//x2 apuesta
 	}
 	hud = new HUDBet(this, false);
 }
