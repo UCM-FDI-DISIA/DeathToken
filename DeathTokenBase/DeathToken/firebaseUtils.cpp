@@ -1,6 +1,6 @@
-#include "FirebaseUtils.h"
+#include "firebaseUtils.h"
 #include <SDL_timer.h>
-#include "PlayerEconomy.h"
+#include "playerEconomy.h"
 firebase::App* FirebaseUtils::app = nullptr;
 firebase::database::Database* FirebaseUtils::db = nullptr;
 firebase::database::DatabaseReference FirebaseUtils::dbref;

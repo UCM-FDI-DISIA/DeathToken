@@ -9,7 +9,7 @@
 #include "button.h"
 #include "card.h"
 #include "award.h"
-#include "SDLUtils.h"
+#include "sdlUtils.h"
 using namespace std;
 
 struct Mat {

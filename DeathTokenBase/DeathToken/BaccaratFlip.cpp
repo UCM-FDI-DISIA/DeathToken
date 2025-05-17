@@ -1,4 +1,4 @@
-﻿#include "BaccaratFlip.h"
+﻿#include "baccaratFlip.h"
 #include "sdlUtils.h"
 
 BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)), intro(game->getTexture(FLIP)) {

@@ -1,8 +1,8 @@
 #pragma once
 #include "gameState.h"
-#include "Button.h"
+#include "button.h"
 #include "ui.h"
-#include "DialogueBox.h"
+#include "dialogueBox.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 using namespace std;

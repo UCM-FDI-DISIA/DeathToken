@@ -1,13 +1,13 @@
 #pragma once
 #include "sceneObject.h"
-#include "EventHandler.h"
+#include "eventHandler.h"
 #include <functional>
 
 using Callback = std::function<void()>;
 
 class Game;
 class Menu;
-class Mesa : public sceneObject, public EventHandler {
+class Mesa : public SceneObject, public EventHandler {
 private:
 	bool hover;
 	Texture* texture;

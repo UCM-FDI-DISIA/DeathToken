@@ -1,9 +1,9 @@
-#include "EscenaTutorial.h"
-#include "Menu.h"
+#include "escenaTutorial.h"
+#include "menu.h"
 #include "button.h"
 #include "texture.h"
 #include "game.h"
-#include "sdlutils.h"
+#include "sdlUtils.h"
 
 EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), startGame(false), hasChip(false), resultado(false), inState(false), dialog(true), index(-1), fases(0), bet(0), a(0) {
 	

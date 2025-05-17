@@ -2,11 +2,11 @@
 
 #include "gameState.h"
 #include "vector"
-#include "Texture.h"
-#include "Button.h"
-#include "Game.h"
-#include "UI.h"
-#include "Award.h"
+#include "texture.h"
+#include "button.h"
+#include "game.h"
+#include "ui.h"
+#include "award.h"
 #include <map>
 class Marbles : public GameState
 {

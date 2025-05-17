@@ -1,4 +1,4 @@
-#include "SDLUtils.h"
+#include "sdlUtils.h"
 
 Uint32 SDLUtils::lastTime = SDL_GetTicks();
 float SDLUtils::deltaTime = 0.0f;

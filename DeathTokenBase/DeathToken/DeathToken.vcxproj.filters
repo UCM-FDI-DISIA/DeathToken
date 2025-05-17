@@ -72,9 +72,6 @@
     <ClInclude Include="Text.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="EndState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Award.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -144,28 +141,22 @@
     <ClInclude Include="firebaseUtils.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="EscenaTutorial.h">
+    <ClInclude Include="escenaTutorial.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="peleasInsanity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Mesa.h">
+    <ClInclude Include="mesa.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="GeneraPrecios.h">
-    <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="generaPrecios.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="rouletteChoose.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Behaviour.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="scythe.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Cards.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="EscenaTutorial.h">
@@ -177,10 +168,7 @@
     <ClInclude Include="finalMenu.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="gameList.h">
+    <ClInclude Include="font.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
@@ -320,22 +308,19 @@
     <ClCompile Include="firebaseUtils.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="EscenaTutorial.cpp">
+    <ClCompile Include="escenaTutorial.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="PeleasInsanity.cpp">
+    <ClCompile Include="peleasInsanity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Mesa.cpp">
+    <ClCompile Include="mesa.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="GeneraPrecios.cpp">
-    <Filter>Archivos de origen</Filter>
-      </ClCompile>
+    <ClCompile Include="generaPrecios.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="rouletteChoose.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Cards.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="scythe.cpp">

@@ -1,6 +1,6 @@
 #pragma once
 #include "gameState.h"
-#include "Button.h"
+#include "button.h"
 #include "vector2D.h"
 
 class FinalMenu : public GameState {

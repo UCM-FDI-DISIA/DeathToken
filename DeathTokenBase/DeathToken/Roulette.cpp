@@ -1,6 +1,6 @@
 #include "roulette.h"
 
-Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : sceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
+Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : SceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
 	w = Game::WIN_WIDTH / 2;
 	h = Game::WIN_WIDTH / 2;
 	recompensas = game->getTexture(ROULETTERECOMPENSAS);

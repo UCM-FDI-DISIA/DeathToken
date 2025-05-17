@@ -8,28 +8,28 @@
 #include "marblesInsanity.h"
 #include "tutorial.h"
 #include "peleas.h"
-#include "EscenaTutorial.h"
+#include "escenaTutorial.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
-	gS->addObjects(exit);
+	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
 	exit->connect([this]() { OnExit(); });
 
 	go = new ButtonUI(gS, relativeX(1697.0f), relativeY(858.0f), relativeX(173.0f), relativeY(173.0f), game->getTexture(UIGO), game->getTexture(UIGOCLCK));
-	gS->addObjects(go);
+	gS->addObjectsUI(go);
 	gS->addEventListener(go);
 	go->connect([this]() { OnGo(); });
 
 	arrowL = new ButtonUI(gS, relativeX(230.0f), relativeY(913.5f), relativeX(97.0f), relativeY(109.0f), game->getTexture(UIARROWL), game->getTexture(UIARROWLCLCK));
-	gS->addObjects(arrowL);
+	gS->addObjectsUI(arrowL);
 	gS->addEventListener(arrowL);
 	arrowL->connect([this]() { OnArrow(true); });
 
 	arrowR = new ButtonUI(gS, relativeX(897.0f), relativeY(913.5f), relativeX(97.0f), relativeY(109.0f), game->getTexture(UIARROWR), game->getTexture(UIARROWRCLCK));
-	gS->addObjects(arrowR);
+	gS->addObjectsUI(arrowR);
 	gS->addEventListener(arrowR);
 	arrowR->connect([this]() { OnArrow(false); });
 
@@ -37,7 +37,7 @@ UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(
 	chips[0] = new ButtonChip(gS, this, relativeX(367.0f), relativeY(918.0f), relativeX(100.0f), relativeY(104.0f), 0,
 		1, 25, 500, game->getTexture(UICHIP1), game->getTexture(UICHIP25), game->getTexture(UICHIP500));
 	chips[0]->setOnUse(true);
-	gS->addObjects(chips[0]);
+	gS->addObjectsUI(chips[0]);
 	gS->addEventListener(chips[0]);
 	chips[0]->connect([this]() {});
 
@@ -457,7 +457,7 @@ inline int UIScythe::relativeY(const float& n)
 	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
 }
 
-UIScythe::UIScythe(GameState* gS, Game* game, scythe* rouletteC) : gS(gS), game(game), s(s)
+UIScythe::UIScythe(GameState* gS, Game* game, Scythe* rouletteC) : gS(gS), game(game), s(s)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
 	gS->addObjectsUI(exit);

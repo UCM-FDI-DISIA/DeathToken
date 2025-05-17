@@ -3,7 +3,7 @@
 #include "sceneObject.h"
 #include "eventHandler.h"
 class Menu;
-class Player : public sceneObject, public EventHandler {
+class Player : public SceneObject, public EventHandler {
 private:
 	static constexpr int SPEED_MAG = 30;
 	Menu* menu;

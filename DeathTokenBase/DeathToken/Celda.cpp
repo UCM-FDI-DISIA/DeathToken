@@ -1,4 +1,4 @@
-#include "Celda.h"
+#include "celda.h"
 #include "slotsInsanity.h"
 
 Celda::Celda(SlotsInsanity* g, Point2D<int> p, int w, int h, Texture* tx, Texture* ic) 

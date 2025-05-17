@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 #include <string>
-#include "Game.h"
+#include "game.h"
 
 struct InfoObjeto {
   TextureName tex;
@@ -20,7 +20,6 @@ public:
   std::mt19937 gen;
 
 private:
-  std::string generarNombre();
   void determinarRango(InfoObjeto& objeto);
   void aplicarModificador(InfoObjeto& objeto);
 };

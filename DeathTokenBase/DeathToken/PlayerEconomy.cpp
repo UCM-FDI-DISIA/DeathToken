@@ -1,6 +1,6 @@
 #include "firebaseUtils.h"
 #include "playerEconomy.h"
-#include "HUD.h"
+#include "hud.h"
 
 //Inicialización máquina
 long long PlayerEconomy::blueSouls = 0;

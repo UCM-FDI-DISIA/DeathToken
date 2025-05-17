@@ -1,7 +1,7 @@
 #pragma once
 #include "vector2D.h"
 #include "sceneObject.h"
-class Card : public sceneObject
+class Card : public SceneObject
 {
 	Texture* texture;
 	int frameCard = 0;

@@ -5,7 +5,7 @@
 
 // Se crea el jugador leyendo de archivo su posición y vidas
 Player::Player(GameState* g, Point2D<> pos, Texture* texture, Menu* men)
-	:sceneObject(g, pos, texture), texture(texture), menu(men),locura(false)
+	:SceneObject(g, pos, texture), texture(texture), menu(men),locura(false)
 {
 	w = (int)((125.0f / 1980.f) * Game::WIN_WIDTH);
 	h = (int)((125.0f / 1080.0f) * Game::WIN_HEIGHT);
