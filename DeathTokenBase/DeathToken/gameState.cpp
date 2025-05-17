@@ -36,6 +36,7 @@ void GameState::deleteSpecificGO(GameObject* obj)//Elimina el objeto de la lista
 	for (auto& o : gameObjects) {
 		if (o == obj) {
 			erase(gameObjects, obj);
+			delete obj;
 			return;
 		}
 	}

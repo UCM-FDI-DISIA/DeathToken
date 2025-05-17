@@ -160,8 +160,6 @@ protected:
 	GameState* gS;
 	Game* game;
 	ButtonUI* exit;
-	ButtonUI* arrowNext;
-	ButtonUI* arrowBack;
 	size_t totalPages;//pags totales tuto
 	bool arrow = false;
 public:
@@ -169,7 +167,6 @@ public:
 	inline int relativeY(const float& n);
 
 	UITutorial(GameState* gS, Game* game, size_t tam);
-
 	void OnExit();
 	ButtonUI* downArrow();
 	ButtonUI* upArrow();

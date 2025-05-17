@@ -303,7 +303,7 @@ void UITutorial::OnExit() {
 
 ButtonUI* UITutorial::downArrow()
 {
-	arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
+	ButtonUI* arrowNext = new ButtonUI(gS, relativeX(897.0f), relativeY(963.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWD), game->getTexture(UIARROWDCLCK));
 	gS->addObjects(arrowNext);
 	gS->addEventListener(arrowNext);
 
@@ -318,7 +318,7 @@ ButtonUI* UITutorial::downArrow()
 
 ButtonUI* UITutorial::upArrow()
 {
-	arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
+	ButtonUI* arrowBack = new ButtonUI(gS, relativeX(897.0f), relativeY(880.5f), relativeX(97.0f), relativeY(80.0f), game->getTexture(UIARROWU), game->getTexture(UIARROWUCLCK));
 	gS->addObjects(arrowBack);
 	gS->addEventListener(arrowBack);
 
