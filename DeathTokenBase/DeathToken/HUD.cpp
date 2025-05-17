@@ -44,10 +44,10 @@ HUD::HUD(GameState* gS) : GameObject(gS), gS(gS)
 {
 	gS->addObjectsUI(this);
 
-	/*balanceDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600.0f), relativeY((float)70.0f),
+	balanceDescText = new Text(gS, gS->getGame()->getTypo(GRAND_CASINO1), relativeX((float)1600.0f), relativeY((float)70.0f),
 							   relativeX((float)3.0f), Text::DERECHA);
 	balanceDescText->setMessage("SALDO");
-	gS->addObjectsUI(balanceDescText);*/
+	gS->addObjectsUI(balanceDescText);
 	balanceText = new Text(gS, gS->getGame()->getTypo((TypoName)getNumberSize(balance)), relativeX((float)1870.0f), relativeY((float)70.0f + getNumberY(balance)),
 						   relativeX((float)3.0f), Text::DERECHA);
 	balanceText->setMessage(std::to_string(balance));

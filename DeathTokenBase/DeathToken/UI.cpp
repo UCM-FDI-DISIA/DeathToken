@@ -156,7 +156,10 @@ UISlots::OnErase() {
 
 UIMarbles::UIMarbles(GameState* gS, Game* game, Marbles* marbles) : UIChips(gS, game), marbles(marbles) {}
 void UIMarbles::OnGo() {
-	marbles->startRound();
+	if (!onBet)
+	{
+		marbles->startRound();
+	}
 }
 
 void UIMarbles::OnErase() {

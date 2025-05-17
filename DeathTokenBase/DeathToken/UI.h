@@ -24,6 +24,8 @@ protected:
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
+	bool getOnBet() { return onBet; };
+	void setOnBet(bool onBet) { this->onBet = onBet; };
 	UI(GameState* g, Game* game);
 
 	void changeChip(const int& id);

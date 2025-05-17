@@ -12,7 +12,7 @@ protected:
 	long long& redSouls = PlayerEconomy::redSouls;
 	long long& bet = PlayerEconomy::bet;
 	int& insanity = PlayerEconomy::insanity;
-	//Text* balanceDescText;
+	Text* balanceDescText;
 	Text* balanceText;
 	Texture* insanityFrameW;
 	Texture* insanityFrameY;
