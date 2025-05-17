@@ -1,4 +1,4 @@
-#include "ui.h"
+﻿#include "ui.h"
 #include "game.h"
 #include "marbles.h"
 #include "slots.h"
@@ -381,6 +381,20 @@ ButtonUI* UITutorial::upArrow()
 // UI PELEAS
 void UIPeleas::OnGo() {
 	_peleas->StartBattle();
+}
+void
+UIPeleas::OnInfo()
+{
+	std::vector<Texture*> tut;
+	if (locura) {
+		tut.push_back(game->getTexture(PELEASTU1));
+	}
+	else {
+		tut.push_back(game->getTexture(PELEASTU1));
+		tut.push_back(game->getTexture(PELEASTU2));
+		
+	}
+	game->push(new Tutorial(game, gS, tut));
 }
 
 inline int UIRoulette::relativeX(const float& n)

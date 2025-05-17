@@ -1,8 +1,8 @@
 ﻿#include "checkML.h"
-#include "menu.h"
-#include "game.h"
-#include "player.h"
 #include "finalMenu.h"
+#include "game.h"
+#include "menu.h"
+#include "player.h"
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
@@ -63,14 +63,14 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(slots);
 	addEventListener(slots);
 	slots->connect([this]() {
-    slotsState = gameSelec(1);
-    if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
-    {
-        getGame()->push(slotsState);
-        tutorialSlots = false;
-        slotsState->showTutorial();
-    }
-    });
+		slotsState = gameSelec(1);
+		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			getGame()->push(slotsState);
+			tutorialSlots = false;
+			slotsState->showTutorial();
+		}
+		});
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
 	//Widht, height, position marbles button
@@ -88,7 +88,16 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { getGame()->push(gameSelec(3)); });
+	fights->connect([this]()
+		{
+			peleasState = gameSelec(3);
+			if (tutorialFights) //Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+			{
+				getGame()->push(peleasState);
+				tutorialFights = false;
+				peleasState->showTutorial();
+			}
+		});
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
 	//Widht, height, position roulette button

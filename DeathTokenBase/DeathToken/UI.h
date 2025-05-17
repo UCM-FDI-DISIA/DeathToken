@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "texture.h"
 #include "gameState.h"
 #include "button.h"
@@ -210,12 +210,16 @@ public:
 		, _peleas(peleas)
 		, autoText(nullptr)
 		, historial(nullptr)
+		, locura(false)
 	{
 	};
 
 	void OnGo() override;
+	void OnInfo();
+	inline void setLocura(bool l) { locura = l; }
 
 protected:
+	bool locura;
 	Peleas* _peleas;
 	ButtonUI* autoText;
 	ButtonUI* historial;

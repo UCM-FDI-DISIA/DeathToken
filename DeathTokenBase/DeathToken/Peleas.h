@@ -50,6 +50,7 @@ public:
 	void StartBattle();
 	inline BarraVida* getFighter1Bar() const { return fighter1bar; }
 	inline BarraVida* getFighter2Bar() const { return fighter2bar; }
+	void showTutorial() override { ui->OnInfo(); };
 
 private:
 	BattleManager* _battleM;

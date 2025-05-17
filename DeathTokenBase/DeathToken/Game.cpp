@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "firebaseUtils.h"
 #include "game.h"
 #include "json.hpp"
@@ -262,6 +262,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "portada.png",1,1 });
 	v.push_back(TextureSpec{ "menus/iniciar.png",1,1 });
 	v.push_back(TextureSpec{ "menus/salir.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_Peleas1.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_Peleas2.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
