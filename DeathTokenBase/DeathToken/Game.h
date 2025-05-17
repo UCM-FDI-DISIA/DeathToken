@@ -273,7 +273,6 @@ private:
 	std::vector<TTF_Font*> loadFonts();
 	std::vector<TTF_Font*> fonts;
 	bool pause = false;
-	bool tutorial = true;
 public:
 	static int WIN_WIDTH;
 	static int WIN_HEIGHT;
@@ -300,12 +299,7 @@ public:
 	inline void setPause(bool p) {
 		pause = p;
 	}
-	inline void setTutorial(bool t) {
-		tutorial = t;
-	}
-	inline bool getTutorial() const {
-		return tutorial;
-	}
+	
 
 	inline const Matchup& GetMatchUp(int i) const { assert(i < battleQueue.size()); return battleQueue[i]; }
 

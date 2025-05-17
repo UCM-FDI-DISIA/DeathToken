@@ -24,7 +24,7 @@ PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior
 	addEventListener(menu);
 	menu->connect([this, game]() {
 		game->stop(); // Pop de pausa y el juego actual
-		FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity());
+		FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
 		game->pushState(new MainMenu(game));
 		game->setPause(false);//si la pausa esta en true no se puede abrir otra
 		});

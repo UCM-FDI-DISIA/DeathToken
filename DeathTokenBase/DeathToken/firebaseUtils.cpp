@@ -6,11 +6,13 @@ firebase::database::Database* FirebaseUtils::db = nullptr;
 firebase::database::DatabaseReference FirebaseUtils::dbref;
 bool FirebaseUtils::initialized = false;
 
+
 int FirebaseUtils::currentId = -1;
 std::string FirebaseUtils::name = "";
 long long FirebaseUtils::chips = 0;
 long long FirebaseUtils::souls = 0;
 int FirebaseUtils::insanity = 0;
+bool FirebaseUtils::tutorial = false;
 
 void FirebaseUtils::StartFirebase()
 {
@@ -76,6 +78,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 			}
 			souls = data["almas"].int64_value();
 			insanity = data["locura"].int64_value();
+			tutorial = data["tutorial"].bool_value();
 			return;
 		}
 	}
@@ -99,6 +102,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 	chips = 2000;
 	souls = 0;
 	insanity = 0;
+	tutorial = false;
 
 	//Mapa con los datos del usuario
 	firebase::Variant usuario = firebase::Variant::EmptyMap();
@@ -106,6 +110,7 @@ void FirebaseUtils::RegisterUser(std::string name)
 	usuario.map()["fichas"] = chips;
 	usuario.map()["almas"] = souls;
 	usuario.map()["locura"] = insanity;
+	usuario.map()["tutorial"] = tutorial;
 
 	//añadir datos a la base de datos
 	firebase::Future<void> result = dbref.Child("usuarios").Child(std::to_string(currentId)).SetValue(usuario);
@@ -117,12 +122,13 @@ void FirebaseUtils::RegisterUser(std::string name)
 	PlayerEconomy::setInsanity(insanity);
 }
 
-void FirebaseUtils::SaveState(int chipsN, int soulsN, int insanityN)
+void FirebaseUtils::SaveState(int chipsN, int soulsN, int insanityN, bool tutorialN)
 {
 	firebase::Variant usuarioU = firebase::Variant::EmptyMap();
 	usuarioU.map()["fichas"] = chipsN;
 	usuarioU.map()["almas"] = soulsN;
 	usuarioU.map()["locura"] = insanityN;
+	usuarioU.map()["tutorial"] = tutorialN;
 
 	firebase::Future<void> result = dbref.Child("usuarios").Child(std::to_string(currentId)).UpdateChildren(usuarioU);
 	while (result.status() == firebase::kFutureStatusPending) {
@@ -202,8 +208,9 @@ void FirebaseUtils::CleanFirebase()
 		bool fichasB = datos["fichas"].is_int64();
 		bool almasB = datos["almas"].is_int64();
 		bool locuraB = datos["locura"].is_int64();
+		bool tutorialB = datos["tutorial"].is_bool();
 
-		if (!(nombreB && fichasB && almasB && locuraB)) {
+		if (!(nombreB && fichasB && almasB && locuraB && tutorialB)) {
 			firebase::Future<void> result = dbref.Child("usuarios").Child(key).RemoveValue();
 			while (future.status() == firebase::kFutureStatusPending) {
 				SDL_Delay(10);

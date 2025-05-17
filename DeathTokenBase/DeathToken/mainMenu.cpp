@@ -30,10 +30,11 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 
 		string nombre = inputNombre->getUserInput();
 		FirebaseUtils::RegisterUser(nombre);
-		if (game->getTutorial()) {
+		if (FirebaseUtils::tutorial == false) {
 			game->replace(new Menu(game));
 			game->push(new EscenaTutorial(game));
-			game->setTutorial(false);
+			FirebaseUtils::tutorial = true;
+
 		}
 		else {
 			game->replace(new Menu(game));
@@ -46,7 +47,7 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 	addEventListener(salir);
 	salir->connect([this]() {
 		game->stop();
-		FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity());
+		FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
 		});
 
 

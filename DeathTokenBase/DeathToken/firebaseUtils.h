@@ -15,11 +15,12 @@ public:
 	static std::string name;
 	static long long chips;
 	static long long souls;
+	static bool tutorial;
 	static int insanity;
 	static void StartFirebase();
 	static void DeleteFirebaseUtils();
 	static void RegisterUser(std::string name);
-	static void SaveState(int chipsN, int soulsN, int insanityN);
+	static void SaveState(int chipsN, int soulsN, int insanityN, bool tutorialN);
 	static std::vector<userData> getRanking();
 	static void CleanFirebase();
 private:
