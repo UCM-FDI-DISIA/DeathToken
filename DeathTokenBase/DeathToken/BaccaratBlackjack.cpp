@@ -4,7 +4,7 @@
 BaccaratBlackjack::BaccaratBlackjack(Game* game) : Baccarat(game, true), tex(game->getTexture(BLACKMAT)), intro(game->getTexture(JACK)), counterEx(game->getTexture(COUNTER)), counterBEx(game->getTexture(COUNTER)) {
 	ui->isBlackJack = true;
 
-	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200, Game::WIN_WIDTH / 4 - 30, Game::WIN_HEIGHT / 8, 2, 2);
+	createBaccaratButton(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + Game::WIN_HEIGHT/10, Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 8, 2, 2);
 }
 
 void BaccaratBlackjack::handCards() {
@@ -96,8 +96,10 @@ void BaccaratBlackjack::victory() {
 }
 
 void BaccaratBlackjack::startRound() {
-	if (!animOn)
+
+	if (!animOn && (mat.player.size() == 0 && mat.player.size() == 0) && PlayerEconomy::getInsanity() > 0)
 	{
+		PlayerEconomy::subtractInsanity(1);
 		win = false;
 		handCards();
 		//eleccion frame cartas

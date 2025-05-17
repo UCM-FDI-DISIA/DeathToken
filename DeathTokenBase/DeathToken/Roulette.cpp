@@ -321,10 +321,7 @@ void Roulette::update() {
 				|| rot >= 349.2f && rot < 356.4f) {
 				game->push(new Award(game, gS, 1, 4000));
 			}
-			if (PlayerEconomy::getInsanity() > 0)
-			{
-				PlayerEconomy::subtractInsanity(1);
-			}
+			
 		}
 	}
 }

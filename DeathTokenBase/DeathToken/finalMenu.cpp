@@ -25,8 +25,8 @@ FinalMenu::FinalMenu(Game* g, bool victory) : GameState(g), show(false) {
 	posI = { Game::WIN_WIDTH / 2 - _x / 2,Game::WIN_HEIGHT - (int)(_y * 1.2f) };
 
 
-	_x = (int)(Game::WIN_WIDTH * (566 / 1920.0f));
-	_y = (int)(Game::WIN_HEIGHT * (277 / 1080.0f));
+	_x = (int)(Game::WIN_WIDTH * (283.0f / 1920.0f));
+	_y = (int)(Game::WIN_HEIGHT * (138.0f / 1080.0f));
 	Button* menu = new Button(this, Game::WIN_WIDTH / 2 - _x / 2, Game::WIN_HEIGHT / 2 - (int)(_y * 0.6f), _x, _y, game->getTexture(MENU));
 	menu->connect([this] {game->replace(new MainMenu(game));});
 	addObjects(menu);

@@ -33,6 +33,10 @@ private:
 	int tercera;
 	int segunda;
 	int primera;
+	//borra botones
+	bool card1 = false;
+	bool card2 = false;
+	bool card3 = false;
 public:
 	BaccaratFlip(Game* game);
 	virtual ~BaccaratFlip() {};

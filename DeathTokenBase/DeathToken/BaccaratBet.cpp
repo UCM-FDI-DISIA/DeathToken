@@ -50,7 +50,7 @@ void BaccaratBet::repeatBet() {
 		HUDManager::applyBet(currentBet);
 
 		startRound();
-
+		PlayerEconomy::addInsanity(1);
 		if (!hasWon) {
 			didntWin();
 		}
@@ -70,8 +70,9 @@ void BaccaratBet::didntWin() {
 
 void BaccaratBet::startRound()
 {
-	if (!animOn)
+	if (!animOn && PlayerEconomy::getInsanity() > 0)
 	{
+		PlayerEconomy::subtractInsanity(1);
 		Baccarat::startRound();
 	}
 }
