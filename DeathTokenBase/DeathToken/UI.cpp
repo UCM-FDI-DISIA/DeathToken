@@ -409,6 +409,7 @@ inline int UIRoulette::relativeY(const float& n)
 
 UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS(gS), game(game), rouletteS(rouletteS)
 {
+	bet = false;
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
 	gS->addObjectsUI(exit);
 	gS->addEventListener(exit);
@@ -422,7 +423,10 @@ UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS
 
 void UIRoulette::OnExit()
 {
-	game->pop();
+	if (!bet)
+	{
+		game->pop();
+	}
 }
 
 void UIRoulette::OnGo()

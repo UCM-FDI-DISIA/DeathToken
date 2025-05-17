@@ -21,7 +21,7 @@ public:
 	Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco);
 	virtual ~Roulette() {};
 	void addSpeed(int s);
-
+	int getSpeed() { return speed; };
 	void render() const override;
 	void update() override;
 };
