@@ -118,6 +118,8 @@ void Peleas::StartBattle()
 	if (state == FSState::FIGHT) {
 		return;
 	}
+	bet1->Hide();
+	bet2->Hide();
 	state = FSState::FIGHT;
 	SDL_RenderClear(game->getRenderer());
 	dialog->setX(Game::WIN_WIDTH / 3);
@@ -183,19 +185,19 @@ void Peleas::render() const
       Texture* fighter1Tex =
         game->getTexture(_battleM->getFigther1().getTextureName());
       SDL_Rect fighter1Dest = {
-        static_cast<int>(APUESTA1X * Game::WIN_WIDTH + 100),
-        static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 125),
+        static_cast<int>(APUESTA1X * Game::WIN_WIDTH + 90),
+        static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 110),
         200,
         200
       };
-      fighter1Tex->render(fighter1Dest);
+      fighter1Tex->render(fighter1Dest, 0, 0, SDL_FLIP_HORIZONTAL);
 
       // Sprite Fighter 2
       Texture* fighter2Tex =
         game->getTexture(_battleM->getFigther2().getTextureName());
       SDL_Rect fighter2Dest = {
-        static_cast<int>(APUESTA2X * Game::WIN_WIDTH + 100),
-        static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 125),
+        static_cast<int>(APUESTA2X * Game::WIN_WIDTH + 90),
+        static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 110),
         200,
         200
       };
@@ -224,19 +226,19 @@ void Peleas::render() const
       fighter1bar->render();
       fighter2bar->render();
 
-      const int FIGHTER_Y_POS = Game::WIN_HEIGHT - 500;
+      const int FIGHTER_Y_POS = Game::WIN_HEIGHT - 550;
 
       // Sprite Fighter 1 (izquierda)
       Texture* fighter1RingTex =
         game->getTexture(_battleM->getFigther1().getTextureName());
-      SDL_Rect fighter1RingDest = { 100, FIGHTER_Y_POS, 375, 300 };
-      fighter1RingTex->render(fighter1RingDest);
+      SDL_Rect fighter1RingDest = { 220, FIGHTER_Y_POS, 375, 300 };
+      fighter1RingTex->render(fighter1RingDest, 0, 0, SDL_FLIP_HORIZONTAL);
 
       // Sprite Fighter 2 (derecha)
       Texture* fighter2RingTex =
         game->getTexture(_battleM->getFigther2().getTextureName());
       SDL_Rect fighter2RingDest = {
-        Game::WIN_WIDTH - 400, FIGHTER_Y_POS, 275, 300
+        Game::WIN_WIDTH - 530, FIGHTER_Y_POS, 275, 300
       };
       fighter2RingTex->render(fighter2RingDest);
 
@@ -284,6 +286,8 @@ Peleas::update() {
 			setCards();
 			bet1->clear();
 			bet2->clear();
+			bet1->Show();
+			bet2->Show();
 			bet->update();
 			bet->refresh();
 		}

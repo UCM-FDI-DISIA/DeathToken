@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "game.h"
 #include "gameState.h"
 #include "eventHandler.h"
@@ -144,15 +144,24 @@ class ButtonSlots : public ButtonBet
 public:
 	ButtonSlots(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text);
 	~ButtonSlots() override {};
-	void render() const override;
+	virtual void render() const override;
 	virtual void handleEvent(const SDL_Event& event) override;
 };
 //Peleas
 class ButtonPeleas : public ButtonSlots
 {
 public:
-	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text) {}
+	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text), visible(true) {}
 	void handleEvent(const SDL_Event& event) override;
+	void Hide() { visible = false; }
+	void Show() { visible = true; }
+	void render() const override {
+		if (visible) {
+			ButtonSlots::render();
+		}
+	}
+private:
+	bool visible;
 };
 
 //EscenaTutorial
