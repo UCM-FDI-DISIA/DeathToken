@@ -17,7 +17,14 @@ SoundManager::~SoundManager()
 {
 	limpiar();
 }
+void SoundManager::detenerTodosLosSonidos()
+{
+  // Detener la música
+  detenerMusica();  // Esto ya llama a Mix_HaltMusic() y limpia musicaActual
 
+  // Detener todos los efectos de sonido en todos los canales
+  Mix_HaltChannel(-1);
+}
 bool SoundManager::inicializar(int frecuencia, int canales, int tamañoBuffer)
 {
 	if (listo)

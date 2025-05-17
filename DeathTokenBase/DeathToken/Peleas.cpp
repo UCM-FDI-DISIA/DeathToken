@@ -1,5 +1,6 @@
 ﻿#include "award.h"
 #include "battleManager.h"
+#include "SoundManager.h"
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
@@ -48,6 +49,8 @@ Peleas::Peleas(Game* game)
 	, apuesta1(0)
 	, apuesta2(0)
 {
+  auto& soundManager = SoundManager::obtenerInstancia();
+  soundManager.reproducirMusica("PeleasM");
 	_battleM = new BattleManager(dialog, game);
 
 	_battleM->StartBattle();

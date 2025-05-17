@@ -1,7 +1,7 @@
 #include "marbles.h"
 #include "game.h"	
 #include <iostream>
-
+#include "SoundManager.h"
 
 
 Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),blockedMarble(blockedMarble), texture(game->getTexture(MARBLESBACK)),
@@ -14,6 +14,8 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble) : GameState(game),b
 	ui = new UIMarbles(this, game, this);
 	Marbles::marblesButtonCreation();
 	hud = new HUDBet(this, false);
+          auto& soundManager = SoundManager::obtenerInstancia();
+        soundManager.reproducirMusica("CanicasM");
 }
 
 Marbles::~Marbles() {

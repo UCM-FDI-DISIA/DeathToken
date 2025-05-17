@@ -2,6 +2,7 @@
 #include "sdlUtils.h"
 #include "ui.h"
 #include "game.h"	
+#include "SoundManager.h"
 
 MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->getTexture(MARBLESBACK)), gameFinish(false), dColor({ 0,0,0,0 }) {
 	CMarbles.push_back(game->getTexture(REDMARBLE));
@@ -14,6 +15,8 @@ MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->g
 	wMarbleShow = false;
 	gameFinish = false;
 	posColor = -1;
+          auto& soundManager = SoundManager::obtenerInstancia();
+        soundManager.reproducirMusica("CanicasM");
 }
 
 MarblesInsanity::~MarblesInsanity()

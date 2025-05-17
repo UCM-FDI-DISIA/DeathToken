@@ -30,6 +30,8 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		addEventListener(button);
 		// callback del boton
 		Carrete* c = carretes[i];
+    			auto& soundManager = SoundManager::obtenerInstancia();
+			soundManager.reproducirMusica("SlotsM");
 		button->connect([this, c] {
 			auto& soundManager = SoundManager::obtenerInstancia();
 			soundManager.reproducirEfecto("SlotChoose");
@@ -55,7 +57,10 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 	addObjects(btnBet);
 	addEventListener(btnBet);
 }
-SlotsNormal:: ~SlotsNormal() {
+SlotsNormal:: ~SlotsNormal() 
+{
+  auto& soundManager = SoundManager::obtenerInstancia();
+  soundManager.detenerTodosLosSonidos();
 	for (Carrete* i : carretes) {
 		i = nullptr;
 	}

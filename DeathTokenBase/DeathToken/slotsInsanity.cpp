@@ -1,4 +1,5 @@
 #include "slotsInsanity.h"
+#include "SoundManager.h"
 #include "celda.h"
 #include "award.h"
 #include <chrono>
@@ -24,7 +25,8 @@ SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turno
 	}
 	// vector de los indices en el orden en el que se mostraran para colocar
 	resultante = vectorAleatorio();
-
+        auto& soundManager = SoundManager::obtenerInstancia();
+        soundManager.reproducirMusica("SlotsM");
 	//Boton para poner la apuesta
 	x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 20) / 1920.0f) * ((N_COLUM / 2.0f) + 1.0f));
 	y = Game::WIN_HEIGHT * 0.5f;

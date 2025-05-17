@@ -37,6 +37,8 @@ public:
 	bool musicaEnReproduccion() const;
 	bool musicaEnPausa() const;
 
+	void detenerTodosLosSonidos();
+
 	SoundManager(const SoundManager&) = delete;
 	SoundManager& operator=(const SoundManager&) = delete;
 
