@@ -75,6 +75,8 @@ void FirebaseUtils::RegisterUser(std::string name)
 			chips = data["fichas"].int64_value();
 			if (chips == 0) {
 				chips = 2000;
+				souls = 0;
+				insanity = 0;
 			}
 			souls = data["almas"].int64_value();
 			insanity = data["locura"].int64_value();

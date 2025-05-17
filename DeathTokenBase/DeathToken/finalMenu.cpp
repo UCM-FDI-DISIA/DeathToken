@@ -1,6 +1,8 @@
+#include "firebaseUtils.h"
 #include "finalMenu.h"
 #include "button.h"
 #include "mainMenu.h"
+#include "PlayerEconomy.h"
 #include <cmath>
 
 
@@ -10,6 +12,7 @@ FinalMenu::FinalMenu(Game* g, bool victory) : GameState(g), show(false) {
 		image = game->getTexture(GOODENDIMG);
 	}
 	else {
+		
 		text = game->getTexture(BADENDTEXT);
 		image = game->getTexture(BADENDIMG);
 	}
@@ -28,7 +31,9 @@ FinalMenu::FinalMenu(Game* g, bool victory) : GameState(g), show(false) {
 	_x = (int)(Game::WIN_WIDTH * (283.0f / 1920.0f));
 	_y = (int)(Game::WIN_HEIGHT * (138.0f / 1080.0f));
 	Button* menu = new Button(this, Game::WIN_WIDTH / 2 - _x / 2, Game::WIN_HEIGHT / 2 - (int)(_y * 0.6f), _x, _y, game->getTexture(MENU));
-	menu->connect([this] {game->replace(new MainMenu(game));});
+	menu->connect([this, victory] {game->replace(new MainMenu(game));
+		FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
+	});
 	addObjects(menu);
 	addEventListener(menu);
 }
