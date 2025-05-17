@@ -91,9 +91,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights->connect([this]()
 		{
 			peleasState = gameSelec(3);
+			getGame()->push(peleasState);
+			
 			if (tutorialFights) //Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 			{
-				getGame()->push(peleasState);
 				tutorialFights = false;
 				peleasState->showTutorial();
 			}
