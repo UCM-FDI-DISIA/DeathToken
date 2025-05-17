@@ -3,7 +3,7 @@
 #include "sceneObject.h"
 #include "award.h"
 
-class Roulette : public sceneObject
+class Roulette : public SceneObject
 {
 	Game* game;
 	GameState* gS;

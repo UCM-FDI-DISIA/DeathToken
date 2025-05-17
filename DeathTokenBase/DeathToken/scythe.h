@@ -1,9 +1,9 @@
 #pragma once
 #include "gameState.h"
 #include "ui.h"
-#include "Button.h"
+#include "button.h"
 
-class scythe : public GameState
+class Scythe : public GameState
 {
 	Texture* rouletteBG;
 	Button* buyButton;
@@ -12,8 +12,8 @@ class scythe : public GameState
 	PlayerEconomy* eco;
 	UIScythe* ui;
 public:
-	scythe(Game* game, PlayerEconomy* eco);
-	~scythe() {
+	Scythe(Game* game, PlayerEconomy* eco);
+	~Scythe() {
 		HUDManager::setHudLobby(hudMenu, true);
 		hudMenu->refresh();
 		delete ui;

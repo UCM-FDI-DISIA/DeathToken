@@ -1,5 +1,5 @@
 #include "baccaratBet.h"
-#include "SDLUtils.h"
+#include "sdlUtils.h"
 
 BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getTexture(BET)) {
 	ui->isBet = true;

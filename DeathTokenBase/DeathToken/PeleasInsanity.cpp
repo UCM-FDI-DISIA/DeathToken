@@ -1,4 +1,4 @@
-﻿#include "PeleasInsanity.h"
+﻿#include "peleasInsanity.h"
 #include <algorithm>
 #include <iostream>
 #include <random>  // Asegúrate que incluya <random> para std::normal_distribution y std::clamp

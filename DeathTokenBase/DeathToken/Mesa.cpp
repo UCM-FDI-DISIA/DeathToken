@@ -1,10 +1,10 @@
 #include "checkML.h"
-#include "Mesa.h"
-#include "Menu.h"
-#include "Game.h"
+#include "mesa.h"
+#include "menu.h"
+#include "game.h"
 
 
-Mesa::Mesa(GameState* g, Vector2D<> pos, Texture* tex, int width, int height) : sceneObject(g, pos, tex), hover(false), texture(tex)
+Mesa::Mesa(GameState* g, Vector2D<> pos, Texture* tex, int width, int height) : SceneObject(g, pos, tex), hover(false), texture(tex)
 {
 	w = width;
 	h = height;

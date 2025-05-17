@@ -7,7 +7,7 @@ rouletteChoose::rouletteChoose(Game* game, PlayerEconomy* eco) : GameState(game)
 	guadanya = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(SCYTHE));
 	addEventListener(guadanya);
 	addObjects(guadanya);
-	guadanya->connect([this, eco]() { chooseGame(new scythe(getGame(), eco));});
+	guadanya->connect([this, eco]() { chooseGame(new Scythe(getGame(), eco));});
 
 	xBut = Game::WIN_WIDTH * 2 / 3 - wBut / 3;
 	roulette = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(ROULETTE));

@@ -5,25 +5,22 @@
 #include "game.h"
 class Texture;
 
-class sceneObject : public GameObject {
+class SceneObject : public GameObject {
 protected:
-	static constexpr int SPEED_LIMIT = 4;
-	static constexpr int MOVE_PERIOD = 2;
 	Point2D<> pos;
 	Vector2D<> speed;
 	Texture* texture;
 	int frame;
 	int w, h;
-	int moveDelay;
 	GameState* state;
 
 public:
-	sceneObject(GameState*, Vector2D<>, int, int, Texture*);
-	sceneObject(GameState*, Vector2D<>, Vector2D<>, int, int, Texture*);
-	sceneObject(GameState*, Texture*);
-	sceneObject(GameState*, Vector2D<>, Texture*);
+	SceneObject(GameState*, Vector2D<>, int, int, Texture*);
+	SceneObject(GameState*, Vector2D<>, Vector2D<>, int, int, Texture*);
+	SceneObject(GameState*, Texture*);
+	SceneObject(GameState*, Vector2D<>, Texture*);
 
-	virtual ~sceneObject() { texture = nullptr; state = nullptr; }
+	virtual ~SceneObject() { texture = nullptr; state = nullptr; }
 	Vector2D<> position() const { return pos; };
 	void setPos(Point2D<> pos2) { pos = pos2; };
 	SDL_Rect getCollisionRect() const;

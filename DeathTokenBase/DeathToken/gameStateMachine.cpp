@@ -1,11 +1,3 @@
-/**
- * Máquina de estados con punteros inteligentes.
- *
- * @file gameStateMachine.cpp
- * @author Rubén Rubio
- * @date TPV1 2024
- */
-
 #include "gameStateMachine.h"
 
 using namespace std;

@@ -1,7 +1,7 @@
 #pragma once
 #include "gameState.h"
-#include "Texture.h"
-#include "Button.h"
+#include "texture.h"
+#include "button.h"
 #include "inputBox.h"
 
 #include <iostream>

@@ -1,7 +1,7 @@
 #include "button.h"
 #include "ui.h"
 #include "marbles.h"
-#include "EscenaTutorial.h"
+#include "escenaTutorial.h"
 
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, int frame)
 	: GameObject(g), text(t), textC(tC), hover(false), clicked(false), frame(frame)

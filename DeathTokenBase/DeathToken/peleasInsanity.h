@@ -1,10 +1,10 @@
 ﻿#ifndef PELEAS_INSANITY_H
 #define PELEAS_INSANITY_H
 
-#include "DialogueBox.h"
-#include "GameState.h"
-#include "GeneraPrecios.h"
-#include "InputBox.h"
+#include "dialogueBox.h"
+#include "gameState.h"
+#include "generaPrecios.h"
+#include "inputBox.h"
 #include <vector>
 
 const Uint32 TIEMPO_PRESENTACION = 3000;

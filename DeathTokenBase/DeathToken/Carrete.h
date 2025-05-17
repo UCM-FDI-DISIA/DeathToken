@@ -6,7 +6,7 @@
 #include <random>
 
 // Clase auxiliar de Slots que representa cada uno de los carretes que giran
-class Carrete : public sceneObject {
+class Carrete : public SceneObject {
 private:
 	constexpr static int NUM_ELEMS = 3; // Celdas por carrete
 

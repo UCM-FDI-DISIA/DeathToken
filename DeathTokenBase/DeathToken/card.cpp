@@ -2,7 +2,7 @@
 #include "game.h"
 
 Card::Card(GameState* game, int frame, Point2D<> pos, double angle) :
-	sceneObject(game, pos, game->getGame()->getTexture(CARDS)),
+	SceneObject(game, pos, game->getGame()->getTexture(CARDS)),
 	texture(game->getGame()->getTexture(CARDS)),
 	frame(frame),
 	angle(angle)

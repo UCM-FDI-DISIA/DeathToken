@@ -14,7 +14,7 @@
 #include "marblesInsanity.h"
 #include "peleas.h"
 #include "peleasInsanity.h"
-#include "Mesa.h"
+#include "mesa.h"
 #include <list>
 
 class Player;

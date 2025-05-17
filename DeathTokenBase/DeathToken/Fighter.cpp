@@ -1,6 +1,6 @@
 #include "fighter.h"
 #include "json.hpp"
-#include "Game.h"
+#include "game.h"
 using json = nlohmann::json;
 
 bool Fighter::loadFromJSON(const std::string& jsonString)

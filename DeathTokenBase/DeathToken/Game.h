@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "gameStateMachine.h"
 #include "fighter.h"
-#include "HUD.h"
+#include "hud.h"
 #include "texture.h"
 #include <cassert>
 #include <random>

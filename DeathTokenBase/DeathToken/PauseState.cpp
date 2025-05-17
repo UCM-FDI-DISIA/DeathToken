@@ -4,7 +4,7 @@
 #include "menu.h"
 #include "ranking.h"
 #include "mainMenu.h"
-#include "PlayerEconomy.h"
+#include "playerEconomy.h"
 
 PauseState::PauseState(Game* game, GameState* other) : GameState(game), anterior(other), texture(game->getTexture(PAUSE))
 {

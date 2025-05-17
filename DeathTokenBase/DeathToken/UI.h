@@ -166,18 +166,18 @@ public:
 	void OnExit();
 };
 
-class scythe;
+class Scythe;
 class UIScythe {
 protected:
 	GameState* gS;
-	scythe* s;
+	Scythe* s;
 	Game* game;
 	ButtonUI* exit;
 
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
-	UIScythe(GameState* g, Game* game, scythe* s);
+	UIScythe(GameState* g, Game* game, Scythe* s);
 	virtual ~UIScythe() {};
 	void OnExit();
 };

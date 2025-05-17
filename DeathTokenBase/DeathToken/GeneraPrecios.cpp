@@ -1,5 +1,5 @@
-#include "GeneraPrecios.h"
-#include "Game.h"
+#include "generaPrecios.h"
+#include "game.h"
 #include <algorithm>
 #include <random>
 

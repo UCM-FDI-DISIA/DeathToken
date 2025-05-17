@@ -1,12 +1,11 @@
 #include <iostream>
-#include "FirebaseUtils.h"
+#include "firebaseUtils.h"
 #include "game.h"
 #include "json.hpp"
 #include "mainMenu.h"
 #include "pauseState.h"
-#include "sdlutils.h"
-#include "SoundManager.h"
-#include "MainMenu.h"
+#include "sdlUtils.h"
+#include "soundManager.h"
 #include "finalMenu.h"
 #include <vector>
 #include <string>
