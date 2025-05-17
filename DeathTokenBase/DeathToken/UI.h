@@ -20,7 +20,6 @@ protected:
 	std::vector<ButtonChip*> chips;
 	int chipOnUse;
 	void OnArrow(const bool& left);
-
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);

@@ -13,7 +13,7 @@ PlayerEconomy::EconomyInitialize(bool savedGame)
 	{
 		blueSouls = 2000;
 		redSouls = 0;
-		insanity = 0;
+		insanity = 2;
 		bet = 0;
 	}
 }

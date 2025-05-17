@@ -83,6 +83,7 @@ void MarblesInsanity::update()
 	}
 	else {
 		elapsedTime = 0.0f;
+		height = 0;
 		for (auto btn : trileroButtons) {
 			btn->update();
 
