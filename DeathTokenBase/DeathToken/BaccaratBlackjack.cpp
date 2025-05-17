@@ -97,7 +97,7 @@ void BaccaratBlackjack::victory() {
 
 void BaccaratBlackjack::startRound() {
 
-	if (!animOn && (mat.player.size() == 0 && mat.player.size() == 0) && PlayerEconomy::getInsanity() > 0)
+	if (!animOn && (mat.player.size() == 0 && mat.player.size() == 0) && PlayerEconomy::getInsanity() > 0 && ui->getOnBet())
 	{
 		PlayerEconomy::subtractInsanity(1);
 		win = false;

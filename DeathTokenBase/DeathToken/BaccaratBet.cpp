@@ -37,23 +37,23 @@ BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getText
 }
 
 void BaccaratBet::repeatBet() {
-		for (int i = 0; i < betsHistory.size(); i++)
-			bets[i] = { betsHistory[i].multiplier * 2, betsHistory[i].moneyBet * betsHistory[i].multiplier, betsHistory[i].betType };
-		int currentBet = 0;
-		for (int i = 0; i < bets.size(); i++) {
-			currentBet += bets[i].moneyBet;
-		}
-		for (auto i : bacButtons)
-		{
-			i->repeatDoubleBet();
-		}
-		HUDManager::applyBet(currentBet);
-
-		startRound();
-		PlayerEconomy::addInsanity(1);
-		if (!hasWon) {
-			didntWin();
-		}
+	for (int i = 0; i < betsHistory.size(); i++)
+		bets[i] = { betsHistory[i].multiplier * 2, betsHistory[i].moneyBet * betsHistory[i].multiplier, betsHistory[i].betType };
+	int currentBet = 0;
+	for (int i = 0; i < bets.size(); i++) {
+		currentBet += bets[i].moneyBet;
+	}
+	for (auto i : bacButtons)
+	{
+		i->repeatDoubleBet();
+	}
+	HUDManager::applyBet(currentBet);
+	ui->setOnBet(true);
+	startRound();
+	PlayerEconomy::addInsanity(1);
+	if (!hasWon) {
+		didntWin();
+	}
 }
 
 void BaccaratBet::didntWin() {
@@ -70,7 +70,7 @@ void BaccaratBet::didntWin() {
 
 void BaccaratBet::startRound()
 {
-	if (!animOn && PlayerEconomy::getInsanity() > 0)
+	if (!animOn && PlayerEconomy::getInsanity() > 0 && (mat.player.size() == 0 && mat.player.size() == 0) && ui->getOnBet())
 	{
 		PlayerEconomy::subtractInsanity(1);
 		Baccarat::startRound();
@@ -264,4 +264,12 @@ void BaccaratBet::render() const
 }
 
 
-
+void BaccaratBet::clearBets() {
+	Baccarat::clearBets();
+	btnBaccaratbanker->setPos(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 15);
+	btnBaccarattie->setPos(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 + 10);
+	btnBaccaratplayer->setPos(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 2 + 200);
+	betOnBanker = false;
+	betOnPlayer = false;
+	betOnTie = false;
+}

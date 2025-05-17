@@ -94,7 +94,7 @@ public:
 	//metodos apuestas
 	void createBaccaratButton(int x, int y, int width, int height, int multiplier, int betType);
 	void newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat);
-	void clearBets();
+	virtual void clearBets();
 	void repeat();
 	virtual void startRound();
 };

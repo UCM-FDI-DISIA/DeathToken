@@ -317,6 +317,7 @@ void Baccarat::win() {
 //APUESTAS
 void Baccarat::newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat) {
 	moneyBet = ui->currentChipValue();
+	ui->setOnBet(true);
 	// así es más chuli (cleon)
 	bets[clave++] = { multiplier, moneyBet, betType };
 	//clave++;
@@ -338,6 +339,7 @@ void Baccarat::clearBets() {
 	{
 		i->clear();
 	}
+	ui->setOnBet(false);
 }
 
 void Baccarat::repeat()
@@ -359,7 +361,7 @@ void Baccarat::repeat()
 
 void Baccarat::startRound() {
 
-	if (mat.player.size() == 0 && mat.player.size() == 0)
+	if (mat.player.size() == 0 && mat.player.size() == 0 && ui->getOnBet())
 	{
 		hasWon = false;
 		player1->frame = 0;//inicializamos boca abajo

@@ -27,7 +27,7 @@ void BaccaratFlip::handleExtraCards()
 
 void BaccaratFlip::startRound()
 {
-	if (mat.player.size() == 0 && mat.player.size() == 0)
+	if (mat.player.size() == 0 && mat.player.size() == 0 && ui->getOnBet())
 	{
 		if (!animOn && PlayerEconomy::getInsanity() > 0)
 		{
