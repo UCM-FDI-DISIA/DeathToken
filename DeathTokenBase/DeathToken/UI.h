@@ -142,7 +142,7 @@ protected:
 	Game* game;
 	ButtonUI* exit;
 	ButtonUI* go;
-
+	bool bet = false;
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
@@ -150,6 +150,9 @@ public:
 	virtual ~UIRoulette() {};
 	void OnExit();
 	void OnGo();
+	void seOnBet(bool beted) {
+		bet = beted;
+	};
 };
 
 class rouletteChoose;

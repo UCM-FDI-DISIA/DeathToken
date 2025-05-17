@@ -19,6 +19,12 @@ void RouletteScene::update() {
 		roul->addSpeed(num);
 	}
 	hud->refresh();
+	if (roul->getSpeed() == 0) {
+		ui->seOnBet(false);
+	}
+	else {
+		ui->seOnBet(true);
+	}
 }
 
 void RouletteScene::render() const {
@@ -37,5 +43,6 @@ void RouletteScene::render() const {
 void RouletteScene::throwRoulette() {
 	if (eco->getBlueSouls() >= costPerThrow) {
 		canThrow = true;
+		ui->seOnBet(true);
 	}
 }
