@@ -138,7 +138,7 @@ void BaccaratBet::startRound()
 
 void BaccaratBet::acumulate() {
 	if (!buttonsOn) {
-		int xBut = (int)(Game::WIN_WIDTH * 7.07 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut = (int)Game::WIN_WIDTH / 18, hBut = (int)Game::WIN_WIDTH / 18;
+		int xBut = (int)(Game::WIN_WIDTH * 7.16 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
 		bet = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
 		addObjects(bet);
 		addEventListener(bet);
