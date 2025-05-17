@@ -589,7 +589,7 @@ void ButtonPeleas::handleEvent(const SDL_Event& event) {
 	}
 }
 ButtonTutorial::ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text, EscenaTutorial* tut) :ButtonBet(gS, game, ui, x, y, w, h, text, NULL), _tut(tut) {}
-ButtonTutorial::~ButtonTutorial() { delete _tut; }
+ButtonTutorial::~ButtonTutorial() { /*delete _tut;*/ }
 void ButtonTutorial::render() const {
 	if (text != nullptr) {
 		text->render(box);
