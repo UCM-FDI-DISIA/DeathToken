@@ -59,15 +59,18 @@ PeleasInsanity::~PeleasInsanity()
 }
 void PeleasInsanity::generarNuevoObjeto()
 {
+#ifdef DEBUG
   std::cout << "\n=== GENERANDO NUEVO OBJETO ===" << std::endl;
-
+#endif
   resetearCajasDialogo();
   objetoActual = generadorPrecios.generarObjeto();
 
   if (objetoActual.minRango >= objetoActual.maxRango) {
     objetoActual.maxRango = objetoActual.minRango + 1;
+#ifdef DEBUG
     std::cerr << "Error: Rango inválido. Corregido a [" << objetoActual.minRango
               << "-" << objetoActual.maxRango << "]" << std::endl;
+#endif
   }
 
   rondasActuales.clear();

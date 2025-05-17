@@ -271,6 +271,7 @@ void DialogueBox::render() const {
 	if (!textSurface) {
 		std::cerr << "Error al crear la superficie del texto: "
 			<< TTF_GetError() << std::endl;
+
 		return;
 	}
 #endif

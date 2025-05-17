@@ -10,9 +10,9 @@ BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(F
 void BaccaratFlip::addCards()
 {
 	Baccarat::addCards();
-	extra1 = createCard(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3, 0, 14); // frame 14 = invisible
+	extra1 = createCard(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3, 0, 14);
 	extra2 = createCard(Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3, 0, 14);
-	extra3 = createCard(Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3, 0, 14);//a
+	extra3 = createCard(Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3, 0, 14);
 }
 //crea las tres cartas extra
 void BaccaratFlip::handleExtraCards()
@@ -32,11 +32,11 @@ void BaccaratFlip::startRound()
 		if (!animOn && PlayerEconomy::getInsanity() > 0)
 		{
 			PlayerEconomy::subtractInsanity(1);
-			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); // frame 14 = invisible
+			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); 
 			extra2->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
-			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });//a
+			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
 
-			active = true;//ACORDARME PONER EN FALSE EN EL CLEAR DECK
+			active = true;
 			handleExtraCards();
 			extra1->frame = 0;
 			extra2->frame = 0;
@@ -48,7 +48,7 @@ void BaccaratFlip::startRound()
 		}
 	}
 }
-//crea los botonees para llas cartas
+//crea los botonees para las cartas
 void BaccaratFlip::cardButton()
 {
 	carta1 = new Button(this, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 - Game::WIN_HEIGHT / 8, Game::WIN_WIDTH / 20, Game::WIN_HEIGHT / 8, text);
@@ -65,7 +65,7 @@ void BaccaratFlip::cardButton()
 	addObjects(carta3);
 	addEventListener(carta3);
 	carta3->connect([this] {if (active && flips < 2) { extra3->frame = extraVals[2]; flips++; deckButton(); } chosen = 2; });
-	//Resetear flips en clear deck!!!!!!!!!!!!!!
+	
 
 }
 
@@ -389,9 +389,9 @@ void BaccaratFlip::update()
 			player3->frame = 14;
 			ctFrame = 14;
 			ctFrameB = 14;
-			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); // frame 14 = invisible
+			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
 			extra2->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
-			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });//a
+			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
 			extra1->frame = 0;
 			extra2->frame = 0;
 			extra3->frame = 0;

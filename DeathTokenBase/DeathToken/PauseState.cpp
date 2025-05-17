@@ -53,5 +53,3 @@ void PauseState::render() const
 	texture->render();
 	GameState::render();
 }
-
-//NO SE COMO HACER QUE NO FALLE CUANDO HACES PAUSE EN UN JUEGO Y VUELVES AL MENU PORQUE FALLA EL POPGAME DE LA UI

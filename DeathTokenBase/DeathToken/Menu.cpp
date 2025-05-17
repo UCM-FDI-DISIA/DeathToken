@@ -6,8 +6,7 @@
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
-	//Widht, height, position baccarat button
-	//HUDManager::getHudBet()->refresh();
+	
 	eco = new PlayerEconomy();
 	eco->EconomyInitialize();
 

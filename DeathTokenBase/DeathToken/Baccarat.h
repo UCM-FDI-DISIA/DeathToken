@@ -64,7 +64,6 @@ protected:
 	int clave = 0;//para verla apuesta que es
 	float tiempo = 0;
 	bool bankerBet = false, playerBet = false, tieBet = false, cardAnim = false, timeForWin = false;;
-	//bool locura; global?
 public:
 	bool hasWon = false;
 	Baccarat(Game* game, bool bJ = false);
@@ -72,10 +71,6 @@ public:
 		HUDManager::popGame();
 		delete ui;  // Elimina la interfaz solo si fue creada dinámicamente
 		ui = nullptr;  // Evita accesos a memoria liberada
-
-		//for (auto& b : bacButtons) {
-		//	delete b;  // Libera cada botón
-		//}
 
 	};
 	void handleEvent(const SDL_Event& event) override;

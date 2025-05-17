@@ -2,12 +2,12 @@
 #include "playerEconomy.h"
 #include "hud.h"
 
-//Inicializaci�n m�quina
+//Inicializacion maquina
 long long PlayerEconomy::blueSouls = 0;
 long long PlayerEconomy::redSouls = 0;
 int PlayerEconomy::insanity = 0;
 long long PlayerEconomy::bet = 0;
-//Inicializaci�n funcional
+//Inicializacion funcional
 void
 PlayerEconomy::EconomyInitialize(bool savedGame)
 {

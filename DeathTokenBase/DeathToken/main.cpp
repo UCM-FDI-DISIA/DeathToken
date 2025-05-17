@@ -13,7 +13,9 @@ int main(int argc, char* argv[])
 		delete game;
 	}
 	catch (const std::string& msg) {
+#if DEBUG
 		cerr << "Error: " << msg << endl;
+#endif
 	}
 	return 0;
 }

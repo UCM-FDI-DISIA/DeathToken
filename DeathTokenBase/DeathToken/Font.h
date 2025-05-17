@@ -5,7 +5,6 @@
 #include <cassert>
 #include <iostream>
 
-//#include "macros.h"
 
 class Font {
 public:

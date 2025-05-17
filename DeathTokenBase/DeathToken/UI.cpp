@@ -271,7 +271,6 @@ void UIBaccarat::OnRepeat()
 void
 UIBaccarat::OnInfo()
 {
-	//EJEMPLO USO TUTORIAL, METER LAS IMAGENES QUE OCUPE EN EL VECTOR
 	if (isBlackJack) {
 		OnInfoBlackJack();
 	}
