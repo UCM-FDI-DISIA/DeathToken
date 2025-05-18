@@ -487,7 +487,7 @@ void UIPeleasInsanity::OnInfo()
 {
 	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 	std::vector<Texture*> tut;
-	tut.push_back(game->getTexture(PELEASTU1));
+	tut.push_back(game->getTexture(TUTORIALPELEASLOCURA));
 	game->push(new Tutorial(game, gS, tut));
 }
 

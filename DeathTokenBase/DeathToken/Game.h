@@ -228,6 +228,7 @@ enum TextureName {
 	LOCKAUTO,
 	LOCKAUTOCLCK,
 	DIALOGPELEASFONDO,
+	TUTORIALPELEASLOCURA,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

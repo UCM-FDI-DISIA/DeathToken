@@ -267,6 +267,7 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "ui/slots/Lock.png",1,1 });
 	v.push_back(TextureSpec{ "ui/slots/Lock_Clicked.png",1,1 });
 	v.push_back(TextureSpec{ "MarcoDialogo.png",1,1 });
+	v.push_back(TextureSpec{ "interfaz locura.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
