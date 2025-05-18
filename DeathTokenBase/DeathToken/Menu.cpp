@@ -48,9 +48,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
 		baccaratState = gameSelec(0);
+		getGame()->push(baccaratState);
 		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
-			getGame()->push(baccaratState);
 			tutorialBaccarat = false;
 			baccaratState->showTutorial();
 		}
@@ -63,14 +63,14 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addObjects(slots);
 	addEventListener(slots);
 	slots->connect([this]() {
-    slotsState = gameSelec(1);
-    if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
-    {
-        getGame()->push(slotsState);
-        tutorialSlots = false;
-        slotsState->showTutorial();
-    }
-    });
+		slotsState = gameSelec(1);
+		getGame()->push(slotsState);
+		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+		{
+			tutorialSlots = false;
+			slotsState->showTutorial();
+		}
+		});
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
 
 	//Widht, height, position marbles button
@@ -80,7 +80,14 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { getGame()->push(gameSelec(2)); });
+	marbles->connect([this]() {
+		marbleState = gameSelec(2);
+		getGame()->push(gameSelec(2));
+		if (tutorialMarbles) {
+			tutorialMarbles = false;
+			marbleState->showTutorial();
+		}
+		});
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -88,7 +95,11 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { getGame()->push(gameSelec(3)); });
+	fights->connect([this]() {
+
+		getGame()->push(gameSelec(3));
+
+		});
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
 	//Widht, height, position roulette button
