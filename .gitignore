@@ -7,6 +7,7 @@
 *.rsuser
 *.suo
 *.user
+!DeathToken.vcxproj.user
 *.userosscache
 
 
