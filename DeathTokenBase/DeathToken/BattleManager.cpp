@@ -22,8 +22,6 @@ const int MAXMINDSET = 100 - MOD;
 constexpr int MSEG = 1500;
 
 // Para random
-random_device rd;
-mt19937 gen(rd());
 uniform_real_distribution<float> dist(0.0f, 100.0f);
 uniform_int_distribution<int> range(0, 27);  // 28 es el numero de enfrentamientos (nºpeleadores * (nºpeleadores - 1) /2) y hay 8 peleadores. Incluyendo el 0 lo hace que llegue hasta el 27
 uniform_real_distribution<float> mindsetRange(5, 20);
@@ -43,11 +41,11 @@ BattleManager::BattleManager(DialogueBox* dialog, Game* g)
 void BattleManager::StartBattle()
 {
 
-	int i = range(gen);
+	int i = range(game->getGen());
 	currentMatch = game->GetMatchUp(i);
 
-	float rndMindset1 = inicialMindSet(gen);
-	float rndMindset2 = inicialMindSet(gen);
+	float rndMindset1 = inicialMindSet(game->getGen());
+	float rndMindset2 = inicialMindSet(game->getGen());
 
 	if (currentMatch.advantageFighterIndex == 1) {
 		currentMatch.fighter1.setMindset(rndMindset1 + MOD);
@@ -130,7 +128,7 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 	float hitBackProb = 2.5f + 15.0f * (50.0f - active.getMindset()) / 200.0f;
 	float failProb = 7.5f + 12.5f * (50.0f - active.getMindset()) / 100.0f;
 	float criticalProb = 10.0f + 30.0f * (active.getMindset() - 50.0f) / 100.0f;
-	float prob = dist(gen);
+	float prob = dist(game->getGen());
 
 	// Golpearse a sí mismo
 	if (prob < hitBackProb) {
@@ -138,7 +136,7 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 		dialog->showMessage("¡Pero se ha golpeado a sí mismo, " + active.getName() + " se ha vuelto loco!");
 
 		if (active.isAlive()) {
-			active.reduceMindset(mindsetRange(gen));
+			active.reduceMindset(mindsetRange(game->getGen()));
 			dialog->showMessage("Esto seguro que mina su concentración en el combate");
 			dialog->showMessage("¡Ahora es más probable que pierda!");
 		}
@@ -151,7 +149,7 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 	// Fallo
 	else if (prob < hitBackProb + failProb) {
 		dialog->showMessage(active.getName() + " lamentablemente su golpe ha fallado a su objetivo.");
-		active.reduceMindset(mindsetRange(gen));
+		active.reduceMindset(mindsetRange(game->getGen()));
 		dialog->showMessage("Esto seguro que mina su concentración en el combate.");
 		dialog->showMessage("¡Ahora es más probable que pierda!");
 	}
@@ -162,8 +160,8 @@ void BattleManager::ActionTurn(Fighter& active, Fighter& objetive)
 		dialog->showMessage("¡MADRE MÍA, CRÍTICO! " + active.getName() + " acaba de destrozar a su oponente.");
 		dialog->showMessage(" Tras semejante golpe tal vez deban replantearse el resultado del combate.");
 		if (objetive.isAlive()) {
-			active.boostMindset(mindsetRange(gen));
-			objetive.reduceMindset(mindsetRange(gen));
+			active.boostMindset(mindsetRange(game->getGen()));
+			objetive.reduceMindset(mindsetRange(game->getGen()));
 			dialog->showMessage("Esto seguro que mejora su concentración en el combate.");
 			dialog->showMessage("¡Ahora es más probable que gane!");
 			dialog->showMessage("¡Y " + objetive.getName() + " es más probable que pierda!");

@@ -249,12 +249,10 @@ public:
 	void Hide() 
 	{
 		UI::go->Hide();
-		info->Hide();
 	};
 	void Show() 
 	{
 		UI::go->Show();
-		info->Show();
 	}
 
 protected:

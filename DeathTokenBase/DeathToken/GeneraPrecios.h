@@ -15,7 +15,7 @@ struct InfoObjeto {
 
 class GeneraPrecios {
 public:
-  GeneraPrecios();
+  GeneraPrecios(std::mt19937);
   InfoObjeto generarObjeto();
   std::mt19937 gen;
 

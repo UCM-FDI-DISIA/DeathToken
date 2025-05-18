@@ -237,7 +237,7 @@ void UIMarblesInsanity::update() {
 
 
 //RankingUI
-UIRanking::UIRanking(GameState* gS, Game* game) : gS(gS), game(game)
+UIRanking::UIRanking(GameState* gS, Game* game) : gS(gS), game(game), ranking(nullptr)
 {
 	exit = new ButtonUI(gS, (int)((50.0f / 1920.0f) * Game::WIN_WIDTH), (int)((49.0f / 1080.0f) * Game::WIN_HEIGHT), (int)((126.0f / 1920.0f) * Game::WIN_WIDTH), (int)((126.0f / 1080.0f) * Game::WIN_HEIGHT), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
 	gS->addObjectsUI(exit);
