@@ -9,6 +9,7 @@ PeleasInsanity::PeleasInsanity(Game* game)
 	: GameState(game)
 	, currentState(State::PRESENTACION)
 	, mostrarTextoResultado(false)
+	, bet(new HUDBet(this, false))
 	, inputJugador(new InputBox(game->getRenderer(),
 		game->getTypo(FIGHTS_SMALL),
 		static_cast<int>(Game::WIN_WIDTH / 2 - 150),
@@ -87,8 +88,7 @@ void PeleasInsanity::generarNuevoObjeto()
 	partidaTerminada = false;
 	ganador = "";
 
-	std::string descripcion = "[Categoría] " + objetoActual.descripcionRango +
-		"\n[Estado] " + objetoActual.descripcionModificador;
+	std::string descripcion = "[Categoría] " + objetoActual.descripcionRango + "\n[Estado] " + objetoActual.descripcionModificador;
 	descripcionBox->showMessage(descripcion, true);
 	inputJugador->showMessage("");
 }

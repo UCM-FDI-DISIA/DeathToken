@@ -245,7 +245,7 @@ public:
 	};
 	~UIPeleasInsanity() override = default;
 	void OnGo() override;
-	void OnInfo() {};
+	void OnInfo();
 	void Hide() 
 	{
 		UI::go->Hide();

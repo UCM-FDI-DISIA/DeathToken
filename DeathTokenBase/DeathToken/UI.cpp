@@ -483,6 +483,14 @@ void UIPeleasInsanity::OnGo()
 	_peleas->empezaPartida();
 }
 
+void UIPeleasInsanity::OnInfo()
+{
+	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
+	std::vector<Texture*> tut;
+	tut.push_back(game->getTexture(PELEASTU1));
+	game->push(new Tutorial(game, gS, tut));
+}
+
 inline int UIRoulette::relativeX(const float& n)
 {
 	return (int)((n / 1920.0f) * Game::WIN_WIDTH);

@@ -59,6 +59,7 @@ private:
   DialogueBox* rondaBox = nullptr;
   DialogueBox* resultadoBox = nullptr;
   UIPeleasInsanity* ui = nullptr;
+  HUDBet* bet;
 
   // Datos juego
   GeneraPrecios generadorPrecios;
