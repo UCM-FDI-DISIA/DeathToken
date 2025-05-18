@@ -85,7 +85,7 @@ void SlotsNormal::update() {
 		}
 		// Se borran los tres carretes
 		for (Carrete* c : carretes) c->deleteCarrete();
-#if _DEBUG
+#if DEBUG
 		std::cout << multiplicador << "\n";
 #endif
 		// Si el multiplicador no es 0 (ha habido combinación), se muestra el mensaje

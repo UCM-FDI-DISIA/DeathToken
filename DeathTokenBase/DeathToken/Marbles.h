@@ -66,6 +66,7 @@ public:
 	void marblesButtonCreation();
 	void newBet(std::vector<int> typeOfBet, int multiplier, long long moneyBet, ButtonMarbles* btnMarbles);
 	void clearBets();
+	void clearBetsHistory();
 	void repeat();
 
 	void setBlockedMarble(std::vector<int> blocked);

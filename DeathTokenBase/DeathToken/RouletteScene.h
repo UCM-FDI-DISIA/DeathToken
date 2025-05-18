@@ -10,18 +10,14 @@ class RouletteScene : public GameState
 	Texture* rouletteBG;
 	Texture* rouletteFrame;
 	Texture* arrowTex;
-	int costPerThrow = 500;
+	int costPerThrow = 2000;
 	int canThrow = false;
-	PlayerEconomy* eco;
-	HUDLobby* hudMenu;
 	HUDLobby* hud;
 	UIRoulette* ui;
 public:
-	RouletteScene(Game* g, PlayerEconomy* eco);
+	RouletteScene(Game* g);
 	virtual ~RouletteScene() {
-		delete ui; 
-		HUDManager::setHudLobby(hudMenu, true);
-		hudMenu->refresh();
+		delete ui;
 	};
 	void throwRoulette();
 	void update() override;

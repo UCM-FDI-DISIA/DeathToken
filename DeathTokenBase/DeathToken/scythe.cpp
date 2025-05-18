@@ -1,7 +1,7 @@
 #include "scythe.h"
 #include "finalMenu.h"
 
-Scythe::Scythe(Game* game, PlayerEconomy* eco) : GameState(game), eco(eco), ui(new UIScythe(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG))
+Scythe::Scythe(Game* game) : GameState(game), ui(new UIScythe(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG))
 {
 	//Widht, height, position baccarat button
 	double wBut = Game::WIN_WIDTH / 4, hBut = Game::WIN_HEIGHT / 2,
@@ -9,15 +9,9 @@ Scythe::Scythe(Game* game, PlayerEconomy* eco) : GameState(game), eco(eco), ui(n
 	buyButton = new Button(this, (int)xBut, (int)yBut, (int)wBut, (int)hBut, game->getTexture(SCYTHE));
 	addEventListener(buyButton);
 	addObjects(buyButton);
-	buyButton->connect([this, eco]() { buyScythe();});
+	buyButton->connect([this]() { buyScythe();});
 
-	hudMenu = HUDManager::getHudLobby();
-	hud = new HUDLobby(this, true);
-}
-
-void Scythe::update()
-{
-	GameState::update();
+	HUDLobby* hud = new HUDLobby(this, true);
 	hud->refresh();
 }
 
@@ -29,7 +23,7 @@ void Scythe::render() const
 
 void Scythe::buyScythe()
 {
-	if (eco->getRedSouls() >= 200) {
+	if (PlayerEconomy::getRedSouls() >= 200) {
 		game->stop();
 		game->pushState(new FinalMenu(game, true));
 	}

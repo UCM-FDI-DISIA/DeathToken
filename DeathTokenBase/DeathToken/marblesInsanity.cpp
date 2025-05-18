@@ -12,6 +12,10 @@ MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->g
 	auto& soundManager = SoundManager::obtenerInstancia();
 	soundManager.reproducirMusica("CanicasDT");
 	uiI = new UIMarblesInsanity(this, game, this);
+	guideText = new Text(this, this->getGame()->getTypo(GRAND_CASINO1), Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2,
+						(int)(3.0f * 1920.f / Game::WIN_WIDTH), Text::CENTRO);
+	guideText->setMessage("Pulsa en GO para empezar ronda con locura");
+	addObjectsUI(guideText);
 	wMarbleI = -1;
 	wMarble = { 0,0,0,0 };
 	wMarbleShow = false;
@@ -52,6 +56,7 @@ void MarblesInsanity::render() const
 		uiI->render();
 	}
 	hud->render();
+	guideText->render();
 }
 
 void MarblesInsanity::update()
@@ -99,6 +104,7 @@ void MarblesInsanity::update()
 
 void MarblesInsanity::StartRoundTrickster()
 {
+	guideText->setMessage(" ");
 	std::uniform_int_distribution<> distrib(0, 3);
 	std::uniform_int_distribution<> posDistrib(0, 2);
 	posColor = posDistrib(game->getGen());

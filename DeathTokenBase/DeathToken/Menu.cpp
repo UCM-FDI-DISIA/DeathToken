@@ -7,8 +7,7 @@
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
-	//Widht, height, position baccarat button
-	//HUDManager::getHudBet()->refresh();
+
 	eco = new PlayerEconomy();
 	eco->EconomyInitialize();
 
@@ -87,8 +86,16 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { auto& soundManager = SoundManager::obtenerInstancia();
-	soundManager.reproducirEfecto("MarblesIntro"); getGame()->push(gameSelec(2)); });
+	marbles->connect([this]() {
+		marbleState = gameSelec(2);
+		getGame()->push(marbleState);
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("MarblesIntro");
+		if (tutorialMarbles) {
+			tutorialMarbles = false;
+			marbleState->showTutorial();
+		}
+		});
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -117,7 +124,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	roulette = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(ROULETTEBUT), (int)wBut, (int)hBut);
 	addObjects(roulette);
 	addEventListener(roulette);
-	roulette->connect([this]() { getGame()->push(new rouletteChoose(getGame(), eco)); });
+	roulette->connect([this]() { getGame()->push(new RouletteChoose(getGame())); });
 	obstaculos.push_back(cambiarColisiones(roulette->getCollisionRect()));
 
 	if (ghost == nullptr) {
@@ -163,6 +170,10 @@ Menu::gameSelec(int id) {
 			break;
 		case 1:
 			game = new SlotsInsanity(getGame());
+			if (tutorialSlotsLocura) {
+				tutorialSlots = true;
+				tutorialSlotsLocura = false;
+			}
 			break;
 		case 2:
 			game = new MarblesInsanity(getGame());

@@ -58,9 +58,10 @@ void Button::handleEvent(const SDL_Event& event) {
 	if (!visible) { return; }
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		SDL_Point point{ event.button.x, event.button.y };
-		if (SDL_PointInRect(&point, &box))
+		if (hover)
 		{
 			cb();
+			hover = false;
 		}
 	}
 	//si player encima de button y presiono enter entra
@@ -68,6 +69,7 @@ void Button::handleEvent(const SDL_Event& event) {
 		if (hover)
 		{
 			cb();
+			hover = false;
 		}
 	}
 }
@@ -120,7 +122,6 @@ ButtonBet::showChip()
 void
 ButtonBet::clear()
 {
-	betHistory = currentBet;
 	currentBet = 0;
 }
 void
@@ -133,6 +134,10 @@ int
 ButtonBet::getBet()
 {
 	return currentBet;
+}
+void ButtonBet::setBetHistory(int n)
+{
+	betHistory = n;
 }
 void
 ButtonBet::update()
@@ -270,14 +275,13 @@ ButtonMarbles::ButtonMarbles(GameState* gS, Game* game, UI* ui, int x, int y, in
 void
 ButtonMarbles::render() const
 {
-	//std::vector<int> blockedMarble = Marbles::getBlockedMarble();
 	SDL_Rect auxBox;
 	int pos = 0;
 	switch (type)
 	{
 	case 1: {
 		for (int i = 0; i < NCMarbles.size(); i++) {
-			if (NCMarbles[i] == 1 /* && NCMarbles[i] != blockedMarble[i]*/) {
+			if (NCMarbles[i] == 1 ) {
 				auxBox.x = (int)(box.x + box.w / 2.0 - (74.0 / 1080.0 * Game::WIN_HEIGHT) / 2.0);
 				auxBox.y = (int)(box.y + box.h / 2.0 - (74.0 / 1920.0 * Game::WIN_WIDTH) / 2.0);
 				auxBox.w = (int)((74.0 / 1920.0 * Game::WIN_WIDTH));
@@ -498,7 +502,6 @@ ButtonBaccarat::ButtonBaccarat(GameState* gS, Game* game, UI* ui, int x, int y, 
 void
 ButtonBaccarat::render() const
 {
-	//ButtonBet::render(); //para ver posicion boton si metemos textura
 	if (currentBet > 0)
 	{
 		currentText->render(chipSpace);
@@ -597,7 +600,7 @@ void ButtonPeleas::render() const {
 }
 
 ButtonTutorial::ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text, EscenaTutorial* tut) :ButtonBet(gS, game, ui, x, y, w, h, text, NULL), _tut(tut) {}
-ButtonTutorial::~ButtonTutorial() { /*delete _tut;*/ }
+ButtonTutorial::~ButtonTutorial() {}
 void ButtonTutorial::render() const {
 	if (text != nullptr) {
 		text->render(box);

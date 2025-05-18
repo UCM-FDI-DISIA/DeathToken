@@ -29,8 +29,8 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble, bool insanity) : Ga
 
 Marbles::~Marbles() {
 	
-	HUDManager::popGame();
 	delete ui;
+	HUDManager::popGame();
 }
 
 void  Marbles::generateMarbles() {
@@ -217,14 +217,16 @@ void Marbles::betManagement()
 	//Segun la apuesta porX al dinero metido
 
 	if (moneyWin > 0) {
-		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
+		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin, insanity));
 	}
 	else {
 		PlayerEconomy::setBet(0);
 		hud->refresh();
 	}
 
-	clearBets();
+	blockedMarble = { 0,0,0,0 };
+	betsHistory = bets;
+	clearBetsHistory();
 	betDone = true;
 }
 int  Marbles::checkBets() {
@@ -407,11 +409,19 @@ void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, long long money
 }
 
 void Marbles::clearBets() {
-	blockedMarble = { 0,0,0,0 };
-	betsHistory = bets;
 	bets.clear();
 	for (auto i : marbleButtons)
 	{
+		i->clear();
+	}
+}
+
+void Marbles::clearBetsHistory()
+{
+	bets.clear();
+	for (auto i : marbleButtons)
+	{
+		i->setBetHistory(i->getBet());
 		i->clear();
 	}
 }

@@ -21,7 +21,7 @@ protected:
 public:
 
 
-	~GameStateMachine();
+	virtual ~GameStateMachine();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila

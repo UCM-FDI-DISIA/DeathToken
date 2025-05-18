@@ -11,7 +11,7 @@ Ranking::Ranking(Game* game, GameState* lastState) : GameState(game), state(last
 
 	vector<FirebaseUtils::userData> ranking = FirebaseUtils::getRanking();
 
-    Text* title = new Text(state, game->getTypo(RANKINGT),relativeX((float)Game::WIN_WIDTH / 2), relativeY(Game::WIN_HEIGHT / 7), relativeY(10), Text::CENTRO);
+    Text* title = new Text(state, game->getTypo(RANKINGT),Game::WIN_WIDTH / 2, relativeY(Game::WIN_HEIGHT / 7), relativeY(10), Text::CENTRO);
     title->setMessage(" RANKING DE JUGADORES ");
     this->addObjects(title);
     
@@ -34,7 +34,7 @@ Ranking::Ranking(Game* game, GameState* lastState) : GameState(game), state(last
                 c = toupper(static_cast<unsigned char>(c));
             }
         }
-        Text* line = new Text(state, game->getTypo(RANKINGN), relativeX(Game::WIN_WIDTH/2),(startY + i * stepY), relativeY(1), Text::CENTRO);
+        Text* line = new Text(state, game->getTypo(RANKINGN), Game::WIN_WIDTH/2,(startY + i * stepY), relativeY(1), Text::CENTRO);
        
         line->setMessage(msg);
         this->addObjects(line);

@@ -7,8 +7,9 @@
 *.rsuser
 *.suo
 *.user
+!DeathToken.vcxproj.user
 *.userosscache
-*.sln.docstates
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -27,7 +28,6 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -397,4 +397,8 @@ FodyWeavers.xsd
 *.msp
 
 # JetBrains Rider
-*.sln.iml
+
+
+#.exe
+*.exe
+bin/*.pdb

@@ -38,13 +38,11 @@ void FirebaseUtils::StartFirebase()
 void FirebaseUtils::DeleteFirebaseUtils()
 {
 	if (!initialized) return;
-
 	if (app) {
 		delete db;
 		delete app;
 		
 	}
-
 	initialized = false;
 }
 

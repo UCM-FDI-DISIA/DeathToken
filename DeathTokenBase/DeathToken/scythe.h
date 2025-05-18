@@ -7,19 +7,12 @@ class Scythe : public GameState
 {
 	Texture* rouletteBG;
 	Button* buyButton;
-	HUDLobby* hudMenu;
-	HUDLobby* hud;
-	PlayerEconomy* eco;
 	UIScythe* ui;
 public:
-	Scythe(Game* game, PlayerEconomy* eco);
+	Scythe(Game* game);
 	~Scythe() {
-		HUDManager::setHudLobby(hudMenu, true);
-		hudMenu->refresh();
 		delete ui;
 	};
-
-	void update() override;
 	void render() const override;
 
 	void buyScythe();

@@ -24,13 +24,19 @@ bool SoundManager::inicializar(int frecuencia, int canales, int tamañoBuffer)
 		return true;
 
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
+#ifdef DEBUG
 		std::cerr << "Error SDL_InitSubSystem: " << SDL_GetError() << std::endl;
+#endif
+
 		return false;
 	}
 
 	if (Mix_OpenAudio(frecuencia, MIX_DEFAULT_FORMAT, canales, tamañoBuffer) <
 		0) {
+#ifdef DEBUG
 		std::cerr << "Error Mix_OpenAudio: " << Mix_GetError() << std::endl;
+#endif
+
 		return false;
 	}
 

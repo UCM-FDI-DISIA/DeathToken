@@ -14,9 +14,11 @@ private:
 	Button* carta1;
 	Button* carta2;
 	Button* carta3;
+	bool cartas;
 	//botones mazos
 	Button* banker;
 	Button* player;
+	bool mazos;
 	//cartas extra
 	Card* extra1;
 	Card* extra2;

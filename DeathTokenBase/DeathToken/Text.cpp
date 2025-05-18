@@ -133,7 +133,10 @@ Text::createTextSurfaces(SDL_Surface*& textSurface, SDL_Surface*& outlineSurface
     }
 
     if (!textSurface) {
+#ifdef DEBUG
         std::cerr << "Error al crear la superficie del texto: " << TTF_GetError() << std::endl;
+#endif // DEBUG
+
         return;
     }
 }
@@ -144,7 +147,10 @@ Text::createTextTextures(SDL_Texture*& textTexture, SDL_Texture*& outlineTexture
     outlineTexture = SDL_CreateTextureFromSurface(renderer, outlineSurface);
     if (!textTexture) {
         SDL_FreeSurface(textSurface);
+#ifdef DEBUG
         std::cerr << "Error al crear la textura del texto: " << SDL_GetError() << std::endl;
+#endif // DEBUG
+
         return;
     }
 }

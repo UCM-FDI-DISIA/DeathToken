@@ -1,9 +1,9 @@
 #include "baccaratBet.h"
 #include "sdlUtils.h"
 
-BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getTexture(BET)) {
+BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getTexture(BET)), buttonsOn(false) {
 	ui->isBet = true;
-	btnBaccarattie = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3 , Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 8);
+	btnBaccarattie = new ButtonBaccarat(this, game, ui, Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 8, Game::WIN_HEIGHT / 3, Game::WIN_WIDTH / 4, Game::WIN_HEIGHT / 8);
 	bacButtons.push_back(btnBaccarattie);
 	addObjects(bacButtons.back());
 	addEventListener(bacButtons.back());
@@ -34,6 +34,15 @@ BaccaratBet::BaccaratBet(Game* game) : Baccarat(game, true), intro(game->getText
 			btnBaccaratbanker->setPos(-Game::WIN_WIDTH, -Game::WIN_HEIGHT);
 			btnBaccarattie->setPos(-Game::WIN_WIDTH, -Game::WIN_HEIGHT);
 		} });
+
+		int xBut = (int)(Game::WIN_WIDTH * 7.16 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
+		bet = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
+		addEventListener(bet);
+		bet->connect([this]() { repeatBet(); });
+		yBut = (int)(Game::WIN_HEIGHT * 4.5 / 9);
+		stop = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
+		addEventListener(stop);
+		stop->connect([this]() { didntWin(); });
 }
 
 void BaccaratBet::win() {
@@ -133,21 +142,6 @@ void BaccaratBet::startRound()
 	{
 		PlayerEconomy::subtractInsanity(1);
 		Baccarat::startRound();
-	}
-}
-
-void BaccaratBet::acumulate() {
-	if (!buttonsOn) {
-		int xBut = (int)(Game::WIN_WIDTH * 7.16 / 8), yBut = (int)(Game::WIN_HEIGHT * 4.5 / 7), wBut = Game::WIN_WIDTH / 15, hBut = Game::WIN_WIDTH / 15;
-		bet = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(TICK));
-		addObjects(bet);
-		addEventListener(bet);
-		bet->connect([this]() { repeatBet(); });
-		yBut = (int)(Game::WIN_HEIGHT * 4.5 / 9);
-		stop = new Button(this, xBut, yBut, wBut, hBut, game->getTexture(CROSS));
-		addObjects(stop);
-		addEventListener(stop);
-		stop->connect([this]() { didntWin(); });
 	}
 }
 
@@ -257,13 +251,9 @@ void BaccaratBet::update() {
 		win();
 		goForWin = false;
 	}
-	if (bet != nullptr && stop != nullptr && !buttonsOn) {
-		bet = nullptr;
-		stop = nullptr;
-		eventHandlers.pop_back();
-		eventHandlers.pop_back();
-		gameObjects.pop_back();
-		gameObjects.pop_back();
+	if (buttonsOn) {
+		bet->update();
+		stop->update();
 	}
 	title = { Game::WIN_WIDTH / 2 - width / 2, Game::WIN_HEIGHT / 2 - height / 2,width,height };
 	if (width < Game::WIN_WIDTH && height < Game::WIN_HEIGHT && animOn) {
@@ -287,7 +277,6 @@ void BaccaratBet::update() {
 		if (tiempo > 3)
 		{
 			if (hasWon) {
-				acumulate();
 				buttonsOn = true;
 				hasWon = false;
 			}
@@ -319,6 +308,10 @@ void BaccaratBet::render() const
 		SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 170);
 		SDL_RenderFillRect(game->getRenderer(), &black);
 		intro->render(title);
+	}
+	if (buttonsOn) {
+		bet->render();
+		stop->render();
 	}
 }
 

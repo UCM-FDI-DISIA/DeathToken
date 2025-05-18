@@ -5,7 +5,7 @@
 #include "scythe.h"
 #include "ui.h"
 
-class rouletteChoose : public GameState
+class RouletteChoose : public GameState
 {
 	Texture* rouletteBG;
 	Texture* demon;
@@ -15,11 +15,10 @@ class rouletteChoose : public GameState
 	HUDLobby* hud;
 	UIRouletteChoose* ui;
 public:
-	rouletteChoose(Game* game, PlayerEconomy* eco);
-	~rouletteChoose() {
+	RouletteChoose(Game* game);
+	~RouletteChoose() {
 		delete ui;
 		HUDManager::setHudLobby(hudMenu, false);
-		hudMenu->refresh();
 	};
 
 	void chooseGame(GameState* juego);

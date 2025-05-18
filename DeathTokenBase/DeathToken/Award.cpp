@@ -7,10 +7,6 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin, bo
 
 	background->modAlfa(140);
 
-	//Crear calse intermedia PLAystate que herede todos los juegos y hacer un puntero que puedas pillar de cada juego
-	//Mirar el virtualTimer
-
-
 	text = new Text(state, game->getTypo(AWARD), Game::WIN_WIDTH / 2.0f, relativeY((float)Game::WIN_HEIGHT / 5.0f),  relativeX((float)cSize), Text::CENTRO);
 	long long multi = 0;
 	if (betG != 0) {
@@ -63,10 +59,10 @@ void Award::update() {
 
 void Award::render() const {
 	state->render();
-	//background->render();
+	background->render();
 	GameState::render();
 	//Una vez entrado tiene que ir a show Message y renderizar la cantidad del premio con un mensaje
-	//
+	
 
 }
 
