@@ -52,6 +52,7 @@ public:
 	inline BarraVida* getFighter2Bar() const { return fighter2bar; }
 	inline void clearBets() { bet1->clear(); bet2->clear(); };
 	void showTutorial() override { ui->OnInfo(); };
+	void toggleAutoDialog() { dialog->toggleAuto(); }
 
 private:
 	BattleManager* _battleM;

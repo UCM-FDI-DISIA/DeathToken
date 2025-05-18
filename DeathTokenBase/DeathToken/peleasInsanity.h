@@ -5,6 +5,7 @@
 #include "gameState.h"
 #include "generaPrecios.h"
 #include "inputBox.h"
+#include "ui.h"
 #include <vector>
 
 const Uint32 TIEMPO_PRESENTACION = 3000;
@@ -27,6 +28,7 @@ public:
 
   void render() const override;
   void update() override;
+  inline void empezaPartida() { empezarPartida = true; }
 
 private:
   enum class State {
@@ -56,6 +58,7 @@ private:
   DialogueBox* descripcionBox = nullptr;
   DialogueBox* rondaBox = nullptr;
   DialogueBox* resultadoBox = nullptr;
+  UIPeleasInsanity* ui = nullptr;
 
   // Datos juego
   GeneraPrecios generadorPrecios;
@@ -65,6 +68,7 @@ private:
   int rondasTotales = 0;
 
   // Control de partida
+  bool empezarPartida = false;
   bool partidaTerminada = false;
   std::string ganador = "";
 };

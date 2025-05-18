@@ -120,6 +120,7 @@ void Peleas::StartBattle()
 	if (state == FSState::FIGHT) {
 		return;
 	}
+	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBotonPeleas");
 	bet1->Hide();
 	bet2->Hide();
 	state = FSState::FIGHT;

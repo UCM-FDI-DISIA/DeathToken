@@ -1,16 +1,16 @@
-#pragma once
+﻿#pragma once
 #include <random>
 #include <string>
 #include "game.h"
 
 struct InfoObjeto {
   TextureName tex;
-  std::string nombre;
-  std::string descripcionRango;
-  std::string descripcionModificador;
-  int precioReal;
-  int minRango;
-  int maxRango;
+  std::string nombre = "";
+  std::string descripcionRango = "";
+  std::string descripcionModificador = "";
+  int precioReal = 0;
+  int minRango = 0;
+  int maxRango = 0;
 };
 
 class GeneraPrecios {

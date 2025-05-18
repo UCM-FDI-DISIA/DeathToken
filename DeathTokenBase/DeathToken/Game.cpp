@@ -264,6 +264,8 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "menus/salir.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_Peleas1.png",1,1 });
 	v.push_back(TextureSpec{ "tutorial/Tutorial_Peleas2.png",1,1 });
+	v.push_back(TextureSpec{ "ui/slots/Lock.png",1,1 });
+	v.push_back(TextureSpec{ "ui/slots/Lock_Clicked.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
@@ -396,7 +398,7 @@ Game::Game() {
 		std::cerr << "Error al cargar el sonido Static." << std::endl;
 	}
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/Fights.wav", "Fights", SoundManager::EFECTO)) {
+		"assets/sonido/Generales/Fights.wav", "FightsIntro", SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido Fights." << std::endl;
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PokerChips.wav",

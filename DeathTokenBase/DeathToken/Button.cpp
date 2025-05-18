@@ -55,6 +55,7 @@ void Button::render() const {
 
 }
 void Button::handleEvent(const SDL_Event& event) {
+	if (!visible) { return; }
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		SDL_Point point{ event.button.x, event.button.y };
 		if (SDL_PointInRect(&point, &box))
@@ -154,6 +155,7 @@ ButtonBet::render() const
 void
 ButtonBet::handleEvent(const SDL_Event& event)
 {
+	if (!visible) { return; }
 	Button::handleEvent(event);
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
@@ -188,6 +190,7 @@ ButtonChip::ButtonChip(GameState* g, UI* ui, int x, int y, int w, int h, int id,
 void
 ButtonChip::update()
 {
+	if (!visible) { return; }
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 	int mouseState = SDL_GetMouseState(NULL, NULL);
@@ -451,6 +454,7 @@ ButtonMarbles::render() const
 void
 ButtonMarbles::handleEvent(const SDL_Event& event)
 {
+
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
@@ -565,6 +569,8 @@ void ButtonSlots::render() const {
 	}
 }
 void ButtonPeleas::handleEvent(const SDL_Event& event) {
+
+	if (!visible) { return; }
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ButtonSlots::ui->currentChipValue();

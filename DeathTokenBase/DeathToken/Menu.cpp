@@ -11,7 +11,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	//HUDManager::getHudBet()->refresh();
 	eco = new PlayerEconomy();
 	eco->EconomyInitialize();
-
+	eco->setInsanity(5);
 	//Boundries
 	SDL_Rect boundry1;
 	boundry1.h = Game::WIN_HEIGHT;
@@ -99,9 +99,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights->connect([this]()
 		{
 			peleasState = gameSelec(3);
+			getGame()->push(peleasState);
 			auto& soundManager = SoundManager::obtenerInstancia();
 			soundManager.reproducirEfecto("FightsIntro");
-			getGame()->push(peleasState);
 
 			if (tutorialFights) //Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 			{

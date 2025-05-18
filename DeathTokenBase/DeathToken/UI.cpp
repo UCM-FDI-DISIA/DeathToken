@@ -4,6 +4,7 @@
 #include "marbles.h"
 #include "marblesInsanity.h"
 #include "peleas.h"
+#include "peleasInsanity.h"
 #include "rouletteChoose.h"
 #include "rouletteScene.h"
 #include "slots.h"
@@ -412,10 +413,32 @@ ButtonUI* UITutorial::upArrow()
 	return arrowBack;
 }
 // UI PELEAS
+UIPeleas::UIPeleas(Game* game, Peleas* peleas)
+	: UI((GameState*)peleas, game)
+	, _peleas(peleas)
+	, autoText(nullptr)
+{
+	erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
+	gS->addObjectsUI(erase);
+	gS->addEventListener(erase);
+	erase->connect([this]() { OnErase(); });
+
+	info = new ButtonUI(gS, relativeX(140.0f), relativeY(505.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
+	gS->addObjectsUI(info);
+	gS->addEventListener(info);
+	info->connect([this]() { OnInfo(); });
+
+	autoText = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(LOCKAUTO), game->getTexture(LOCKAUTOCLCK));
+	gS->addObjectsUI(autoText);
+	gS->addEventListener(autoText);
+	autoText->connect([this]() { _peleas->toggleAutoDialog();});
+	autoText->Hide();
+};
+
 void UIPeleas::OnGo() {
-	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBotonPeleas");
 	_peleas->StartBattle();
 	Hide();
+	autoText->Show();
 }
 
 void UIPeleas::OnErase() {
@@ -453,6 +476,11 @@ void UIPeleas::Show() {
 	for (auto& button : UI::chips) {
 		button->Show();
 	}
+	autoText->Hide();
+}
+void UIPeleasInsanity::OnGo()
+{
+	_peleas->empezaPartida();
 }
 
 inline int UIRoulette::relativeX(const float& n)

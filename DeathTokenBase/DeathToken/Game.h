@@ -225,6 +225,8 @@ enum TextureName {
 	SALIR,
 	PELEASTU1,
 	PELEASTU2,
+	LOCKAUTO,
+	LOCKAUTOCLCK,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {
