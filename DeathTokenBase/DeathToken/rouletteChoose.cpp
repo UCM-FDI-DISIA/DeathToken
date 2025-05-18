@@ -21,7 +21,7 @@ RouletteChoose::RouletteChoose(Game* game) : GameState(game), ui(new UIRouletteC
 	demon = game->getTexture(CHOOSEDEMON);
 
 	Text* price = new Text(this, game->getTypo(GRAND_CASINO1), (int)(Game::WIN_WIDTH * 0.75f), (int)(Game::WIN_HEIGHT * 0.8f), 5, Text::CENTRO);
-	price->setMessage("500 FICHAS");
+	price->setMessage("2000 FICHAS");
 	this->addObjects(price);
 	Text* souls = new Text(this, game->getTypo(GRAND_CASINO1), (int)(Game::WIN_WIDTH * 0.25f), (int)(Game::WIN_HEIGHT * 0.8f), 5, Text::CENTRO);
 	souls->setMessage("200 ALMAS");

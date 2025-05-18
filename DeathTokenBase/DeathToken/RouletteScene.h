@@ -10,7 +10,7 @@ class RouletteScene : public GameState
 	Texture* rouletteBG;
 	Texture* rouletteFrame;
 	Texture* arrowTex;
-	int costPerThrow = 500;
+	int costPerThrow = 2000;
 	int canThrow = false;
 	HUDLobby* hud;
 	UIRoulette* ui;

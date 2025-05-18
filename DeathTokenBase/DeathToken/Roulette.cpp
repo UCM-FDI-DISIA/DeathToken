@@ -273,11 +273,14 @@ void Roulette::update() {
 				|| rot >= 349.2f && rot < 356.4f) {
 			}
 			else if (rot >= 180.0f && rot < 187.2f) {
+				game->stop();
 				game->pushState(new FinalMenu(game, false));
 			}
 			else if (rot >= 172.8f && rot < 180.0f) {
+				game->stop();
 				game->pushState(new FinalMenu(game, true));
 			}
+
 			if (PlayerEconomy::getInsanity() > 0)
 			{
 				PlayerEconomy::subtractInsanity(1);
@@ -329,7 +332,7 @@ void Roulette::update() {
 void Roulette::addSpeed(int s) {
 	if (speed == 0)
 	{
-		PlayerEconomy::subtractBlueSouls(500);
+		PlayerEconomy::subtractBlueSouls(2000);
 		speed = s;
 		started = true;
 	}

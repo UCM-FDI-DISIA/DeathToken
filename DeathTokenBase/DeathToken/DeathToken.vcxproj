@@ -188,6 +188,7 @@
     <ClInclude Include="peleas.h" />
     <ClInclude Include="peleasInsanity.h" />
     <ClInclude Include="playerEconomy.h" />
+    <ClInclude Include="ranking.h" />
     <ClInclude Include="rouletteChoose.h" />
     <ClInclude Include="scythe.h" />
     <ClInclude Include="sdlUtils.h" />
