@@ -3,6 +3,7 @@
 #include "game.h"
 #include "menu.h"
 #include "player.h"
+#include "soundManager.h"
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
@@ -51,6 +52,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			getGame()->push(baccaratState);
+			auto& soundManager = SoundManager::obtenerInstancia();
+			soundManager.reproducirEfecto("BaccaratIntro");
 			tutorialBaccarat = false;
 			baccaratState->showTutorial();
 		}
@@ -67,6 +70,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			getGame()->push(slotsState);
+			auto& soundManager = SoundManager::obtenerInstancia();
+			soundManager.reproducirEfecto("SlotsIntro");
 			tutorialSlots = false;
 			slotsState->showTutorial();
 		}
@@ -80,7 +85,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { getGame()->push(gameSelec(2)); });
+	marbles->connect([this]() { auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirEfecto("MarblesIntro"); getGame()->push(gameSelec(2)); });
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
@@ -91,8 +97,10 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights->connect([this]()
 		{
 			peleasState = gameSelec(3);
+			auto& soundManager = SoundManager::obtenerInstancia();
+			soundManager.reproducirEfecto("FightsIntro");
 			getGame()->push(peleasState);
-			
+
 			if (tutorialFights) //Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 			{
 				tutorialFights = false;

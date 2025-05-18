@@ -1,4 +1,4 @@
-#include "soundManager.h"
+ï»¿#include "soundManager.h"
 #include <iostream>
 #include <SDL.h>
 
@@ -18,7 +18,7 @@ SoundManager::~SoundManager()
 	limpiar();
 }
 
-bool SoundManager::inicializar(int frecuencia, int canales, int tamañoBuffer)
+bool SoundManager::inicializar(int frecuencia, int canales, int tamaÃ±oBuffer)
 {
 	if (listo)
 		return true;
@@ -28,7 +28,7 @@ bool SoundManager::inicializar(int frecuencia, int canales, int tamañoBuffer)
 		return false;
 	}
 
-	if (Mix_OpenAudio(frecuencia, MIX_DEFAULT_FORMAT, canales, tamañoBuffer) <
+	if (Mix_OpenAudio(frecuencia, MIX_DEFAULT_FORMAT, canales, tamaÃ±oBuffer) <
 		0) {
 		std::cerr << "Error Mix_OpenAudio: " << Mix_GetError() << std::endl;
 		return false;

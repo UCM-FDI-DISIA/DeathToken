@@ -1,14 +1,15 @@
-#include "slotsNormal.h"
-#include "carrete.h"
+ï»¿#include "award.h"
 #include "button.h"
-#include "texture.h"
+#include "carrete.h"
 #include "game.h"
-#include "award.h"
+#include "slotsNormal.h"
+#include "soundManager.h"
+#include "texture.h"
 using namespace std;
 
 SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 {
-	// Tamaños relativos al tamaño de pantalla
+	// TamaÃ±os relativos al tamaÃ±o de pantalla
 	float x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 50) / 1920.0f) * (N_COLUM / 2.0f));
 	float y = Game::WIN_HEIGHT * (40 / 1080.0f);
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
@@ -16,9 +17,9 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 	float botonX = Game::WIN_WIDTH * (TAM_BOTON / 1920.0f);
 	float botonY = Game::WIN_HEIGHT * (TAM_BOTON / 1080.0f);
 
-	// Crea por cada columna un carrete y un botón para detenerlos
+	// Crea por cada columna un carrete y un botÃ³n para detenerlos
 	for (int i = 0; i < N_COLUM; ++i) {
-		// Añade el carrete a la lista de objetos
+		// AÃ±ade el carrete a la lista de objetos
 		carretes.push_back(new Carrete(this, { (int)(x + i * celdaX), (int)y }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS)));
 		addObjects(carretes[i]);
 
@@ -37,7 +38,7 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 			});
 	}
 
-	// Botón para añadir la apuesta
+	// BotÃ³n para aÃ±adir la apuesta
 	float w = Game::WIN_WIDTH * (200.0f / 1920.0f);
 	float h = Game::WIN_HEIGHT * (200.0f / 1080.0f);
 	x = Game::WIN_WIDTH * (0.5f - ((TAM_CELDA - 20) / 1920.0f) * ((N_COLUM / 2.0f) + 1.0f));
@@ -54,7 +55,7 @@ SlotsNormal:: ~SlotsNormal() {
 void SlotsNormal::update() {
 	// Update de los gameObjects de la escena
 	GameState::update();
-	// Si se han parado los tres, carrete se hace la comprobación
+	// Si se han parado los tres, carrete se hace la comprobaciÃ³n
 	if (comprobanteIndice == N_COLUM) {
 		comprobanteIndice = 0;
 
@@ -64,16 +65,16 @@ void SlotsNormal::update() {
 
 		int multiplicador = 0;
 		for (int i = 0; i < N_COLUM; ++i) {
-			// Comprobante de dos arañas en la misma fila
-			bool telarañas1_2 = vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete1[i] == 0;
-			bool telarañas1_3 = vectorCarrete1[i] == vectorCarrete3[i] && vectorCarrete1[i] == 0;
-			bool telarañas2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
+			// Comprobante de dos araÃ±as en la misma fila
+			bool telaraÃ±as1_2 = vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete1[i] == 0;
+			bool telaraÃ±as1_3 = vectorCarrete1[i] == vectorCarrete3[i] && vectorCarrete1[i] == 0;
+			bool telaraÃ±as2_3 = vectorCarrete2[i] == vectorCarrete3[i] && vectorCarrete2[i] == 0;
 			// Comprobante de los tres iconos en la fila iguales
 			if (vectorCarrete1[i] == vectorCarrete2[i] && vectorCarrete2[i] == vectorCarrete3[i]) {
 				// Suma el multiplicador correspondiente al total
 				multiplicador += multiplicadores[vectorCarrete1[i]];
 			}
-			else if (telarañas1_2 || telarañas1_3 || telarañas2_3) {
+			else if (telaraÃ±as1_2 || telaraÃ±as1_3 || telaraÃ±as2_3) {
 				multiplicador += multiplicadores[0];
 			}
 		}
@@ -82,7 +83,7 @@ void SlotsNormal::update() {
 #if _DEBUG
 		std::cout << multiplicador << "\n";
 #endif
-		// Si el multiplicador no es 0 (ha habido combinación), se muestra el mensaje
+		// Si el multiplicador no es 0 (ha habido combinaciÃ³n), se muestra el mensaje
 		if (multiplicador != 0) {
 			game->push(new Award(game, (GameState*)this, bet, bet * multiplicador));
 		}
@@ -102,7 +103,7 @@ void SlotsNormal::render() const {
 	GameState::render();
 }
 bool SlotsNormal::iniciarGiro() {
-	// Comprueba que todos los carretes estén parados para iniciar
+	// Comprueba que todos los carretes estÃ©n parados para iniciar
 	bool girar = false;
 	for (Carrete* c : carretes) {
 		girar = girar || c->getParada();
@@ -111,6 +112,8 @@ bool SlotsNormal::iniciarGiro() {
 	if (!girar) {
 		for (Carrete* c : carretes) {
 			c->iniciarGiro();
+			auto& soundManager = SoundManager::obtenerInstancia();
+			/*canalSonidoGiro = soundManager.reproducirEfectoCanalEsp("SlotSpin", -1, 0);*/
 		}
 		return true;
 	}

@@ -1,3 +1,4 @@
+﻿#pragma once
 #include <map>
 #include <SDL_mixer.h>
 #include <string>
@@ -11,7 +12,7 @@ public:
 
 	bool inicializar(int frecuencia = 44100,
 		int canales = 2,
-		int tama�oBuffer = 2048);
+		int tamañoBuffer = 2048);
 
 	bool cargarSonido(const std::string& rutaArchivo,
 		const std::string& id,
