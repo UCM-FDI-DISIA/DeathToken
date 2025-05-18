@@ -72,6 +72,7 @@ public:
 	void clear();
 	void repeat();
 	int getBet();
+	void setBetHistory(int n);
 	void update() override;
 	void render() const override;
 	void handleEvent(const SDL_Event&) override;

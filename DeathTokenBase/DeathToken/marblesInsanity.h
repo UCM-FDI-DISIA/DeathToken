@@ -6,6 +6,7 @@ class MarblesInsanity : public GameState
 private:
 	UIMarblesInsanity* uiI;
 
+	Text* guideText;
 	Texture* texture;
 	bool gameFinish;
 	std::vector<Texture*> CMarbles;

@@ -221,7 +221,9 @@ void Marbles::betManagement()
 		hud->refresh();
 	}
 
-	clearBets();
+	blockedMarble = { 0,0,0,0 };
+	betsHistory = bets;
+	clearBetsHistory();
 	betDone = true;
 }
 int  Marbles::checkBets() {
@@ -404,11 +406,19 @@ void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, long long money
 }
 
 void Marbles::clearBets() {
-	blockedMarble = { 0,0,0,0 };
-	betsHistory = bets;
 	bets.clear();
 	for (auto i : marbleButtons)
 	{
+		i->clear();
+	}
+}
+
+void Marbles::clearBetsHistory()
+{
+	bets.clear();
+	for (auto i : marbleButtons)
+	{
+		i->setBetHistory(i->getBet());
 		i->clear();
 	}
 }
