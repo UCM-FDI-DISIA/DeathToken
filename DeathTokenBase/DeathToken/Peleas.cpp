@@ -1,9 +1,9 @@
 ﻿#include "award.h"
 #include "battleManager.h"
-#include "SoundManager.h"
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
+#include "SoundManager.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -29,7 +29,7 @@ std::string formatOdds(float odds) {
 
 Peleas::Peleas(Game* game)
 	: GameState(game)
-	, dialog(new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, false, 400, 180))
+	, dialog(new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, true, 400, 180))
 	, _battleM(nullptr)
 	, nombre1(nullptr)
 	, nombre2(nullptr)
@@ -126,7 +126,7 @@ void Peleas::StartBattle()
 	state = FSState::FIGHT;
 	SDL_RenderClear(game->getRenderer());
 	dialog->setX(Game::WIN_WIDTH / 3);
-	dialog->setY(3 * Game::WIN_HEIGHT / 4);
+	dialog->setY(3 * Game::WIN_HEIGHT / 4 + 50);
 	dialog->setWidth(Game::WIN_WIDTH / 3);
 	dialog->resetHistory();
 	// Configuración de las barras de vida
@@ -176,14 +176,6 @@ void Peleas::render() const
 		r.w = Game::WIN_WIDTH;
 		game->getTexture(PELEASTARJETAFONDO)->render(r);
 
-		// Aquí falta el sprite de los personajes
-
-		SDL_Rect tarjetas;
-		tarjetas.x = tarjetas.y = 0;
-		tarjetas.h = Game::WIN_HEIGHT;
-		tarjetas.w = Game::WIN_WIDTH;
-		game->getTexture(PELEASTARJETAS)->render(tarjetas);
-
 		// Sprite Fighter 1
 		Texture* fighter1Tex =
 			game->getTexture(_battleM->getFigther1().getTextureName());
@@ -206,6 +198,12 @@ void Peleas::render() const
 		};
 		fighter2Tex->render(fighter2Dest);
 
+		SDL_Rect tarjetas;
+		tarjetas.x = tarjetas.y = 0;
+		tarjetas.h = Game::WIN_HEIGHT;
+		tarjetas.w = Game::WIN_WIDTH;
+		game->getTexture(PELEASTARJETAS)->render(tarjetas);
+
 		nombre1->render();
 		nombre2->render();
 		Cuota1->render();
@@ -224,6 +222,13 @@ void Peleas::render() const
 		fondo2.h = Game::WIN_HEIGHT;
 		fondo2.w = Game::WIN_WIDTH;
 		game->getTexture(PELEASRING)->render(fondo2);
+
+		SDL_Rect dialogBg;
+		dialogBg.h = 180 + 150;
+		dialogBg.w = Game::WIN_WIDTH / 3 + 200;
+		dialogBg.x = Game::WIN_WIDTH / 3 - 100;
+		dialogBg.y = 3 * Game::WIN_HEIGHT / 4 - dialogBg.h / 2 + 100;
+		game->getTexture(DIALOGPELEASFONDO)->render(dialogBg);
 
 		dialog->render();
 		fighter1bar->render();

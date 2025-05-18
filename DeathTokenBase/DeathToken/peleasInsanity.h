@@ -29,6 +29,7 @@ public:
   void render() const override;
   void update() override;
   inline void empezaPartida() { empezarPartida = true; }
+  void showTutorial() override { ui->OnInfo(); };
 
 private:
   enum class State {
