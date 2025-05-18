@@ -31,8 +31,8 @@ PeleasInsanity::PeleasInsanity(Game* game)
 		275))
 	, rondaBox(new DialogueBox(game->getRenderer(),
 		game->getTypo(FIGHTS_SMALL),
-		1300,
-		105,
+		1000,
+		705,
 		true,
 		true,
 		300,
@@ -130,11 +130,8 @@ void PeleasInsanity::render() const
 	SDL_Rect boardRect = { -30, 400, 540, 294 };
 	game->getTexture(PELEASBOARD)->render(boardRect);
 
-	SDL_Rect roundBoard = { 1250, 40, 300, 175 };
+	SDL_Rect roundBoard = { 950, 650, 300, 175 };
 	game->getTexture(PELEASROUND)->render(roundBoard);
-
-	SDL_Rect prizeBoard = { 1200, 400, 300, 400 };
-	game->getTexture(PELEASLOCURAPRECIO)->render(prizeBoard);
 
 	if (resultadoBox->isTextVisible()) {
 		SDL_Rect resultBoard = { 500, 200, 400, 600 };
