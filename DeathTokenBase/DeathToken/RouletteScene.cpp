@@ -1,10 +1,11 @@
 #include "rouletteScene.h"
 
-RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRoulette(this, game, this)), eco(eco), rouletteBG(game->getTexture(ROULETTEBG)) {
-	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE), eco);
-	addObjects(roul);
-	hudMenu = HUDManager::getHudLobby();
+RouletteScene::RouletteScene(Game* game) : GameState(game), ui(new UIRoulette(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG)) {
 	hud = new HUDLobby(this, true);
+	hud->refresh();
+
+	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE));
+	addObjects(roul);
 	arrowTex = game->getTexture(ROULETTEARROW);
 	rouletteFrame = game->getTexture(ROULETTEFRAME);
 }
@@ -41,7 +42,7 @@ void RouletteScene::render() const {
 }
 
 void RouletteScene::throwRoulette() {
-	if (eco->getBlueSouls() >= costPerThrow) {
+	if (PlayerEconomy::getBlueSouls() >= costPerThrow) {
 		canThrow = true;
 		ui->seOnBet(true);
 	}

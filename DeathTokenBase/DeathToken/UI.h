@@ -155,18 +155,18 @@ public:
 	};
 };
 
-class rouletteChoose;
+class RouletteChoose;
 class UIRouletteChoose {
 protected:
 	GameState* gS;
-	rouletteChoose* rouletteC;
+	RouletteChoose* rouletteC;
 	Game* game;
 	ButtonUI* exit;
 
 public:
 	inline int relativeX(const float& n);
 	inline int relativeY(const float& n);
-	UIRouletteChoose(GameState* g, Game* game, rouletteChoose* rouletteC);
+	UIRouletteChoose(GameState* g, Game* game, RouletteChoose* rouletteC);
 	virtual ~UIRouletteChoose() {};
 	void OnExit();
 };

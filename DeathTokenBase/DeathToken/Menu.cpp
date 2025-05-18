@@ -96,7 +96,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	roulette = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(ROULETTEBUT), (int)wBut, (int)hBut);
 	addObjects(roulette);
 	addEventListener(roulette);
-	roulette->connect([this]() { getGame()->push(new rouletteChoose(getGame(), eco)); });
+	roulette->connect([this]() { getGame()->push(new RouletteChoose(getGame())); });
 	obstaculos.push_back(cambiarColisiones(roulette->getCollisionRect()));
 
 	if (ghost == nullptr) {

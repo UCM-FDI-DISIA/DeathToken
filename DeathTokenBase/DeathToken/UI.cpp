@@ -444,7 +444,7 @@ inline int UIRouletteChoose::relativeY(const float& n)
 	return (int)((n / 1080.0f) * Game::WIN_HEIGHT);
 }
 
-UIRouletteChoose::UIRouletteChoose(GameState* gS, Game* game, rouletteChoose* rouletteC) : gS(gS), game(game), rouletteC(rouletteC)
+UIRouletteChoose::UIRouletteChoose(GameState* gS, Game* game, RouletteChoose* rouletteC) : gS(gS), game(game), rouletteC(rouletteC)
 {
 	exit = new ButtonUI(gS, relativeX(50.0f), relativeY(49.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIEXIT), game->getTexture(UIEXITCLCK));
 	gS->addObjectsUI(exit);
