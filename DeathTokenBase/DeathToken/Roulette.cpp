@@ -1,7 +1,7 @@
 #include "roulette.h"
 #include "finalMenu.h"
 
-Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : SceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {
+Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text) : SceneObject(gS, pos, text), gS(gS), game(game), texture(text) {
 	w = Game::WIN_WIDTH / 2;
 	h = Game::WIN_WIDTH / 2;
 	recompensas = game->getTexture(ROULETTERECOMPENSAS);
@@ -15,7 +15,7 @@ void Roulette::render() const {
 }
 
 void Roulette::update() {
-	if (eco->getInsanity() > 0) {
+	if (PlayerEconomy::getInsanity() > 0) {
 		if (SDL_GetTicks() - animTime >= 35.0f) {
 			if (i == 0)
 			{
@@ -236,13 +236,13 @@ void Roulette::update() {
 	}
 	if (started && speed == 0) {
 		started = false;
-		if (eco->getInsanity() > 0) {
+		if (PlayerEconomy::getInsanity() > 0) {
 			if (rot >= 0.0f && rot < 7.2f || rot >= 14.4f && rot < 18.0f
 				|| rot >= 43.2f && rot < 50.4f || rot >= 100.8f && rot < 108.0f
 				|| rot >= 165.6f && rot < 172.8f || rot >= 219.6f && rot < 226.8f
 				|| rot >= 248.4f && rot < 255.6f || rot >= 298.8f && rot < 306.0f
 				|| rot >= 334.8f && rot < 342.0f) {
-				eco->subtractRedSouls(10);
+				PlayerEconomy::subtractRedSouls(10);
 			}
 			else if (rot >= 7.2f && rot < 14.4f || rot >= 18.0f && rot < 25.2f
 				|| rot >= 32.4 && rot < 36.0f || rot >= 50.4f && rot < 57.6f
@@ -253,14 +253,14 @@ void Roulette::update() {
 				|| rot >= 270.0f && rot < 277.2f || rot >= 284.4f && rot < 291.6f
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
-				eco->addRedSouls(20);
+				PlayerEconomy::addRedSouls(20);
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
 				|| rot >= 79.2f && rot < 86.4f || rot >= 115.2f && rot < 122.4f
 				|| rot >= 151.2f && rot < 158.4f || rot >= 187.2f && rot < 194.4f
 				|| rot >= 226.8f && rot < 234.0f || rot >= 262.8f && rot < 270.0f
 				|| rot >= 356.4f && rot <= 360.0f) {
-				eco->addRedSouls(1);
+				PlayerEconomy::addRedSouls(1);
 			}
 			else if (rot >= 36.0f && rot < 43.2f || rot >= 72.0f && rot < 79.2f
 				|| rot >= 86.4f && rot < 93.6f || rot >= 108.0f && rot < 115.2f
@@ -301,14 +301,14 @@ void Roulette::update() {
 				|| rot >= 342.0f && rot < 349.2f) {
 				animTime = (float)SDL_GetTicks();
 				i = 0;
-				eco->addInsanity(10);
+				PlayerEconomy::addInsanity(10);
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
 				|| rot >= 79.2f && rot < 86.4f || rot >= 115.2f && rot < 122.4f
 				|| rot >= 151.2f && rot < 158.4f || rot >= 187.2f && rot < 194.4f
 				|| rot >= 226.8f && rot < 234.0f || rot >= 262.8f && rot < 270.0f
 				|| rot >= 356.4f && rot <= 360.0f) {
-				eco->addRedSouls(1);
+				PlayerEconomy::addRedSouls(1);
 			}
 			else if (rot >= 36.0f && rot < 43.2f || rot >= 72.0f && rot < 79.2f
 				|| rot >= 86.4f && rot < 93.6f || rot >= 108.0f && rot < 115.2f
@@ -329,7 +329,7 @@ void Roulette::update() {
 void Roulette::addSpeed(int s) {
 	if (speed == 0)
 	{
-		eco->subtractBlueSouls(500);
+		PlayerEconomy::subtractBlueSouls(500);
 		speed = s;
 		started = true;
 	}
