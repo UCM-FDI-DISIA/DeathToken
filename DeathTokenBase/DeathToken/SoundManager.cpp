@@ -211,7 +211,14 @@ void SoundManager::liberarTodos()
 	sonidos.clear();
 	musicaActual = "";
 }
+void SoundManager::detenerTodosLosSonidos()
+{
+	// Detener la música
+	detenerMusica();
 
+	// Detener todos los efectos de sonido en todos los canales
+	Mix_HaltChannel(-1);
+}
 void SoundManager::limpiar()
 {
 	liberarTodos();
@@ -231,4 +238,29 @@ bool SoundManager::musicaEnReproduccion() const
 bool SoundManager::musicaEnPausa() const
 {
 	return Mix_PausedMusic() != 0;
+}
+
+int SoundManager::reproducirEfectoCanalEsp(const std::string& id, int repeticiones, int canal)
+{
+	if (!listo || sonidos.find(id) == sonidos.end())
+		return -1;
+
+	Sonido& sonido = sonidos[id];
+	if (sonido.tipo != EFECTO)
+		return -1;
+
+	Mix_Chunk* efecto = nullptr;
+	if (sonido.multiVariante && !sonido.variaciones.empty()) {
+		int indice = rand() % sonido.variaciones.size();
+		efecto = sonido.variaciones[indice];
+	}
+	else if (!sonido.multiVariante) {
+		efecto = sonido.efecto;
+	}
+
+	if (!efecto)
+		return -1;
+
+	// Reproducir en el canal específico y devolver el número de canal
+	return Mix_PlayChannel(canal, efecto, repeticiones);
 }

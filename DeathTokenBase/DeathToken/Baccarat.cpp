@@ -1,4 +1,5 @@
-#include "baccarat.h"
+Ôªø#include "baccarat.h"
+#include "SoundManager.h"
 #include "game.h"
 #include <random>
 
@@ -6,6 +7,8 @@ Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getText
 	addEventListener(this);
 	addCards();
 	//Buttons
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("BaccaratDT");
 	int w = (int)(Game::WIN_WIDTH * (450.0f / 1920.0f));
 	int h = (int)(Game::WIN_WIDTH * (135.0f / 1920.0f));
 	int posT = (int)(Game::WIN_WIDTH * (370.0f / 1920.0f));
@@ -323,7 +326,7 @@ void Baccarat::win() {
 void Baccarat::newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat) {
 	moneyBet = ui->currentChipValue();
 	ui->setOnBet(true);
-	// asÌ es m·s chuli (cleon)
+	// as√≠ es m√°s chuli (cleon)
 	bets[clave++] = { multiplier, moneyBet, betType };
 	//clave++;
 }

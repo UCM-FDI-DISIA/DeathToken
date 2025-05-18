@@ -37,10 +37,10 @@ public:
 
 	bool musicaEnReproduccion() const;
 	bool musicaEnPausa() const;
-
+	int reproducirEfectoCanalEsp(const std::string& id, int repeticiones, int canal);
 	SoundManager(const SoundManager&) = delete;
 	SoundManager& operator=(const SoundManager&) = delete;
-
+	void detenerTodosLosSonidos();
 private:
 	SoundManager();
 	~SoundManager();

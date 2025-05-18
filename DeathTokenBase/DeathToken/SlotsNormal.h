@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "slots.h"
 
 #include <iostream>
@@ -15,7 +15,7 @@ protected:
 
 	std::vector<Carrete*> carretes; // vector con los tres carretes que conforman la maquina
 	int comprobanteIndice; // Indice para saber cuando se han parado los tres carretes
-	
+	int canalSonidoGiro = -1;
 public:
 
 	SlotsNormal(Game*);

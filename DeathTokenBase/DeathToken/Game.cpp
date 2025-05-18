@@ -390,6 +390,11 @@ Game::Game() {
 		SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido SlotsIntro." << std::endl;
 	}
+	if (!soundManager.cargarSonido("assets/sonido/Generales/StaticVinyl.mp3",
+		"Static",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido Static." << std::endl;
+	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/Fights.wav", "Fights", SoundManager::EFECTO)) {
 		std::cerr << "Error al cargar el sonido Fights." << std::endl;
@@ -406,12 +411,12 @@ Game::Game() {
 		std::cerr << "Error al cargar el sonido PasaPaginaTutorial." << std::endl;
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Music/BaccaratDToken.wav",
-		"BaccaratDToken",
+		"BaccaratDT",
 		SoundManager::MUSICA)) {
 		std::cerr << "Error al cargar la música BaccaratDToken." << std::endl;
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Music/CanicasDT_v2.wav",
-		"CanicasDT_v2",
+		"CanicasDT",
 		SoundManager::MUSICA)) {
 		std::cerr << "Error al cargar la música CanicasDT_v2." << std::endl;
 	}
@@ -456,6 +461,9 @@ Game::~Game() {
 	SDL_Quit();
 }
 void Game::run() {
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	const int staticChannel = 0; // Canal reservado para la estática
+	bool staticPlaying = false; // Controlar si ya está sonando
 	// Bucle principal del juego. Sigue mientras Mario este vivo o no haya llegado al final
 	while (!empty()) {
 		// Marca de tiempo del inicio de la iteración
@@ -471,6 +479,27 @@ void Game::run() {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
+
+			// Obtener el estado actual
+			GameState* currentState = gameStates.top().get();
+
+			// Verificar si estamos en menú principal o pausa
+			bool enMenuOPausa = dynamic_cast<MainMenu*>(currentState) ||
+				dynamic_cast<PauseState*>(currentState);
+
+			// Control del sonido de estática
+			if (enMenuOPausa) {
+				if (staticPlaying) {
+					Mix_HaltChannel(staticChannel);
+					staticPlaying = false;
+				}
+			}
+			else {
+				if (!staticPlaying) {
+                    soundManager.reproducirEfectoCanalEsp("Static", -1, staticChannel);
+					staticPlaying = true;
+				}
+			}
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
 				FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
 				stop();

@@ -49,11 +49,12 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(baccarat);
 	baccarat->connect([this]() {
 		baccaratState = gameSelec(0);
+		getGame()->push(baccaratState);
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("BaccaratIntro");
+
 		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
-			getGame()->push(baccaratState);
-			auto& soundManager = SoundManager::obtenerInstancia();
-			soundManager.reproducirEfecto("BaccaratIntro");
 			tutorialBaccarat = false;
 			baccaratState->showTutorial();
 		}
@@ -67,11 +68,12 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(slots);
 	slots->connect([this]() {
 		slotsState = gameSelec(1);
+		getGame()->push(slotsState);
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("SlotsIntro");
+
 		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
-			getGame()->push(slotsState);
-			auto& soundManager = SoundManager::obtenerInstancia();
-			soundManager.reproducirEfecto("SlotsIntro");
 			tutorialSlots = false;
 			slotsState->showTutorial();
 		}

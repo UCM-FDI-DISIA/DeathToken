@@ -1,4 +1,5 @@
 ﻿#include "peleasInsanity.h"
+#include "SoundManager.h"
 #include <algorithm>
 #include <iostream>
 #include <random>  // Asegúrate que incluya <random> para std::normal_distribution y std::clamp
@@ -43,6 +44,8 @@ PeleasInsanity::PeleasInsanity(Game* game)
   , partidaTerminada(false)
   , ganador("") 
 {
+    	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("PeleasDT");
   generarNuevoObjeto();
   inputJugador->setMaxLength(4);
   addEventListener(inputJugador);

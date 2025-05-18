@@ -1,4 +1,5 @@
-#include "marblesInsanity.h"
+﻿#include "marblesInsanity.h"
+#include "SoundManager.h"
 #include "sdlUtils.h"
 #include "ui.h"
 #include "game.h"	
@@ -8,6 +9,8 @@ MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->g
 	CMarbles.push_back(game->getTexture(GREENMARBLEREAL));
 	CMarbles.push_back(game->getTexture(BLUEMARBLEREAL));
 	CMarbles.push_back(game->getTexture(YELLOWMARBLEREAL));
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("CanicasDT");
 	uiI = new UIMarblesInsanity(this, game, this);
 	wMarbleI = -1;
 	wMarble = { 0,0,0,0 };

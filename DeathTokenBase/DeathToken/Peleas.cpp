@@ -1,5 +1,6 @@
 ﻿#include "award.h"
 #include "battleManager.h"
+#include "SoundManager.h"
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
@@ -84,7 +85,8 @@ Peleas::Peleas(Game* game)
 		static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 	nombre1->showMessage(_battleM->getFigther1().getName());
 	nombre2->showMessage(_battleM->getFigther2().getName());
-
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("PeleasDT");
 	// Mostrar los valores formateados
 	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())));
 	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())));

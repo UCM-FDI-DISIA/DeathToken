@@ -15,7 +15,7 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
 	float botonX = Game::WIN_WIDTH * (TAM_BOTON / 1920.0f);
-	float botonY = Game::WIN_HEIGHT * (TAM_BOTON / 1080.0f);
+	float botonY = Game::WIN_HEIGHT * (TAM_BOTON / 1080.0f); 
 
 	// Crea por cada columna un carrete y un botón para detenerlos
 	for (int i = 0; i < N_COLUM; ++i) {
@@ -32,12 +32,15 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		Carrete* c = carretes[i];
 		button->connect([this, c] {
 			if (c->getParada()) {
+				auto& soundManager = SoundManager::obtenerInstancia();
+				soundManager.reproducirEfecto("SlotChoose");
 				++comprobanteIndice;
 				c->pararGiro(); // Para el giro si no esta parado 
 			}
 			});
 	}
-
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("SlotsDT");
 	// Botón para añadir la apuesta
 	float w = Game::WIN_WIDTH * (200.0f / 1920.0f);
 	float h = Game::WIN_HEIGHT * (200.0f / 1080.0f);
@@ -48,6 +51,8 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 	addEventListener(btnBet);
 }
 SlotsNormal:: ~SlotsNormal() {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.detenerMusica();
 	for (Carrete* i : carretes) {
 		i = nullptr;
 	}
@@ -58,7 +63,7 @@ void SlotsNormal::update() {
 	// Si se han parado los tres, carrete se hace la comprobación
 	if (comprobanteIndice == N_COLUM) {
 		comprobanteIndice = 0;
-
+		Mix_HaltChannel(canalSonidoGiro);
 		vector<int> vectorCarrete1 = carretes[0]->getCarrete();
 		vector<int> vectorCarrete2 = carretes[1]->getCarrete();
 		vector<int> vectorCarrete3 = carretes[2]->getCarrete();
@@ -113,7 +118,7 @@ bool SlotsNormal::iniciarGiro() {
 		for (Carrete* c : carretes) {
 			c->iniciarGiro();
 			auto& soundManager = SoundManager::obtenerInstancia();
-			/*canalSonidoGiro = soundManager.reproducirEfectoCanalEsp("SlotSpin", -1, 0);*/
+			canalSonidoGiro = soundManager.reproducirEfectoCanalEsp("SlotSpin", -1, 0);
 		}
 		return true;
 	}

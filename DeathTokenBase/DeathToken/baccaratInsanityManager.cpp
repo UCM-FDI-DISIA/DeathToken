@@ -1,7 +1,10 @@
-#include "baccaratInsanityManager.h"
+﻿#include "baccaratInsanityManager.h"
+#include "SoundManager.h"
 #include "game.h"
 
 BaccaratInsanityManager::BaccaratInsanityManager(Game* game) : game(game), GameState(game) {
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("BaccaratDT");
 }
 
 void BaccaratInsanityManager::update()
