@@ -23,7 +23,7 @@ void Scythe::render() const
 
 void Scythe::buyScythe()
 {
-	if (PlayerEconomy::getRedSouls() >= 0) {
+	if (PlayerEconomy::getRedSouls() >= 200) {
 		game->stop();
 		game->pushState(new FinalMenu(game, true));
 	}
