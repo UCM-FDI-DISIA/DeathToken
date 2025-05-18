@@ -214,7 +214,7 @@ void Marbles::betManagement()
 	//Segun la apuesta porX al dinero metido
 
 	if (moneyWin > 0) {
-		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin));
+		game->push(new Award(game, (GameState*)this, turnMoneyBet, moneyWin, insanity));
 	}
 	else {
 		PlayerEconomy::setBet(0);
