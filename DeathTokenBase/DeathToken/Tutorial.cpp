@@ -12,6 +12,7 @@ Tutorial::Tutorial(Game* game, GameState* gameState, std::vector<Texture*> image
 
 void Tutorial::update()
 {
+	GameState::update();
 	//render imagenes de cada tutorial
 	if (!images.empty() && currentPage < images.size()) {
 	
