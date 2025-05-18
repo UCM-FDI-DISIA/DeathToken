@@ -79,7 +79,14 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(CANICASBUT), (int)wBut, (int)hBut);
 	addObjects(marbles);
 	addEventListener(marbles);
-	marbles->connect([this]() { getGame()->push(gameSelec(2)); });
+	marbles->connect([this]() {
+		marbleState = gameSelec(2);
+		getGame()->push(gameSelec(2));
+		if (tutorialMarbles) {
+			tutorialMarbles = false;
+			marbleState->showTutorial();
+		}
+		});
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
 
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
