@@ -1,6 +1,7 @@
-#include "firebaseUtils.h"
+﻿#include "firebaseUtils.h"
 #include "mainMenu.h"
 #include "escenaTutorial.h"
+#include "SoundManager.h"
 #include "menu.h"
 #include "game.h"
 #include "sdlUtils.h"
@@ -8,6 +9,7 @@
 
 MainMenu::MainMenu(Game* g) : GameState(g)
 {
+	SoundManager::obtenerInstancia().reproducirMusica("SlotsDT");
 	back = game->getTexture(PORTADA);
 
 	int _y = (int)(Game::WIN_HEIGHT * (650 / 1080.0f));
@@ -27,7 +29,7 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 	addObjects(begin);
 	addEventListener(begin);
 	begin->connect([this]() {
-
+		SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 		string nombre = inputNombre->getUserInput();
 		FirebaseUtils::RegisterUser(nombre);
 		if (FirebaseUtils::tutorial == false) {
@@ -46,6 +48,7 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 	addObjects(salir);
 	addEventListener(salir);
 	salir->connect([this]() {
+		SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 		game->stop();
 		FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
 		});

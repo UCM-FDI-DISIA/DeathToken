@@ -23,19 +23,19 @@ PeleasInsanity::PeleasInsanity(Game* game)
                                    275,
                                    true,
                                    true,
-                                   275,
-                                   200))
+                                   300,
+                                   275))
   , rondaBox(new DialogueBox(game->getRenderer(),
                              game->getTypo(FIGHTS_SMALL),
-                             1605,
-                             110,
+                             1325,
+                             105,
                              true,
                              true,
                              300,
                              175))
   , resultadoBox(new DialogueBox(game->getRenderer(),
                                  game->getTypo(FIGHTS_SMALL),
-                                 790,
+                                 590,
                                  475,
                                  true,
                                  true,
@@ -99,8 +99,8 @@ void PeleasInsanity::render() const
   SDL_Rect fondoRect = { 0, 0, Game::WIN_WIDTH, Game::WIN_HEIGHT };
   game->getTexture(PELEASLOCURAFONDO)->render(fondoRect);
 
-  SDL_Rect objetoRect = { static_cast<int>(Game::WIN_WIDTH / 2 - 235),
-                          static_cast<int>(Game::WIN_HEIGHT / 4 + 140),
+  SDL_Rect objetoRect = { static_cast<int>(Game::WIN_WIDTH / 2 - 210),
+                          static_cast<int>(Game::WIN_HEIGHT / 4 + 40),
                           300,
                           300 };
   game->getTexture(objetoActual.tex)->render(objetoRect);
@@ -108,14 +108,14 @@ void PeleasInsanity::render() const
   SDL_Rect boardRect = { 100, 200, 440, 294 };
   game->getTexture(PELEASBOARD)->render(boardRect);
 
-  SDL_Rect roundBoard = { 1550, 40, 300, 175 };
+  SDL_Rect roundBoard = { 1250, 40, 300, 175 };
   game->getTexture(PELEASROUND)->render(roundBoard);
 
-  SDL_Rect prizeBoard = { 1580, 670, 300, 400 };
+  SDL_Rect prizeBoard = { 1200, 400, 300, 400 };
   game->getTexture(PELEASLOCURAPRECIO)->render(prizeBoard);
 
   if (resultadoBox->isTextVisible()) {
-    SDL_Rect resultBoard = { 700, 200, 400, 600 };
+    SDL_Rect resultBoard = { 500, 200, 400, 600 };
     game->getTexture(PELEASLOCURARESULTS)->render(resultBoard);
   }
 

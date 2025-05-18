@@ -1,4 +1,5 @@
-#include "slotsInsanity.h"
+Ôªø#include "slotsInsanity.h"
+#include "SoundManager.h"
 #include "celda.h"
 #include "award.h"
 #include <chrono>
@@ -7,6 +8,7 @@ using namespace std;
 
 SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turnoPlayer(true), jugando(false), IAstartTime(0)
 {
+	SoundManager::obtenerInstancia().reproducirMusica("SlotsDT");
 	// Pone a true el modo locura en la Ui para que se muestre el tutorial correspondiente
 	ui->setLocura(true);
 
@@ -14,7 +16,7 @@ SlotsInsanity::SlotsInsanity(Game* g) : Slots(g), indice(0), mat(N_COLUM), turno
 	float y = Game::WIN_HEIGHT * (70 / 1080.0f);
 	float celdaX = Game::WIN_WIDTH * (TAM_CELDA / 1920.0f);
 	float celdaY = Game::WIN_HEIGHT * (TAM_CELDA / 1080.0f);
-	// Crea la matriz de Celdas, que se aÒaden al vector de GO de la escena
+	// Crea la matriz de Celdas, que se a√±aden al vector de GO de la escena
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM; ++j) {
 			Celda* c = new Celda(this, { (int)(x + j * celdaX), (int)(y + i * celdaY) }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS));
@@ -47,10 +49,10 @@ vector<int> SlotsInsanity::vectorAleatorio() {
 }
 
 void SlotsInsanity::update() {
-	//Comprobaciones correspondientes (solo si se est· jugando)
+	//Comprobaciones correspondientes (solo si se est√° jugando)
 	if (jugando) {
 		int line = checkBoard(); //Comprueba si hay linea
-		//Comprueba si toda la mtriza est· llena para borrarla
+		//Comprueba si toda la mtriza est√° llena para borrarla
 		bool full = true;
 		for (int i = 0; i < N_COLUM; ++i) {
 			for (int j = 0; j < N_COLUM; ++j) {
@@ -61,9 +63,9 @@ void SlotsInsanity::update() {
 			}
 			if (!full) break;
 		}
-		//Si est· llena o si ha habido linea se vacia la matriz
+		//Si est√° llena o si ha habido linea se vacia la matriz
 		if (full || line != -1) {
-			// En caso de linea, si acaba de jugar el jugador (!turnoPlayer, porque ya habr· cedido el turno a la IA), se muestra la recompensa
+			// En caso de linea, si acaba de jugar el jugador (!turnoPlayer, porque ya habr√° cedido el turno a la IA), se muestra la recompensa
 			if (line != -1) {
 				if (!turnoPlayer) {
 					game->push(new Award(game, (GameState*)this, bet, bet * multiplicadores[line], true));
@@ -98,12 +100,12 @@ void SlotsInsanity::render() const {
 	if (turnoPlayer) { game->getTexture(CELDA)->render(box); }
 	else { game->getTexture(CELDA)->render(box, { 170,230,255 }); } //Si es el turno de la IA se pinta con un tono azul para diferenciar
 
-	if (jugando) { game->getTexture(ICONOS)->renderFrame(box, 0, resultante[indice]); } //Si se est· jugando se muestra el icono a colocar
+	if (jugando) { game->getTexture(ICONOS)->renderFrame(box, 0, resultante[indice]); } //Si se est√° jugando se muestra el icono a colocar
 	GameState::render();
 }
 //Metodo llamado por la celda al ser pulsada
 int SlotsInsanity::getNext() {
-	//Si es el turno del jugador se delvuelve a la casilla el icono seÒalado por indice (y se avanza)
+	//Si es el turno del jugador se delvuelve a la casilla el icono se√±alado por indice (y se avanza)
 	if (turnoPlayer) {
 		int n = resultante[indice];
 		if (indice == resultante.size() - 1) { resultante = vectorAleatorio(); } //Cuando el vector se acaba se vuelve a mezclar
@@ -112,9 +114,9 @@ int SlotsInsanity::getNext() {
 		IAstartTime = SDL_GetTicks(); //Tiempo de inicio del turno de IA, para el delay
 		return n;
 	}
-	else return -1; //Si no eta jugando el player, se devuelve casilla vacÌa
+	else return -1; //Si no eta jugando el player, se devuelve casilla vac√≠a
 }
-//Metodo que compruba si hay tres en raya. Devuelve el id del icono que forma la lÌnea
+//Metodo que compruba si hay tres en raya. Devuelve el id del icono que forma la l√≠nea
 int SlotsInsanity::checkBoard() const {
 	// Revision filas y columnas
 	for (int i = 0; i < N_COLUM; ++i) {
@@ -152,16 +154,16 @@ int SlotsInsanity::checkBoard() const {
 }
 //Movimiento de la IA
 void SlotsInsanity::IA() {
-	// Delay para empezar (para que el jugador entienda que la IA est· pensando)
+	// Delay para empezar (para que el jugador entienda que la IA est√° pensando)
 	if (SDL_GetTicks() - IAstartTime >= 1000) {
 		//La IA comprueba si poniendo el nuevo icono consigue el tres en raya en alguna casilla
 		bool placed = false;
 		for (int i = 0; i < N_COLUM; ++i) {
 			for (int j = 0; j < N_COLUM; ++j) {
-				if (mat[i][j]->getElem() == -1) { //ComprobaciÛn de vacÌa
+				if (mat[i][j]->getElem() == -1) { //Comprobaci√≥n de vac√≠a
 					mat[i][j]->setElem(resultante[indice]);
 					int linea = checkBoard();
-					if (linea == -1) { //No se ha conseguido lÌnea
+					if (linea == -1) { //No se ha conseguido l√≠nea
 						mat[i][j]->setElem(-1); //Se vacia la casilla que se ha probado y se prueba la siguiente
 					}
 					else {
@@ -187,7 +189,7 @@ void SlotsInsanity::IA() {
 		turnoPlayer = true;
 	}
 }
-// Pone todas las celdas vacÌas
+// Pone todas las celdas vac√≠as
 void SlotsInsanity::ClearBoard() {
 	for (int i = 0; i < N_COLUM; ++i) {
 		for (int j = 0; j < N_COLUM; ++j) {
@@ -195,7 +197,7 @@ void SlotsInsanity::ClearBoard() {
 		}
 	}
 }
-// Si no se est· jugando ya, se cede el primer turno al jugador
+// Si no se est√° jugando ya, se cede el primer turno al jugador
 bool SlotsInsanity::iniciarGiro() {
 	if (!jugando && PlayerEconomy::getInsanity() > 0) {
 		turnoPlayer = true;
