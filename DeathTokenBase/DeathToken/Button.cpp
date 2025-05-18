@@ -1,10 +1,10 @@
-#include "button.h"
+﻿#include "button.h"
 #include "ui.h"
 #include "marbles.h"
 #include "escenaTutorial.h"
 
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, int frame)
-	: GameObject(g), text(t), textC(tC), hover(false), clicked(false), frame(frame)
+	: GameObject(g), text(t), textC(tC), hover(false), clicked(false), frame(frame), visible(true)
 {
 	box.x = x;
 	box.y = y;
@@ -14,6 +14,7 @@ Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC
 void
 Button::update()
 {
+	if (!visible) { return; }
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 
@@ -40,6 +41,7 @@ void Button::updatePerma()
 	}
 }
 void Button::render() const {
+	if (!visible) { return; }
 	if (hover && textC == nullptr) {
 		SDL_Rect point(box.x, box.y, box.h, box.h);
 		text->renderFrame(box, 0, frame, SDL_Color(255, 255, 0));
@@ -53,6 +55,7 @@ void Button::render() const {
 
 }
 void Button::handleEvent(const SDL_Event& event) {
+	if (!visible) { return; }
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		SDL_Point point{ event.button.x, event.button.y };
 		if (hover)
@@ -88,20 +91,6 @@ void ButtonUI::movePos(int x, int y)
 
 	boxB.x += x;
 	boxB.y += y;
-}
-void
-ButtonUI::render() const
-{
-	if (clicked)
-	{
-		textC->render(box);
-	}
-	else if (!hover) {
-		text->render(box);
-	}
-	else {
-		text->render(boxB);
-	}
 }
 
 ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
@@ -153,6 +142,7 @@ void ButtonBet::setBetHistory(int n)
 void
 ButtonBet::update()
 {
+	if (!visible) { return; }
 	Button::update();
 	int mouseState = SDL_GetMouseState(NULL, NULL);
 	clicked = (hover && (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)));
@@ -160,6 +150,7 @@ ButtonBet::update()
 void
 ButtonBet::render() const
 {
+	if (!visible) { return; }
 	ButtonUI::render();
 	if (currentBet > 0)
 	{
@@ -169,6 +160,7 @@ ButtonBet::render() const
 void
 ButtonBet::handleEvent(const SDL_Event& event)
 {
+	if (!visible) { return; }
 	Button::handleEvent(event);
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
@@ -203,6 +195,7 @@ ButtonChip::ButtonChip(GameState* g, UI* ui, int x, int y, int w, int h, int id,
 void
 ButtonChip::update()
 {
+	if (!visible) { return; }
 	SDL_Point point;
 	SDL_GetMouseState(&point.x, &point.y);
 	int mouseState = SDL_GetMouseState(NULL, NULL);
@@ -234,6 +227,7 @@ ButtonChip::update()
 void
 ButtonChip::render() const
 {
+	if (!visible) { return; }
 	if (clicked)
 		text->render(boxC);
 	else if (onUse)
@@ -464,6 +458,7 @@ ButtonMarbles::render() const
 void
 ButtonMarbles::handleEvent(const SDL_Event& event)
 {
+
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ui->currentChipValue();
@@ -577,6 +572,8 @@ void ButtonSlots::render() const {
 	}
 }
 void ButtonPeleas::handleEvent(const SDL_Event& event) {
+
+	if (!visible) { return; }
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
 	{
 		int chip = ButtonSlots::ui->currentChipValue();
@@ -585,12 +582,23 @@ void ButtonPeleas::handleEvent(const SDL_Event& event) {
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
+			PlayerEconomy::subtractBlueSouls(chip);
 			PlayerEconomy::addBet(chip);
 			HUDManager::getHudBet()->refresh();
 		}
 		cb();
 	}
 }
+
+void ButtonPeleas::render() const {
+
+	if (!visible) {
+		return;
+	}
+
+	ButtonSlots::render();
+}
+
 ButtonTutorial::ButtonTutorial(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text, EscenaTutorial* tut) :ButtonBet(gS, game, ui, x, y, w, h, text, NULL), _tut(tut) {}
 ButtonTutorial::~ButtonTutorial() {}
 void ButtonTutorial::render() const {

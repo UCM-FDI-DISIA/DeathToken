@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "baccarat.h"
 class BaccaratBet : public Baccarat
 {

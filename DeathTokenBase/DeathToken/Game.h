@@ -217,6 +217,12 @@ enum TextureName {
 	PORTADA,
 	INICIAR,
 	SALIR,
+	PELEASTU1,
+	PELEASTU2,
+	LOCKAUTO,
+	LOCKAUTOCLCK,
+	DIALOGPELEASFONDO,
+	TUTORIALPELEASLOCURA,
 	NUM_TEXTURES  // Truco C++: n�mero de texturas definidas
 };
 enum TypoName {

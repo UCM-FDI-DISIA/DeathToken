@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "firebaseUtils.h"
 #include "game.h"
 #include "json.hpp"
@@ -223,6 +223,12 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "menus/portada.png",1,1 });
 	v.push_back(TextureSpec{ "menus/iniciar.png",1,1 });
 	v.push_back(TextureSpec{ "menus/salir.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_Peleas1.png",1,1 });
+	v.push_back(TextureSpec{ "tutorial/Tutorial_Peleas2.png",1,1 });
+	v.push_back(TextureSpec{ "ui/slots/Lock.png",1,1 });
+	v.push_back(TextureSpec{ "ui/slots/Lock_Clicked.png",1,1 });
+	v.push_back(TextureSpec{ "MarcoDialogo.png",1,1 });
+	v.push_back(TextureSpec{ "interfaz locura.png",1,1 });
 
 	if (v.size() != NUM_TEXTURES) throw "Texturas sin índice, error al cargar";
 	return v;
@@ -268,12 +274,9 @@ Game::Game() {
 
 	// Carga las texturas
 	vector<TextureSpec> textureSpec = loadTextures();
-	std::string textureRoot = "assets/images/";
-	for (int i = 0; i < NUM_TEXTURES; ++i)
-		textures.push_back(new Texture(renderer,
-			(textureRoot + textureSpec[i].name).c_str(),
-			textureSpec[i].numRows,
-			textureSpec[i].numColumns));
+	std::string textureRoot = "../assets/images/";
+	for (auto& tex: textureSpec)
+		textures.push_back(new Texture(renderer, (textureRoot + tex.name).c_str(), tex.numRows, tex.numColumns));
 
 	TTF_Init();
 	fonts = loadFonts();
@@ -285,11 +288,13 @@ Game::Game() {
 #endif
 		SDL_Quit();
 	}
-	
+
+	// Ajustar volumen de música y efectos
+	soundManager.ajustarVolumenMusica(50);
 	soundManager.ajustarVolumenEfectos(50);
 
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/PresionaBotonPeleas.wav",
+		"../assets/sonido/Generales/PresionaBotonPeleas.wav",
 		"PresionaBotonPeleas",
 		SoundManager::EFECTO)) {
 #ifdef DEBUG
@@ -298,7 +303,7 @@ Game::Game() {
 	}
 
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/PresionaBotonCanicas.wav",
+		"../assets/sonido/Generales/PresionaBotonCanicas.wav",
 		"PresionaBotonCanicas",
 		SoundManager::EFECTO)) {
 #ifdef DEBUG
@@ -307,7 +312,7 @@ Game::Game() {
 	}
 
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/PresionaBotonBaccarat.wav",
+		"../assets/sonido/Generales/PresionaBotonBaccarat.wav",
 		"PresionaBotonBaccarat",
 		SoundManager::EFECTO)) {
 #ifdef DEBUG
@@ -315,7 +320,7 @@ Game::Game() {
 #endif
 	}
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/PresionaBotonSlots.wav",
+		"../assets/sonido/Generales/PresionaBotonSlots.wav",
 		"PresionaBotonSlots",
 		SoundManager::EFECTO)) {
 #ifdef DEBUG
@@ -323,7 +328,7 @@ Game::Game() {
 #endif
 	}
 
-	if (!soundManager.cargarSonido("assets/sonido/Ruleta/RuletaSonido.wav",
+	if (!soundManager.cargarSonido("../assets/sonido/Ruleta/RuletaSonido.wav",
 		"RuletaSonido",
 		SoundManager::EFECTO)) {
 #ifdef DEBUG
@@ -331,8 +336,78 @@ Game::Game() {
 #endif
 	}
 
-	if (loadFightersFromJSON("assets/jsons/peleadores.json") &&
-		loadMatchupsFromJSON("assets/jsons/matchups.json")) {
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/BaccaratIntro.wav",
+		"BaccaratIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido BaccaratIntro." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/MarblesIntro.wav",
+		"MarblesIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido MarblesIntro." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/PresionaBoton.wav",
+		"PresionaBoton",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido PresionaBoton." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/SlotChoose.wav",
+		"SlotChoose",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido SlotChoose." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/SlotSpin.wav",
+		"SlotSpin",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido SlotSpin." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/SlotsIntro.wav",
+		"SlotsIntro",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido SlotsIntro." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/StaticVinyl.mp3",
+		"Static",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido Static." << std::endl;
+	}
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Generales/Fights.wav", "FightsIntro", SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido Fights." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Generales/PokerChips.wav",
+		"PokerChips",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido PokerChips." << std::endl;
+	}
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Tutoriales/PasaPaginaTutorial.wav",
+		"PasaPaginaTutorial",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido PasaPaginaTutorial." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Music/BaccaratDToken.wav",
+		"BaccaratDT",
+		SoundManager::MUSICA)) {
+		std::cerr << "Error al cargar la música BaccaratDToken." << std::endl;
+	}
+	if (!soundManager.cargarSonido("../assets/sonido/Music/CanicasDT_v2.wav",
+		"CanicasDT",
+		SoundManager::MUSICA)) {
+		std::cerr << "Error al cargar la música CanicasDT_v2." << std::endl;
+	}
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Music/PeleasDT.wav", "PeleasDT", SoundManager::MUSICA)) {
+		std::cerr << "Error al cargar la música PeleasDT." << std::endl;
+	}
+	if (!soundManager.cargarSonido(
+		"../assets/sonido/Music/SlotsDT.wav", "SlotsDT", SoundManager::MUSICA)) {
+		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
+	}
+
+
+	if (loadFightersFromJSON("../assets/jsons/peleadores.json") &&
+		loadMatchupsFromJSON("../assets/jsons/matchups.json")) {
 #ifdef DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif 
@@ -362,6 +437,9 @@ Game::~Game() {
 	SDL_Quit();
 }
 void Game::run() {
+	SoundManager& soundManager = SoundManager::obtenerInstancia();
+	const int staticChannel = 0; // Canal reservado para la estática
+	bool staticPlaying = false; // Controlar si ya está sonando
 	// Bucle principal del juego. Sigue mientras Mario este vivo o no haya llegado al final
 	while (!empty()) {
 		// Marca de tiempo del inicio de la iteración
@@ -377,6 +455,27 @@ void Game::run() {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
+
+			// Obtener el estado actual
+			GameState* currentState = gameStates.top().get();
+
+			// Verificar si estamos en menú principal o pausa
+			bool enMenuOPausa = dynamic_cast<MainMenu*>(currentState) ||
+				dynamic_cast<PauseState*>(currentState);
+
+			// Control del sonido de estática
+			if (enMenuOPausa) {
+				if (staticPlaying) {
+					Mix_HaltChannel(staticChannel);
+					staticPlaying = false;
+				}
+			}
+			else {
+				if (!staticPlaying) {
+                    soundManager.reproducirEfectoCanalEsp("Static", -1, staticChannel);
+					staticPlaying = true;
+				}
+			}
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
 				FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
 				stop();

@@ -1,4 +1,5 @@
-#include "marblesInsanity.h"
+﻿#include "marblesInsanity.h"
+#include "SoundManager.h"
 #include "sdlUtils.h"
 #include "ui.h"
 #include "game.h"	
@@ -8,6 +9,8 @@ MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->g
 	CMarbles.push_back(game->getTexture(GREENMARBLEREAL));
 	CMarbles.push_back(game->getTexture(BLUEMARBLEREAL));
 	CMarbles.push_back(game->getTexture(YELLOWMARBLEREAL));
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("CanicasDT");
 	uiI = new UIMarblesInsanity(this, game, this);
 	guideText = new Text(this, this->getGame()->getTypo(GRAND_CASINO1), Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2,
 						(int)(3.0f * 1920.f / Game::WIN_WIDTH), Text::CENTRO);

@@ -1,3 +1,4 @@
+﻿#pragma once
 #include <map>
 #include <SDL_mixer.h>
 #include <string>
@@ -11,7 +12,7 @@ public:
 
 	bool inicializar(int frecuencia = 44100,
 		int canales = 2,
-		int tama�oBuffer = 2048);
+		int tamañoBuffer = 2048);
 
 	bool cargarSonido(const std::string& rutaArchivo,
 		const std::string& id,
@@ -36,10 +37,10 @@ public:
 
 	bool musicaEnReproduccion() const;
 	bool musicaEnPausa() const;
-
+	int reproducirEfectoCanalEsp(const std::string& id, int repeticiones, int canal);
 	SoundManager(const SoundManager&) = delete;
 	SoundManager& operator=(const SoundManager&) = delete;
-
+	void detenerTodosLosSonidos();
 private:
 	SoundManager();
 	~SoundManager();

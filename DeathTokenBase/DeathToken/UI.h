@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "texture.h"
 #include "gameState.h"
 #include "button.h"
@@ -208,20 +208,56 @@ public:
 class Peleas;
 class UIPeleas : public UI {
 public:
-	UIPeleas(Game* game, Peleas* peleas)
-		: UI((GameState*)peleas, game)
-		, _peleas(peleas)
-		, autoText(nullptr)
-		, historial(nullptr)
-	{
-	};
-
+	UIPeleas(Game* game, Peleas* peleas);
+	~UIPeleas() override = default;
 	void OnGo() override;
+	void OnErase();
+	void OnInfo();
+	inline void UnableBetButtons() { UI::go->Hide(); erase->Hide(); };
+	inline void EnableBetButtons() { UI::go->Show(); erase->Show(); };
+	void Hide();
+	void Show();
 
 protected:
 	Peleas* _peleas;
 	ButtonUI* autoText;
-	ButtonUI* historial;
+	ButtonUI* erase;
+	ButtonUI* info;
+};
+
+class PeleasInsanity;
+class UIPeleasInsanity : public UI {
+public:
+	UIPeleasInsanity(Game* game, PeleasInsanity* peleas): UI((GameState*) peleas, game),_peleas(peleas), info(nullptr) {
+		
+		UI::arrowL->Hide();
+		
+		UI::arrowR->Hide();
+		
+		for (auto& button : UI::chips) {
+			button->Hide();
+		}
+		
+		info = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
+		gS->addObjectsUI(info);
+		gS->addEventListener(info);
+		info->connect([this]() { OnInfo(); });
+	};
+	~UIPeleasInsanity() override = default;
+	void OnGo() override;
+	void OnInfo();
+	void Hide() 
+	{
+		UI::go->Hide();
+	};
+	void Show() 
+	{
+		UI::go->Show();
+	}
+
+protected:
+	PeleasInsanity* _peleas;
+	ButtonUI* info;
 };
 
 class EscenaTutorial;

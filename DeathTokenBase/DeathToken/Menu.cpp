@@ -1,8 +1,9 @@
 ﻿#include "checkML.h"
-#include "menu.h"
-#include "game.h"
-#include "player.h"
 #include "finalMenu.h"
+#include "game.h"
+#include "menu.h"
+#include "player.h"
+#include "soundManager.h"
 
 
 Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
@@ -48,6 +49,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	baccarat->connect([this]() {
 		baccaratState = gameSelec(0);
 		getGame()->push(baccaratState);
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("BaccaratIntro");
+
 		if (tutorialBaccarat)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			tutorialBaccarat = false;
@@ -64,6 +68,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	slots->connect([this]() {
 		slotsState = gameSelec(1);
 		getGame()->push(slotsState);
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("SlotsIntro");
+
 		if (tutorialSlots)//Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
 		{
 			tutorialSlots = false;
@@ -82,6 +89,8 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	marbles->connect([this]() {
 		marbleState = gameSelec(2);
 		getGame()->push(marbleState);
+		auto& soundManager = SoundManager::obtenerInstancia();
+		soundManager.reproducirEfecto("MarblesIntro");
 		if (tutorialMarbles) {
 			tutorialMarbles = false;
 			marbleState->showTutorial();
@@ -94,7 +103,19 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);
 	addObjects(fights);
 	addEventListener(fights);
-	fights->connect([this]() { getGame()->push(gameSelec(3)); });
+	fights->connect([this]()
+		{
+			peleasState = gameSelec(3);
+			getGame()->push(peleasState);
+			auto& soundManager = SoundManager::obtenerInstancia();
+			soundManager.reproducirEfecto("FightsIntro");
+
+			if (tutorialFights) //Entra una vez y cuando se pone en false no vuelve a entrar sin pulsar boton info
+			{
+				tutorialFights = false;
+				peleasState->showTutorial();
+			}
+		});
 	obstaculos.push_back(cambiarColisiones(fights->getCollisionRect()));
 
 	//Widht, height, position roulette button
@@ -158,7 +179,7 @@ Menu::gameSelec(int id) {
 			game = new MarblesInsanity(getGame());
 			break;
 		case 3:
-			game = new Peleas(getGame());
+			game = new PeleasInsanity(getGame());
 			break;
 		}
 	}

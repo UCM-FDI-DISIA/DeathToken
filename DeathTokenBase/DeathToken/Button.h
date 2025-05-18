@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "game.h"
 #include "gameState.h"
 #include "eventHandler.h"
@@ -21,11 +21,12 @@ protected:
 	bool clicked;
 	bool perma = false;
 	int frame;
+	bool visible;
 public:
 	Button(GameState*, int x, int y, int w, int h, Texture*,Texture* = nullptr, int frame = 0);
 	virtual ~Button() { text = nullptr; textC = nullptr; };
 	void render() const override;
-	void update() override;
+	virtual void update() override;
 	void updatePerma();
 	void handleEvent(const SDL_Event&) override;
 	void connect(Callback);
@@ -34,6 +35,8 @@ public:
 	//getters para mantener private los atributos pero poder acceder desde menu
 	Callback getCallback() { return cb; };
 	bool& getHover() { return hover; };
+	void Hide() { visible = false; }
+	void Show() { visible = true; }
 };
 
 class ButtonUI : public Button
@@ -44,7 +47,6 @@ public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 	~ButtonUI() override = default;
 	void movePos(int x, int y);
-	void render() const override;
 };
 
 class ButtonBet : public ButtonUI
@@ -145,15 +147,16 @@ class ButtonSlots : public ButtonBet
 public:
 	ButtonSlots(GameState*, Game* game, UI* ui, int x, int y, int w, int h, Texture* text);
 	~ButtonSlots() override {};
-	void render() const override;
+	virtual void render() const override;
 	virtual void handleEvent(const SDL_Event& event) override;
 };
 //Peleas
 class ButtonPeleas : public ButtonSlots
 {
 public:
-	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text) {}
+	ButtonPeleas(GameState* st, Game* game, UI* ui, int x, int y, int w, int h, Texture* text) :ButtonSlots(st, game, ui, x, y, w, h, text){}
 	void handleEvent(const SDL_Event& event) override;
+	void render() const override;
 };
 
 //EscenaTutorial

@@ -1,5 +1,6 @@
-#include "marbles.h"
+﻿#include "marbles.h"
 #include "marblesInsanity.h"
+#include "SoundManager.h"
 #include "game.h"
 #include "sdlUtils.h"
 
@@ -14,6 +15,8 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble, bool insanity) : Ga
 {
 	tubeRect = SDL_Rect((int)(584.0f / 1920.0f * Game::WIN_WIDTH), (int)(-155.0f / 1080.0f * Game::WIN_HEIGHT),
 						(int)(150.0f / 1920.0f * Game::WIN_WIDTH), (int)(155.0f / 1080.0f * Game::WIN_HEIGHT));
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("CanicasDT");
 	for (int i = 0; i < 3; i++)
 	{
 		slotRects[i] = SDL_Rect((int)(593.0f + (300 * i) / 1920.0f * Game::WIN_WIDTH), (int)(235.0f / 1080.0f * Game::WIN_HEIGHT),

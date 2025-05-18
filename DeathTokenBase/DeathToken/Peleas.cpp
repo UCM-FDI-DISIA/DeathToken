@@ -3,6 +3,7 @@
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
+#include "SoundManager.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -28,7 +29,7 @@ std::string formatOdds(float odds) {
 
 Peleas::Peleas(Game* game)
 	: GameState(game)
-	, dialog(new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, false, 400, 180))
+	, dialog(new DialogueBox(game->getRenderer(), game->getTypo(FIGHTS_SMALL), static_cast<int>((25.0f / 1920.0f))* Game::WIN_WIDTH, static_cast<int>((870.0f / 1080.0f))* Game::WIN_HEIGHT, true, true, 400, 180))
 	, _battleM(nullptr)
 	, nombre1(nullptr)
 	, nombre2(nullptr)
@@ -84,7 +85,8 @@ Peleas::Peleas(Game* game)
 		static_cast<int>((CUOTAY + ESPACIO * 2) * Game::WIN_HEIGHT));
 	nombre1->showMessage(_battleM->getFigther1().getName());
 	nombre2->showMessage(_battleM->getFigther2().getName());
-
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("PeleasDT");
 	// Mostrar los valores formateados
 	Cuota1->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility())));
 	Cuota2->showMessage("Cuota: 1 : " + formatOdds(_battleM->getFigther2().getOdds(_battleM->getFigther2().getAbility())));
@@ -96,8 +98,8 @@ Peleas::Peleas(Game* game)
 	addEventListener((EventHandler*)dialog);
 	addEventListener(bet1);
 	addEventListener(bet2);
-	addObjects(bet1);
-	addObjects(bet2);
+	addObjectsUI(bet1);
+	addObjectsUI(bet2);
 	bet->refresh();
 }
 
@@ -118,10 +120,13 @@ void Peleas::StartBattle()
 	if (state == FSState::FIGHT) {
 		return;
 	}
+	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBotonPeleas");
+	bet1->Hide();
+	bet2->Hide();
 	state = FSState::FIGHT;
 	SDL_RenderClear(game->getRenderer());
 	dialog->setX(Game::WIN_WIDTH / 3);
-	dialog->setY(3 * Game::WIN_HEIGHT / 4);
+	dialog->setY(3 * Game::WIN_HEIGHT / 4 + 50);
 	dialog->setWidth(Game::WIN_WIDTH / 3);
 	dialog->resetHistory();
 	// Configuración de las barras de vida
@@ -157,95 +162,100 @@ void Peleas::StartBattle()
 
 void Peleas::render() const
 {
-  switch (state) {
-    case FSState::CARDS: {
-      SDL_Rect fondo;
-      fondo.x = fondo.y = 0;
-      fondo.h = Game::WIN_HEIGHT;
-      fondo.w = Game::WIN_WIDTH;
-      game->getTexture(PELEASFONDO)->render(fondo);
+	switch (state) {
+	case FSState::CARDS: {
+		SDL_Rect fondo;
+		fondo.x = fondo.y = 0;
+		fondo.h = Game::WIN_HEIGHT;
+		fondo.w = Game::WIN_WIDTH;
+		game->getTexture(PELEASFONDO)->render(fondo);
 
-      SDL_Rect r;
-      r.x = r.y = 0;
-      r.h = Game::WIN_HEIGHT;
-      r.w = Game::WIN_WIDTH;
-      game->getTexture(PELEASTARJETAFONDO)->render(r);
+		SDL_Rect r;
+		r.x = r.y = 0;
+		r.h = Game::WIN_HEIGHT;
+		r.w = Game::WIN_WIDTH;
+		game->getTexture(PELEASTARJETAFONDO)->render(r);
 
-      // Aquí falta el sprite de los personajes
+		// Sprite Fighter 1
+		Texture* fighter1Tex =
+			game->getTexture(_battleM->getFigther1().getTextureName());
+		SDL_Rect fighter1Dest = {
+		  static_cast<int>(APUESTA1X * Game::WIN_WIDTH + 90),
+		  static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 110),
+		  200,
+		  200
+		};
+		fighter1Tex->render(fighter1Dest, 0, 0, SDL_FLIP_HORIZONTAL);
 
-      SDL_Rect tarjetas;
-      tarjetas.x = tarjetas.y = 0;
-      tarjetas.h = Game::WIN_HEIGHT;
-      tarjetas.w = Game::WIN_WIDTH;
-      game->getTexture(PELEASTARJETAS)->render(tarjetas);
+		// Sprite Fighter 2
+		Texture* fighter2Tex =
+			game->getTexture(_battleM->getFigther2().getTextureName());
+		SDL_Rect fighter2Dest = {
+		  static_cast<int>(APUESTA2X * Game::WIN_WIDTH + 90),
+		  static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 110),
+		  200,
+		  200
+		};
+		fighter2Tex->render(fighter2Dest);
 
-      // Sprite Fighter 1
-      Texture* fighter1Tex =
-        game->getTexture(_battleM->getFigther1().getTextureName());
-      SDL_Rect fighter1Dest = {
-        static_cast<int>(APUESTA1X * Game::WIN_WIDTH + 100),
-        static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 125),
-        200,
-        200
-      };
-      fighter1Tex->render(fighter1Dest);
+		SDL_Rect tarjetas;
+		tarjetas.x = tarjetas.y = 0;
+		tarjetas.h = Game::WIN_HEIGHT;
+		tarjetas.w = Game::WIN_WIDTH;
+		game->getTexture(PELEASTARJETAS)->render(tarjetas);
 
-      // Sprite Fighter 2
-      Texture* fighter2Tex =
-        game->getTexture(_battleM->getFigther2().getTextureName());
-      SDL_Rect fighter2Dest = {
-        static_cast<int>(APUESTA2X * Game::WIN_WIDTH + 100),
-        static_cast<int>(NOMBRESY * Game::WIN_HEIGHT + 125),
-        200,
-        200
-      };
-      fighter2Tex->render(fighter2Dest);
+		nombre1->render();
+		nombre2->render();
+		Cuota1->render();
+		Cuota2->render();
+		Animo1->render();
+		Animo2->render();
+		Apuesta1->render();
+		Apuesta2->render();
 
-      nombre1->render();
-      nombre2->render();
-      Cuota1->render();
-      Cuota2->render();
-      Animo1->render();
-      Animo2->render();
-      Apuesta1->render();
-      Apuesta2->render();
+		dialog->render();
+		break;
+	}
+	case FSState::FIGHT: {
+		SDL_Rect fondo2;
+		fondo2.x = fondo2.y = 0;
+		fondo2.h = Game::WIN_HEIGHT;
+		fondo2.w = Game::WIN_WIDTH;
+		game->getTexture(PELEASRING)->render(fondo2);
 
-      dialog->render();
-      break;
-    }
-    case FSState::FIGHT: {
-      SDL_Rect fondo2;
-      fondo2.x = fondo2.y = 0;
-      fondo2.h = Game::WIN_HEIGHT;
-      fondo2.w = Game::WIN_WIDTH;
-      game->getTexture(PELEASRING)->render(fondo2);
+		SDL_Rect dialogBg;
+		dialogBg.h = 180 + 150;
+		dialogBg.w = Game::WIN_WIDTH / 3 + 200;
+		dialogBg.x = Game::WIN_WIDTH / 3 - 100;
+		dialogBg.y = 3 * Game::WIN_HEIGHT / 4 - dialogBg.h / 2 + 100;
+		game->getTexture(DIALOGPELEASFONDO)->render(dialogBg);
 
-      dialog->render();
-      fighter1bar->render();
-      fighter2bar->render();
+		dialog->render();
+		fighter1bar->render();
+		fighter2bar->render();
 
-      const int FIGHTER_Y_POS = Game::WIN_HEIGHT - 500;
+		const int FIGHTER_Y_POS = Game::WIN_HEIGHT - 550;
 
-      // Sprite Fighter 1 (izquierda)
-      Texture* fighter1RingTex =
-        game->getTexture(_battleM->getFigther1().getTextureName());
-      SDL_Rect fighter1RingDest = { 100, FIGHTER_Y_POS, 375, 300 };
-      fighter1RingTex->render(fighter1RingDest);
+		// Sprite Fighter 1 (izquierda)
+		Texture* fighter1RingTex =
+			game->getTexture(_battleM->getFigther1().getTextureName());
+		SDL_Rect fighter1RingDest = { 220, FIGHTER_Y_POS, 375, 300 };
+		fighter1RingTex->render(fighter1RingDest, 0, 0, SDL_FLIP_HORIZONTAL);
 
-      // Sprite Fighter 2 (derecha)
-      Texture* fighter2RingTex =
-        game->getTexture(_battleM->getFigther2().getTextureName());
-      SDL_Rect fighter2RingDest = {
-        Game::WIN_WIDTH - 400, FIGHTER_Y_POS, 275, 300
-      };
-      fighter2RingTex->render(fighter2RingDest);
+		// Sprite Fighter 2 (derecha)
+		Texture* fighter2RingTex =
+			game->getTexture(_battleM->getFigther2().getTextureName());
+		SDL_Rect fighter2RingDest = {
+		  Game::WIN_WIDTH - 530, FIGHTER_Y_POS, 275, 300
+		};
+		fighter2RingTex->render(fighter2RingDest);
 
-      break;
-    }
-    default:
-      break;
-  }
-  GameState::render();
+		break;
+	}
+	default:
+		break;
+	}
+	GameState::render();
 }
 
 
@@ -261,7 +271,15 @@ Peleas::update() {
 	switch (state)
 	{
 	case FSState::CARDS:
+		if (PlayerEconomy::getBet() == 0) {
+			ui->UnableBetButtons();
+		}
+		else
+		{
+			ui->EnableBetButtons();
+		}
 		bet->refresh();
+		bet->update();
 		break;
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
@@ -284,6 +302,9 @@ Peleas::update() {
 			setCards();
 			bet1->clear();
 			bet2->clear();
+			bet1->Show();
+			bet2->Show();
+			ui->Show();
 			bet->update();
 			bet->refresh();
 		}

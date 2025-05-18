@@ -104,8 +104,9 @@ public:
 	// Devuelve un dialogo dentro del historial según su indice (index)
 	inline const std::string& getMessage(unsigned int index = UINT_MAX) const
 	{
+		static const std::string emptyString = "";
 		if (history.empty()) {
-			return ""; // Si no hay mensajes, devuelve cadena vacía
+			return emptyString; // Si no hay mensajes, devuelve cadena vacía
 		}
 		if (index >= history.size()) 
 		{ 

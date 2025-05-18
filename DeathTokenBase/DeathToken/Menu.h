@@ -37,6 +37,7 @@ class Menu : public GameState
 	GameState* baccaratState;
 	GameState* slotsState;
 	GameState* marbleState;
+	GameState* peleasState;
 	vector<SDL_Rect> obstaculos;
 	vector<Mesa*> juegos;
 
