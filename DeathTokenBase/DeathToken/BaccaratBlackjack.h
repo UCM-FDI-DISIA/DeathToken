@@ -25,17 +25,17 @@ class BaccaratBlackjack : public Baccarat
 	float time = 0;
 	float actual = 0;
 	bool animOn = true;
+	bool playing = false;
 	SDL_Rect ctEx = { (int)(Game::WIN_WIDTH / 3 + Game::WIN_WIDTH / 10.3) + Game::WIN_WIDTH / 60, (int)(Game::WIN_HEIGHT / 5.33 - Game::WIN_HEIGHT / 5.4), Game::WIN_WIDTH / 40, Game::WIN_HEIGHT / 16 };
 	SDL_Rect ctBEx = { (int)(Game::WIN_WIDTH * 2 / 3 - Game::WIN_WIDTH / 6.42) + Game::WIN_WIDTH / 100, (int)(Game::WIN_HEIGHT / 5.32 - Game::WIN_HEIGHT / 5.4) , Game::WIN_WIDTH / 40, Game::WIN_HEIGHT / 16 };
 public:
 	BaccaratBlackjack(Game* game);
-	virtual ~BaccaratBlackjack() {};
+	virtual ~BaccaratBlackjack() { delete more; delete stand; };
 	void update() override;
 	void render() const override;
 	void victory();
 	void handCards() override;
 	void handOneCard();
-	void askCards();
 	void bancaAI();
 	void startRound() override;
 	int totalCards(vector<int>);

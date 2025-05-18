@@ -72,7 +72,7 @@ UI::relativeY(const float& n)
 void
 UI::OnExit()
 {
-	if (!onBet) game->pop();
+	if (!onBet) { game->pop(); }
 }
 void
 UI::changeChip(const int& id)

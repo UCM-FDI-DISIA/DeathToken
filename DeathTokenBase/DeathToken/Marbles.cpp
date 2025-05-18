@@ -26,8 +26,8 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble, bool insanity) : Ga
 
 Marbles::~Marbles() {
 	
-	HUDManager::popGame();
 	delete ui;
+	HUDManager::popGame();
 }
 
 void  Marbles::generateMarbles() {

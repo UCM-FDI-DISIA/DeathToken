@@ -81,7 +81,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	addEventListener(marbles);
 	marbles->connect([this]() {
 		marbleState = gameSelec(2);
-		getGame()->push(gameSelec(2));
+		getGame()->push(marbleState);
 		if (tutorialMarbles) {
 			tutorialMarbles = false;
 			marbleState->showTutorial();

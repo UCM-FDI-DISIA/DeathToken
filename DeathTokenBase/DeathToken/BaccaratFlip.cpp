@@ -1,7 +1,7 @@
 ﻿#include "baccaratFlip.h"
 #include "sdlUtils.h"
 
-BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)), intro(game->getTexture(FLIP)) {
+BaccaratFlip::BaccaratFlip(Game* game) : Baccarat(game), text(game->getTexture(FLIPCARD)), intro(game->getTexture(FLIP)), cartas(false), mazos(false) {
 	ui->isFlip = true;
 	addCards();
 }
@@ -32,7 +32,7 @@ void BaccaratFlip::startRound()
 		if (!animOn && PlayerEconomy::getInsanity() > 0)
 		{
 			PlayerEconomy::subtractInsanity(1);
-			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 }); 
+			extra1->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 10 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
 			extra2->setPos({ Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 40 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
 			extra3->setPos({ Game::WIN_WIDTH / 2 + Game::WIN_WIDTH / 20 - Game::WIN_WIDTH / 240, Game::WIN_HEIGHT / 3 });
 
@@ -65,8 +65,8 @@ void BaccaratFlip::cardButton()
 	addObjects(carta3);
 	addEventListener(carta3);
 	carta3->connect([this] {if (active && flips < 2) { extra3->frame = extraVals[2]; flips++; deckButton(); } chosen = 2; });
-	
 
+	cartas = true;
 }
 
 void BaccaratFlip::win() {
@@ -192,7 +192,7 @@ void BaccaratFlip::deckButton()
 
 			});
 
-
+		mazos = true;
 	}
 }
 
@@ -215,6 +215,8 @@ void BaccaratFlip::clearDeck()
 	deleteSpecificGO(banker);
 	deleteSpecificEH(banker);
 
+	cartas = false;
+	mazos = false;
 }
 
 void BaccaratFlip::render() const {
@@ -231,8 +233,18 @@ void BaccaratFlip::render() const {
 
 void BaccaratFlip::update()
 {
-	if (mat.player.size() == 0 && mat.player.size() == 0)
+	if (cartas) {
+		if (!card1) { carta1->update(); }
+		if (!card2) { carta2->update(); }
+		if (!card3) { carta3->update(); }
+	}
+	if (mazos) {
+		banker->update();
+		player->update();
+	}
+	if (mat.player.size() == 0 && mat.banker.size() == 0) {
 		GameState::update();
+	}
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		frame++;

@@ -111,12 +111,12 @@ EscenaTutorial::EscenaTutorial(Game* g) : GameState(g), _g(g), picked(false), st
 	showDialog6();
 }
 EscenaTutorial::~EscenaTutorial() {
-	_dialog1 = nullptr;
-	_dialog2 = nullptr;
-	_dialog3 = nullptr;
-	_dialog4 = nullptr;
-	_dialog5 = nullptr;
-	_dialog6 = nullptr;
+	delete _dialog1;
+	delete _dialog2;
+	delete _dialog3;
+	delete _dialog4;
+	delete _dialog5;
+	delete _dialog6;
 	_g = nullptr;
 	delete _ui;
 }
