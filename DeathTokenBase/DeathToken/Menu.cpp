@@ -158,7 +158,7 @@ Menu::gameSelec(int id) {
 			game = new MarblesInsanity(getGame());
 			break;
 		case 3:
-			game = new Peleas(getGame());
+			game = new PeleasInsanity(getGame());
 			break;
 		}
 	}

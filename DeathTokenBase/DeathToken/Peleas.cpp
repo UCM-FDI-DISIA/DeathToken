@@ -96,8 +96,8 @@ Peleas::Peleas(Game* game)
 	addEventListener((EventHandler*)dialog);
 	addEventListener(bet1);
 	addEventListener(bet2);
-	addObjects(bet1);
-	addObjects(bet2);
+	addObjectsUI(bet1);
+	addObjectsUI(bet2);
 	bet->refresh();
 }
 
@@ -263,7 +263,15 @@ Peleas::update() {
 	switch (state)
 	{
 	case FSState::CARDS:
+		if (PlayerEconomy::getBet() == 0) {
+			ui->UnableBetButtons();
+		}
+		else
+		{
+			ui->EnableBetButtons();
+		}
 		bet->refresh();
+		bet->update();
 		break;
 	case FSState::FIGHT:
 		if (_battleM->getBattleState() != BattleState::END) {
@@ -288,6 +296,7 @@ Peleas::update() {
 			bet2->clear();
 			bet1->Show();
 			bet2->Show();
+			ui->Show();
 			bet->update();
 			bet->refresh();
 		}

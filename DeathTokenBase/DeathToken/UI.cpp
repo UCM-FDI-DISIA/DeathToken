@@ -1,14 +1,14 @@
-﻿#include "ui.h"
+﻿#include "baccarat.h"
+#include "escenaTutorial.h"
 #include "game.h"
 #include "marbles.h"
-#include "slots.h"
-#include "baccarat.h"
-#include "rouletteScene.h"
-#include "rouletteChoose.h"
 #include "marblesInsanity.h"
-#include "tutorial.h"
 #include "peleas.h"
-#include "escenaTutorial.h"
+#include "rouletteChoose.h"
+#include "rouletteScene.h"
+#include "slots.h"
+#include "tutorial.h"
+#include "ui.h"
 #include <iostream>
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
@@ -381,20 +381,42 @@ ButtonUI* UITutorial::upArrow()
 // UI PELEAS
 void UIPeleas::OnGo() {
 	_peleas->StartBattle();
+	Hide();
 }
+
+void UIPeleas::OnErase() {
+	HUDManager::resetBet();
+	_peleas->clearBets();
+}
+
 void
 UIPeleas::OnInfo()
 {
 	std::vector<Texture*> tut;
-	if (locura) {
-		tut.push_back(game->getTexture(PELEASTU1));
-	}
-	else {
-		tut.push_back(game->getTexture(PELEASTU1));
-		tut.push_back(game->getTexture(PELEASTU2));
-		
-	}
+	tut.push_back(game->getTexture(PELEASTU1));
+	tut.push_back(game->getTexture(PELEASTU2));
 	game->push(new Tutorial(game, gS, tut));
+}
+
+void UIPeleas::Hide() {
+	UI::go->Hide();
+	UI::arrowL->Hide();
+	UI::arrowR->Hide();
+	erase->Hide();
+	info->Hide();
+	for (auto& button : UI::chips) {
+		button->Hide();
+	}
+}
+void UIPeleas::Show() {
+	UI::go->Show();
+	UI::arrowL->Show();
+	UI::arrowR->Show();
+	erase->Show();
+	info->Show();
+	for (auto& button : UI::chips) {
+		button->Show();
+	}
 }
 
 inline int UIRoulette::relativeX(const float& n)

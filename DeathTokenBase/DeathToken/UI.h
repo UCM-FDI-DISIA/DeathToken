@@ -215,16 +215,32 @@ public:
 		, historial(nullptr)
 		, locura(false)
 	{
+		erase = new ButtonUI(gS, relativeX(50.0f), relativeY(905.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIERASE), game->getTexture(UIERASECLCK));
+		gS->addObjectsUI(erase);
+		gS->addEventListener(erase);
+		erase->connect([this]() { OnErase(); });
+
+		info = new ButtonUI(gS, relativeX(140.0f), relativeY(505.0f), relativeX(126.0f), relativeY(126.0f), game->getTexture(UIINFO), game->getTexture(UIINFOCLCK));
+		gS->addObjectsUI(info);
+		gS->addEventListener(info);
+		info->connect([this]() { OnInfo(); });
 	};
 
 	void OnGo() override;
+	void OnErase();
 	void OnInfo();
 	inline void setLocura(bool l) { locura = l; }
+	inline void UnableBetButtons() { UI::go->Hide(); erase->Hide(); };
+	inline void EnableBetButtons() { UI::go->Show(); erase->Show(); };
+	void Hide();
+	void Show();
 
 protected:
 	bool locura;
 	Peleas* _peleas;
 	ButtonUI* autoText;
+	ButtonUI* erase;
+	ButtonUI* info;
 	ButtonUI* historial;
 };
 
