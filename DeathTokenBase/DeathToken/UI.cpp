@@ -171,13 +171,20 @@ void UIMarbles::OnGo() {
 }
 
 void UIMarbles::OnErase() {
-	HUDManager::resetBet();
-	marbles->clearBets();
+	if (!onBet)
+	{
+		HUDManager::resetBet();
+		marbles->clearBets();
+	}
 }
 
 void UIMarbles::OnRepeat()
 {
-	marbles->repeat();
+	if (!onBet)
+	{
+		OnErase();
+		marbles->repeat();
+	}
 }
 
 void UIMarbles::OnInfo()

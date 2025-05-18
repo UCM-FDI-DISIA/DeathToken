@@ -131,7 +131,6 @@ ButtonBet::showChip()
 void
 ButtonBet::clear()
 {
-	betHistory = currentBet;
 	currentBet = 0;
 }
 void
@@ -144,6 +143,10 @@ int
 ButtonBet::getBet()
 {
 	return currentBet;
+}
+void ButtonBet::setBetHistory(int n)
+{
+	betHistory = n;
 }
 void
 ButtonBet::update()
