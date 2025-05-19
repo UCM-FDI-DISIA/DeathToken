@@ -395,7 +395,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 		addObjects(marbleButtons.back());
 		addEventListener(marbleButtons.back());
 		btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() {
-			if(!ui->getOnBet() && moneyBet <= PlayerEconomy::getBlueSouls())
+			if(!ui->getOnBet() && ui->currentChipValue() <= PlayerEconomy::getBlueSouls())
 				newBet(NCMarbles, multiplier, moneyBet, btnMarbles);
 			});
 	}
@@ -405,6 +405,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, long long moneyBet, ButtonMarbles* btnMarbles) {
 	
 	moneyBet = ui->currentChipValue();
+	HUDManager::applyBet(moneyBet);
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;

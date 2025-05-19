@@ -482,7 +482,6 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 			currentText = game->getTexture(showChip());
-			HUDManager::applyBet(chip);
 		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT && hover)
