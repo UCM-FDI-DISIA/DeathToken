@@ -30,7 +30,7 @@ MainMenu::MainMenu(Game* g) : GameState(g)
 
 		string nombre = inputNombre->getUserInput();
 		FirebaseUtils::RegisterUser(nombre);
-		if (!FirebaseUtils::tutorial) {
+		if (FirebaseUtils::tutorial == false) {
 			game->replace(new Menu(game));
 			game->push(new EscenaTutorial(game));
 			FirebaseUtils::tutorial = true;

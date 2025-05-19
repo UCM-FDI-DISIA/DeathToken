@@ -389,7 +389,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 		addObjects(marbleButtons.back());
 		addEventListener(marbleButtons.back());
 		btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() {
-			if(!ui->getOnBet())
+			if(!ui->getOnBet() && moneyBet <= PlayerEconomy::getBlueSouls())
 				newBet(NCMarbles, multiplier, moneyBet, btnMarbles);
 			});
 	}
@@ -425,6 +425,13 @@ void Marbles::clearBetsHistory()
 
 void Marbles::repeat()
 {
+	int betTotal = 0;
+	for (auto bet : betsHistory)
+	{
+		betTotal += bet.second.moneyBet;
+	}
+	if (betTotal > PlayerEconomy::getBlueSouls())
+		return;
 	bets = betsHistory;
 	for (auto i : marbleButtons)
 	{
