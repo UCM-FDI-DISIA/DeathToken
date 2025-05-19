@@ -49,7 +49,7 @@ void BaccaratBlackjack::render() const {
 }
 
 void BaccaratBlackjack::update() {
-	if (mat.player.size() == 0 && mat.player.size() == 0)
+	if (!playing)
 		GameState::update();
 	if (mat.player.size() != 0 && mat.banker.size() != 0) {
 		more->update();
@@ -120,7 +120,7 @@ void BaccaratBlackjack::victory() {
 
 void BaccaratBlackjack::startRound() {
 
-	if (!animOn && (mat.player.size() == 0 && mat.banker.size() == 0) && PlayerEconomy::getInsanity() > 0 && ui->getOnBet())
+	if (!animOn && mat.player.size() == 0 && mat.banker.size() == 0 && PlayerEconomy::getInsanity() > 0 && ui->getOnBet())
 	{
 		PlayerEconomy::subtractInsanity(1);
 		win = false;
