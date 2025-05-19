@@ -39,6 +39,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	boundry4.y = Game::WIN_HEIGHT;
 	obstaculos.push_back(boundry4);
 
+	//baccarat
 	double wBut = Game::WIN_WIDTH / 6.8, hBut = Game::WIN_HEIGHT / 4.5,
 		xBut = Game::WIN_WIDTH / 4 - Game::WIN_WIDTH / 8, yBut = Game::WIN_HEIGHT / 4 + Game::WIN_HEIGHT / 4.0;
 	//Baccarat button
@@ -55,7 +56,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		}
 		});
 	obstaculos.push_back(cambiarColisiones(baccarat->getCollisionRect()));
-
+	//slots
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 3.5;
 	xBut = Game::WIN_WIDTH * 3.0 / 4.75; yBut = Game::WIN_HEIGHT / 1.4f + Game::WIN_HEIGHT / 4.0;
 	slots = new Mesa(this, { (int)xBut,(int)yBut }, game->getTexture(SLOTSBUT), (int)wBut, (int)hBut);
@@ -71,7 +72,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		}
 		});
 	obstaculos.push_back(cambiarColisiones(slots->getCollisionRect()));
-
+	
 	//Widht, height, position marbles button
 	wBut = Game::WIN_WIDTH / 5.2; hBut = Game::WIN_HEIGHT / 4.0;
 	xBut = Game::WIN_WIDTH * 3.0 / 4.0 - Game::WIN_WIDTH / 25.0; yBut = Game::WIN_HEIGHT / 4.0 + Game::WIN_HEIGHT / 4.0;
@@ -88,7 +89,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 		}
 		});
 	obstaculos.push_back(cambiarColisiones(marbles->getCollisionRect()));
-
+	//peleas
 	wBut = Game::WIN_WIDTH / 5.98; hBut = Game::WIN_HEIGHT / 3.418;
 	xBut = Game::WIN_WIDTH * 3.0 / 15.5; yBut = Game::WIN_HEIGHT / 1.4f + Game::WIN_HEIGHT / 4.0;
 	fights = new Mesa(this, { (int)xBut, (int)yBut }, game->getTexture(PELEASBUT), (int)wBut, (int)hBut);

@@ -272,7 +272,10 @@ void UIBaccarat::OnErase() {
 
 void UIBaccarat::OnRepeat()
 {
+	//OnErase();
 	baccarat->repeat();
+
+
 }
 
 void

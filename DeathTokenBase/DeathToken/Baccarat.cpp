@@ -7,10 +7,10 @@ Baccarat::Baccarat(Game* game, bool bJ) : GameState(game), texture(game->getText
 	addCards();
 	//Buttons
 	int w = (int)(Game::WIN_WIDTH * (450.0f / 1920.0f));
-	int h = (int)(Game::WIN_WIDTH * (135.0f / 1920.0f));
-	int posT = (int)(Game::WIN_WIDTH * (370.0f / 1920.0f));
-	int posP = (int)(Game::WIN_WIDTH * (740.0f / 1920.0f));
-	int posB = (int)(Game::WIN_WIDTH * (555.0f / 1920.0f));
+	int h = (int)(Game::WIN_HEIGHT * (135.0f / 1080.0f));
+	int posT = (int)(Game::WIN_HEIGHT * (410.0f / 1080.0f));
+	int posP = (int)(Game::WIN_HEIGHT * (800.0f / 1080.0f));
+	int posB = (int)(Game::WIN_HEIGHT * (600.0f / 1080.0f));
 	if (!bJ)
 	{
 		createBaccaratButton(Game::WIN_WIDTH / 2 - w / 2, posT, w, h, 8, 0);//x8 apuesta
@@ -67,6 +67,7 @@ void Baccarat::clearDeck() {
 void Baccarat::update() {//para que las cartas se muevan enun futuro
 	if (mat.player.size() == 0 && mat.player.size() == 0)
 		GameState::update();
+	//animaciones
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
 		frame++;
@@ -167,7 +168,7 @@ void Baccarat::update() {//para que las cartas se muevan enun futuro
 	if (timeForWin) {
 		float dt = SDLUtils::getDeltaTime();
 		tiempo += dt;
-		if (tiempo > 3)
+		if (tiempo > 2)
 		{
 			timeForWin = false;
 			tiempo = 0;
@@ -237,14 +238,13 @@ void Baccarat::bankThird() {//se llama desde handthird si es necesario
 	}
 }
 
-int Baccarat::generateRnd() {
+int Baccarat::generateRnd() {//genera aleatoriamente el numero de la carta
 	uniform_int_distribution<> distrib(1, 13);
 
 	int num = distrib(game->getGen());
 	int i = 0;
 	int cont = 0;
 
-	// ya no os quiero (cleon)
 	while (i < cardsVec.size() && cardsVec.size() > 4) {
 		if (cardsVec[i] == num) {
 			cont++;
@@ -256,11 +256,10 @@ int Baccarat::generateRnd() {
 		}
 		i++;
 	}
-
 	return num;
 }
 
-void Baccarat::win() {
+void Baccarat::win() {//comprueba el ganador
 	playerComb = 0, bankerComb = 0;
 
 	for (int i = 0; i < mat.player.size(); i++) {
@@ -308,7 +307,7 @@ void Baccarat::win() {
 			}
 		}
 	}
-
+	//da el premio
 	if (totalBet > 0) {
 		game->push(new Award(game, (GameState*)this, totalBet, totalBet * multi));
 		hasWon = true;
@@ -322,9 +321,12 @@ void Baccarat::win() {
 //APUESTAS
 void Baccarat::newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat) {
 	moneyBet = ui->currentChipValue();
-	ui->setOnBet(true);
-	// así es más chuli (cleon)
-	bets[clave++] = { multiplier, moneyBet, betType };
+	if (moneyBet <= PlayerEconomy::getBlueSouls()) {//para que no haya apuestas invisibles
+
+		ui->setOnBet(true);
+		bets[clave++] = { multiplier, moneyBet, betType };
+		betsHistory = bets;
+	}
 }
 
 void
@@ -337,10 +339,12 @@ Baccarat::createBaccaratButton(int x, int y, int width, int height, int multipli
 }
 
 void Baccarat::clearBets() {
-	betsHistory = bets;
+
 	bets.clear();
+
 	for (auto i : bacButtons)
 	{
+		i->setBetHistory(i->getBet());
 		i->clear();
 	}
 	ui->setOnBet(false);
@@ -348,18 +352,18 @@ void Baccarat::clearBets() {
 
 void Baccarat::repeat()
 {
-	if (mat.player.size() == 0 && mat.banker.size() == 0)
+	int valor = 0;
+	for (const auto& [id, bet] : betsHistory) {//para comprobar que no apuestes mas de lo que tienes
+		valor += bet.moneyBet;
+	}
+	if (mat.player.size() == 0 && mat.banker.size() == 0 && PlayerEconomy::getBlueSouls() > 0 && PlayerEconomy::getBlueSouls() >= valor)
 	{
 		bets = betsHistory;
-		int currentBet = 0;
-		for (int i = 0; i < bets.size(); i++) {
-			currentBet += bets[i].moneyBet;
-		}
 		for (auto i : bacButtons)
 		{
 			i->repeat();
 		}
-		HUDManager::applyBet(currentBet);
+		hud->refresh();
 	}
 }
 
