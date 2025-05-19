@@ -1,4 +1,4 @@
-#include "roulette.h"
+﻿#include "roulette.h"
 #include "finalMenu.h"
 
 Roulette::Roulette(GameState* gS, Game* game, Point2D<> pos, Texture* text, PlayerEconomy* eco) : SceneObject(gS, pos, text), gS(gS), game(game), eco(eco), texture(text) {

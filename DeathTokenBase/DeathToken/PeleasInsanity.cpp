@@ -346,6 +346,7 @@ void PeleasInsanity::determinarGanadorObjeto() {
 	}
 
 	ss << "\n\nGanador: " << ganador;
+	resultadoBox->resetHistory();
 	resultadoBox->showMessage(ss.str(), true);
 	bet->update();
 	bet->refresh();

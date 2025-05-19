@@ -1,4 +1,5 @@
-#include "rouletteScene.h"
+﻿#include "rouletteScene.h"
+#include "SoundManager.h"
 
 RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), ui(new UIRoulette(this, game, this)), eco(eco), rouletteBG(game->getTexture(ROULETTEBG)) {
 	roul = new Roulette(this, game, { Game::WIN_WIDTH / 2 - Game::WIN_WIDTH / 4 , Game::WIN_HEIGHT / 2 + Game::WIN_WIDTH / 4 }, game->getTexture(ROULETTE), eco);
@@ -12,6 +13,7 @@ RouletteScene::RouletteScene(Game* game, PlayerEconomy* eco) : GameState(game), 
 void RouletteScene::update() {
 	GameState::update();
 	if (canThrow) {
+		
 		canThrow = false;
 		uniform_int_distribution<> distrib(1000, 1500);
 
@@ -41,7 +43,11 @@ void RouletteScene::render() const {
 }
 
 void RouletteScene::throwRoulette() {
-	if (eco->getBlueSouls() >= costPerThrow) {
+	if (eco->getBlueSouls() >= costPerThrow) 
+	{
+		if (roul->getSpeed() == 0) {
+			SoundManager::obtenerInstancia().reproducirEfecto("RuletaSonido");
+		}	
 		canThrow = true;
 		ui->seOnBet(true);
 	}

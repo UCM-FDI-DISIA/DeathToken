@@ -6,7 +6,10 @@
 #include "soundManager.h"
 
 
-Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) {
+Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
+{
+	auto& soundManager = SoundManager::obtenerInstancia();
+	soundManager.reproducirMusica("MenuDT");
 	//Widht, height, position baccarat button
 	//HUDManager::getHudBet()->refresh();
 	eco = new PlayerEconomy();
@@ -129,7 +132,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND)) 
 	hud = new HUDLobby(this, false);
 	HUDManager::getHudLobby()->refresh();
 }
-Menu::~Menu() {
+Menu::~Menu() 
+{
+	SoundManager::obtenerInstancia().detenerMusica();
 	delete eco;
 }
 
@@ -188,7 +193,10 @@ void Menu::update() {//detecto interseciones player/button
 	}
 	else {
 		GameState::update();
-
+		auto& soundManager = SoundManager::obtenerInstancia();
+		if (!soundManager.musicaEnReproduccion()) { // O verificar por "MenuDT" si es posible
+			soundManager.reproducirMusica("MenuDT");
+		}
 		ghost->collision(obstaculos);
 
 		SDL_Rect playerRect = ghost->getRect(); //cojo el rect del player
