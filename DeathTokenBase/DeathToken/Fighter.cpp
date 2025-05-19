@@ -1,4 +1,4 @@
-#include "fighter.h"
+﻿#include "fighter.h"
 #include "json.hpp"
 #include "game.h"
 using json = nlohmann::json;
@@ -97,7 +97,7 @@ TextureName Fighter::getTextureName() const
     return TEXTURE_MCDOUGALD;
   else if (name == "Paulter Geist")
     return TEXTURE_PAULTER_GEIST;
-  else if (name == "Potapé")
+  else if (name == "Potapo")
     return TEXTURE_POTAPE;
   // Default por si hay algún error
   return TEXTURE_SKELETOR;

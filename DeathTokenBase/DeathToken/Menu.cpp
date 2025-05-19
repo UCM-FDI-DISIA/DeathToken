@@ -11,10 +11,9 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND))
 	auto& soundManager = SoundManager::obtenerInstancia();
 	soundManager.reproducirMusica("MenuDT");
 	//Widht, height, position baccarat button
-	//HUDManager::getHudBet()->refresh();
 	eco = new PlayerEconomy();
 	eco->EconomyInitialize();
-	eco->setInsanity(5);
+	/*eco->setInsanity(5);*/
 	//Boundries
 	SDL_Rect boundry1;
 	boundry1.h = Game::WIN_HEIGHT;

@@ -531,9 +531,10 @@ UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS
 
 void UIRoulette::OnExit()
 {
-	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 	if (!bet)
 	{
+		SoundManager::obtenerInstancia().detenerTodosLosSonidos();
+		SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 		game->pop();
 	}
 }
