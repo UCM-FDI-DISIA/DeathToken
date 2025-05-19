@@ -1,6 +1,7 @@
-#include "award.h"
+﻿#include "award.h"
 #include "game.h"
 #include "SDL.h"
+#include "SoundManager.h"
 
 Award::Award(Game* game, GameState* lastState, long long bet, long long mWin, bool locura, long long multiplicator, bool insanity)
 	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)), currentWin(0) {
@@ -16,7 +17,29 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin, bo
 	long long multi = 0;
 	if (betG != 0) {
 		multi = mWinG / betG;
-		text->setMessage(getWinMessage((int)multi));
+		auto& sm = SoundManager::obtenerInstancia();
+		string win = getWinMessage((int)multi);
+		if (win == "WIN")
+		{
+			sm.reproducirEfecto(win);
+		}
+		else if (win == "BIG WIN")
+		{
+			sm.reproducirEfecto(win);
+		}
+		else if (win == "MEGA WIN")
+		{
+			sm.reproducirEfecto(win);
+		}
+		else if (win == "EPIC WIN")
+		{
+			sm.reproducirEfecto(win);
+		}
+		else if (win == "ESTAS LOCOOO")
+		{
+			sm.reproducirEfecto(win);
+		}
+		text->setMessage(win);
 	}
 	else {
 		text->setMessage(" ");
