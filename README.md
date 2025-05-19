@@ -256,6 +256,8 @@ Consiguiendo las suficientes fichas podrás hacerte con una Guadaña y convertir
 ## Arquitectura de juego
 El juego estáa organizado por medio de entities y herencia.Tenemos una clase game que se encarga de getionar el ciclo de juego y el cargado inical de todos los recursos necesarios,además de una generaciónd e una semilla e inclusión del usuario en la base de "firebase".
 Posteriormente tenemos estados de juego,los cuales corresponden a diversas escenas del juego. En este grupo tenemos: la pantalla principa,el tutorial,el lobby, todos los juegos, la pausa, las escenas de victoria y derrota.
+EL jugador es un objeto de escena movido por fisicas sencillas,las cuales permiten el cambio de escena entre los distintos juegos.Sin embargo,la interfaz d eusuario son objetos independientes,porque se encuentran en una "layer" distinta, no obstante siguen siendo objetos con funcionalidades y caaracterísticas concretas.
+![image](https://github.com/user-attachments/assets/46bbb06a-6383-4f7c-809f-a5c65f046f34)
 </details>
 <details>
 <summary> PlayTesting </summary>
