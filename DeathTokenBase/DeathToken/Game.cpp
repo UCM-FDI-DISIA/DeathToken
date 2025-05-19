@@ -472,7 +472,12 @@ Game::Game() {
 #endif
 	}
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/EPICWIN.wav", "EPIC WIN", SoundManager::EFECTO)) {
+		"assets/sonido/Generales/EpicWin (1).mp3", "EPIC WIN", SoundManager::EFECTO)) {
+#ifdef _DEBUG
+		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
+#endif
+	}if (!soundManager.cargarSonido(
+		"assets/sonido/Generales/EpicWin (2).mp3", "EPIC WIN2", SoundManager::EFECTO)) {
 #ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif

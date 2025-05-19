@@ -30,7 +30,7 @@ public:
 
   void render() const override;
   void update() override;
-  inline void empezaPartida() { empezarPartida = true; }
+  inline void empezaPartida() { empezarPartida = true; PlayerEconomy::setInsanity(PlayerEconomy::getInsanity() - 1); }
   void showTutorial() override { ui->OnInfo(); };
 
 private:

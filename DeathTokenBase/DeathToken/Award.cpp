@@ -33,7 +33,15 @@ Award::Award(Game* game, GameState* lastState, long long bet, long long mWin, bo
 		}
 		else if (win == "EPIC WIN")
 		{
-			sm.reproducirEfecto(win);
+			uniform_int_distribution<int> range(0, 1);
+			int i = range(game->getGen());
+			if (i == 0) {
+				sm.reproducirEfecto(win);
+			}
+			else
+			{
+				sm.reproducirEfecto("EPIC WIN2");
+			}
 		}
 		else if (win == "ESTAS LOCOOO")
 		{
