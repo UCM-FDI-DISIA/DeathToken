@@ -19,7 +19,9 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 	// Crea por cada columna un carrete y un botón para detenerlos
 	for (int i = 0; i < N_COLUM; ++i) {
 		// Añade el carrete a la lista de objetos
-		carretes.push_back(new Carrete(this, { (int)(x + i * celdaX), (int)y }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS)));
+		Carrete* c = new Carrete(this, { (int)(x + i * celdaX), (int)y }, (int)celdaX, (int)celdaY, game->getTexture(CELDA), game->getTexture(ICONOS));
+		c->init(g);
+		carretes.push_back(c);
 		addObjects(carretes[i]);
 
 		// Boton correspondiente para detener el giro
@@ -28,7 +30,6 @@ SlotsNormal::SlotsNormal(Game* g) : Slots(g), comprobanteIndice(0)
 		addObjects(button);
 		addEventListener(button);
 		// callback del boton
-		Carrete* c = carretes[i];
 		button->connect([this, c] {
 			if (c->getParada()) {
 				++comprobanteIndice;

@@ -267,6 +267,7 @@ private:
 	std::vector<TTF_Font*> loadFonts();
 	std::vector<TTF_Font*> fonts;
 	bool pause = false;
+	std::mt19937 gen;
 public:
 	static int WIN_WIDTH;
 	static int WIN_HEIGHT;
@@ -297,6 +298,5 @@ public:
 
 	inline const Matchup& GetMatchUp(int i) const { assert(i < battleQueue.size()); return battleQueue[i]; }
 
-	std::mt19937 gen;
 	std::mt19937& getGen() { return gen; }; // Devolver referencia
 };

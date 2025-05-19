@@ -1,6 +1,13 @@
 #include "carrete.h"
 
-vector<int> Carrete::vectorAleatorio() {
+
+Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* ic)
+	: SceneObject(g, pos, w, h, celdas), iconos(ic), indice(0), act(0) {
+}
+void Carrete::init(Game* g) {
+	resultante = vectorAleatorio(g);
+}
+vector<int> Carrete::vectorAleatorio(Game* g) {
 	vector<int> vector;
 	// genera un vector en base a las frecuencias
 	for (int i = 0; i < frecuencias.size(); ++i) {
@@ -9,16 +16,9 @@ vector<int> Carrete::vectorAleatorio() {
 		}
 	}
 	// desorden aleatorio del vector
-	unsigned int seed = (unsigned int)std::chrono::system_clock::now().time_since_epoch().count();
-	shuffle(vector.begin(), vector.end(), std::default_random_engine(seed));
+	shuffle(vector.begin(), vector.end(), g->getGen());
 
 	return vector;
-}
-
-Carrete::Carrete(GameState* g, Point2D<int> pos, int w, int h, Texture* celdas, Texture* ic)
-	: SceneObject(g, pos, w, h, celdas), iconos(ic), indice(0), act(0) {
-	// genera el vector aleatorio
-	resultante = vectorAleatorio();
 }
 Carrete:: ~Carrete() {
 	deleteCarrete();

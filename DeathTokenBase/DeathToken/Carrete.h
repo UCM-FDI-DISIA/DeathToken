@@ -10,14 +10,14 @@ class Carrete : public SceneObject {
 private:
 	constexpr static int NUM_ELEMS = 3; // Celdas por carrete
 
-	const vector<int> frecuencias = { 4,3,3,3,2,2,1}; // recuencias de aparición de los iconos
-	vector<int> resultante; // Vector aleatorio con los indices de los iconos formado segun las frecuencias
+	const std::vector<int> frecuencias = { 4,3,3,3,2,2,1}; // recuencias de aparición de los iconos
+	std::vector<int> resultante; // Vector aleatorio con los indices de los iconos formado segun las frecuencias
 	int indice; // indice de cual es el actual
 	Texture* iconos; // texturas de los iconos
 	bool giro = false;
-	vector<int>carretesRes; // resultado al parar
+	std::vector<int>carretesRes; // resultado al parar
 	
-	vector<int> vectorAleatorio(); // metodo pra generar el vector 'resultado'
+	std::vector<int> vectorAleatorio(Game*); // metodo pra generar el vector 'resultado'
 
 	const int delta = 1; // updates de diferencia entre giro y giro
 	int act; // update actual
@@ -33,4 +33,5 @@ public:
 	void pararGiro(); //Detiene el giro del carrete
 	void render() const override;
 	void update() override;
+	void init(Game*);
 };
