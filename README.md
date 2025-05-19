@@ -37,6 +37,7 @@ Una vez finalizado el juego, el jugador puede salir del juego con **más monedas
 
 En el momento en el que el jugador **consigue la “milestone”** ganará la partida, en el que se verá en una **pantalla de victoria** cómo se ha convertido en la nueva Muerte; **si pierde todas las monedas** la perderá y se verá una pantalla de **Game Over** con su alma errante vagando por el infierno. En cualquiera de las dos, podrá volver al inicio pulsando el botón de menú.
 
+Si le das a la tecla **P** puedes acceder a un menú de pausa donde puedes volver al juego, volver al menú inicial o ir a ver el ranking de jugadores.
 </details>
 
 <details>

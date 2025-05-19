@@ -202,9 +202,9 @@ vector<Game::TextureSpec> Game::loadTextures() {
 	v.push_back(TextureSpec{ "peleas/Fighters/alfredo.png", 1, 1 });
 	v.push_back(TextureSpec{ "peleas/Fighters/boodoo.png", 1, 1 });
 	v.push_back(TextureSpec{ "peleas/Fighters/corneo.png", 1, 1 });
-	v.push_back(TextureSpec{ "peleas/Fighters/mcdougald.png", 1, 1 }); 
+	v.push_back(TextureSpec{ "peleas/Fighters/mcdougald.png", 1, 1 });
 	v.push_back(TextureSpec{ "peleas/Fighters/paulter_geist.png", 1, 1 });
-	v.push_back(TextureSpec{ "peleas/Fighters/potape.png", 1, 1 }); 
+	v.push_back(TextureSpec{ "peleas/Fighters/potape.png", 1, 1 });
 	v.push_back(TextureSpec{ "peleas/RingLocura.png", 1, 1 });
 	v.push_back(TextureSpec{ "peleas/Precios.png", 1, 1 });
 	v.push_back(TextureSpec{ "peleas/Results.png", 1, 1 });
@@ -275,7 +275,7 @@ Game::Game() {
 	// Carga las texturas
 	vector<TextureSpec> textureSpec = loadTextures();
 	std::string textureRoot = "assets/images/";
-	for (auto& tex: textureSpec)
+	for (auto& tex : textureSpec)
 		textures.push_back(new Texture(renderer, (textureRoot + tex.name).c_str(), tex.numRows, tex.numColumns));
 
 	TTF_Init();
@@ -448,12 +448,6 @@ Game::Game() {
 #endif
 	}
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Music/SlotsDT.wav", "SlotsDT", SoundManager::MUSICA)) {
-#if _DEBUG
-		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
-#endif
-	}
-	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/WIN.wav", "WIN", SoundManager::EFECTO)) {
 #ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
@@ -505,7 +499,7 @@ Game::~Game() {
 	for (Texture* texture : textures) {
 		delete texture;
 	}
-	for (TTF_Font* font : fonts){
+	for (TTF_Font* font : fonts) {
 		TTF_CloseFont(font);
 	}
 	FirebaseUtils::DeleteFirebaseUtils();
@@ -587,7 +581,7 @@ void Game::push(GameState* nextState) {
 void Game::replace(GameState* nextState) {
 	replaceState(nextState);
 }
-void Game::pop() 
+void Game::pop()
 {
 	popState();
 }
