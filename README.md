@@ -4,6 +4,14 @@
 
 ## INDICE:
 <details>
+<summary> Género y PEGI </summary>
+	
+## Género y PEGI
+Se trata de un juego "theme park" o party games, donde puedes encontrar distintos minijuegos los cuales tienen en común un uso de una economía y sistema de camjeo para conseguir premios. El dinero se tiene que ganar apostando en los juegos y ganando.
+Debido a las apuestas el PEGI del juego es **16**. Además, de que el publico objetivo de este juego son jóvenes y adultos.
+</details>
+
+<details>
 <summary> Descripción del juego </summary>
 
 ## Descripción del juego
@@ -84,18 +92,18 @@ Durante este estado, la apariencia y las mecánicas de los juegos se verán alte
 #### Slots: 
 Utiliza la mecánica de los slots tradicionales: inicias con una apuesta y si consigues que tres figuras se alineen horizontalmente recuperarás el dinero multiplicado por la combinación ganadora.
 
-Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibujos (número 6, telaraña, calavera, ojo, gato negro, diablillo, murciélago). El jugador activará la máquina pulsando en una palanca y las tres columnas empezarán a dar vueltas dan con una animación ‘cartoon’ donde las opciones rotan rápidamente. El jugador parará las columnas de izquierda a derecha con el botón correspondiente. Si se ha conseguido alguna alienación, se obtendrán las recompensas.
+Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibujos (número 6, telaraña, calavera, ojo, gato negro, diablillo, murciélago). El jugador activará la máquina por medio de insertar la apuesta,luego pulsar el botón "GO" y las tres columnas empezarán a dar vueltas dan con una animación ‘cartoon’ donde las opciones rotan rápidamente. El jugador parará las columnas de izquierda a derecha con el botón correspondiente. Si se ha conseguido alguna alienación, se obtendrán las recompensas.
 Valores a apostar:
 - 10, 20, 50
 
 Las recompensas de las combinaciones serán:
 - 2 Telarañas: x1
-- 3 Diablillos: x2
+- 3 Gato Negro: x2
 - 3 Telarañas x3
 - 3 Murciélagos: x10
 - 3 Ojos: x30
 - 3 Calavera: x90
-- 3 Gato Negro: x150
+- 3 Diablillos: x150
 - Número 6: x3000
 
 [Slot](https://github.com/user-attachments/assets/570579ca-8f5c-4d4a-a46f-b2c67f030dea)
@@ -240,6 +248,145 @@ Estás muerto. Ya no hay más vida para ti y ahora eres un alma errante que vaga
 
 Consiguiendo las suficientes fichas podrás hacerte con una Guadaña y convertirte en la nueva Parca. Así que decidirás explorar los juegos de cartas y fichas que se te ofrecen para lograr tu objetivo.
 
+</details>
+
+<details>
+<summary> PlayTesting </summary>
+	
+## PlayTesting
+<details>
+	<summary> Objetivos del PlayTesting </summary>
+	
+### Objetivos del PlayTesting
+**1.Comprensión de las mecánicas y controles principales del juego.**
+¿El jugador comprende la economía del juego y como usar la “currency”?
+¿El jugador sabe cuando puede iniciar una partida a cada uno de los juegos?
+¿El jugador comprende que puede volver a jugar sin necesidad de salir del juego y como puedo hacerlo?
+¿El jugador sabe cómo moverse y cómo acceder a los distintos juegos?
+¿El jugador entiende las distintas mecánicas de cada juego y sabe cómo ganar?
+
+**2.Comprobación de éxito y fracaso en cada uno de los juegos.**
+¿El jugador gana mucho o poco?
+¿El jugador sabe como ganar o establece algún tipo de estrategia?
+</details>
+
+<details>
+	<summary> Duración de la prueba y desarrollo </summary>
+	
+### Duración de la prueba y desarrollo
+La prueba consta de un tester y un mínimo de un evaluador por jugador/a. La duración será de unos 15-20 minutos: la explicación del evaluador serán 3-5 minutos; la partida donde el jugador deberá probar los distintos aspectos del juego en 10-15 minutos y el evaluador deberá preguntar en el tiempo restante. Al iniciar la partida se les dará una explicación/instrucciones de las acciones que deberán hacer, mientras tanto el evaluador deberá permanecer en silencio y no deberá interactuar en ningún momento con el/la jugador/a, de esta manera mantendremos la connotación de la prueba. Simultáneamente,durante la prueba el evaluador deberá tomar notas acerca de los aspectos a evaluar. Una vez terminado el tiempo, se pasará a un momento donde el tester dará sus opiniones y pensamientos acerca de su partida, o algún comentario que desee hacer. Posteriormente, el evaluador/desarrollador hará una serie de preguntas para conocer otro tipo de aspectos a evaluar.
+</details>
+<details>
+	<summary> Comportamiento del tester </summary>
+
+### Comportamiento del tester
+Se colocará en el sitio donde se haga la prueba en frente de algún ordenador. Escuchará la explicación de los evaluadores y a continuación jugará la partida de manera natural. No habrá límite de intentos pues la evaluación se hará en función del tiempo, así la partida será más relajada para el tester y se podrá recoger más información. Una vez terminado los 10-15 minutos el tester dará su opinión y valoración de su experiencia de juego. Posteriormente, deberá responder con sinceridad cada pregunta que les diga el evaluador.
+</details>
+
+<details>
+	<summary> Comportamiento del evaluador </summary>
+
+### Comportamiento del evaluador
+Una vez colocado el tester procederá a explicar en qué consistirá la prueba.
+**Explicación:**
+“(Saludo cordial hacia el tester), el juego que vas a probar es un “theme park”, donde tienes distintos juegos donde ganas recompensas y tienes que llegar a un número concreto de recompensas para ganar. Este juego trata de un casino en el infierno, donde nuestro protagonista debido a su vida ludópata y muerte repentina en un casino, acabó en ese lugar. El diablo le ofrece un trato, el cual si consigue recoger las suficientes almas se podrá volver la parca, en caso contrario se quedará en el infierno sufriendo. El objetivo del juego es ganar dinero para ganar almas y comprar la guadaña. 
+Tu objetivo será jugar los distintos juegos del casino y ganar lo suficiente para ganar. Juega con normalidad y no temas a decir cosas en alto, nos ayuda a recoger más datos. Por desgracia no podremos resolver ninguna pregunta que nos hagáis durante la partida. Podeís empezar la partida”.
+Una vez finalizada la explicación el evaluador deberá permanecer en silencio y apuntar los distintos aspectos en el gameplay del tester en algún lugar para posteriormente hacer un informe recogiendo los datos totales. Tras la partida escuchará al tester y  le hará unas preguntas más  concretas.
+
+</details>
+<details>
+	<summary> Aspectos a observar/evaluar </summary>
+
+ ###  Aspectos a observar/evaluar
+El jugador sabe que debe introducir un nombre para poder iniciar la partida.
+El jugador se mueve por el mapa y accede a los juegos usando las teclas correspondientes.
+El jugador coloca las “chips”, intuye su funcionamiento (pueden ser arrastradas y colocadas para hacer la apuesta).
+El jugador comprende que no puede iniciar una partida a menos que  haya alguna apuesta y sabe dónde debe darle para iniciar la partida.
+El jugador comprende cuánto ganó tras la apuesta y cuánto le queda.
+El jugador comprende que ha entrado en modo locura y que han cambiado los juegos.
+
+**Slots:**
+El jugador ve que la manera de apostar es distinta y debe darle a los multiplicadores antes de iniciar la partida.
+El jugador ve que tiene que pulsar los botones en la zona inferior de cada “carrete” para hacerlo parar.
+El jugador entiende si ha ganado o perdido una vez se hayan pulsado los tres botones.
+El jugador entiende que en el modo locura debe pulsar las casillas para poner una ficha
+
+**Canicas:**
+El jugador comprende que debe arrastrar las “chips” para poder iniciar una apuesta y puede apostar en distintos huecos, pudiendo hacer apuesta múltiple.
+El jugador comprende las distintas apuestas que se pueden hacer.
+El jugador comprende que tras darle sabe si ha ganado o perdido, pudiendo apreciar que canicas han salido.
+El jugador entiende que, en locura, debe seleccionar un vaso y se quita este de todas las canicas.
+
+**Baccarat:**
+El jugador comprende dónde debe colocar las “chips” para iniciar el juego y las distintas apuestas que hay.
+El jugador entiende que tiene cartas y que tipo de cartas tiene, y está jugando contra una IA, para poder llegar a 9.
+El jugador comprende como puede llegar a 9.21,etc.
+El jugador entiende cuando ha ganado,empatado o perdido la apuesta.
+El jugadro entiende que en locura hay tres juegos de cartas,y que se debe hacer en cada uno.
+
+**Peleas reanimadas:**
+El jugador entiende donde debe de hacer la apuesta
+El jugador comprende lo que está sucediendo durante la apuesta.
+El jugador comprende que ha ganado o perdido.
+El jugador entiende que debe escribir para realizar una estimación del premio.
+
+**Ruleta**
+El jugador entiende el precio de la ruleta.
+El jugador entiende los distintos premispo que hay.
+El jugador comprende que debe conseguir unja cantidad de almas rojas para ganar.
+
+</details>
+<details>
+	<summary> Material empleado </summary>
+
+ ### Material empleado
+Ordenador.
+Algo para apuntar (cuaderno y boli/ portátil/etc.).
+Las cuestiones a evaluar.
+</details>
+<details>
+	<summary> Preguntas para el tester </summary>
+
+ ### Preguntas para el tester
+**¿Te ha resultado muy complicado entender las mecánicas de los juegos?
+¿Sientes que has ganado más o perdido más?
+¿Qué aspectos te ha costado entender?¿Qué aspectos has entendido mejor?¿Que te podría ayudar a entenderlo mejor?
+¿Visualmente te parecía agradable?¿Los colores no eran muy fuertes,combinaban bien entre sí,etc?¿Qué crees que se podría añadir para que fuese más atractivo a la vista?
+¿Qué juego ha resultado más complicado para ganar?¿Y el más fácil?**
+</details>
+
+<details>
+	<summary> Resultados del PlayTest </summary>
+
+## Resultados PlayTest
+_Total de testers:_ **15**
+**Conclusiones**
+Menú inicial: es necesario poner de manera más visual que se encontraba en un menú de inicio e incluso hacer más estético la zona donde deben registrarse los jugadores.Lo entendieron 4/15 testers.
+Pantalla de inicio: prácticamnete todos no comprendieron el movimiento y teclas que debían usar para navegar en el mapa y para acceder a los juegos,sai no se explicaba inicialmente no podrían haber probado el resto del juego. Lo entendieron 0/15 testers.
+Apuestas (fichas): comprendieron que tenian fichas y que se podían arratrar o pulsar en la zona de apuesta para aplicar,admás,de que si no tienes suficiente dienro no puedes hacer esa apuesta. Lo entendieron 13/15 testers.
+Apuestas (iniciar el juego): la mitad de los testers no comprendieron que no podían iniciar la partida a menso de que hubiese algun tipo de apuesta. Lo entendieron 7/15 testers.
+Recompensa o perdida de fichas: una gran parte de los testers no sabían cuanto habían ganado, incluso comentando varios de ellos de que algún feedback visual *ayudaría*. Lo entendieron 3/15 testers.
+Slots: la mayoría entendió que debían cuadrar en una misma linea tres simbolos iguales y qeu ganarían más en funcion del simbolo,no obstante,les costó ganar partidas. Lo entendieron 12/15 testers.
+Slots(Locura): inicialmente les costó entender que debían pulsar en las casillas y que no tenían unas fichas propias,si no, que las compartían la IA y el tester. Lo entendieron 8/15 testers.
+Canicas: una mayoría no entendió que podía apostar en distintas apuetas y que representaba cada una,los testers idearon planes para ganar más. Lo entendieron 5/15 testers.
+Canicas(Locura): casi nadie comprendió que al elegir una canica en los vasos, esta se quitaba de la pool de canicas. Lo entendieron 2/15 testers.
+Baccarat: todos entendieron que podían ganar,perder o empatar,sin embargo, muchos no lograron entender la combinación de cartas para formar 9. Lo entendieron 9/15 testers.
+Baccarat(Locura): casi todos comprendieron que mecánicamente este juego funcionaba casi igual y que había un total de 3 variantes. Lo entendieron 10/15 testers.
+Peleas: muchos entendieron que cada vez que entraban aparecía un luchar distinto y con distintas caracterísitcas al que debían apostar,los testers vieron este juego como una manera de ganar más fácil. Lo entendieron 13/15 testers.
+Peleas(Locura): muchos testers no comprendieron que debían escribir algo para avanzar en el juego, incluso les costó seguir adivinar el precio. Lo entendieron 4/15 testers.
+Ruleta: los jugadores comprendieron que cada color les dba un premio y cuanto costaba la ruleta, y que con esta se obtenía el modo locura. Lo entendieron 15/15 testers.
+
+**Respuestas**
+¿Te ha resultado muy complicado entender las mecánicas de los juegos? La mayoría de respuestas decian que les costaba entender como funcionaba cada juego y que debían hacer en cada momento,además de que les faltaba algo que les ayudase a entenderlo.
+¿Sientes que has ganado más o perdido más? La mayoría contestó que perdían en algunos juegos,pero que podñian recuperar ese dienro en otro juego.
+¿Qué aspectos te ha costado entender?¿Qué aspectos has entendido mejor?¿Que te podría ayudar a entenderlo mejor? Lo que más les costóa fue el movimiento,la economía y conocimiento de victoria/derrrota. Lo que mejor entenideron fueron: slots,canicas y apostar. Y muchos pidieron tutoriales específicos.
+¿Visualmente te parecía agradable?¿Los colores no eran muy fuertes,combinaban bien entre sí,etc?¿Qué crees que se podría añadir para que fuese más atractivo a la vista? A todos les agradío el estilo visual,pero necesitaban un feedback sonoro,lo cual muchos recalcaron.
+¿Qué juego ha resultado más complicado para ganar?¿Y el más fácil? La mayoría coincidía que el más difícil era baccarat y el más fácil canicas.
+
+**Conclusión final**
+Por medio de este playtesting sacamos una clara necesidad de tutoriales o explciaciones de todos los aspectos necesarios del juegos,posiblemete uno general para explicar mecáncias comunes a todos los juegos y tutroiales de cada juego inidvidual. además de que se necesita mucho feedback, visual y sonoro para: que se sepa mejor lo que está ocurriendo antes,durante y despues del juego. Tambien, hemos analizado en ajustar algunos valores aleatorios para que sea más frecuente ganar y que el jugador pueda diseñar una "estrategia" para poder alcanzar el objetivo del juego,estos valores pqeu hablamso son: velocidades(slots,baccarat),probabilidades de aparición(todos los juegos) o balanceado de ia (baccarat,peleas,slots). Y por ultimo, retocar un poco las ficsicas para que no se sintiesen ortopédicas.
+
+</details>
 </details>
 
 <details>
