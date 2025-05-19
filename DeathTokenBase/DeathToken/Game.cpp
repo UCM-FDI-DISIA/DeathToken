@@ -339,82 +339,112 @@ Game::Game() {
 	if (!soundManager.cargarSonido("assets/sonido/Generales/BaccaratIntro.wav",
 		"BaccaratIntro",
 		SoundManager::EFECTO)) {
-		#if _DEBUG
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido BaccaratIntro." << std::endl;
-		#endif
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/MarblesIntro.wav",
 		"MarblesIntro",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido MarblesIntro." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PresionaBoton.wav",
 		"PresionaBoton",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido PresionaBoton." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotChoose.wav",
 		"SlotChoose",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido SlotChoose." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotSpin.wav",
 		"SlotSpin",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido SlotSpin." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotsIntro.wav",
 		"SlotsIntro",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido SlotsIntro." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/StaticVinyl.mp3",
 		"Static",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido Static." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/Fights.wav", "FightsIntro", SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido Fights." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PokerChips.wav",
 		"PokerChips",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido PokerChips." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Tutoriales/PasaPaginaTutorial.wav",
 		"PasaPaginaTutorial",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido PasaPaginaTutorial." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Music/BaccaratDToken.wav",
 		"BaccaratDT",
 		SoundManager::MUSICA)) {
+#if _DEBUG
 		std::cerr << "Error al cargar la música BaccaratDToken." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Music/CanicasDT_v2.wav",
 		"CanicasDT",
 		SoundManager::MUSICA)) {
+#if _DEBUG
 		std::cerr << "Error al cargar la música CanicasDT_v2." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Music/PeleasDT.wav", "PeleasDT", SoundManager::MUSICA)) {
+#if _DEBUG
 		std::cerr << "Error al cargar la música PeleasDT." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Music/SlotsDT.wav", "SlotsDT", SoundManager::MUSICA)) {
+#if _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
+#endif
 	}
 
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Music/MenuMusic.mp3", "MenuDT", SoundManager::MUSICA)) {
+#if _DEBUG
 		std::cerr << "Error al cargar la música MenuDT." << std::endl;
+#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PopTube.wav",
 		"PopTube",
 		SoundManager::EFECTO)) {
+#if _DEBUG
 		std::cerr << "Error al cargar el sonido PopTube." << std::endl;
+#endif
 	}
 	if (loadFightersFromJSON("assets/jsons/peleadores.json") &&
 		loadMatchupsFromJSON("assets/jsons/matchups.json")) {

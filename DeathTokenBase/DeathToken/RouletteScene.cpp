@@ -44,7 +44,7 @@ void RouletteScene::render() const {
 }
 
 void RouletteScene::throwRoulette() {
-	if (eco->getBlueSouls() >= costPerThrow) 
+	if (PlayerEconomy::getBlueSouls() >= costPerThrow) 
 	{
 		if (roul->getSpeed() == 0) {
 			SoundManager::obtenerInstancia().reproducirEfecto("RuletaSonido");
