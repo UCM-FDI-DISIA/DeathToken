@@ -88,6 +88,7 @@ void BaccaratBlackjack::update() {
 	if (timeForWin) {
 		float dt = SDLUtils::getDeltaTime();
 		tiempo += dt;
+		playing = false;
 		if (tiempo > 3)
 		{
 			timeForWin = false;
@@ -224,7 +225,5 @@ void BaccaratBlackjack::clearDeck() {
 	ctFrameB = 14;
 	ctFrameEx = 14;
 	ctFrameBEx = 14;
-
-	playing = false;
 }
 
