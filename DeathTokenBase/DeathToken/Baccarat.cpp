@@ -69,7 +69,9 @@ void Baccarat::clearDeck() {
 
 void Baccarat::update() {//para que las cartas se muevan enun futuro
 	if (mat.player.size() == 0 && mat.player.size() == 0)
+	{
 		GameState::update();
+	}
 	//animaciones
 	if (cardAnim && SDL_GetTicks() - animTime > 75.0f && frame < 9)
 	{
@@ -324,11 +326,12 @@ void Baccarat::win() {//comprueba el ganador
 //APUESTAS
 void Baccarat::newBet(int multiplier, int betType, ButtonBaccarat* btnBaccarat) {
 	moneyBet = ui->currentChipValue();
-	if (moneyBet <= PlayerEconomy::getBlueSouls()) {//para que no haya apuestas invisibles
 
+	if (moneyBet <= PlayerEconomy::getBlueSouls()) {//para que no haya apuestas invisibles
 		ui->setOnBet(true);
 		bets[clave++] = { multiplier, moneyBet, betType };
 		betsHistory = bets;
+		HUDManager::applyBet(moneyBet);
 	}
 }
 
@@ -338,6 +341,7 @@ Baccarat::createBaccaratButton(int x, int y, int width, int height, int multipli
 	bacButtons.push_back(btnBaccarat);
 	addObjects(bacButtons.back());
 	addEventListener(bacButtons.back());
+
 	btnBaccarat->connect([this, multiplier, betType, btnBaccarat]() { newBet(multiplier, betType, btnBaccarat); });
 }
 
@@ -367,6 +371,7 @@ void Baccarat::repeat()
 			i->repeat();
 		}
 		hud->refresh();
+		ui->setOnBet(true);
 	}
 }
 
