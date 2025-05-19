@@ -42,8 +42,7 @@ vector<int> SlotsInsanity::vectorAleatorio() {
 			vector.push_back(i);
 		}
 	}
-	unsigned int seed = (unsigned int)std::chrono::system_clock::now().time_since_epoch().count();
-	shuffle(vector.begin(), vector.end(), std::default_random_engine(seed));
+	shuffle(vector.begin(), vector.end(), game->getGen());
 
 	return vector;
 }

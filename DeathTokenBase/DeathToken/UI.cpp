@@ -297,6 +297,8 @@ void UIBaccarat::OnRepeat()
 {
 	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 	baccarat->repeat();
+
+
 }
 
 void

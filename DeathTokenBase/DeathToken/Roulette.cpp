@@ -243,6 +243,7 @@ void Roulette::update() {
 				|| rot >= 248.4f && rot < 255.6f || rot >= 298.8f && rot < 306.0f
 				|| rot >= 334.8f && rot < 342.0f) {
 				PlayerEconomy::subtractRedSouls(10);
+				game->push(new Award(game, gS, 0, 0, false, -10));
 			}
 			else if (rot >= 7.2f && rot < 14.4f || rot >= 18.0f && rot < 25.2f
 				|| rot >= 32.4 && rot < 36.0f || rot >= 50.4f && rot < 57.6f
@@ -254,6 +255,7 @@ void Roulette::update() {
 				|| rot >= 306.0f && rot < 313.2f || rot >= 320.4f && rot < 327.6f
 				|| rot >= 342.0f && rot < 349.2f) {
 				PlayerEconomy::addRedSouls(20);
+				game->push(new Award(game, gS, 0, 0, false, 20));
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
 				|| rot >= 79.2f && rot < 86.4f || rot >= 115.2f && rot < 122.4f
@@ -261,6 +263,7 @@ void Roulette::update() {
 				|| rot >= 226.8f && rot < 234.0f || rot >= 262.8f && rot < 270.0f
 				|| rot >= 356.4f && rot <= 360.0f) {
 				PlayerEconomy::addRedSouls(1);
+				game->push(new Award(game, gS, 0, 0, false, 1));
 			}
 			else if (rot >= 36.0f && rot < 43.2f || rot >= 72.0f && rot < 79.2f
 				|| rot >= 86.4f && rot < 93.6f || rot >= 108.0f && rot < 115.2f
@@ -305,6 +308,7 @@ void Roulette::update() {
 				animTime = (float)SDL_GetTicks();
 				i = 0;
 				PlayerEconomy::addInsanity(10);
+				game->push(new Award(game, gS, 0, 0, true, 0, true));
 			}
 			else if (rot >= 25.2f && rot < 32.4f || rot >= 57.6f && rot < 64.8f
 				|| rot >= 79.2f && rot < 86.4f || rot >= 115.2f && rot < 122.4f
@@ -312,6 +316,7 @@ void Roulette::update() {
 				|| rot >= 226.8f && rot < 234.0f || rot >= 262.8f && rot < 270.0f
 				|| rot >= 356.4f && rot <= 360.0f) {
 				PlayerEconomy::addRedSouls(1);
+				game->push(new Award(game, gS, 0, 0, false, 1));
 			}
 			else if (rot >= 36.0f && rot < 43.2f || rot >= 72.0f && rot < 79.2f
 				|| rot >= 86.4f && rot < 93.6f || rot >= 108.0f && rot < 115.2f
@@ -324,7 +329,7 @@ void Roulette::update() {
 				|| rot >= 349.2f && rot < 356.4f) {
 				game->push(new Award(game, gS, 1, 4000));
 			}
-			
+
 		}
 	}
 }
