@@ -258,7 +258,7 @@ El juego está organizado por medio de entities y herencia. Hay una clase game q
 
 Posteriormente tenemos estados de juego, los cuales corresponden a diversas escenas del juego. En este grupo tenemos: la pantalla principa,el tutorial,el lobby, todos los juegos, la pausa, las escenas de victoria y derrota.
 
-EL jugador es un objeto de escena movido por fisicas sencillas,las cuales permiten el cambio de escena entre los distintos juegos.
+El jugador es un objeto de escena movido por fisicas sencillas,las cuales permiten el cambio de escena entre los distintos juegos.
 Sin embargo,la interfaz de usuario son objetos independientes,porque se encuentran en una "layer" distinta, no obstante siguen siendo objetos con funcionalidades y características concretas.
 
 ![image](https://github.com/user-attachments/assets/46bbb06a-6383-4f7c-809f-a5c65f046f34)
@@ -274,13 +274,18 @@ Sin embargo,la interfaz de usuario son objetos independientes,porque se encuentr
 ### Objetivos del PlayTesting
 **1.Comprensión de las mecánicas y controles principales del juego.**
 ¿El jugador comprende la economía del juego y como usar la “currency”?
+
 ¿El jugador sabe cuando puede iniciar una partida a cada uno de los juegos?
+
 ¿El jugador comprende que puede volver a jugar sin necesidad de salir del juego y como puedo hacerlo?
+
 ¿El jugador sabe cómo moverse y cómo acceder a los distintos juegos?
+
 ¿El jugador entiende las distintas mecánicas de cada juego y sabe cómo ganar?
 
 **2.Comprobación de éxito y fracaso en cada uno de los juegos.**
 ¿El jugador gana mucho o poco?
+
 ¿El jugador sabe como ganar o establece algún tipo de estrategia?
 </details>
 
@@ -302,6 +307,7 @@ Se colocará en el sitio donde se haga la prueba en frente de algún ordenador. 
 
 ### Comportamiento del evaluador
 Una vez colocado el tester procederá a explicar en qué consistirá la prueba.
+
 **Explicación:**
 “(Saludo cordial hacia el tester), el juego que vas a probar es un “theme park”, donde tienes distintos juegos donde ganas recompensas y tienes que llegar a un número concreto de recompensas para ganar. Este juego trata de un casino en el infierno, donde nuestro protagonista debido a su vida ludópata y muerte repentina en un casino, acabó en ese lugar. El diablo le ofrece un trato, el cual si consigue recoger las suficientes almas se podrá volver la parca, en caso contrario se quedará en el infierno sufriendo. El objetivo del juego es ganar dinero para ganar almas y comprar la guadaña. 
 Tu objetivo será jugar los distintos juegos del casino y ganar lo suficiente para ganar. Juega con normalidad y no temas a decir cosas en alto, nos ayuda a recoger más datos. Por desgracia no podremos resolver ninguna pregunta que nos hagáis durante la partida. Podeís empezar la partida”.
