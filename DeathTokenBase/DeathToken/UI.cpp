@@ -282,7 +282,7 @@ void UIBaccarat::OnExit()
 }
 
 void UIBaccarat::OnGo() {
-	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBotonBaccarat");
+
 	baccarat->startRound();
 }
 

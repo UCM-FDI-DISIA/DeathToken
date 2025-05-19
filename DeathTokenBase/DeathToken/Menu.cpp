@@ -13,7 +13,7 @@ Menu::Menu(Game* game) : GameState(game), texture(game->getTexture(BACKGROUND))
 	//Widht, height, position baccarat button
 	eco = new PlayerEconomy();
 	eco->EconomyInitialize();
-	/*eco->setInsanity(5);*/
+	eco->setInsanity(5);
 	//Boundries
 	SDL_Rect boundry1;
 	boundry1.h = Game::WIN_HEIGHT;

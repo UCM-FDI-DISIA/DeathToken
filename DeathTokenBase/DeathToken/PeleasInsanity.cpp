@@ -88,7 +88,9 @@ void PeleasInsanity::generarNuevoObjeto()
 	ui->Show();
 	empezarPartida = false;
 	objetoActual = generadorPrecios.generarObjeto();
-
+	partidaTerminada = false;  
+	ganador = "";              
+	objetoTerminado = false;
 	if (objetoActual.minRango >= objetoActual.maxRango) {
 		objetoActual.maxRango = objetoActual.minRango + 1;
 #ifdef _DEBUG
@@ -184,11 +186,11 @@ void PeleasInsanity::update()
 
 			float desviacion;
 			if (rondasRestantesObjeto == 3)
-				desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.15f;
+				desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.5f;  
 			else if (rondasRestantesObjeto == 2)
-				desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.07f;
+				desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.3f; 
 			else
-				desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.02f;
+				desviacion = (objetoActual.maxRango - objetoActual.minRango) * 0.2f; 
 
 			std::normal_distribution<float> distRival(
 				static_cast<float>(objetoActual.precioReal), desviacion);
@@ -205,7 +207,6 @@ void PeleasInsanity::update()
 				partidaTerminada = true;
 				ganador = (ronda.diferenciaJugador == 0) ? "Tú" : "Rival";
 
-				// Manejar recompensas/penalizaciones
 				if (ganador == "Tú") {
 					game->push(new Award(game, this, objetoActual.precioReal, static_cast<long>(objetoActual.precioReal * 5), true));
 				}
@@ -215,7 +216,7 @@ void PeleasInsanity::update()
 				}
 				bet->update();
 				bet->refresh();
-
+				objetoTerminado = true;
 				currentState = State::FINAL_OBJETO;
 				stateStartTime = currentTime;
 			}
@@ -233,7 +234,7 @@ void PeleasInsanity::update()
 			auto& ronda = rondasActuales.back();
 			std::stringstream resultado;
 			resultado << "Tu pista: " << generarPista(ronda.diferenciaJugador)
-				<< "\n" << "\n" << "\n" << "\n" << "\n";
+				<< "\n" << "\n" << "\n";
 			resultado << "Pista rival: " << generarPista(ronda.diferenciaRival)
 				<< "\n";
 
@@ -263,30 +264,20 @@ void PeleasInsanity::update()
 			stateStartTime = currentTime;
 		}
 		break;
-
 	case State::FINAL_OBJETO:
 		if (!resultadoMostrado) {
-			// Mostrar el resultado por primera vez
 			determinarGanadorObjeto();
 			resultadoMostrado = true;
-			stateStartTime = currentTime;  // Reiniciar temporizador
+			stateStartTime = currentTime;
 		}
 		else {
-			// Esperar TIEMPO_RESULTADO antes de avanzar
-			if (currentTime - stateStartTime >= TIEMPO_RESULTADO) {
-				resultadoMostrado = false;  // Resetear para el próximo objeto
-				if (!partidaTerminada) {
-					if (++rondasTotales < 3) {
-						generarNuevoObjeto();
-						currentState = State::PRESENTACION;
-					}
-					else {
-						currentState = State::FINAL_JUEGO;
-					}
-				}
-				else {
-					currentState = State::FINAL_JUEGO;
-				}
+			if (currentTime - stateStartTime >= TIEMPO_RESULTADO) {  // 4 segundos
+				resultadoMostrado = false;
+
+				// Reiniciar contadores
+				rondasTotales = 0;  // Añade esta línea para reiniciar el contador
+				generarNuevoObjeto();
+				currentState = State::PRESENTACION;
 			}
 		}
 		break;
@@ -334,11 +325,10 @@ void PeleasInsanity::determinarGanadorObjeto() {
 		// Manejar economía
 		if (!jugadorGana) {
 			PlayerEconomy::subtractBlueSouls(objetoActual.precioReal);
-			PlayerEconomy::subtractRedSouls(objetoActual.precioReal / 10);
+			PlayerEconomy::subtractRedSouls(1);
 		}
 		else {
-			game->push(new Award(game, this, objetoActual.precioReal, static_cast<long>(objetoActual.precioReal * 2)));
-			PlayerEconomy::addRedSouls(objetoActual.precioReal / 10);
+			game->push(new Award(game, this, objetoActual.precioReal, static_cast<long>(objetoActual.precioReal * 2), true));
 		}
 	}
 	else {

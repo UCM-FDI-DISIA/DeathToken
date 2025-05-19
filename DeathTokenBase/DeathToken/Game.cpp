@@ -283,7 +283,7 @@ Game::Game() {
 	// CARGA DE SONIDOS
 	SoundManager& soundManager = SoundManager::obtenerInstancia();
 	if (!soundManager.inicializar(44100, 2, 2048)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error initializing SoundManager" << std::endl;
 #endif
 		SDL_Quit();
@@ -306,7 +306,7 @@ Game::Game() {
 		"assets/sonido/Generales/PresionaBotonCanicas.wav",
 		"PresionaBotonCanicas",
 		SoundManager::EFECTO)) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 #endif
 	}
@@ -315,7 +315,7 @@ Game::Game() {
 		"assets/sonido/Generales/PresionaBotonBaccarat.wav",
 		"PresionaBotonBaccarat",
 		SoundManager::EFECTO)) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 #endif
 	}
@@ -323,7 +323,7 @@ Game::Game() {
 		"assets/sonido/Generales/PresionaBotonSlots.wav",
 		"PresionaBotonSlots",
 		SoundManager::EFECTO)) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 #endif
 	}
@@ -331,7 +331,7 @@ Game::Game() {
 	if (!soundManager.cargarSonido("assets/sonido/Ruleta/RuletaSonido.wav",
 		"RuletaSonido",
 		SoundManager::EFECTO)) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 #endif
 	}
@@ -339,42 +339,42 @@ Game::Game() {
 	if (!soundManager.cargarSonido("assets/sonido/Generales/BaccaratIntro.wav",
 		"BaccaratIntro",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido BaccaratIntro." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/MarblesIntro.wav",
 		"MarblesIntro",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido MarblesIntro." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PresionaBoton.wav",
 		"PresionaBoton",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido PresionaBoton." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotChoose.wav",
 		"SlotChoose",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido SlotChoose." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotSpin.wav",
 		"SlotSpin",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido SlotSpin." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/SlotsIntro.wav",
 		"SlotsIntro",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido SlotsIntro." << std::endl;
 #endif
 	}
@@ -386,15 +386,16 @@ Game::Game() {
 #endif
 	}
 	if (!soundManager.cargarSonido(
-		"assets/sonido/Generales/Fights.wav", "FightsIntro", SoundManager::EFECTO)) {
-#if _DEBUG
+		"assets/sonido/Generales/Fights.wav", "FightsIntro",
+		SoundManager::EFECTO)) {
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido Fights." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PokerChips.wav",
 		"PokerChips",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido PokerChips." << std::endl;
 #endif
 	}
@@ -402,83 +403,83 @@ Game::Game() {
 		"assets/sonido/Tutoriales/PasaPaginaTutorial.wav",
 		"PasaPag",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido PasaPaginaTutorial." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Music/BaccaratDToken.wav",
 		"BaccaratDT",
 		SoundManager::MUSICA)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música BaccaratDToken." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Music/CanicasDT_v2.wav",
 		"CanicasDT",
 		SoundManager::MUSICA)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música CanicasDT_v2." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Music/PeleasDT.wav", "PeleasDT", SoundManager::MUSICA)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música PeleasDT." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Music/SlotsDT.wav", "SlotsDT", SoundManager::MUSICA)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif
 	}
 
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Music/MenuMusic.mp3", "MenuDT", SoundManager::MUSICA)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música MenuDT." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/PopTube.wav",
 		"PopTube",
 		SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido PopTube." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/WIN.wav", "WIN", SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/BIGWIN.wav", "BIG WIN", SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/MEGAWIN.wav", "MEGA WIN", SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/ESTASLOCO.wav", "ESTAS LOCOOO", SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif
 	}
 	if (!soundManager.cargarSonido(
 		"assets/sonido/Generales/EPICWIN.wav", "EPIC WIN", SoundManager::EFECTO)) {
-#if _DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 #endif
 	}
 	if (loadFightersFromJSON("assets/jsons/peleadores.json") &&
 		loadMatchupsFromJSON("assets/jsons/matchups.json")) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif 
 	}

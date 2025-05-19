@@ -230,9 +230,9 @@ class UIPeleasInsanity : public UI {
 public:
 	UIPeleasInsanity(Game* game, PeleasInsanity* peleas): UI((GameState*) peleas, game),_peleas(peleas), info(nullptr) {
 		
-		UI::arrowL->Hide();
+		arrowL->Hide();
 		
-		UI::arrowR->Hide();
+		arrowR->Hide();
 		
 		for (auto& button : UI::chips) {
 			button->Hide();
