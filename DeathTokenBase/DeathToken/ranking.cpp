@@ -1,7 +1,7 @@
 #include "firebaseUtils.h"
 #include "ranking.h"
 #include "game.h"
-#include "SDL.h"
+#include <SDL.h>
 #include <cctype>
 using namespace std;
 

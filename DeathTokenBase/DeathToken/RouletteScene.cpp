@@ -1,5 +1,5 @@
 ﻿#include "rouletteScene.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 
 RouletteScene::RouletteScene(Game* game) : GameState(game), ui(new UIRoulette(this, game, this)), rouletteBG(game->getTexture(ROULETTEBG)) {
 	hud = new HUDLobby(this, true);

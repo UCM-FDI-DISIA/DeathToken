@@ -1,5 +1,5 @@
 ﻿#include "slotsInsanity.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include "celda.h"
 #include "award.h"
 #include <chrono>

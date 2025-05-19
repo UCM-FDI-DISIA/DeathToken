@@ -11,7 +11,7 @@
 #include "tutorial.h"
 #include "ui.h"
 #include <iostream>
-#include "SoundManager.h"
+#include "soundManager.h"
 
 UI::UI(GameState* gS, Game* game) : gS(gS), game(game), onBet(false), chipOnUse(0), chipPage(0)
 {

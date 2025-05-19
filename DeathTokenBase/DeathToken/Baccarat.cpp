@@ -1,5 +1,5 @@
 ﻿#include "baccarat.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include "game.h"
 #include <random>
 

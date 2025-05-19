@@ -1,7 +1,7 @@
 ﻿#include "award.h"
 #include "game.h"
-#include "SDL.h"
-#include "SoundManager.h"
+#include <SDL.h>
+#include "soundManager.h"
 
 Award::Award(Game* game, GameState* lastState, long long bet, long long mWin, bool locura, long long multiplicator, bool insanity)
 	: GameState(game), state(lastState), betG(bet), mWinG(mWin), startTime(SDL_GetTicks()), background(game->getTexture(BLACKFOND)), currentWin(0) {

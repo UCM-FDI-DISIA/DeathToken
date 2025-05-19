@@ -1,7 +1,7 @@
 ﻿#include "firebaseUtils.h"
 #include "mainMenu.h"
 #include "escenaTutorial.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include "menu.h"
 #include "game.h"
 #include "sdlUtils.h"

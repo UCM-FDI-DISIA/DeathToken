@@ -1,5 +1,5 @@
 ﻿#include "baccaratInsanityManager.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include "game.h"
 
 BaccaratInsanityManager::BaccaratInsanityManager(Game* game) : game(game), GameState(game) {

@@ -1,6 +1,6 @@
-﻿#include "Award.h"
+﻿#include "award.h"
 #include "peleasInsanity.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include <algorithm>
 #include <iostream>
 #include <numeric>

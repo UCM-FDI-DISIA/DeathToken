@@ -2,7 +2,7 @@
 #include "finalMenu.h"
 #include "button.h"
 #include "mainMenu.h"
-#include "PlayerEconomy.h"
+#include "playerEconomy.h"
 #include <cmath>
 
 

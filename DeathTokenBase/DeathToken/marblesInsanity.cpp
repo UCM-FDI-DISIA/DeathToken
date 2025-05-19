@@ -1,5 +1,5 @@
 ﻿#include "marblesInsanity.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include "sdlUtils.h"
 #include "ui.h"
 #include "game.h"	

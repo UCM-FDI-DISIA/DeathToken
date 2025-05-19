@@ -3,7 +3,7 @@
 #include "button.h"
 #include "game.h"
 #include "peleas.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 #include <iomanip>
 #include <sstream>
 #include <string>

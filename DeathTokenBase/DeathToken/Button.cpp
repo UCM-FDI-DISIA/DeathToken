@@ -2,7 +2,7 @@
 #include "ui.h"
 #include "marbles.h"
 #include "escenaTutorial.h"
-#include "SoundManager.h"
+#include "soundManager.h"
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, int frame)
 	: GameObject(g), text(t), textC(tC), hover(false), clicked(false), frame(frame), visible(true)
 {
