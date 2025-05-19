@@ -107,6 +107,7 @@ void Marbles::marblesAnim()
 			else {
 				height = 0;
 				marbleRects[0].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				SoundManager::obtenerInstancia().reproducirEfecto("PopTube");
 				animPhase++;
 			}
 		}
@@ -145,6 +146,7 @@ void Marbles::marblesAnim()
 			else {
 				height = 0;
 				marbleRects[1].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				SoundManager::obtenerInstancia().reproducirEfecto("PopTube");
 				animPhase++;
 			}
 		}
@@ -183,6 +185,7 @@ void Marbles::marblesAnim()
 			else {
 				height = 0;
 				marbleRects[2].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				SoundManager::obtenerInstancia().reproducirEfecto("PopTube");
 				animPhase++;
 			}
 		}
@@ -392,7 +395,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 		addObjects(marbleButtons.back());
 		addEventListener(marbleButtons.back());
 		btnMarbles->connect([this, NCMarbles, multiplier, btnMarbles]() {
-			if(!ui->getOnBet() && moneyBet <= PlayerEconomy::getBlueSouls())
+			if(!ui->getOnBet() && ui->currentChipValue() <= PlayerEconomy::getBlueSouls())
 				newBet(NCMarbles, multiplier, moneyBet, btnMarbles);
 			});
 	}
@@ -402,6 +405,7 @@ Marbles::createMarbleButton(int x, int y, int width, int height, Texture* textur
 void Marbles::newBet(std::vector<int> typeOfBet, int multiplier, long long moneyBet, ButtonMarbles* btnMarbles) {
 	
 	moneyBet = ui->currentChipValue();
+	HUDManager::applyBet(moneyBet);
 
 	bets[clave] = { typeOfBet, multiplier, moneyBet };
 	clave++;
