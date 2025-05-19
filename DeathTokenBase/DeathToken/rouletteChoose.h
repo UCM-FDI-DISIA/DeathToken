@@ -19,6 +19,7 @@ public:
 	~RouletteChoose() {
 		delete ui;
 		HUDManager::setHudLobby(hudMenu, false);
+		hudMenu->refresh();
 	};
 
 	void chooseGame(GameState* juego);
