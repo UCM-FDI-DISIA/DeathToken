@@ -204,6 +204,9 @@ int BaccaratBlackjack::totalCards(vector<int> askedCards) {
 }
 
 void BaccaratBlackjack::clearDeck() {
+	more->setHover(false);
+	stand->setHover(false);
+
 	PlayerEconomy::setBet(0);
 	hud->refresh();
 	clearBets();

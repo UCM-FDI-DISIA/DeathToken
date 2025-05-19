@@ -35,6 +35,7 @@ public:
 	//getters para mantener private los atributos pero poder acceder desde menu
 	Callback getCallback() { return cb; };
 	bool& getHover() { return hover; };
+	inline void setHover(bool b) { hover = b; };
 	void Hide() { visible = false; }
 	void Show() { visible = true; }
 };
