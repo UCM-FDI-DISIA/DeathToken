@@ -493,29 +493,26 @@ void Game::run() {
 		render();       // Dibuja los objetos en la ventana
 		SDL_RenderPresent(renderer);
 
+		// Verificar si estamos en menú principal o pausa
+		bool enMenuOPausa = typeid(*gameStates.top()) == typeid(MainMenu) || pause;
+
+		// Control del sonido de estática
+		if (enMenuOPausa) {
+			if (staticPlaying) {
+				Mix_HaltChannel(staticChannel);
+				staticPlaying = false;
+			}
+		}
+		else {
+			if (!staticPlaying) {
+				soundManager.reproducirEfectoCanalEsp("Static", -1, staticChannel);
+				staticPlaying = true;
+			}
+		}
+
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 
-			// Obtener el estado actual
-			GameState* currentState = gameStates.top().get();
-
-			// Verificar si estamos en menú principal o pausa
-			bool enMenuOPausa = dynamic_cast<MainMenu*>(currentState) ||
-				dynamic_cast<PauseState*>(currentState);
-
-			// Control del sonido de estática
-			if (enMenuOPausa) {
-				if (staticPlaying) {
-					Mix_HaltChannel(staticChannel);
-					staticPlaying = false;
-				}
-			}
-			else {
-				if (!staticPlaying) {
-                    soundManager.reproducirEfectoCanalEsp("Static", -1, staticChannel);
-					staticPlaying = true;
-				}
-			}
 			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
 				FirebaseUtils::SaveState(PlayerEconomy::getBlueSouls(), PlayerEconomy::getRedSouls(), PlayerEconomy::getInsanity(), FirebaseUtils::tutorial);
 				stop();
