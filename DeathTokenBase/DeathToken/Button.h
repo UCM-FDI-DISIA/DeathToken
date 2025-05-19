@@ -47,6 +47,7 @@ public:
 	ButtonUI(GameState*, int x, int y, int w, int h, Texture*, Texture*);
 	~ButtonUI() override = default;
 	void movePos(int x, int y);
+	void render() const;
 };
 
 class ButtonBet : public ButtonUI

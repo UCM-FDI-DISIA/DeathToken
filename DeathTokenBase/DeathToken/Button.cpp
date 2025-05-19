@@ -92,6 +92,20 @@ void ButtonUI::movePos(int x, int y)
 	boxB.x += x;
 	boxB.y += y;
 }
+void
+ButtonUI::render() const
+{
+	if (clicked)
+	{
+		textC->render(box);
+	}
+	else if (!hover) {
+		text->render(box);
+	}
+	else {
+		text->render(boxB);
+	}
+}
 
 ButtonBet::ButtonBet(GameState* gS, Game* game, UI* ui, int x, int y, int w, int h, Texture* t, Texture* tC)
 	: ButtonUI(gS, x, y, w, h, t, tC), game(game), gS(gS), currentBet(0), betHistory(0), ui(ui)
