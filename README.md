@@ -362,26 +362,48 @@ Las cuestiones a evaluar.
 ## _Total de testers:_ **15**
 ## **Conclusiones**
 Menú inicial: es necesario poner de manera más visual que se encontraba en un menú de inicio e incluso hacer más estético la zona donde deben registrarse los jugadores.Lo entendieron 4/15 testers.
+
 Pantalla de inicio: prácticamnete todos no comprendieron el movimiento y teclas que debían usar para navegar en el mapa y para acceder a los juegos,sai no se explicaba inicialmente no podrían haber probado el resto del juego. Lo entendieron 0/15 testers.
+
 Apuestas (fichas): comprendieron que tenian fichas y que se podían arratrar o pulsar en la zona de apuesta para aplicar,admás,de que si no tienes suficiente dienro no puedes hacer esa apuesta. Lo entendieron 13/15 testers.
+
 Apuestas (iniciar el juego): la mitad de los testers no comprendieron que no podían iniciar la partida a menso de que hubiese algun tipo de apuesta. Lo entendieron 7/15 testers.
+
 Recompensa o perdida de fichas: una gran parte de los testers no sabían cuanto habían ganado, incluso comentando varios de ellos de que algún feedback visual *ayudaría*. Lo entendieron 3/15 testers.
+
 Slots: la mayoría entendió que debían cuadrar en una misma linea tres simbolos iguales y qeu ganarían más en funcion del simbolo,no obstante,les costó ganar partidas. Lo entendieron 12/15 testers.
+
 Slots(Locura): inicialmente les costó entender que debían pulsar en las casillas y que no tenían unas fichas propias,si no, que las compartían la IA y el tester. Lo entendieron 8/15 testers.
+
 Canicas: una mayoría no entendió que podía apostar en distintas apuetas y que representaba cada una,los testers idearon planes para ganar más. Lo entendieron 5/15 testers.
+
 Canicas(Locura): casi nadie comprendió que al elegir una canica en los vasos, esta se quitaba de la pool de canicas. Lo entendieron 2/15 testers.
+
 Baccarat: todos entendieron que podían ganar,perder o empatar,sin embargo, muchos no lograron entender la combinación de cartas para formar 9. Lo entendieron 9/15 testers.
+
 Baccarat(Locura): casi todos comprendieron que mecánicamente este juego funcionaba casi igual y que había un total de 3 variantes. Lo entendieron 10/15 testers.
+
 Peleas: muchos entendieron que cada vez que entraban aparecía un luchar distinto y con distintas caracterísitcas al que debían apostar,los testers vieron este juego como una manera de ganar más fácil. Lo entendieron 13/15 testers.
+
 Peleas(Locura): muchos testers no comprendieron que debían escribir algo para avanzar en el juego, incluso les costó seguir adivinar el precio. Lo entendieron 4/15 testers.
+
 Ruleta: los jugadores comprendieron que cada color les dba un premio y cuanto costaba la ruleta, y que con esta se obtenía el modo locura. Lo entendieron 15/15 testers.
 
 ## **Respuestas**
-¿Te ha resultado muy complicado entender las mecánicas de los juegos? La mayoría de respuestas decian que les costaba entender como funcionaba cada juego y que debían hacer en cada momento,además de que les faltaba algo que les ayudase a entenderlo.
-¿Sientes que has ganado más o perdido más? La mayoría contestó que perdían en algunos juegos,pero que podñian recuperar ese dienro en otro juego.
-¿Qué aspectos te ha costado entender?¿Qué aspectos has entendido mejor?¿Que te podría ayudar a entenderlo mejor? Lo que más les costóa fue el movimiento,la economía y conocimiento de victoria/derrrota. Lo que mejor entenideron fueron: slots,canicas y apostar. Y muchos pidieron tutoriales específicos.
-¿Visualmente te parecía agradable?¿Los colores no eran muy fuertes,combinaban bien entre sí,etc?¿Qué crees que se podría añadir para que fuese más atractivo a la vista? A todos les agradío el estilo visual,pero necesitaban un feedback sonoro,lo cual muchos recalcaron.
-¿Qué juego ha resultado más complicado para ganar?¿Y el más fácil? La mayoría coincidía que el más difícil era baccarat y el más fácil canicas.
+**¿Te ha resultado muy complicado entender las mecánicas de los juegos?** 
+La mayoría de respuestas decian que les costaba entender como funcionaba cada juego y que debían hacer en cada momento,además de que les faltaba algo que les ayudase a entenderlo.
+
+**¿Sientes que has ganado más o perdido más?**
+La mayoría contestó que perdían en algunos juegos,pero que podñian recuperar ese dienro en otro juego.
+
+**¿Qué aspectos te ha costado entender?¿Qué aspectos has entendido mejor?¿Que te podría ayudar a entenderlo mejor?** 
+Lo que más les costóa fue el movimiento,la economía y conocimiento de victoria/derrrota. Lo que mejor entenideron fueron: slots,canicas y apostar. Y muchos pidieron tutoriales específicos.
+
+**¿Visualmente te parecía agradable?¿Los colores no eran muy fuertes,combinaban bien entre sí,etc?¿Qué crees que se podría añadir para que fuese más atractivo a la vista?**
+A todos les agradío el estilo visual,pero necesitaban un feedback sonoro,lo cual muchos recalcaron.
+
+**¿Qué juego ha resultado más complicado para ganar?¿Y el más fácil?**
+La mayoría coincidía que el más difícil era baccarat y el más fácil canicas.
 
 ## **Conclusión final**
 Por medio de este playtesting sacamos una clara necesidad de tutoriales o explciaciones de todos los aspectos necesarios del juegos,posiblemete uno general para explicar mecáncias comunes a todos los juegos y tutroiales de cada juego inidvidual. además de que se necesita mucho feedback, visual y sonoro para: que se sepa mejor lo que está ocurriendo antes,durante y despues del juego. Tambien, hemos analizado en ajustar algunos valores aleatorios para que sea más frecuente ganar y que el jugador pueda diseñar una "estrategia" para poder alcanzar el objetivo del juego,estos valores pqeu hablamso son: velocidades(slots,baccarat),probabilidades de aparición(todos los juegos) o balanceado de ia (baccarat,peleas,slots). Y por ultimo, retocar un poco las ficsicas para que no se sintiesen ortopédicas.
