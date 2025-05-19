@@ -265,21 +265,29 @@ void PeleasInsanity::update()
 		break;
 
 	case State::FINAL_OBJETO:
-		if (currentTime - stateStartTime >= TIEMPO_FINAL_OBJETO) {
+		if (!resultadoMostrado) {
+			// Mostrar el resultado por primera vez
 			determinarGanadorObjeto();
-			if (!partidaTerminada) {
-				if (++rondasTotales < 3) {
-					generarNuevoObjeto();
-					currentState = State::PRESENTACION;
+			resultadoMostrado = true;
+			stateStartTime = currentTime;  // Reiniciar temporizador
+		}
+		else {
+			// Esperar TIEMPO_RESULTADO antes de avanzar
+			if (currentTime - stateStartTime >= TIEMPO_RESULTADO) {
+				resultadoMostrado = false;  // Resetear para el próximo objeto
+				if (!partidaTerminada) {
+					if (++rondasTotales < 3) {
+						generarNuevoObjeto();
+						currentState = State::PRESENTACION;
+					}
+					else {
+						currentState = State::FINAL_JUEGO;
+					}
 				}
 				else {
 					currentState = State::FINAL_JUEGO;
 				}
 			}
-			else {
-				currentState = State::FINAL_JUEGO;
-			}
-			stateStartTime = currentTime;
 		}
 		break;
 	}
@@ -302,17 +310,11 @@ void PeleasInsanity::prepararSiguienteRonda()
 	resultadoBox->resetHistory();
 }
 
-void PeleasInsanity::determinarGanadorObjeto()
-{
+void PeleasInsanity::determinarGanadorObjeto() {
 	std::stringstream ss;
-	if (partidaTerminada) {
-		// Mensaje por acierto exacto
-		ss << (ganador == "Tú" ? "¡LO HAS ACERTADO!" : "El rival ha acertado.");
-		resultadoBox->resetHistory();
-		resultadoBox->showMessage(ss.str(), true);
-	}
-	else {
-		// Calcula las sumas de diferencias usando std::accumulate para mayor claridad
+	ss << "Precio real: " << objetoActual.precioReal << "\n\n";
+
+	if (ganador.empty()) {  // Solo si no hubo acierto exacto
 		int totalJugador = std::accumulate(
 			rondasActuales.begin(), rondasActuales.end(), 0,
 			[](int suma, const Ronda& r) { return suma + r.diferenciaJugador; }
@@ -322,37 +324,30 @@ void PeleasInsanity::determinarGanadorObjeto()
 			[](int suma, const Ronda& r) { return suma + r.diferenciaRival; }
 		);
 
-		// Decide el ganador: menos diferencia global
 		bool jugadorGana = (totalJugador < totalRival);
 		ganador = jugadorGana ? "Tú" : "Rival";
-		partidaTerminada = true;  // Marcamos fin de partida
 
-		// Construye y muestra el mensaje final
-		std::stringstream ss;
-		ss << "Precio real: " << objetoActual.precioReal << "\n\n"
-			<< "Total Tú: " << totalJugador << "\n"
+		ss << "Total Tú: " << totalJugador << "\n"
 			<< "Total Rival: " << totalRival << "\n\n"
-			<< (jugadorGana ? "¡GANASTE!" : "¡PERDISTE!")
-			<< "\n\nGanador: " << ganador;
+			<< (jugadorGana ? "¡GANASTE!" : "¡PERDISTE!");
 
+		// Manejar economía
 		if (!jugadorGana) {
 			PlayerEconomy::subtractBlueSouls(objetoActual.precioReal);
-			PlayerEconomy::subtractRedSouls(1);
+			PlayerEconomy::subtractRedSouls(objetoActual.precioReal / 10);
 		}
 		else {
-			game->push(new Award(game, this, objetoActual.precioReal, static_cast<long>(objetoActual.precioReal * 2), true));
-		}
-		PlayerEconomy::setInsanity(PlayerEconomy::getInsanity() > 0 ? PlayerEconomy::getInsanity() - 1 : 0);
-		bet->update();
-		bet->refresh();
-		resultadoBox->resetHistory();
-		resultadoBox->showMessage(ss.str(), true);
-		Uint32 currentTime = SDL_GetTicks();
-		float deltaTime = (currentTime - lastUpdate) / 1000.0f;
-		if (currentTime - stateStartTime >= 3000) {
-			generarNuevoObjeto();
-			currentState = State::PRESENTACION;
+			game->push(new Award(game, this, objetoActual.precioReal, static_cast<long>(objetoActual.precioReal * 2)));
+			PlayerEconomy::addRedSouls(objetoActual.precioReal / 10);
 		}
 	}
-}
+	else {
+		ss << (ganador == "Tú" ? "¡LO HAS ACERTADO!" : "El rival ha acertado.");
+	}
 
+	ss << "\n\nGanador: " << ganador;
+	resultadoBox->showMessage(ss.str(), true);
+	bet->update();
+	bet->refresh();
+	objetoTerminado = true;  // Marcar objeto como completado
+}
