@@ -120,7 +120,7 @@ void BaccaratBlackjack::victory() {
 
 void BaccaratBlackjack::startRound() {
 
-	if (!animOn && (mat.player.size() == 0 && mat.banker.size() == 0) && PlayerEconomy::getInsanity() > 0 && ui->getOnBet())
+	if (!animOn && !playing && PlayerEconomy::getInsanity() > 0 && ui->getOnBet())
 	{
 		PlayerEconomy::subtractInsanity(1);
 		win = false;
