@@ -107,6 +107,7 @@ void Marbles::marblesAnim()
 			else {
 				height = 0;
 				marbleRects[0].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				SoundManager::obtenerInstancia().reproducirEfecto("PopTube");
 				animPhase++;
 			}
 		}
@@ -145,6 +146,7 @@ void Marbles::marblesAnim()
 			else {
 				height = 0;
 				marbleRects[1].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				SoundManager::obtenerInstancia().reproducirEfecto("PopTube");
 				animPhase++;
 			}
 		}
@@ -183,6 +185,7 @@ void Marbles::marblesAnim()
 			else {
 				height = 0;
 				marbleRects[2].y = (int)(175.0f / 1080.0f * Game::WIN_HEIGHT);
+				SoundManager::obtenerInstancia().reproducirEfecto("PopTube");
 				animPhase++;
 			}
 		}

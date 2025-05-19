@@ -2,7 +2,7 @@
 #include "ui.h"
 #include "marbles.h"
 #include "escenaTutorial.h"
-
+#include "SoundManager.h"
 Button::Button(GameState* g, int x, int y, int w, int h, Texture* t, Texture* tC, int frame)
 	: GameObject(g), text(t), textC(tC), hover(false), clicked(false), frame(frame), visible(true)
 {
@@ -480,6 +480,7 @@ ButtonMarbles::handleEvent(const SDL_Event& event)
 		{
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
+			SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 			currentText = game->getTexture(showChip());
 			HUDManager::applyBet(chip);
 		}
@@ -532,6 +533,7 @@ ButtonBaccarat::handleEvent(const SDL_Event& event)
 		{
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
+			SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 			currentText = game->getTexture(showChip());
 			HUDManager::applyBet(chip);
 		}
@@ -569,6 +571,7 @@ ButtonSlots::handleEvent(const SDL_Event& event)
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
+			SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 			HUDManager::applyBet(chip);
 			PlayerEconomy::setBet(currentBet);
 			HUDManager::getHudBet()->refresh();
@@ -596,6 +599,7 @@ void ButtonPeleas::handleEvent(const SDL_Event& event) {
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
 			currentText = game->getTexture(showChip());
+			SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 			PlayerEconomy::subtractBlueSouls(chip);
 			PlayerEconomy::addBet(chip);
 			HUDManager::getHudBet()->refresh();
@@ -633,6 +637,7 @@ void ButtonTutorial::handleEvent(const SDL_Event& event) {
 			_tut->apuesta();
 			currentBet += chip;
 			lastChipSprite = "UICHIP" + std::to_string(chip);
+			SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 			currentText = game->getTexture(showChip());
 			HUDManager::applyBet(chip);
 			PlayerEconomy::setBet(currentBet);
