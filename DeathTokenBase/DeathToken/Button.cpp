@@ -95,6 +95,7 @@ void ButtonUI::movePos(int x, int y)
 void
 ButtonUI::render() const
 {
+	if (!visible) { return; }
 	if (clicked)
 	{
 		textC->render(box);
