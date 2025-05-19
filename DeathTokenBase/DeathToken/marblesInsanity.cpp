@@ -13,7 +13,7 @@ MarblesInsanity::MarblesInsanity(Game* game) : GameState(game),  texture(game->g
 	soundManager.reproducirMusica("CanicasDT");
 	uiI = new UIMarblesInsanity(this, game, this);
 	guideText = new Text(this, this->getGame()->getTypo(GRAND_CASINO1), Game::WIN_WIDTH / 2, Game::WIN_HEIGHT / 2,
-						(int)(3.0f * 1920.f / Game::WIN_WIDTH), Text::CENTRO);
+						(int)(3.0f / 1920.0f * Game::WIN_WIDTH), Text::CENTRO);
 	guideText->setMessage("Pulsa en GO para empezar ronda con locura");
 	addObjectsUI(guideText);
 	wMarbleI = -1;
