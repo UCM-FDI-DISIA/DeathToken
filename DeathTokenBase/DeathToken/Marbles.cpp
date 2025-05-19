@@ -19,7 +19,7 @@ Marbles::Marbles(Game* game, std::vector<int> blockedMarble, bool insanity) : Ga
 	soundManager.reproducirMusica("CanicasDT");
 	for (int i = 0; i < 3; i++)
 	{
-		slotRects[i] = SDL_Rect((int)(593.0f + (300 * i) / 1920.0f * Game::WIN_WIDTH), (int)(235.0f / 1080.0f * Game::WIN_HEIGHT),
+		slotRects[i] = SDL_Rect((int)((593.0f + (300 * i)) / 1920.0f * Game::WIN_WIDTH), (int)(235.0f / 1080.0f * Game::WIN_HEIGHT),
 								(int)(132.0f / 1920.0f * Game::WIN_WIDTH), (int)(82.0f / 1080.0f * Game::WIN_HEIGHT));
 	}
 	ui = new UIMarbles(this, game, this);
@@ -56,7 +56,7 @@ void  Marbles::generateMarbles() {
 	for (int i = 0; i < 3; i++) {
 		int color = validColors[distrib(game->getGen())];
 
-		marbleRects[i] = SDL_Rect((int)(606.0f + (300 * i) / 1920.0f * Game::WIN_WIDTH), (int)(75.0f / 1080.0f * Game::WIN_HEIGHT),
+		marbleRects[i] = SDL_Rect((int)((606.0f + (300 * i)) / 1920.0f * Game::WIN_WIDTH), (int)(75.0f / 1080.0f * Game::WIN_HEIGHT),
 								  (int)(107.0f / 1920.0f * Game::WIN_WIDTH), (int)(107.0f / 1080.0f * Game::WIN_HEIGHT));
 		marbles[color]++;
 		
