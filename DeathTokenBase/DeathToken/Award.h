@@ -22,7 +22,7 @@ private:
 	int cSize = 20;
 
 public:
-	Award(Game* game, GameState* lastState, long long bet, long long mWin, bool locura = false);
+	Award(Game* game, GameState* lastState, long long bet, long long mWin, bool locura = false, long long multiplicator = -1, bool insanity = false);
 	~Award() {};
 	void render()const  override;
 	void update() override;
