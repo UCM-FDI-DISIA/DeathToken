@@ -70,8 +70,14 @@ void Award::update() {
 		if (mWinG <= 1000) {
 			currentWin += std::min((long long)10, mWinG - currentWin);
 		}
-		else {
+		else if (mWinG <= 10000) {
 			currentWin += std::min((long long)100, mWinG - currentWin);
+		}
+		else if (mWinG <= 100000) {
+			currentWin += std::min((long long)1000, mWinG - currentWin);
+		}
+		else {
+			currentWin += std::min((long long)10000, mWinG - currentWin);
 		}
 		winText->setMessage(std::to_string(currentWin));
 		startTime = SDL_GetTicks();
