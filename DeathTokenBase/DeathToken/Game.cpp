@@ -484,7 +484,7 @@ Game::Game() {
 	}
 	if (loadFightersFromJSON("assets/jsons/peleadores.json") &&
 		loadMatchupsFromJSON("assets/jsons/matchups.json")) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		cerr << "error en la carga de jsons de peleas" << endl;
 #endif 
 	}
