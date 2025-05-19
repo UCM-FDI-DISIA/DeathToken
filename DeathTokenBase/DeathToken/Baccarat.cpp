@@ -379,6 +379,7 @@ void Baccarat::startRound() {
 
 	if (mat.player.size() == 0 && mat.banker.size() == 0 && ui->getOnBet())
 	{
+		SoundManager::obtenerInstancia().reproducirEfecto("PresionaBotonBaccarat");
 		hasWon = false;
 		player1->frame = 0;//inicializamos boca abajo
 		banker1->frame = 0;

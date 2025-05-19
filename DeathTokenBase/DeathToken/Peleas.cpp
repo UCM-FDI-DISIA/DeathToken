@@ -292,9 +292,12 @@ Peleas::update() {
 		else {
 			if (apuesta1 > 0 && _battleM->getFigther1().isAlive()) {
 				game->push(new Award(game, this, apuesta1, static_cast<long>(apuesta1 * _battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility()))));
+				PlayerEconomy::subtractBlueSouls(apuesta2 * _battleM->getFigther2().getOdds(_battleM->getFigther1().getAbility()));
 			}
 			else if (apuesta2 > 0) {
 				game->push(new Award(game, this, apuesta2, static_cast<long>(apuesta2 * _battleM->getFigther2().getOdds(_battleM->getFigther1().getAbility()))));
+				PlayerEconomy::subtractBlueSouls(apuesta1 * _battleM->getFigther1().getOdds(_battleM->getFigther2().getAbility()));
+
 			}
 			state = FSState::CARDS;
 			_battleM->StartBattle();
