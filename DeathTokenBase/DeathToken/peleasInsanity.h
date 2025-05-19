@@ -13,6 +13,7 @@ const Uint32 TIEMPO_COMPARACION = 6000;
 const Uint32 TIEMPO_SIGUIENTE_RONDA = 2500;
 const Uint32 TIEMPO_FINAL_OBJETO = 4000;
 const Uint32 TIEMPO_RESULTADO_MOSTRADO = 2000;
+const Uint32 TIEMPO_RESULTADO = 3000;
 
 struct Ronda {
   int intentoJugador = 0;
@@ -73,6 +74,8 @@ private:
   bool empezarPartida = false;
   bool partidaTerminada = false;
   std::string ganador = "";
+  bool objetoTerminado = false;
+  bool resultadoMostrado = false;
 };
 
 #endif  // PELEAS_INSANITY_H

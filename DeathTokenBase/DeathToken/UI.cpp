@@ -487,7 +487,12 @@ void UIPeleas::Show() {
 }
 void UIPeleasInsanity::OnGo()
 {
-	_peleas->empezaPartida();
+	if (PlayerEconomy::getInsanity() > 0) {
+		_peleas->empezaPartida();
+	}
+	else {
+		OnExit();
+	}
 }
 
 void UIPeleasInsanity::OnInfo()
@@ -524,7 +529,6 @@ UIRoulette::UIRoulette(GameState* gS, Game* game, RouletteScene* rouletteS) : gS
 
 void UIRoulette::OnExit()
 {
-	SoundManager::obtenerInstancia().detenerTodosLosSonidos();
 	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 	if (!bet)
 	{
@@ -534,7 +538,6 @@ void UIRoulette::OnExit()
 
 void UIRoulette::OnGo()
 {
-	SoundManager::obtenerInstancia().reproducirEfecto("RuletaSonido");
 	rouletteS->throwRoulette();
 }
 
@@ -576,7 +579,6 @@ UIRouletteChoose::UIRouletteChoose(GameState* gS, Game* game, RouletteChoose* ro
 
 void UIRouletteChoose::OnExit()
 {
-	SoundManager::obtenerInstancia().detenerTodosLosSonidos();
 	SoundManager::obtenerInstancia().reproducirEfecto("PresionaBoton");
 	game->pop();
 }

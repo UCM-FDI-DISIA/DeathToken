@@ -297,7 +297,7 @@ Game::Game() {
 		"assets/sonido/Generales/PresionaBotonPeleas.wav",
 		"PresionaBotonPeleas",
 		SoundManager::EFECTO)) {
-#ifdef DEBUG
+#ifdef _DEBUG
 		std::cerr << "Error al cargar el sonido del Button." << std::endl;
 #endif
 	}
@@ -339,7 +339,9 @@ Game::Game() {
 	if (!soundManager.cargarSonido("assets/sonido/Generales/BaccaratIntro.wav",
 		"BaccaratIntro",
 		SoundManager::EFECTO)) {
+		#if _DEBUG
 		std::cerr << "Error al cargar el sonido BaccaratIntro." << std::endl;
+		#endif
 	}
 	if (!soundManager.cargarSonido("assets/sonido/Generales/MarblesIntro.wav",
 		"MarblesIntro",
@@ -405,7 +407,15 @@ Game::Game() {
 		std::cerr << "Error al cargar la música SlotsDT." << std::endl;
 	}
 
-
+	if (!soundManager.cargarSonido(
+		"assets/sonido/Music/MenuMusic.mp3", "MenuDT", SoundManager::MUSICA)) {
+		std::cerr << "Error al cargar la música MenuDT." << std::endl;
+	}
+	if (!soundManager.cargarSonido("assets/sonido/Generales/PopTube.wav",
+		"PopTube",
+		SoundManager::EFECTO)) {
+		std::cerr << "Error al cargar el sonido PopTube." << std::endl;
+	}
 	if (loadFightersFromJSON("assets/jsons/peleadores.json") &&
 		loadMatchupsFromJSON("assets/jsons/matchups.json")) {
 #ifdef DEBUG
@@ -513,7 +523,8 @@ void Game::push(GameState* nextState) {
 void Game::replace(GameState* nextState) {
 	replaceState(nextState);
 }
-void Game::pop() {
+void Game::pop() 
+{
 	popState();
 }
 void Game::stop() { while (!empty()) popState(); }
