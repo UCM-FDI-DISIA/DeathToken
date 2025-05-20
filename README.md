@@ -45,7 +45,7 @@ Una vez finalizado el juego, el jugador puede salir del juego con **más monedas
 
 En el momento en el que el jugador **consigue la “milestone”** ganará la partida, en el que se verá en una **pantalla de victoria** cómo se ha convertido en la nueva Muerte; **si pierde todas las monedas** la perderá y se verá una pantalla de **Game Over** con su alma errante vagando por el infierno. En cualquiera de las dos, podrá volver al inicio pulsando el botón de menú.
 
-Si le das a la tecla **P** puedes acceder a un menú de pausa donde puedes volver al juego, volver al menú inicial o ir a ver el ranking de jugadores.
+Si le das a la tecla **P** puedes acceder a un menú de pausa donde puedes volver al juego, volver al menú inicial o ir a ver el ranking global de jugadores.
 </details>
 
 <details>
@@ -56,9 +56,9 @@ Si le das a la tecla **P** puedes acceder a un menú de pausa donde puedes volve
   <summary> Sistema de fichas y ruleta </summary>
 	
 ### Sistema de fichas y Ruleta
-En cada juego podrás apostar una cantidad de **fichas básicas**, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas **500** podrás realizar un **tiro en la Ruleta**, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
+En cada juego podrás apostar una cantidad de **fichas básicas**, que se verán multiplicadas o restadas según el resultado de la partida. Cuando consigas **2000** podrás realizar un **tiro en la Ruleta**, teniendo cuidado de no quedarte sin para seguir jugando. [Fichas](https://github.com/user-attachments/assets/6e74fa39-040a-4041-bf27-63ea778e95df)
 
-Las **fichas y almas** son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de **200** almas. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
+Las **almas** son un token especial que funcionan como tickets de bolera; sirven para comprar la Guadaña a cambio de **200**. La forma de conseguir almas es jugando a los juegos en el modo Locura, explicado más adelante, o consiguiéndolas en la ruleta. [Almas rojas](https://github.com/user-attachments/assets/1eae08b4-7f11-42c6-9717-63d63d541c73)
 
 La Ruleta contará con 2 modos, igual que el resto de juegos:
 Modo normal:
@@ -81,7 +81,7 @@ Modo locura:
 	
 ### Locura
 La locura es una mecánica que hará que se modifiquen los juegos, permitiendo un cambio drástico en la jugabilidad. Tras un spin de la ruleta existirá la posibilidad de conseguir locura. Una vez conseguida, se podrán invertir **10 jugadas** con locura en los juegos o en la ruleta.
-Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido además de fichas.
+Durante este estado, la apariencia y las mecánicas de los juegos se verán alteradas. Además por cada victoria el jugador recibirá una cantidad de almas rojas correspondiente al multiplicador obtenido, además de fichas.
 
 </details>
 
@@ -92,41 +92,34 @@ Durante este estado, la apariencia y las mecánicas de los juegos se verán alte
 #### Slots: 
 Utiliza la mecánica de los slots tradicionales: inicias con una apuesta y si consigues que tres figuras se alineen horizontalmente recuperarás el dinero multiplicado por la combinación ganadora.
 
-Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibujos (número 6, telaraña, calavera, ojo, gato negro, diablillo, murciélago). El jugador activará la máquina por medio de insertar la apuesta,luego pulsar el botón "GO" y las tres columnas empezarán a dar vueltas dan con una animación ‘cartoon’ donde las opciones rotan rápidamente. El jugador parará las columnas de izquierda a derecha con el botón correspondiente. Si se ha conseguido alguna alienación, se obtendrán las recompensas.
-Valores a apostar:
-- 10, 20, 50
+Estéticamente, será una estructura 3x3 de celdas cuadradas con diferentes dibujos (número 6, araña, calavera, ojo, gato negro, diablillo, murciélago). El jugador activará la máquina insertando la apuesta en la ranura correspondiente, luego pulsar el botón "GO" y las tres columnas empezarán a 'girar' haciendo que los iconos vayas entrando por arriba y saliendo por abajo de manera cíclica. La freecuencia de aparición de los iconos es inversamente proporcional al multiplicador asociado, cuanto mayor es su recompensa, menos veces aparecen. El jugador parará las columnas con el botón correspondiente. Si se ha conseguido alguna alineación, se obtendrán las recompensas.
 
 Las recompensas de las combinaciones serán:
-- 2 Telarañas: x1
-- 3 Gato Negro: x2
-- 3 Telarañas x3
-- 3 Murciélagos: x10
-- 3 Ojos: x30
-- 3 Calavera: x90
-- 3 Diablillos: x150
-- Número 6: x3000
+- 2 Arañas: x2
+- 3 Murciélagos: x3
+- 3 Ojos: x5
+- 3 Calavera: x10
+- 3 Gatos negros: x50
+- 3 Diablillos: x80
+- Número 6: x120
 
 [Slot](https://github.com/user-attachments/assets/570579ca-8f5c-4d4a-a46f-b2c67f030dea)
 
 #### Modo Locura:
 
-Aparecerá una cuarta columna y cuarta fila (ahora un 4x4) y ahora el juego consistirá en hacer un 3 en raya en las nuevas celdas, donde el jugador se enfrentará contra la máquina de slots (IA). En un recuadro adicional situado a la izquierda de la máquina aparecerá el icono, de entre los ya mencionados (con frecuencia inversamente proporcional a su multiplicador), que se juega en cada momento, y el jugador de ese turno decidirá cómo colocarla. Para colocar las fichas el jugador solo deberá pulsar la celda vacía donde quiere poner el icono, que brillará de color blanco con el cursor encima (en caso de usar mando, brilla de blanco la celda en la que está posicionado, que mueve con el joystick, y coloca con el botón). La IA tendrá que evaluar qué casilla es la más óptima en función de si hay posibilidad de 3 en raya conectando con el símbolo que le haya tocado y de qué casillas estén libres.
+Aparecerá una cuarta columna y cuarta fila (ahora un 4x4) y ahora el juego consistirá en hacer un 3 en raya en las nuevas celdas, donde el jugador se enfrentará contra la máquina de slots (IA). En un recuadro adicional situado a la izquierda de la máquina aparecerá el icono a colocar, de entre los ya mencionados (con frecuencia inversamente proporcional a su multiplicador), y el jugador de ese turno decidirá cómo colocarlo. Para colocar los iconos el jugador solo deberá pulsar la celda vacía donde quiere poner el icono. La IA tendrá que evaluar qué casilla es la más óptima en función de si hay posibilidad de 3 en raya conectando con el símbolo que le haya tocado y de qué casillas estén libres. El turno de la IA se ve indicado con la celda adicional de color azul.
 
-Cada vez que el tablero, al principio vacío, llene sus 16 celdas, se ejecutará la animación de rodar de las columnas y se volverá a vaciar.
+Cada vez que el tablero, al principio vacío, llene sus 16 celdas, se volverá a vaciar a vaciar el tablero y se seguirá jugando hasta que alguien consiga tres en raya.
 
-El juego acaba cuando alguno de los adversarios consigue alinear 3 símbolos iguales como en el 3 en raya, viéndose cómo las casillas alineadas brillan en amarillo (gana el jugador) o rojo (gana la IA). Si el jugador gana, se verá el multiplicador obtenido, igual que en el modo normal, y el número de almas rojas que haya conseguido, correspondiente al multiplicador de la combinación de 3 que haya logrado.
+El juego acaba cuando alguno de los adversarios consigue alinear 3 símbolos iguales como en el 3 en raya. Si el jugador gana, se obtendrá el mltiplicador asociado al icono que haya alineado (los mismo que en normal), y se mostrará el número de fichas y almas rojas que haya conseguido, correspondiente al multiplicador de la combinación de 3 que haya logrado.
 			
-#### Bacará: 
+#### Baccarat: 
 Se reparten, una a una, cuatro cartas, dos para el jugador y dos para el banquero, sin embargo hay ocasiones en que se extrae una tercera. El juego comienza colocando una apuesta al jugador, al banquero o al empate. La mano que consiga o más se acerque al 9 gana. Cuando el jugador y el banquero totalizan el mismo puntaje, la mano es declarada en empate.
  
-Las figuras, J, Q y K más los dieces, valen cero, los ases valen 1, las restantes cartas conservan su valor. En el bacará no es posible superar el nueve porque solo se contabiliza la última cifra. Ejemplo: El jugador recibe un 4 y un 8. El total es 12, como únicamente se toma la última cifra, la mano vale 2. Ninguna mano tendrá más de 3 cartas.
+Las figuras y los dieces, valen cero, los ases valen 1, las restantes cartas conservan su valor. En el bacará no es posible superar el nueve porque solo se contabiliza la última cifra. Ejemplo: El jugador recibe un 4 y un 8. El total es 12, como únicamente se toma la última cifra, la mano vale 2. Ninguna mano tendrá más de 3 cartas.
 
 El reparto de la tercera carta se rige según la siguiente tabla:
 ![normas](https://github.com/user-attachments/assets/8646cc70-422b-4744-bf5f-2eda24cf1460)
-
-
-Las diferentes apuestas:
-- 20, 50 y 100
 
 Las recompensas de las apuestas serán:
 - Apuesta al jugador: x2
@@ -137,12 +130,12 @@ Las recompensas de las apuestas serán:
 
 De forma aleatoria podrás jugar a 3 juegos diferentes, siendo dos de éstos una modificación del Baccarat:
 
-**1. BlackJack:** juego clásico del blackjack con una única apuesta a que ganas tú contra el banker. Consiste en ir pidiendo cartas hasta conseguir que su suma se acerque más a 21.
-**2. BaccaratFlipper:** modificación del Baccarat en la que te saldrán otras 3 cartas aleatorias. Debes darle la vuelta a dos, la tercera permanecerá bocabajo. Una vez dadas la vuelta, deberás elegir si ponerlas en el montón del player o del banker teniendo en cuenta que siempre tendrás que dar una a cada uno, la tercera al que prefieras. El resto del juego es como el Baccarat.
+**1. BlackJack:** juego clásico del blackjack con una única apuesta a que ganas tú contra el banker. Consiste en ir pidiendo cartas hasta conseguir que su suma se acerque más a 21 sin pasarse.
+**2. BaccaratFlipper:** modificación del Baccarat en la que, después de una ronda normal, te saldrán otras 3 cartas aleatorias boca abajo. Debes darle la vuelta a dos, la tercera permanecerá bocabajo. Una vez dadas la vuelta, deberás elegir si ponerlas en el montón del player o del banker teniendo en cuenta que siempre tendrás que dar una a cada uno, la tercera al que prefieras. El resto del juego es como el Baccarat.
 **3.BaccaratBet:** modificación del Baccarat en la que en caso de que el jugador gane, tendrá que decidir si sigue apostando o termina la partida. Si sigue apostando, estará obligado a hacerlo con el dinero ganado en la anterior ronda, en caso de ganar la siguiente, sus ganancias no serán por dos sino por cuatro, y así sucesivamente. Pero si pierde, perderá todo lo ganado.
 
 #### Canicas:
-Se sacarán de un saco 3 bolas de colores. El objetivo del juego consiste en predecir de qué color van a salir las bolas de colores. Los colores son rojo, cian, verde y amarillo. Para decidir la apuesta, abajo de la pantalla habrá diferentes fichas con una cantidad de apuesta(10, 20, 50 etc). Una vez seleccionada se pondrá en las diferentes casillas que el jugador quiera depositar la apuesta, estas casillas serán 4 casillas con 1 bola de cada color, 10 casillas con combinaciones de 2 colores y 20 casillas de combinaciones de 3 colores. Cuando ya se acabe la apuesta, se verán como salen 3 bolas de colores, revelando que combinación de colores es la ganadora. Si el jugador ha ganado, recibirá un mensaje de cuántas fichas ha obtenido.
+Se sacaránal azar 3 bolas de cuatro colores posibles. El objetivo del juego consiste en predecir de qué color van a salir las bolas de colores. Los colores son rojo, cian, verde y amarillo. Para decidir la apuesta, abajo de la pantalla habrá diferentes fichas con una cantidad de apuesta. Una vez seleccionada se pondrá en las diferentes casillas que el jugador quiera depositar la apuesta, estas casillas serán 4 casillas con 1 bola de cada color, 10 casillas con combinaciones de 2 colores y 20 casillas de combinaciones de 3 colores. Cuando ya se acabe la apuesta, se verán como salen 3 bolas de colores, revelando que combinación de colores es la ganadora. Si el jugador ha ganado, recibirá un mensaje de cuántas fichas ha obtenido.
 		
 Las diferentes apuestas y recompensas serán:	
 - Apuesta 1 color: x2
@@ -151,7 +144,7 @@ Las diferentes apuestas y recompensas serán:
 
 #### Modo Locura:
 
-Antes de que se muestran las bolas habrá un juego del trilero. En este se meterá una bola de un color aleatorio en un cubilete, al lado de este cubilete habrá otros dos. Se moverán los cubiletes entre sí para que el jugador no sepa dónde se sitúa la bola. Una vez terminado de mover los cubiletes el jugador deberá elegir dónde cree que está la bola, si acierta, ese color será descartado de la apuesta. 
+Antes de que se muestran las bolas habrá un juego del trilero (vasos con canica debajo). En este se meterá una bola de un color aleatorio en un cubilete de tres posibles. El jugador deberá elegir dónde cree que está la bola. Si acierta, ese color será descartado de la apuesta. 
 
 [Boceto de las apuesta y tablero](https://github.com/user-attachments/assets/b66c7004-7c0c-4365-bff1-7614b5f253b2)
 
@@ -192,8 +185,8 @@ Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que o
 	<summary> Sistema de inicio de sesión y tabla de clasificación </summary>
 	
 ### Sistema de inicio de sesión y tabla de clasificación:
-Al iniciar el juego en el menú principal, el jugador deberá poner un usuario en un recuadro, este se almacenará en una base de datos junto con el nº de fichas, almas y si tiene locura( en caso de tener la tiradas que tenga). Si el usuario ya está registrado, entrará en el juego con todos su nº de objetos que ya tenía en la sesión de antes. 
-En el menú de pausa habrá un botón de Clasificación donde se mostrará, las almas y las fichas que tenga cada jugador registrado en la base de datos ordenado por mayor puntaje.
+Al iniciar el juego en el menú principal, el jugador deberá poner un usuario en un recuadro, este se almacenará en una base de datos junto con el nº de fichas, almas y las tiradas . Si el usuario ya está registrado, entrará en el juego con todos su nº de valores que ya tenía en la sesión de antes. 
+En el menú de pausa habrá un botón de **Rank** donde se mostrará, las almas y las fichas que tengan los 5 mejores jugadores registrados en la base de datos ordenado por mayor puntaje.
 </details>
 </details>
 
@@ -201,10 +194,14 @@ En el menú de pausa habrá un botón de Clasificación donde se mostrará, las 
 <summary> Hud </summary>
 	
 ## Hud:
-Todos los **botones** del juego funcionarán de la misma manera:
-al pasar el cursor por encima cambiarán a un color determinado más brillante y al hacer click en ellos, se encogerán de tamaño para luego dar paso a su acción determinada.
+Los juegos, salvo determinadas variaciones, dispondrán de un hud en el que se mostrará un botón de **salida** para volver al lobby (esquina superior izquierda), un botón de **Go** para iniciar el juego (esquina inferior derecha), un botón de **info** para mostrar las instrucciones del juego actual, una colección de **fichas** con distinto valor para poder apostar (arrastrando la ficha a la casilla) y botones para borrar la apuesta o repetir la anterior. También habrá un **indicador** arriba a la derecha con las fichas actuales del jugador y la apuesta en juego.
 
-En todas las pantallas del juego aparecerá siempre un **indicador** en la esquina superior derecha con la cantidad de **fichas** que tenga el jugador, y debajo, de la misma manera, aparecerá un **contador de almas**. La **barra de Locura**, de color amarillo, estará debajo de los contadores de ficha, y cuando se active el modo locura se llenará.
+Todos los **botones** del hud de los juegos funcionarán similares:
+al pasar el cursor por encima cambiarán a un color mas oscuro y con un tamaño ligeramente más grande y al hacer click en ellos, se encogerán de tamaño para luego dar paso a su acción determinada. Las fichas para apostar simplemente se mostrarán algo elevadas cuando estén seleccionadas.
+
+Los botones de los menús inicial, finales y pausa, brillará de un color amarillo cuando el ratón pase por encima.
+
+En el menú del juego aparecerá siempre un **indicador** en la esquina superior derecha con la cantidad de **fichas** que tenga el jugador, y debajo, de la misma manera, aparecerá un **contador de almas**. La **barra de Locura**, de color amarillo, estará debajo de los contadores de ficha, y cuando se active el modo locura se llenará, mostrando la cantidad de tiradas en locura que quedan.
 
 Las imágenes a continuación se corresponden con una idea de cómo se va a visualizar la interfaz y el juego.
 
@@ -236,7 +233,7 @@ El juego contará con la siguiente paleta de color:
 Diseño del jugador:
 ![IMG_0087](https://github.com/user-attachments/assets/13542bf3-9f31-4024-a636-2b18481ca5cc)
 
-Contará con **sonidos** característicos de los **casinos** (giro de ruletas, el tintineo de monedas, eco de las máquinas tragamonedas…) todo con un **filtro antiguo** para acentuar la ambientación. La música ambiente será **alegre** reflejando la atmósfera del casino, pero se volverá **oscura y disonante** cuando se alcance el **modo Locura**.
+Contará con **sonidos** característicos de los **casinos** (giro de ruletas, el tintineo de monedas, eco de las máquinas tragamonedas…) todo con un **filtro antiguo** para acentuar la ambientación. La música ambiente será **alegre** reflejando la atmósfera del casino.
 
 </details>
 
@@ -414,7 +411,7 @@ Ruleta: los jugadores comprendieron que cada color les dba un premio y cuanto co
 La mayoría de respuestas decian que les costaba entender como funcionaba cada juego y que debían hacer en cada momento,además de que les faltaba algo que les ayudase a entenderlo.
 
 **¿Sientes que has ganado más o perdido más?**
-La mayoría contestó que perdían en algunos juegos,pero que podñian recuperar ese dienro en otro juego.
+La mayoría contestó que perdían en algunos juegos, pero que podían recuperar ese dienro en otro juego.
 
 **¿Qué aspectos te ha costado entender?¿Qué aspectos has entendido mejor?¿Que te podría ayudar a entenderlo mejor?** 
 Lo que más les costóa fue el movimiento,la economía y conocimiento de victoria/derrrota. Lo que mejor entenideron fueron: slots,canicas y apostar. Y muchos pidieron tutoriales específicos.
