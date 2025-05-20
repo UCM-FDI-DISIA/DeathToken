@@ -164,37 +164,43 @@ Antes de que se muestran las bolas habrá un juego del trilero (vasos con canica
 [Boceto de las apuesta y tablero](https://github.com/user-attachments/assets/b66c7004-7c0c-4365-bff1-7614b5f253b2)
 
 #### Peleas Reanimadas:
-Las peleas reanimadas inician mostrando los perfiles de los peleadores. Estos perfiles se compondrán de nombre, apariencia (sprite) y cuota. En ese momento el jugador debe elegir su apuesta inicial. (Mirar Peleas Reanimadas 1 (Intro)).
+El menú de inicio/panel de apuestas se mostrará cual es el combate que va a comenzar. En pantalla se mostrarán dos tarjetas de cada uno de los peleadores. En estas tarjetas aparecerán:
+Nombre
+Imagen
+Cuota de apuesta: Calculada según la diferencia de habilidad entre los peleadores (Vida Max + Ataque * 1.3)
+Ánimo: Reflejado en los perfiles de los luchadores con alguna palabra clave. Ej: Enfocado, descentrado, …
+Fichas apostadas
+Como antes mencionamos también aparecerá una descripción que aportará información sobre cómo suele desenvolverse ese combate. 
+Además aparecerá una pequeña tabla con las normas de las acciones especiales y sus consecuencias para dar información al jugador de lo que podría pasar en el combate. 
+En caso de necesitar más información dejaríamos una guía en un botón de ayuda. 
+Al iniciar la apuesta iniciará el combate directamente. 
+Como referencia dejamos una imagen de cómo debería ser.
 
-La pelea se divide en turnos donde como en todos los combates por peleas se pega uno y luego el otro (Empieza siempre el que tenga mayor cuota). El giro es que una vez inicie la pelea el jugador NO tendrá control de los personajes peleando. Cada turno el jugador debe de elegir si aumenta la apuesta hacia alguno de los personajes o la reduce. En cada turno solo se puede hacer una de estas dos. Al reducir la apuesta es importante que sólo puedes retirar la mitad de las fichas apostadas a un personaje siempre que quede al menos la misma cantidad de fichas jugadas inicialmente.
+En el combate irán pasando los turnos automáticamente donde el jugador estará participando como espectador y no podrá influenciar directamente en el combate. Aún así hay alguna circunstancias donde el jugador podrá aumentar su apuesta o perder una parte de ella. La pelea se ve modificada si durante el turno de los peleadores ocurre lo denominado como una acción especial. Cuando una de estas 3 acciones se desencadenan en la batalla las probabilidades de victoria se verán alteradas.
 
-Durante el turno de los personajes que pelean pueden ocurrir varios eventos que cambien el curso del combate.
-- Golpes críticos hacen más daño
-- El ataque falla al tratar de golpear
-- Se pegan a sí mismos sin querer
-- Se preparan para recibir un ataque y reducen el daño durante unos turnos.
-
+- Golpes críticos hacen el triple de daño y disminuye el ánimo al oponente mientras que sube el ánimo propio. 
+- El ataque falla al tratar de golpear (Disminuye el ánimo propio )
+- Se pegan a sí mismos sin querer (Disminuye el ánimo propio)
+  
 Al terminar la pelea se resuelve los cálculos de las fichas:
-- Se le quitan al jugador las invertidas en el perdedor
-- Se multiplican las fichas las invertidas en el personaje ganador por la cuota y se le dan al jugador.
+Se le quitan al jugador las invertidas en el perdedor multiplicadas por la cuota.
+Se multiplican las fichas las invertidas en el personaje ganador por la cuota y se le dan al jugador.
 
-#### Modo Locura:
+#### Modo Locura: 
 
-- La pelea es entre 4 personajes en vez de 2. Esto hace que los personajes eligen a quien atacan de forma aleatoria haciendo más difícil predecir qué va a pasar. De vez en cuando aparecerán espontáneos que intentarán interrumpir la pantalla y golpear a los luchadores. También intentarán modificar la apuesta. Para ello, el jugador deberá disparar (hacer click) en los fantasmas que supongan una amenaza para deshacerse de ellos y que el combate siga su curso natural. El movimiento de dichos espontáneos será independiente del transcurso de los turnos de los luchadores.
-		
-Ideas Extras (Si el tiempo lo permite):
-
-- Los Personajes que pelean tienen un valor de ánimo que afecta a cómo se comportan. Este ánimo se refleja en pistas por un locutor que avisa de cómo se van a comportar los peleadores en cada turno. Este ánimo se establece a un valor aleatorio que sería reflejado en los perfiles de los luchadores con alguna palabra clave. Ej: Enfocado, descargando, derrotista, relajado, ...
-- El ánimo sería un valor que se va modificando según un aumento o disminuya las apuestas o ocurran diferentes cosas en el combate. El locutor anunciará los cambios en las apuestas y de forma sutil los valores de ánimo de cada uno de los personajes.
-Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que ocurran eventos positivos como críticos o que se preparen para recibir golpes. Por otro lado, si se reducen muchos las apuestas o el oponente recibe situaciones negativas, como que recibe un crítico o falla un golpe se reduce su ánimo. Aumentará la probabilidad de que falle, de que se distraiga o incluso en algunos casos llegar a que se puedan llegar a rendir sin acabar el combate.
-- Que el valor de ánimo o la probabilidad de victoria cambie según quien se enfrente. Como puede ser de que vayan muy motivados contra ciertos rivales porque tienen alguna historia detrás, como podría ser un madrid vs barça. Esta historia corta de unas pocas líneas podría dar pistas de quién es más dado a ganar el enfrentamiento. 
-- Ej: Goku en su larga carrera contra Naruto suele conectar golpes devastadores con una precisión impecable. Mientras que el pelo piña trata de seguirle el ritmo. ¿Acaso será otro día donde veremos como goku cena pizza con piña? 
+La locura es un juego del precio justo. Te enfrentas a un rival por saber cual es el precio de un objeto. 
+Al inicio se dará una descripción con palabras clave que darán información sobre el posible precio del objeto. La primera parte de la descripción dará un rango de precios aproximado, mientras que la siguiente parte marcada nos marcará qué tanto vale dentro de su categoría. 
+Ej: El pergamino del Dragón es un objeto único en el mundo, conservado en un estado deplorable. Pongamos que los objetos únicos en el mundo valen 100 - 200. Pues un estado deplorable nos informa de que el precio estará muy cerca de los 100.
+Los objetos como máximo se generarán dentro de la cantidad máxima de fichas que tiene el jugador para que pueda ganar.
+Después de la presentación del objeto el jugador escribirá el precio que creé tener el objeto.
+Tras mostrar el precio elegido por el jugador y su oponente se señalará cuál de los precios está más cerca.
+Si se acierta el precio exacto o se muestran 3 precios (Tres rondas se acaba el juego.) El que tenga la menor distancia al precio real entre los 3 intentos ganará 2 X precio del objeto (5 X Si aciertas el precio exacto).
+Si pierdes perderás el precio más alto que hayas sugerido.
 
 [Peleas Reanimadas 1 (Intro)](https://github.com/user-attachments/assets/edbf9d59-1986-45bc-9c6d-49bba4cda15a)
 
 [Escenario pelea normal](https://github.com/user-attachments/assets/07b4ac54-db16-46a8-8ff8-df9ce52206a1)
 
-[Escenario pelea con Locura](https://github.com/user-attachments/assets/c29c9406-dbce-41fe-9a62-6b0f276d9147)
 </details>
 </details>
 <details>
