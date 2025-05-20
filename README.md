@@ -3,6 +3,18 @@
 ### Nombre del grupo: Ludopatiats
 
 ## INDICE:
+
+<details>
+<summary> Video Explicativo </summary>
+
+## Vídeo explicativo
+Video explicativo del proyecto para los profesores de la asignatura:
+https://drive.google.com/drive/folders/10YtaE_d1bzrYI52ys3OvIVpFoekb12VE?usp=drive_link
+</details>
+
+<details>
+<summary> GDD </summary>
+
 <details>
 <summary> Género y PEGI </summary>
 	
@@ -10,6 +22,7 @@
 Se trata de un juego "theme park" o party games, donde puedes encontrar distintos minijuegos los cuales tienen en común un uso de una economía y sistema de camjeo para conseguir premios. El dinero se tiene que ganar apostando en los juegos y ganando.
 Debido a las apuestas el PEGI del juego es **16**. Además, de que el publico objetivo de este juego son jóvenes y adultos.
 </details>
+
 
 <details>
 <summary> Descripción del juego </summary>
@@ -181,13 +194,13 @@ Cuanto mayor sea el ánimo de un personaje, mayor será la probabilidad de que o
 
 [Escenario pelea con Locura](https://github.com/user-attachments/assets/c29c9406-dbce-41fe-9a62-6b0f276d9147)
 </details>
+</details>
 <details>
 	<summary> Sistema de inicio de sesión y tabla de clasificación </summary>
 	
 ### Sistema de inicio de sesión y tabla de clasificación:
 Al iniciar el juego en el menú principal, el jugador deberá poner un usuario en un recuadro, este se almacenará en una base de datos junto con el nº de fichas, almas y las tiradas . Si el usuario ya está registrado, entrará en el juego con todos su nº de valores que ya tenía en la sesión de antes. 
 En el menú de pausa habrá un botón de **Rank** donde se mostrará, las almas y las fichas que tengan los 5 mejores jugadores registrados en la base de datos ordenado por mayor puntaje.
-</details>
 </details>
 
 <details>
@@ -245,6 +258,7 @@ Estás muerto. Ya no hay más vida para ti y ahora eres un alma errante que vaga
 
 Consiguiendo las suficientes fichas podrás hacerte con una Guadaña y convertirte en la nueva Parca. Así que decidirás explorar los juegos de cartas y fichas que se te ofrecen para lograr tu objetivo.
 
+</details>
 </details>
 
 <details>
